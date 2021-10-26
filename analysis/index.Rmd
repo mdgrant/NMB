@@ -28,9 +28,9 @@ editor_options:
 display: none; 
 }
 
-<!-- .btn-default { -->
-<!-- display: none !important;  -->
-<!-- } -->
+.btn-default {
+display: none !important;
+}
 
 </style>
 ```
