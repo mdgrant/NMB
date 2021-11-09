@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Evidence Tables</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NMB</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="evidence_tables.html">Evidence Tables</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Evidence Tables</h1>
+<h4 class="date">09 November, 2021 (13:13)</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-11-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>NMB/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211025code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211025)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211025code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211025)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreece731d663bbe9cdbbf093d81d756af1805126866targetblankce731d6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/ce731d663bbe9cdbbf093d81d756af1805126866" target="_blank">ce731d6</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreece731d663bbe9cdbbf093d81d756af1805126866targetblankce731d6a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/ce731d663bbe9cdbbf093d81d756af1805126866" target="_blank">ce731d6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    _@@/
+
+Untracked files:
+    Untracked:  analysis/evidence_tables.Rmd
+    Untracked:  analysis/kq2.Rmd
+    Untracked:  code/readfiles_nmb_102721.R
+    Untracked:  data/ageFullText_2021-11-05-19-36-30.csv
+    Untracked:  data/contOutcomes_2021-11-09-18-05-24.csv
+    Untracked:  data/dichotOutcomes_2021-11-09-18-05-35.csv
+    Untracked:  data/likertOutcomes_2021-11-09-18-05-48.csv
+    Untracked:  data/quadas_2021-11-05-18-07-44.csv
+    Untracked:  data/rob_2021-11-05-18-07-26.csv
+    Untracked:  data/studyArm_2021-11-09-18-05-12.csv
+    Untracked:  data/studyChar_2021-11-09-17-51-19.csv
+    Untracked:  used_files_dates.txt
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
+</style>
+<div id="reversal" class="section level1">
+<h1><strong>Reversal</strong></h1>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Enrolled (N)
+</th>
+<th style="text-align:left;font-weight: bold;">
+Inclusion Criteria
+</th>
+<th style="text-align:left;font-weight: bold;">
+Exclusion Criteria
+</th>
+<th style="text-align:left;font-weight: bold;">
+Results
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="54">
+<td colspan="5" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult</strong>
+</td>
+</tr>
+<tr grouplength="50">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1034"></a>Carroll <br> 1998
+</td>
+<td style="text-align:center;width: 6em; ">
+30
+</td>
+<td style="text-align:left;width: 18em; ">
+Age 18-65 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Renal or hepatic dysfunction, drugs interfering with neuromuscular transmission, body weight &gt; 30% or &lt; 20% of ideal weight for height.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to reach TOFR 0.8 was significant between spontaneous recovery group and neostigmine given at 10% recovery or 25% recovery (75 vs 56 vs 54 min, p&lt;0.05).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1081"></a>Nelskylä <br> 1998
+</td>
+<td style="text-align:center;width: 6em; ">
+100
+</td>
+<td style="text-align:left;width: 18em; ">
+Healthy women.
+</td>
+<td style="text-align:left;width: 18em; ">
+Obesity (body mass index &gt;27 kg/m) and known allergy to ketoprofen.
+</td>
+<td style="text-align:left;width: 30em; ">
+Neostigmine with glycopyrrolate did not increase the occurrence of PONV in PACU versus placebo (46% vs 52%).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1155"></a>Fuchs-Buder <br> 1999
+</td>
+<td style="text-align:center;width: 6em; ">
+48
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease or receiving medications known to interact with neuromuscular function, patients with electrolyte abnormalities.
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1188"></a>Lien <br> 1999
+</td>
+<td style="text-align:center;width: 6em; ">
+16
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, male.
+</td>
+<td style="text-align:left;width: 18em; ">
+Hepatic, renal, cardiopulmonary, and neuromuscular disease.
+</td>
+<td style="text-align:left;width: 30em; ">
+Times to recovery to a TOFR 0.9 did not differ between the neostigmine and spontaneous recovery group (18.0 vs 17.7 min).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1199"></a>McCourt <br> 1999b
+</td>
+<td style="text-align:center;width: 6em; ">
+90
+</td>
+<td style="text-align:left;width: 18em; ">
+Adult patients.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disorders, hepatic or renal diseases, pregnancy, medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to reach TOFR 0.8 was significantly shorter when neostigmine was administered at T1-25% versus spontaneous recovery (5.7 vs 36.7 min, p&lt;0.05).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="121"></a>Goldhill <br> 1991
+</td>
+<td style="text-align:center;width: 6em; ">
+36
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I.
+</td>
+<td style="text-align:left;width: 18em; ">
+Medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Times to reach TOFR 0.9 was significant between the three neostigmine groups and spontaneous recovery (p=0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1282"></a>Hayes <br> 2000
+</td>
+<td style="text-align:center;width: 6em; ">
+45
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neurological, hepatic, or renal diseases, medications known to interfere with neuromuscular transmission, pregnancy.
+</td>
+<td style="text-align:left;width: 30em; ">
+Spontaneous recovery to a TOFR 0.8 took 33.4 [20.0±79.0] min with rapacuronium but this was reduced to about 21.2 [13.9± 33.7] min when neostigmine was administered at 25% recovery of first twitch of the TOF.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1414"></a>Løvstad <br> 2001
+</td>
+<td style="text-align:center;width: 6em; ">
+90
+</td>
+<td style="text-align:left;width: 18em; ">
+Healthy women, ASA I-II.
+</td>
+<td style="text-align:left;width: 18em; ">
+Chronic antiemetic and analgesic drug usage, medication with bambuterol and obesity (body weight &gt;100 kg).
+</td>
+<td style="text-align:left;width: 30em; ">
+High dose of neostigmine increases post-operative nausea (30% vs 11%, p=0.03) and the use of antiemetic drugs (28% vs 7%, p=0.01) during the first 6 h after administration.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1511"></a>Kirkegaard <br> 2002
+</td>
+<td style="text-align:center;width: 6em; ">
+64
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III.
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &lt; 18 and &gt; 60 years, neuromuscular disease, medications known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+To achieve rapid (within 10 min) reversal to a TOF ratio of 0.7 in more than 87% of patients, three or four tactile responses should be present at the time of neostigmine administration.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1850"></a>Adamus <br> 2006
+</td>
+<td style="text-align:center;width: 6em; ">
+120
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III.
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &lt;18, &gt; 75 years, obesity, anticipated difficult airways, neuromuscular disease, medications known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to TOFR 0.9 was much faster in the neostigmine group as compared to spontaneous recovery (9.8 vs 43.1 min, p&lt;0.05).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1917"></a>Sorgenfrei <br> 2006
+</td>
+<td style="text-align:center;width: 6em; ">
+27
+</td>
+<td style="text-align:left;width: 18em; ">
+Male, ASA I-II, ages 18-64 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular, hepatic, or renal diseases, difficult intubation, family history of malignant hyperthermia, medications known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex decreased median recovery time in a dose-dependent manner from 21.0 min in the placebo group to 1.1 min in the group receiving 4.0 mg/kg. Drug-related adverse events were reported in 54% of patients across all doses.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1951"></a>de <br> Boer 2007
+</td>
+<td style="text-align:center;width: 6em; ">
+46
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, ages 18-64 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Anticipated difficult airway, neuromuscular, hepatic, or renal diseases, malignant hyperthermia, pregnant or breast-feeding patients, female patients not on acceptable birth control, medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to reach a TOFR 0.9 was significantly shorter in the sugammadex 2 and 4 mg groups as compared to placebo (56.5 vs 15.8 vs 122.1 min).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2000"></a>Sacan <br> 2007
+</td>
+<td style="text-align:center;width: 6em; ">
+60
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, reactions to opioid analgesics, pregnancy, family history of malignant hyperthermia, breast feeding patients.
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2003"></a>Sparr <br> 2007
+</td>
+<td style="text-align:center;width: 6em; ">
+99
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, male ages 18-64 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular, hepatic, or renal dysfunction, hx of malignant hyperthermia, medications known to interfere with muscle relaxants.
+</td>
+<td style="text-align:left;width: 30em; ">
+Reversal time to a TOFR 0.9 was significant in the sugammadex 2 or 4 mg group as compared to placebo (2.7 vs 2.1 vs 35.6) when given 15 min after NMBA administration.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2004"></a>Suy <br> 2007
+</td>
+<td style="text-align:center;width: 6em; ">
+40
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, age &gt; 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular, hepatic, or renal dysfunction, hx of malignant hyperthermia, medications known to interfere with muscle relaxants.
+</td>
+<td style="text-align:left;width: 30em; ">
+Reversal time to a TOFR 0.9 was significant in the sugammadex 2 or 4 mg group as compared to placebo (1.7 vs 1.1 vs 31.8) when administered at the reappearance of T2.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2005"></a>Suzuki <br> 2007
+</td>
+<td style="text-align:center;width: 6em; ">
+80
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II female patients, age 27-57 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease, hepatic or renal disorders, BMI &gt;= 25 or &lt;= 18.5, on medications known to interact with neuromuscular blocking agents.
+</td>
+<td style="text-align:left;width: 30em; ">
+Neostigmine administered at 25% of control in T1 shortened recovery from neuromuscular block when compared to spontaneous recovery (5.8 vs 35.9 min, p&lt;0.05).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2040"></a>Flockton <br> 2008
+</td>
+<td style="text-align:center;width: 6em; ">
+84
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal dysfunction, hx of malignant hyperthermia, medications known to interfere with neuromuscular transmission, pregnant or breastfeeding patients, women not using adequate contraception.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex 2.0 mg/kg administered at reappearance of T2 was significantly faster in reversing rocuronium-induced blockade than neostigmine was in reversing cisatracurium induced block (1.9 vs 9.0 min, p&lt;0.0001). General muscle weakness was seen in 11.5% in the sugammadex group compared to 6.5% in the neostigmine group after extubation. Drug-related adverse events were seen in 17% in the sugammadex group and 2.6% in the neostigmine group.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2049"></a>Jones <br> 2008
+</td>
+<td style="text-align:center;width: 6em; ">
+88
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-IV, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal dysfunction, hx of malignant hyperthermia, medications known to interfere with neuromuscular transmission, pregnant or breastfeeding patients, women not using adequate contraception.
+</td>
+<td style="text-align:left;width: 30em; ">
+Recovery to TOFR 0.9 from profound rocuronium-induced neuromuscular blockade was significantly faster with sugammadex versus with neostigmine 92.7 vs 49.9 min). Procedural pain and muscle weakness did not differ between the two groups (70% vs 76%; 11% vs 8%).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2073"></a>Pühringer <br> 2008
+</td>
+<td style="text-align:center;width: 6em; ">
+176
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal dysfunction, hx of malignant hyperthermia, medications known to interfere with neuromuscular transmission, pregnant or breastfeeding patients, women not using adequate contraception.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex provides a rapid and dose-dependent reversal of profound neuromuscular blockade induced by high-dose rocuronium (1.0 or 1.2 mg/kg) in adult surgical patients.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2124"></a>Dahl <br> 2009
+</td>
+<td style="text-align:center;width: 6em; ">
+121
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA II-IV, cardiac patients (NYHA II-III), age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Patients with pacemaker, paroxysmal atrial fibrillation, neuromuscular disorders, renal dysfunction, hx malignant hyperthermia, pregnant or breastfeeding women, women not using adequate birth control, medications know to interfere with NMBAs.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex 2 mg/kg and 4 mg/kg resulted in considerably shorter time to recovery of the T4/T1 ratio to 0.9 compared with placebo (1.7 vs 1.4 vs 34.2).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2209"></a>Blobner <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+98
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal dysfunction, hx of malignant hyperthermia, medications known to interfere with neuromuscular transmission, pregnant or breastfeeding patients, women not using adequate contraception.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex achieved significantly faster recovery of neuromuscular function after rocuronium to a TOF ratio of 0.9 compared with neostigmine (1.5 vs 18.6 min, p&lt;0.0001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2234"></a>Fuchs-Buder <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+120
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular, hepatic, or renal disease, deviation from ideal body weight by more than or equal to 25%; pregnancy; being on medication that influences neuromuscular blockade.
+</td>
+<td style="text-align:left;width: 30em; ">
+Reduced dose (30 ug/kg) of neostigmine when given at a TOFR 0.4 is effective in antagonizing shallow atracurium block when compared with placebo (6 vs 19 min, p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2251"></a>Khuenl-Brady <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+100
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex provided significantly faster reversal (TOFR 0.9) of vecuronium-induced neuromuscular blockade compared with neostigmine (2.7 vs 17.9 min, p&lt;0.0001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2254"></a>Lederer <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+60
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, age &gt;= 18 years, BMI 18-28 kg/m2.
+</td>
+<td style="text-align:left;width: 18em; ">
+Emergency surgery, neuromuscular disease, renal dysfunction, hepatic disease, medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Neostigmine 0.05 mg/kg accelerates recovery when administered 5 minutes after injection of IV rocuronium 0.4 mg/kg when compared to spontaneous recovery (19.4 vs 39.0 min, p=0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2260"></a>Lemmens <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+94
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-IV, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease, renal dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women, women not using adequate contraceptives.
+</td>
+<td style="text-align:left;width: 30em; ">
+Recovery (TOFR &gt; 0.9) from profound vecuronium-induced block is significantly faster with sugammadex, compared with neostigmine (4.5 vs 66.2 min, p&lt; 0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2281"></a>Pühringer <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+49
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 20 and &lt; 65 years, Caucasian.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal or hepatic dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women, women not using adequate method of contraception.
+</td>
+<td style="text-align:left;width: 30em; ">
+During sevoflurane maintenance anesthesia, sugammadex (2 or 4 mg) provides well tolerated, effective reversal of moderate rocuronium-induced NMB when compared to placebo (1.4 vs 1.5 vs 96.3 min).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2287"></a>Schaller <br> 2010
+</td>
+<td style="text-align:center;width: 6em; ">
+99
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age 18-65 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal or hepatic dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women.
+</td>
+<td style="text-align:left;width: 30em; ">
+Low dose sugammadex and neostigmine effectively and comparably reverse a rocuronium-induced shallow residual neuromuscular block at a TOF ratio of 0.5 (1.0 vs 2.0 min).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2308"></a>Adamus <br> 2011
+</td>
+<td style="text-align:center;width: 6em; ">
+22
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular, renal, metabolic, or hepatic dysfunction, medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Intraoperative reversal of shallow rocuronium-induced block with either sugammadex or neostigmine to a TOFR &gt;=0.9 was significant (2.0 vs 15.9 min, p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2335"></a>Illman <br> 2011
+</td>
+<td style="text-align:center;width: 6em; ">
+50
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-IV, ages 18-70 years, BMI &lt; 32.5.
+</td>
+<td style="text-align:left;width: 18em; ">
+Clinically significant renal, hepatic, or ventilatory dysfunction, increased intracranial pressure, pregnancy, or lactation. Patients with muscular dystrophies, myopathy, or cerebral palsy, on medication known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex in comparison with neostigmine allows a quicker reversal of a moderate NMB when relying on visual evaluation of the TOF response (1.7 vs 13.3 min, p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2338"></a>Jeong <br> 2011
+</td>
+<td style="text-align:center;width: 6em; ">
+52
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, age 16-65 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Heart disease, renal, liver, or central nervous system dysfunction, medications know to interfere with neuromuscular transmission, pregnant women.
+</td>
+<td style="text-align:left;width: 30em; ">
+Pyridostigmine may enhance recovery from sevoflurane anesthesia as compared to placebo (TOFR at end of study 90.3 vs 67.1, p&lt;0.0001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2382"></a>Sauer <br> 2011
+</td>
+<td style="text-align:center;width: 6em; ">
+114
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, ages 18-80 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease, chronic pain requiring opioids, medications know to interfere with neuromuscular transmission, obese (&gt;20% of ideal body weight), OSA, severe asthma, COPD.
+</td>
+<td style="text-align:left;width: 30em; ">
+Minimal residual block was associated with hypoxemia in the PACU with our without neostigmine (14% vs 15.8%, p=0.79).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2438"></a>Gaszynski <br> 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+70
+</td>
+<td style="text-align:left;width: 18em; ">
+Morbidly obese (BMI &gt; 40 kg/m2).
+</td>
+<td style="text-align:left;width: 18em; ">
+Muscular disease, cardiovascular disease (NYHA &gt;2).
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2439"></a>Geldner <br> 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+140
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Difficult airway, neuromuscular disease, renal or hepatic dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women.
+</td>
+<td style="text-align:left;width: 30em; ">
+Patients receiving sugammadex recovered 3.4 times faster than patients receiving neostigmine (geometric mean (95% CI) recovery times of 2.4 (2.1–2.7) and 8.4 (7.2–9.8) min, respectively, p &lt; 0.0001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2995"></a>Choi <br> 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+44
+</td>
+<td style="text-align:left;width: 18em; ">
+Elective laryngeal micro-surgery needing tracheal intubation.
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &lt;18; age &gt;70; ASA I-III; BMI &lt;18.5 kg/m2; BMI &gt;25 kg/m2; drugs affecting neuromuscular function; hepatic or renal disease; moderate to severe respiratory or cardiac disease.
+</td>
+<td style="text-align:left;width: 30em; ">
+In laryngeal micro-surgery, use of rocuronium 0.9 mg/kg with sugammadex reversal associated with better surgical conditions and shorter recovery time compared with rocuronium 0.45 mg/kg with neostigmine reversal.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3058"></a>Nemes <br> 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+134
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III, age 18-65 years, BMI 18.5 - 27 kg/m, supine position, surgery lasting 90 minutes.
+</td>
+<td style="text-align:left;width: 18em; ">
+History of myopathy, polyneuropathy, severe kidney or liver disease, myasthenia or stroke, patients treated with aminoglycoside antibiotics or magnesium or any medication known to influence neuromuscular function, an expected difficult airway, pregnancy, breastfeeding, emergency surgery, chronic obstructive pulmonary disease, glaucoma and any patient who had participated in another study within the previous month.
+</td>
+<td style="text-align:left;width: 30em; ">
+Pharmacological reversal based on clinical signs was superior to spontaneous recovery but did not prevent PORNB, irrespective of the reversal agent (sug 3.7%, neo 15.3%, spont rec 26%, placebo 45.4%).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3063"></a>P <br> 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+120
+</td>
+<td style="text-align:left;width: 18em; ">
+Ages 18-70; ASA I-III; elective or emergency surgery under general anesthesia requiring NMBA.
+</td>
+<td style="text-align:left;width: 18em; ">
+Planned postoperative intubation; tracheostomized; BMI &gt;40 mg/kg; raised intracranial or itraocular pressures; coagulopathy; rNMB weakness affecting cough and gag; pregnant; contraindications to sugammadex (eg renal failure with creatinine clearance &lt;60 ml/min.
+</td>
+<td style="text-align:left;width: 30em; ">
+In a comparison of neostigmine, sugammadex in one dose, and sugammadex in staggered doses (n=40 each), a difference was not detected in PONV, desaturation, or agitation. Postoperative cough (p=0.005) and sore throat (p=0.019) were significantly higher in the single dose sugammadex group compared with the other groups.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3089"></a>Tas <br> Tuna 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+80
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II; laparoscopic cholecystectomy under general anesthesia.
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA &gt;=III; age &lt;18; age &gt;65; BMI &gt;30 kg/m2; hypersensitivity to study drugs; PONV history; high risk for PONV (Apfel score &gt;II); pregnant; menstruating; antiemetic drugs within 24 hrs.
+</td>
+<td style="text-align:left;width: 30em; ">
+Patients receiving sugammadex (n=40) experienced less PONV and required less rescue emetics within 24 hrs post-surgery compared with patients receiving neostigmine (n=40), though the difference was not significant.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3098"></a>Yağan <br> 2017
+</td>
+<td style="text-align:center;width: 6em; ">
+100
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II; 18&lt;=age&lt;=65; elective surgery using general anesthesia with endotracheal intubation.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neurosurgery, laparoscopic, oncologic, gynecologic, breast, strabismus and mid er surgery; drug or alcohol abuse; BMI &gt;30 mg/m2; analgesic, sedative, or antiemetic drug use within 24 hrs; psychiatric and neurological disorders; allergy or contraindication to study drugs; surgery time &gt;2 hrs.
+</td>
+<td style="text-align:left;width: 30em; ">
+Patients receiving sugammadex (n=50) experienced significantly less PONV in the first hour post-operatively compared with patients receiving neostigmine (n=48), p=0.016. Over the 24 hr post-operative period, the incidence of PONV was not significantly different between the groups.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3104"></a>Abdulatif <br> 2018
+</td>
+<td style="text-align:center;width: 6em; ">
+60
+</td>
+<td style="text-align:left;width: 18em; ">
+Age 18-60; liver resection surgery.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease; BMI &gt;35 kg/m2; renal impairment; drugs affecting neuromuscular function; allergy to study drugs; major intraoperative blood loss.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among pts with normal liver function, time to TOFR=0.9 and time to TOFR=1.0 was significantly shorter in the arm receiving sugammadex compared with neostigmine (p&lt;0.001). Among pts with liver cirrhosis, time to TOFR=0.9 and time to TOFR=1.0 was significantly shorter in the arm receiving sugammadex compared with neostigmine (p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3190"></a>Paech <br> 2018
+</td>
+<td style="text-align:center;width: 6em; ">
+307
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III; age &gt;=18; age &lt;=70; scheduled day-surgical laparoscopic gynecological procedure &lt;1 hr duration under general anesthesia with rocuronium.
+</td>
+<td style="text-align:left;width: 18em; ">
+Need to avoid iv induction or NMB; nausea or vomiting within 48 hr of surgery; pregnant; contraindication to study drug or anesthesia drug; likelihood of extensive surgical procedure; major peri-operative change to surgical plan.
+</td>
+<td style="text-align:left;width: 30em; ">
+No difference in PONV was detected among patients receiving sugammadex (n=153) compared with patients receiving neostigmine (n=154).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3233"></a>Alday <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+130
+</td>
+<td style="text-align:left;width: 18em; ">
+Scheduled major abdominal surgery; use of postoperative epidural analgesia.
+</td>
+<td style="text-align:left;width: 18em; ">
+Mechanical ventilation in postop recovery room; hypersensitivity to drugs; severe or mild asthma; myocardial infarction or coronary occlusion 3 months prior; myasthenia gravis; emergency surgery; pulmonary fibrosis; severe chronic obstructive lung disease (GOLD IV).
+</td>
+<td style="text-align:left;width: 30em; ">
+Differences were not detected in respiratory complications or other postoperative complications among patients receiving sugammadex (n=62) compared with neostigmine (n=64).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3261"></a>Claroni <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+109
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-III; robot-assisted radical cystectomy for bladder cancer.
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &lt;18; BMI &gt;30 kg/m2; cerebrovascular diseases.
+</td>
+<td style="text-align:left;width: 30em; ">
+A difference in PONV was not detected among patients undergoing robot-assisted radical cystectomy for bladder cancer, receiving sugammadex (n-54) compared with neostigmine (n=55). Time to recovery (TOFR &gt;0.9) was significantly shorter in the sugammadex arm.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3285"></a>Gunes <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+137
+</td>
+<td style="text-align:left;width: 18em; ">
+Thyroid surgery; ASA I-III; age 18-80; multinodular goiter, substernal goiter, differentiated thyroid carcinoma, toxic goiter, or recurrent multinodular goiter.
+</td>
+<td style="text-align:left;width: 18em; ">
+Recurrent laryngeal nerve paralysis; pregnant.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among patients undergoing thryroidectomy, patients receiving sugammadex (n=65) experienced significantly shorter time to TOFR &gt;0.9 compared with patients receiving no reversal agent (n=64) p&lt;0.001.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3302"></a>Kim <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+90
+</td>
+<td style="text-align:left;width: 18em; ">
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease, renal or hepatic dysfunction, hx of malignant hyperthermia, medications known to interfere with neuromuscular blockade, BMI &gt; 30 kg/m.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to extubation was greater in the neostigmine group as compared to sugammadex group (7.94 vs 6.08 min, p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3338"></a>Quang <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+70
+</td>
+<td style="text-align:left;width: 18em; ">
+Age 18-60; ASA I-III; laparoscopic donor nephrectomy using general anesthesia; normal results for complete blood count, physiochemical tests, and echocardiogram; surgery duration &gt;60 min.
+</td>
+<td style="text-align:left;width: 18em; ">
+Renal or hepatic dysfunction; malignant hyperthermia or neuromuscular disease; difficult airway; diabetes; neurological complication; BMI &lt;17 kg/m2; BMI &gt;30 kg/m2; drugs affecting neuromuscular relaxants (anticonvulsants, magnesium, antibiotics); allergy to opiod, NMBA, anesthetics.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among patients undergoing laparoscopic donor nephrectomy, patients receiving sugammadex (n=35) experienced significantly shorter time to TOFr &gt;0.9 and significantly less nausea, bradycardia, and headache compared with patients receiving neostigmine (n=35) (all p&lt;0.05).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3353"></a>Schepens <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+75
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt;= 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+BMI &gt; 30 kg/m2, smokers, medications known to interfere with neuromuscular blocking agents, upper airway infection, hepatic dysfunction, congestive heart failure, pregnant or breastfeeding women, hx of malignant hyperthermia.
+</td>
+<td style="text-align:left;width: 30em; ">
+Sugammadex group reached TOFR &gt; 0.9 quicker than the neostigmine group (2 vs 17 min).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3376"></a>Abola <br> 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+62
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt;=18; ASA I-III; planned use of NMBA and endotracheal intubation; planned extubation in OR.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disorder; allergy to muscle relaxants; malignant hyperthermia; contraindication for neostigmine or sugammadex; serum creatinine &gt;2 mg/dL; inaccessible arm; plan to extubate under deep anesthesia.
+</td>
+<td style="text-align:left;width: 30em; ">
+A difference was not detected in measurements of post-operative strength among patients receiving sugammadex (n=29) compared with patients receiving neostigmine (n=27).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3390"></a>Boggett <br> 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+350
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt;18; operative laparoscopic or robot-assisted laparoscopic procedure undergoing general anesthesia, lasting &gt; 1hr.
+</td>
+<td style="text-align:left;width: 18em; ">
+Diagnostic laparoscopic surgery only; pregnant; allergy to rocuronium, desflurane, sugammadex, or neostigmine.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among patients undergoing laparoscopic surgery of over 1 hr duration, no differences were detected in quality of recovery (cognitive, physiological, emotive, inadequate reversal) in patients receiving sugammadex to reverse a deep block (n=175) compared with patients receiving neostimine to reverse a moderate block (n=175).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3410"></a>Deana <br> 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+49
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt;=18; neuromuscular transmission data from TOF Watch from anesthesia induction until extubation.
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA &gt;III; neuromuscular disease; NMBA other than rocuronium; BMI &lt;18 kg/m2; BMI &gt;40 kg/m2; impaired renal function (glomerular filtration rate &lt;30 ml/min/1.73 m2); incorrect reversal dose (0.05 mg/kg neostigmine, 2 mg/kg sugammadex); inner temp &lt;35 deg C or thenar temp &lt;32 deg C at reversal; hemodynamic instability (norepinephrine &gt;0.1 mcg/kg.min and/or dobutamine &gt;3 mcg/kg.min and/or epinephrine &gt;0.1 mcg/kg.min at reversal and/or mean arterial pressure &lt;60 mmHg and/or HR &gt;100 bpm; acidosis (arterial pH &lt;7.3 at reversal).
+</td>
+<td style="text-align:left;width: 30em; ">
+Among patients undergoing liver transplantation, time to recovery of TOFR &gt;=0.9 was significantly faster in patients receiving sugammadex (n=21) compared with patients receiving neostigmine (n=20), mean time +/- SD times of 9.4 +/- 4.6 min and 34.6 +/- 24.9, respectively (p&lt;0.0001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3468"></a>Lee <br> 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+80
+</td>
+<td style="text-align:left;width: 18em; ">
+Age 18-69; ASA I-II; elective laparoscopic cholecystectomy.
+</td>
+<td style="text-align:left;width: 18em; ">
+BMI &gt;=30 kg/m2; neuromuscular, renal, or hepatic disease; drugs affecting neuromuscular function.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among patients undergoing laparoscopic cholecystectomy, TOFR at arrival in the PACU was 0.97 +/- 0.02 for patients receiving sugammadex (n=37) and 0.88 +/- 0.10 for patients receiving neostigmine (n=36), p&lt;0.001.
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Prospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1166"></a>Joshi <br> 1999
+</td>
+<td style="text-align:center;width: 6em; ">
+100
+</td>
+<td style="text-align:left;width: 18em; ">
+Healthy patients.
+</td>
+<td style="text-align:left;width: 18em; ">
+Cardiovascular, pulmonary, or metabolic diseases; impaired renal or hepatic function; morbid obesity; and history of alcohol or drug abuse, neuromuscular disease or those receiving medication known to influence neuromuscular transmission, anticipated airway difficulties.
+</td>
+<td style="text-align:left;width: 30em; ">
+Incidence of nausea (15% vs 18%) and vomiting (12% vs 8%) and the need for antiemetics (13.3% vs 12.8%) do not increase with the use of neostigmine and glycopyrrolate for reversal of residual muscle paralysis.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2419"></a>Cammu <br> 2012
+</td>
+<td style="text-align:center;width: 6em; ">
+624
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt; 18 years.
+</td>
+<td style="text-align:left;width: 18em; ">
+Renal, hepatic, metabolic and/or neuromuscular disorders; ejection fraction &lt;20%; admission for cardiac surgery; or reoperation during the same hospital admission.
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Retrospective Cohort
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3237"></a>Arslantas <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+42
+</td>
+<td style="text-align:left;width: 18em; ">
+Records of kidney transplant patients diagnosed with end-stage renal disease and had renal transplantation with living or deceased donors.
+</td>
+<td style="text-align:left;width: 18em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+No difference in risk of serious adverse effects on short-term (28 days) graft functions were detected among patients undergoing kidney transplantation and receiving sugammadex compared with neostigmine.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3451"></a>Kheterpal <br> 2020
+</td>
+<td style="text-align:center;width: 6em; ">
+45712
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &gt;=18; surgery using general anesthesia with endotracheal tube and receiving NMBA (vecuronium or rocuronium) by bolus or infusion; neostigmine or sugammadex (dose 1.8 to 4.4 mg/kg).
+</td>
+<td style="text-align:left;width: 18em; ">
+Age &lt;18; outpatient procedure; emergency, cardiac, liver, or lung transplantation surgery; intubation prior to OR; ASA V-VI; renal failure (ICD 9 code or glomerular filtration rate &lt;30 ml/min; sugammadex and neostigmine both used; redosing of NMBA; median intraoperative positive end-expiratory pressure &gt;10 cm H2O; institutional use of sugammadex &lt;10% of NMBA pts; pts only included once within 30-day period; patients over 90 recorded as 90 (per US privacy regulations).
+</td>
+<td style="text-align:left;width: 30em; ">
+Results from a retrospective matched cohort analysis (n=22,856 per arm) reported 3.5% of patients receiving sugammadex and 4.8% of patients receiving neostigmine experienced a pulmonary complication, defined as 1) pneumonia, 2) respiratory failure, or 3) other major pulmonary complication. Rates of pneumonia were 1.3% and 2.2% in the sugammadex and neostigmine groups, respectively. Rates of respiratory failure were 0.8% and 1.7% in the sugammadex and neostigmine groups, respectively.
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="5" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>All Ages</strong>
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1132"></a>Bevan <br> 1999
+</td>
+<td style="text-align:center;width: 6em; ">
+176
+</td>
+<td style="text-align:left;width: 18em; ">
+Pediatric patients age 2-12 years, women age 20-65 years, ASA I-II, normal body weight.
+</td>
+<td style="text-align:left;width: 18em; ">
+Pregnant women; patients with a history of hypersensitivity to dairy products, asthma, epilepsy, neuromuscular disease, or drug abuse; and patients who had recently taken medication affecting neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Return of neuromuscular function after reversal was not influenced by the timing of neostigmine administration in both adults and children.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="1198"></a>McCourt <br> 1999a
+</td>
+<td style="text-align:center;width: 6em; ">
+40
+</td>
+<td style="text-align:left;width: 18em; ">
+</td>
+<td style="text-align:left;width: 18em; ">
+Weight &gt;30% from IBW, medications interfering with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="2177"></a>Plaud <br> 2009
+</td>
+<td style="text-align:center;width: 6em; ">
+94
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I-II, ages 28 days - 65 yr.
+</td>
+<td style="text-align:left;width: 18em; ">
+Neuromuscular disease, renal dysfunction, hx malignant hyperthermia, medications know to interfere with neuromuscular transmission, pregnant or breastfeeding women.
+</td>
+<td style="text-align:left;width: 30em; ">
+After placebo, median recovery time to TOFR 0.9 was 21.0, 19.0, 23.4, and 28.5 min in infants, children, adolescents, and adults, respectively. After 2.0 mg/kg sugammadex TOFR 0.9 was attained in 0.6, 1.2, 1.1, and 1.2 min, respectively.
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="5" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Pediatric</strong>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="124"></a>Gwinnutt <br> 1991
+</td>
+<td style="text-align:center;width: 6em; ">
+30
+</td>
+<td style="text-align:left;width: 18em; ">
+ASA I.
+</td>
+<td style="text-align:left;width: 18em; ">
+Drugs known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 30em; ">
+Time to reach TOFR 0.8 was less when neostigmine was given at T1 10% versus PTC1 10% (4.8 vs 11.8 min, p&lt;0.001).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3306"></a>Korkmaz <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+70
+</td>
+<td style="text-align:left;width: 18em; ">
+Age 5-13; adenotonsillectomy with recurrent/chronic tonsillitis or obstructive sleep apnea.
+</td>
+<td style="text-align:left;width: 18em; ">
+Allergy to general anesthesia medication; neurological disease; asthma; bleeding diathesis.
+</td>
+<td style="text-align:left;width: 30em; ">
+Among children undergoing adenotonsillectomy, time to extubation was significantly shorter (p&lt;0.001) and PONV significantly less (p=0.048) among children receiving sugammadex (n=35) compared with children receiving neostigmine (n=35). A difference in hypoxia was not detected.
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Case Control
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a id="3280"></a>Gaver <br> 2019
+</td>
+<td style="text-align:center;width: 6em; ">
+1936
+</td>
+<td style="text-align:left;width: 18em; ">
+Newborn to adolescent patients receiving sugammadex; matched newborn to adolescent historical controls receiving neostigmine.
+</td>
+<td style="text-align:left;width: 18em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+In a case control study of pediatric patients (newborn through adolescent), patients receiving sugammadex (n=968) experienced significantly less bradycardia compared with patients receiving neostigmine (n=968), p&lt;0.001. No differences were detected between the groups in hypotension, bronchospasm, anaphylaxis, or PONV.
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] meta_5.0-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.0.2      
+ [9] tidyr_1.1.4       tibble_3.1.5      ggplot2_3.3.5     tidyverse_1.3.1  
+[13] Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-153           fs_1.5.0               bit64_4.0.5           
+ [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
+ [7] rprojroot_2.0.2        tools_4.1.2            backports_1.3.0       
+[10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
+[13] R6_2.5.1               DBI_1.1.1              colorspace_2.0-2      
+[16] withr_2.4.2            tidyselect_1.1.1       bit_4.0.4             
+[19] compiler_4.1.2         git2r_0.28.0           cli_3.1.0             
+[22] rvest_1.0.2            xml2_1.3.2             sass_0.4.0            
+[25] scales_1.1.1           systemfonts_1.0.2      digest_0.6.28         
+[28] minqa_1.2.4            rmarkdown_2.11         svglite_2.0.0         
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-27.1         
+[34] dbplyr_2.1.1           fastmap_1.1.0          htmlwidgets_1.5.4     
+[37] rlang_0.4.12           readxl_1.3.1           rstudioapi_0.13.0-9000
+[40] jquerylib_0.1.4        generics_0.1.1         jsonlite_1.7.2        
+[43] vroom_1.5.5            magrittr_2.0.1         Matrix_1.3-4          
+[46] Rcpp_1.0.7             munsell_0.5.0          fansi_0.5.0           
+[49] lifecycle_1.0.1        visdat_0.5.3           stringi_1.7.5         
+[52] yaml_2.2.1             CompQuadForm_1.4.3     snakecase_0.11.0      
+[55] mathjaxr_1.4-0         MASS_7.3-54            grid_4.1.2            
+[58] parallel_4.1.2         promises_1.2.0.1       crayon_1.4.2          
+[61] lattice_0.20-45        haven_2.4.3            splines_4.1.2         
+[64] hms_1.1.1              knitr_1.36             pillar_1.6.4          
+[67] boot_1.3-28            reprex_2.0.1           glue_1.5.0            
+[70] evaluate_0.14          modelr_0.1.8           nloptr_1.2.2.3        
+[73] vctrs_0.3.8            tzdb_0.2.0             httpuv_1.6.3          
+[76] cellranger_1.1.0       gtable_0.3.0           assertthat_0.2.1      
+[79] xfun_0.28              broom_0.7.10           later_1.3.0           
+[82] viridisLite_0.4.0      workflowr_1.6.2        ellipsis_0.3.2        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

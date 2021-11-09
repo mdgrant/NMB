@@ -3,9 +3,9 @@ title: "Home"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
+    font: Source Sans Pro
+    theme: cosmo
     toc: false
-editor_options:
-  chunk_output_type: console
 ---
 
 ```{=html}
@@ -35,5 +35,13 @@ display: none !important;
 </style>
 ```
 
+<br/><br/>
 
-Welcome to my research website.
+[<font size = 5> Evidence Tables </font>](evidence_tables.html)
+
+
+<!-- <font size = 6> Strength of Evidence Ratings </font> -->
+
+<!-- [<font size = 5> Summary of Findings Tables </font>](soe_final.html) -->
+
+<br><br>
