@@ -5,8 +5,8 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
+  # - text: About
+  #   href: about.html
   - text: Evidence Tables
     href: evidence_tables.html
   - text: Appendix
