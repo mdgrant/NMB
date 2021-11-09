@@ -39,6 +39,8 @@ display: none !important;
 
 [<font size = 5> Evidence Tables </font>](evidence_tables.html)
 
+[<font size = 5> Appendix </font>](appendix.html)
+
 
 <!-- <font size = 6> Strength of Evidence Ratings </font> -->
 

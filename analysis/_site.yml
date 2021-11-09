@@ -9,6 +9,8 @@ navbar:
     href: about.html
   - text: Evidence Tables
     href: evidence_tables.html
+  - text: Appendix
+    href: appendix.html
   - text: License
     href: license.html
 output:

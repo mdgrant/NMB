@@ -339,6 +339,9 @@ div.tocify {
   <a href="evidence_tables.html">Evidence Tables</a>
 </li>
 <li>
+  <a href="appendix.html">Appendix</a>
+</li>
+<li>
   <a href="license.html">License</a>
 </li>
       </ul>
@@ -354,7 +357,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Evidence Tables</h1>
-<h4 class="date">09 November, 2021 (13:13)</h4>
+<h4 class="date">09 November, 2021 (14:04)</h4>
 
 </div>
 
@@ -470,16 +473,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreece731d663bbe9cdbbf093d81d756af1805126866targetblankce731d6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/ce731d663bbe9cdbbf093d81d756af1805126866" target="_blank">ce731d6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2bc26c19030cfbfa7760c1f544d4c10a7d592604targetblank2bc26c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/2bc26c19030cfbfa7760c1f544d4c10a7d592604" target="_blank">2bc26c1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreece731d663bbe9cdbbf093d81d756af1805126866targetblankce731d6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2bc26c19030cfbfa7760c1f544d4c10a7d592604targetblank2bc26c1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/ce731d663bbe9cdbbf093d81d756af1805126866" target="_blank">ce731d6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/2bc26c19030cfbfa7760c1f544d4c10a7d592604" target="_blank">2bc26c1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -491,9 +494,9 @@ Ignored files:
     Ignored:    _@@/
 
 Untracked files:
+    Untracked:  analysis/appendix.Rmd
     Untracked:  analysis/evidence_tables.Rmd
     Untracked:  analysis/kq2.Rmd
-    Untracked:  code/readfiles_nmb_102721.R
     Untracked:  data/ageFullText_2021-11-05-19-36-30.csv
     Untracked:  data/contOutcomes_2021-11-09-18-05-24.csv
     Untracked:  data/dichotOutcomes_2021-11-09-18-05-35.csv
@@ -508,6 +511,7 @@ Unstaged changes:
     Modified:   .gitignore
     Modified:   analysis/_site.yml
     Modified:   analysis/index.Rmd
+    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -520,9 +524,52 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/evidence_tables.Rmd</code>) and HTML (<code>docs/evidence_tables.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/014d39896334c80878bdc47fdb153e3c05bf38ab/docs/evidence_tables.html" target="_blank">014d398</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-11-09
+</td>
+<td>
+add files for site
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -552,7 +599,7 @@ display: none !important;
 :target {  /* fix target location so caption appears */
     display: block;    
     position: relative;     
-    top: 10px;
+    top: -60px;
     visibility: hidden;
 }
 
@@ -566,7 +613,7 @@ display: none !important;
 Study
 </th>
 <th style="text-align:center;font-weight: bold;">
-Enrolled (N)
+N
 </th>
 <th style="text-align:left;font-weight: bold;">
 Inclusion Criteria
@@ -591,10 +638,10 @@ RCT
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1034"></a>Carroll <br> 1998
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 30
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -608,10 +655,10 @@ Time to reach TOFR 0.8 was significant between spontaneous recovery group and ne
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="1081"></a>Nelskylä <br> 1998
+<td style="text-align:left;width: 10em; ">
+<a id="1081"></a>Nelskyla <br> 1998
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 100
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -625,10 +672,10 @@ Neostigmine with glycopyrrolate did not increase the occurrence of PONV in PACU 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1155"></a>Fuchs-Buder <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 48
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -641,10 +688,10 @@ Neuromuscular disease or receiving medications known to interact with neuromuscu
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1188"></a>Lien <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 16
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -658,10 +705,10 @@ Times to recovery to a TOFR 0.9 did not differ between the neostigmine and spont
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="1199"></a>McCourt <br> 1999b
+<td style="text-align:left;width: 10em; ">
+<a id="1199"></a>McCourt <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 90
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -675,10 +722,10 @@ Time to reach TOFR 0.8 was significantly shorter when neostigmine was administer
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="121"></a>Goldhill <br> 1991
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 36
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -692,10 +739,10 @@ Times to reach TOFR 0.9 was significant between the three neostigmine groups and
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1282"></a>Hayes <br> 2000
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 45
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -709,10 +756,10 @@ Spontaneous recovery to a TOFR 0.8 took 33.4 [20.0±79.0] min with rapacuronium 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="1414"></a>Løvstad <br> 2001
+<td style="text-align:left;width: 10em; ">
+<a id="1414"></a>Lovstad <br> 2001
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 90
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -726,10 +773,10 @@ High dose of neostigmine increases post-operative nausea (30% vs 11%, p=0.03) an
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1511"></a>Kirkegaard <br> 2002
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 64
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -743,10 +790,10 @@ To achieve rapid (within 10 min) reversal to a TOF ratio of 0.7 in more than 87%
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1850"></a>Adamus <br> 2006
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 120
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -760,10 +807,10 @@ Time to TOFR 0.9 was much faster in the neostigmine group as compared to spontan
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1917"></a>Sorgenfrei <br> 2006
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 27
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -777,10 +824,10 @@ Sugammadex decreased median recovery time in a dose-dependent manner from 21.0 m
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1951"></a>de <br> Boer 2007
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 46
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -794,10 +841,10 @@ Time to reach a TOFR 0.9 was significantly shorter in the sugammadex 2 and 4 mg 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2000"></a>Sacan <br> 2007
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 60
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -810,10 +857,10 @@ Difficult airway, reactions to opioid analgesics, pregnancy, family history of m
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2003"></a>Sparr <br> 2007
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 99
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -827,10 +874,10 @@ Reversal time to a TOFR 0.9 was significant in the sugammadex 2 or 4 mg group as
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2004"></a>Suy <br> 2007
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 40
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -844,10 +891,10 @@ Reversal time to a TOFR 0.9 was significant in the sugammadex 2 or 4 mg group as
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2005"></a>Suzuki <br> 2007
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 80
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -861,10 +908,10 @@ Neostigmine administered at 25% of control in T1 shortened recovery from neuromu
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2040"></a>Flockton <br> 2008
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 84
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -878,10 +925,10 @@ Sugammadex 2.0 mg/kg administered at reappearance of T2 was significantly faster
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2049"></a>Jones <br> 2008
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 88
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -895,10 +942,10 @@ Recovery to TOFR 0.9 from profound rocuronium-induced neuromuscular blockade was
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="2073"></a>Pühringer <br> 2008
+<td style="text-align:left;width: 10em; ">
+<a id="2073"></a>Puhringer <br> 2008
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 176
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -912,10 +959,10 @@ Sugammadex provides a rapid and dose-dependent reversal of profound neuromuscula
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2124"></a>Dahl <br> 2009
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 121
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -929,10 +976,10 @@ Sugammadex 2 mg/kg and 4 mg/kg resulted in considerably shorter time to recovery
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2209"></a>Blobner <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 98
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -946,10 +993,10 @@ Sugammadex achieved significantly faster recovery of neuromuscular function afte
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2234"></a>Fuchs-Buder <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 120
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -963,10 +1010,10 @@ Reduced dose (30 ug/kg) of neostigmine when given at a TOFR 0.4 is effective in 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2251"></a>Khuenl-Brady <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 100
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -980,10 +1027,10 @@ Sugammadex provided significantly faster reversal (TOFR 0.9) of vecuronium-induc
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2254"></a>Lederer <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 60
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -997,10 +1044,10 @@ Neostigmine 0.05 mg/kg accelerates recovery when administered 5 minutes after in
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2260"></a>Lemmens <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 94
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1014,10 +1061,10 @@ Recovery (TOFR &gt; 0.9) from profound vecuronium-induced block is significantly
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="2281"></a>Pühringer <br> 2010
+<td style="text-align:left;width: 10em; ">
+<a id="2281"></a>Puhringer <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 49
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1031,10 +1078,10 @@ During sevoflurane maintenance anesthesia, sugammadex (2 or 4 mg) provides well 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2287"></a>Schaller <br> 2010
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 99
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1048,10 +1095,10 @@ Low dose sugammadex and neostigmine effectively and comparably reverse a rocuron
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2308"></a>Adamus <br> 2011
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 22
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1065,10 +1112,10 @@ Intraoperative reversal of shallow rocuronium-induced block with either sugammad
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2335"></a>Illman <br> 2011
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 50
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1082,10 +1129,10 @@ Sugammadex in comparison with neostigmine allows a quicker reversal of a moderat
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2338"></a>Jeong <br> 2011
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 52
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1099,10 +1146,10 @@ Pyridostigmine may enhance recovery from sevoflurane anesthesia as compared to p
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2382"></a>Sauer <br> 2011
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 114
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1116,10 +1163,10 @@ Minimal residual block was associated with hypoxemia in the PACU with our withou
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2438"></a>Gaszynski <br> 2012
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 70
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1132,10 +1179,10 @@ Muscular disease, cardiovascular disease (NYHA &gt;2).
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2439"></a>Geldner <br> 2012
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 140
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1149,10 +1196,10 @@ Patients receiving sugammadex recovered 3.4 times faster than patients receiving
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2995"></a>Choi <br> 2017
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 44
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1166,10 +1213,10 @@ In laryngeal micro-surgery, use of rocuronium 0.9 mg/kg with sugammadex reversal
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3058"></a>Nemes <br> 2017
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 134
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1183,10 +1230,10 @@ Pharmacological reversal based on clinical signs was superior to spontaneous rec
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="3063"></a>P <br> 2017
+<td style="text-align:left;width: 10em; ">
+<a id="3063"></a>Loh <br> 2017
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 120
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1200,10 +1247,10 @@ In a comparison of neostigmine, sugammadex in one dose, and sugammadex in stagge
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3089"></a>Tas <br> Tuna 2017
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 80
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1217,10 +1264,10 @@ Patients receiving sugammadex (n=40) experienced less PONV and required less res
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="3098"></a>Yağan <br> 2017
+<td style="text-align:left;width: 10em; ">
+<a id="3098"></a>Yagan <br> 2017
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 100
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1234,10 +1281,10 @@ Patients receiving sugammadex (n=50) experienced significantly less PONV in the 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3104"></a>Abdulatif <br> 2018
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 60
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1251,10 +1298,10 @@ Among pts with normal liver function, time to TOFR=0.9 and time to TOFR=1.0 was 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3190"></a>Paech <br> 2018
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 307
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1268,10 +1315,10 @@ No difference in PONV was detected among patients receiving sugammadex (n=153) c
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3233"></a>Alday <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 130
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1285,10 +1332,10 @@ Differences were not detected in respiratory complications or other postoperativ
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3261"></a>Claroni <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 109
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1302,10 +1349,10 @@ A difference in PONV was not detected among patients undergoing robot-assisted r
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3285"></a>Gunes <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 137
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1319,10 +1366,10 @@ Among patients undergoing thryroidectomy, patients receiving sugammadex (n=65) e
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3302"></a>Kim <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 90
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1335,10 +1382,10 @@ Time to extubation was greater in the neostigmine group as compared to sugammade
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3338"></a>Quang <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 70
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1352,10 +1399,10 @@ Among patients undergoing laparoscopic donor nephrectomy, patients receiving sug
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3353"></a>Schepens <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 75
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1369,10 +1416,10 @@ Sugammadex group reached TOFR &gt; 0.9 quicker than the neostigmine group (2 vs 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3376"></a>Abola <br> 2020
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 62
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1386,10 +1433,10 @@ A difference was not detected in measurements of post-operative strength among p
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3390"></a>Boggett <br> 2020
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 350
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1403,10 +1450,10 @@ Among patients undergoing laparoscopic surgery of over 1 hr duration, no differe
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3410"></a>Deana <br> 2020
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 49
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1420,10 +1467,10 @@ Among patients undergoing liver transplantation, time to recovery of TOFR &gt;=0
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3468"></a>Lee <br> 2020
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 80
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1442,10 +1489,10 @@ Prospective Cohort
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1166"></a>Joshi <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 100
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1459,10 +1506,10 @@ Incidence of nausea (15% vs 18%) and vomiting (12% vs 8%) and the need for antie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2419"></a>Cammu <br> 2012
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 624
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1480,10 +1527,10 @@ Retrospective Cohort
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3237"></a>Arslantas <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 42
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1496,10 +1543,10 @@ No difference in risk of serious adverse effects on short-term (28 days) graft f
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3451"></a>Kheterpal <br> 2020
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 45712
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1523,10 +1570,10 @@ RCT
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="1132"></a>Bevan <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 176
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1540,10 +1587,10 @@ Return of neuromuscular function after reversal was not influenced by the timing
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
-<a id="1198"></a>McCourt <br> 1999a
+<td style="text-align:left;width: 10em; ">
+<a id="1198"></a>McCourt <br> 1999
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 40
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1555,10 +1602,10 @@ Weight &gt;30% from IBW, medications interfering with neuromuscular transmission
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="2177"></a>Plaud <br> 2009
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 94
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1582,10 +1629,10 @@ RCT
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="124"></a>Gwinnutt <br> 1991
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 30
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1599,10 +1646,10 @@ Time to reach TOFR 0.8 was less when neostigmine was given at T1 10% versus PTC1
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3306"></a>Korkmaz <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 70
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1621,10 +1668,10 @@ Case Control
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 8em; ">
+<td style="text-align:left;width: 10em; ">
 <a id="3280"></a>Gaver <br> 2019
 </td>
-<td style="text-align:center;width: 6em; ">
+<td style="text-align:center;width: 4em; ">
 1936
 </td>
 <td style="text-align:left;width: 18em; ">
@@ -1683,17 +1730,18 @@ loaded via a namespace (and not attached):
 [43] vroom_1.5.5            magrittr_2.0.1         Matrix_1.3-4          
 [46] Rcpp_1.0.7             munsell_0.5.0          fansi_0.5.0           
 [49] lifecycle_1.0.1        visdat_0.5.3           stringi_1.7.5         
-[52] yaml_2.2.1             CompQuadForm_1.4.3     snakecase_0.11.0      
-[55] mathjaxr_1.4-0         MASS_7.3-54            grid_4.1.2            
-[58] parallel_4.1.2         promises_1.2.0.1       crayon_1.4.2          
-[61] lattice_0.20-45        haven_2.4.3            splines_4.1.2         
-[64] hms_1.1.1              knitr_1.36             pillar_1.6.4          
-[67] boot_1.3-28            reprex_2.0.1           glue_1.5.0            
-[70] evaluate_0.14          modelr_0.1.8           nloptr_1.2.2.3        
-[73] vctrs_0.3.8            tzdb_0.2.0             httpuv_1.6.3          
-[76] cellranger_1.1.0       gtable_0.3.0           assertthat_0.2.1      
-[79] xfun_0.28              broom_0.7.10           later_1.3.0           
-[82] viridisLite_0.4.0      workflowr_1.6.2        ellipsis_0.3.2        </code></pre>
+[52] whisker_0.4            yaml_2.2.1             CompQuadForm_1.4.3    
+[55] snakecase_0.11.0       mathjaxr_1.4-0         MASS_7.3-54           
+[58] grid_4.1.2             parallel_4.1.2         promises_1.2.0.1      
+[61] crayon_1.4.2           lattice_0.20-45        haven_2.4.3           
+[64] splines_4.1.2          hms_1.1.1              knitr_1.36            
+[67] pillar_1.6.4           boot_1.3-28            reprex_2.0.1          
+[70] glue_1.5.0             evaluate_0.14          modelr_0.1.8          
+[73] nloptr_1.2.2.3         vctrs_0.3.8            tzdb_0.2.0            
+[76] httpuv_1.6.3           cellranger_1.1.0       gtable_0.3.0          
+[79] assertthat_0.2.1       xfun_0.28              broom_0.7.10          
+[82] later_1.3.0            viridisLite_0.4.0      workflowr_1.6.2       
+[85] ellipsis_0.3.2        </code></pre>
 </div>
 </div>
 

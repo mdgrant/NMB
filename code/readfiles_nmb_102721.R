@@ -279,7 +279,7 @@ study_char.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
   select(-ris_code, -level, -study_char_k) %>%
   rename(author_dist = author, author = author_added) %>% # author distiller, author entered
-  select(refid, year, author_dist:results, linked_references, labels) %>%
+  select(refid, year, author:results, linked_references, labels) %>%
   group_by(refid) %>%
   slice(1) %>%  # use to temporarily remove duplicates from run-in
   ungroup()
@@ -317,10 +317,10 @@ study_char.dat <- study_char.dat %>%
       )
     )
   ) %>%
-    mutate(study = paste(stringr::str_extract(author_dist, "^([^,])+"), year)) %>%
-    select(refid, study, everything()) %>%
-    relocate(doi, .after = last_col()) %>%
-    relocate(title, .after = last_col())
+    mutate(study = paste(author, year)) %>%
+    select(refid, study, everything())
+    # relocate(doi, .after = last_col()) %>%
+    # relocate(title, .after = last_col())
 
 study_char.dat %>%
   select(design) %>%
@@ -330,37 +330,37 @@ study_char.dat %>%
 
 ## create new author field and append a, b, c etc for same year ####
 # list of multiple author-year publications
-temp_1 <- study_char.dat %>%
-  mutate(study = paste(stringr::str_extract(author_dist, "^([^,])+"), year)) %>%
-  arrange(author, refid) %>%
-  group_by(study) %>%
-  mutate(
-    n = row_number(),
-    let_add = ifelse(n > 0, letters[n], "")) %>%
-  ungroup() %>%
-  mutate(study_r = str_c(study, let_add))
-
-# with multiple per year letters added to year n = XX
-temp_2 <- temp_1 %>%
-  group_by(study) %>%
-  filter(n() > 1) %>%
-  ungroup() %>%
-  mutate(study = study_r) %>%
-  select(-study_r)
-
-# one publication per year n = 13 12/5/20
-temp_1 <- temp_1 %>%
-  group_by(study) %>%
-  filter(n() == 1) %>%
-  ungroup() %>%
-  select(-study_r)
-
-study_char.dat <- bind_rows(temp_1, temp_2) %>%
-  # select(!c(author, author_dist, refid_ver, year_added, pub_type, n, let_add)) %>%
-  select(!c(author, author_dist, user, reviewer, refid_ver, year_added, n, let_add)) %>%
-  select(refid, year, study, design, everything())
-
-rm(temp_1, temp_2)
+# temp_1 <- study_char.dat %>%
+#   mutate(study = paste(stringr::str_extract(author_dist, "^([^,])+"), year)) %>%
+#   arrange(author, refid) %>%
+#   group_by(study) %>%
+#   mutate(
+#     n = row_number(),
+#     let_add = ifelse(n > 0, letters[n], "")) %>%
+#   ungroup() %>%
+#   mutate(study_r = str_c(study, let_add))
+#
+# # with multiple per year letters added to year n = XX
+# temp_2 <- temp_1 %>%
+#   group_by(study) %>%
+#   filter(n() > 1) %>%
+#   ungroup() %>%
+#   mutate(study = study_r) %>%
+#   select(-study_r)
+#
+# # one publication per year n = 13 12/5/20
+# temp_1 <- temp_1 %>%
+#   group_by(study) %>%
+#   filter(n() == 1) %>%
+#   ungroup() %>%
+#   select(-study_r)
+#
+# study_char.dat <- bind_rows(temp_1, temp_2) %>%
+#   # select(!c(author, author_dist, refid_ver, year_added, pub_type, n, let_add)) %>%
+#   select(!c(author, author_dist, user, reviewer, refid_ver, year_added, n, let_add)) %>%
+#   select(refid, year, study, design, everything())
+#
+# rm(temp_1, temp_2)
 
 ## study arm ####
 path <- path_csv(study_arm_file)

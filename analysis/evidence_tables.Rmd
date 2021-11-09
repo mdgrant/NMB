@@ -1,0 +1,124 @@
+---
+title: "Evidence Tables"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE
+    toc_float: 
+      collapsed: true
+      smooth_scroll: TRUE
+    toc_depth: 3
+    linkcolor: blue
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+# bibliography: "bib/cho.bib"
+csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: false
+nocite: '@*'
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: -60px;
+    visibility: hidden;
+}
+
+</style>
+```
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("code/readFiles_nmb_102721.R")
+
+```
+
+```{r evidenceTables}
+evidence_tables <- study_char.dat %>%
+  select(refid, study, n_enrolled, include, exclude, results, diag_acc:rev_agt, design, age, year) %>%
+  mutate(
+    # study = author,
+    study = str_replace(study, " ", " <br/> "),
+    link = paste0("<a id=", shQuote(as.character(refid)), "></a>"),
+    study = paste0(link, study),
+    # <a id="choTab15"></a>
+    # link = paste0("<a id=\", refid, "\", "\\>\</a>"),
+    include = firstup(include),
+    exclude = firstup(exclude),
+    results = firstup(results),
+    results = if_else(!str_detect(results, "\\.$"), paste0(results, "."), results),
+    include = if_else(!str_detect(include, "\\.$"), paste0(include, "."), include),
+    exclude = if_else(!str_detect(exclude, "\\.$"), paste0(exclude, "."), exclude)
+  )
+```
+
+# **Reversal** 
+
+```{r evidenceTablesAgt}
+temp <- evidence_tables %>%
+  filter(rev_agt == "rev_agt") %>% 
+  arrange(age, design, study) %>% 
+  select(study, refid, age, design) %>% 
+  group_by(age, design) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(end = cumsum(n),
+         start = end - n + 1) %>% 
+  select(age, design, start, end)
+
+evidence_tables %>%
+  filter(rev_agt == "rev_agt") %>% 
+  arrange(age, design, study) %>% 
+  select(-c(refid, link, diag_acc:rev_agt, design, age, year)) %>%
+  kbl(
+    booktabs = T, align = c("lclll"), escape = FALSE,
+    col.names = c("Study", "N", "Inclusion Criteria", "Exclusion Criteria", "Results")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  pack_top(., "Adult", 1, 54, FALSE) %>%
+  pack_sub(., "RCT", 1, 50) %>%
+  pack_sub(., "Prospective Cohort", 51, 52) %>%
+  pack_sub(., "Retrospective Cohort", 53, 54) %>%
+  pack_top(., "All Ages", 55, 57, FALSE) %>%
+  pack_sub(., "RCT", 55, 57) %>%
+  pack_top(., "Pediatric", 58, 60, FALSE) %>%
+  pack_sub(., "RCT", 58, 59) %>%
+  pack_sub(., "Case Control", 60, 60) %>%
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "4em") %>%
+  column_spec(3, width = "18em") %>%
+  column_spec(4, width = "18em") %>%
+  column_spec(5, width = "30em")
+
+```
