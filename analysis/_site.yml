@@ -3,10 +3,17 @@ output_dir: ../docs
 navbar:
   title: "NMB"
   left:
+<<<<<<< HEAD
   # - text: Home
   #   href: index.html
   - text: About
     href: about.html
+=======
+  - text: Home
+    href: index.html
+  # - text: About
+  #   href: about.html
+>>>>>>> b84549649e3b404d53a3db3f546e52974f994fd2
   - text: Evidence Tables
     href: evidence_tables.html
   - text: Appendix
