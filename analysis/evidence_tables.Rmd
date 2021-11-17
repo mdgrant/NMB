@@ -181,15 +181,16 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 54, FALSE) %>%
-  pack_sub(., "RCT", 1, 50, bold = TRUE) %>%
-  pack_sub(., "Prospective Cohort", 51, 52) %>%
-  pack_sub(., "Retrospective Cohort", 53, 54) %>%
-  pack_top(., "All Ages", 55, 57, FALSE) %>%
-  pack_sub(., "RCT", 55, 57) %>%
-  pack_top(., "Pediatric", 58, 60, FALSE) %>%
-  pack_sub(., "RCT", 58, 59) %>%
-  pack_sub(., "Case Control", 60, 60) %>%
+  pack_top(., "Adult", 1, 86, FALSE) %>%
+  pack_sub(., "RCT", 1, 76, bold = TRUE) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 77, 79, bold = TRUE) %>%
+  pack_sub(., "Prospective Cohort", 80, 82) %>%
+  pack_sub(., "Retrospective Cohort", 83, 86) %>%
+  pack_top(., "All Ages", 87, 90, FALSE) %>%
+  pack_sub(., "RCT", 91, 98) %>%
+  pack_top(., "Pediatric", 91, 99, FALSE) %>%
+  pack_sub(., "RCT", 91, 98) %>%
+  pack_sub(., "Case Control", 99, 99) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "18em") %>%
