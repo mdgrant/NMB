@@ -1,0 +1,478 @@
+---
+title: "KQ2"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE
+    toc_float: 
+      collapsed: true
+      smooth_scroll: TRUE
+    toc_depth: 3
+    linkcolor: blue
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+bibliography: "bib/kq2.bib"
+csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: false
+nocite: '@*'
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+:target {  /* fix target location so caption appears */
+    display: block;    
+    position: relative;     
+    top: 10px;
+    visibility: hidden;
+}
+
+</style>
+```
+
+```{r setup, include = FALSE} 
+## • (updated 2021/11/10 21:46) setup -------------------------------------
+knitr::opts_chunk$set(echo = TRUE)
+source("code/readfiles_nmb_102721.R")
+
+```
+
+```{r data, include = FALSE}
+## • (updated 2021/11/16 09:02) create diag_ba.dat refids -----------------
+# refids
+diag_refids <- contin.dat %>% 
+  filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  pull(refid) %>% 
+  unique()
+
+diag_ba_refids <- contin.dat %>% 
+  filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter_at(vars(ba1_ind_thresh:ba1_pval), any_vars(!is.na(.))) %>% 
+  pull(refid) %>% 
+  unique()
+
+diag_mn_refids <- contin.dat %>% 
+  filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter_at(vars(tofr8_mean:tofr_fade_md_pval), any_vars(!is.na(.))) %>% 
+  pull(refid) %>% 
+  unique()
+
+diag_senspec_refids <- contin.dat %>% 
+  filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter_at(vars(sens_ind_thresh:npv2_iqr_u), any_vars(!is.na(.))) %>% 
+  pull(refid) %>% 
+  unique()
+
+study_arm_ba.dat <- study_arm.dat %>% 
+  filter(refid %in% diag_ba_refids)
+
+study_char_ba.dat <- study_char.dat %>% 
+  filter(refid %in% diag_ba_refids)   
+
+diag_ba.dat <- contin.dat %>% 
+  filter(refid %in% diag_ba_refids) %>% 
+  mutate(
+    subgroup = replace_na(subgroup, "none"),
+    subgroup_up = ifelse(subgroup == "none", "", paste0("_", subgroup)),
+    arm = paste0("diag_acc", subgroup_up),
+    mon_name = ifelse(mon_name == "Other Brand", mon_brand_oth, mon_name)
+    ) %>% 
+  rename(ind_test = arm_diag_acc, ref_test = ba1_ref) %>% 
+  select(-author) %>% 
+  # add monitor brand for referent
+  mutate(mon_arm1 = case_when(
+    arm_id == 2  ~ lag(mon_name),
+    arm_id == 3 ~  lag(mon_name, n = 2), 
+    TRUE ~ NA_character_
+    ),
+    mon_arm2 = case_when(
+    arm_id == 3 ~ lag(mon_name, n = 1),
+    arm_id == 1 ~ lead(mon_name),
+    TRUE ~ NA_character_
+    )
+  ) %>% 
+  filter_at(vars(ba1_ind_thresh:ba1_pval), any_vars(!is.na(.))) %>%
+  remove_empty(which = "cols") %>%
+  # single variable for referent brand (2 arm studies)
+  mutate(
+    ref_mon = NA_character_,
+    ref_mon = ifelse(arm_id == 2, mon_arm1, ref_mon),
+    ref_mon = ifelse(arm_id == 1, mon_arm2, ref_mon),
+    ref_mon = ifelse(ref_test == "mmg", "MMG", ref_mon)
+  ) %>% 
+  rename(ind_mon = mon_name) %>% 
+  select(refid, study, arm_id, year, design, age, arm, arm_n, subgroup, subgroup_up, ind_test, ind_mon, ref_test, ref_mon, starts_with("mon_"), time_from, contains("time_from"), starts_with("ba"), bland_altman, everything()) %>% 
+  arrange(ind_test, ref_test)
+
+diag_mn.dat <- contin.dat %>% 
+  filter(refid %in% diag_mn_refids) %>% 
+  mutate(
+    subgroup = replace_na(subgroup, "none"),
+    subgroup_up = ifelse(subgroup == "none", "", paste0("_", subgroup)),
+    arm = paste0("diag_acc", subgroup_up),
+    mon_name = ifelse(mon_name == "Other Brand", mon_brand_oth, mon_name)
+    ) %>% 
+  select(refid, study, arm_id, year, design, age, arm, arm_n, subgroup, subgroup_up, dev_used, ends_with("_comp"), tofr8_mean:tofr_fade_md_pval)
+
+temp <- diag_mn.dat %>% 
+  select(starts_with("tofr8_")) %>% 
+  rename_at(vars(contains("95")), ~ str_replace(., "95", "ci_95")) %>% 
+  rename_at(vars(starts_with("tofr8_")), ~ str_replace(., "tofr8_", "")) %>% 
+  mutate(
+    sd = ifelse(is.na(sd) & !is.na(ci_95_l + ci_95_u), round_1((ci_95_u - ci_95_l)/(1.96*4)), sd),
+    mean_sd = paste0(mean, " (", sd, ")"),
+    med_iqr_lu = case_when(
+      !is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0(med,  " (", iqr_l, "-", iqr_u, ")"),
+      !is.na(med) & !is.na(low + up) ~ paste0(med,  " {", low, "-", up, "}"),
+      !is.na(med) ~ as.character(med),
+      is.na(med) & !is.na(low + up) ~ paste0("{", low, "-", up, "}"),
+      is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0("(", iqr_l, "-", iqr_u, ")"),
+      TRUE ~ NA_character_),
+    mean_sd = str_replace(mean_sd, "NA \\(NA\\)", ""),
+    # med_iqr_lu = str_replace(med_iqr_lu, "NA (NA)", ""),
+  )
+
+# names(temp)
+
+  # rename(ind_test = arm_diag_acc, ref_test = ba1_ref) %>% 
+  # select(-author) %>% 
+  # # add monitor brand for referent
+  # mutate(mon_arm1 = case_when(
+  #   arm_id == 2  ~ lag(mon_name),
+  #   arm_id == 3 ~  lag(mon_name, n = 2), 
+  #   TRUE ~ NA_character_
+  #   ),
+  #   mon_arm2 = case_when(
+  #   arm_id == 3 ~ lag(mon_name, n = 1),
+  #   arm_id == 1 ~ lead(mon_name),
+  #   TRUE ~ NA_character_
+  #   )
+  # ) %>% 
+  # filter_at(vars(ba1_ind_thresh:ba1_pval), any_vars(!is.na(.))) %>%
+  # remove_empty(which = "cols") %>%
+  # # single variable for referent brand (2 arm studies)
+  # mutate(
+  #   ref_mon = NA_character_,
+  #   ref_mon = ifelse(arm_id == 2, mon_arm1, ref_mon),
+  #   ref_mon = ifelse(arm_id == 1, mon_arm2, ref_mon),
+  #   ref_mon = ifelse(ref_test == "mmg", "MMG", ref_mon)
+  # ) %>% 
+  # rename(ind_mon = mon_name) %>% 
+  # select(refid, study, arm_id, year, design, age, arm, arm_n, subgroup, subgroup_up, ind_test, ind_mon, ref_test, ref_mon, starts_with("mon_"), time_from, contains("time_from"), starts_with("ba"), bland_altman, everything()) %>% 
+  # arrange(ind_test, ref_test)
+
+
+```
+
+# **Included Studies** 
+
+<br/>
+
+<font size = 4> Table `r table_n`. Number of included studies according to age and design. </font>
+
+```{r tablesIncluded, include = TRUE, echo = FALSE} 
+## • (updated 2021/11/13 07:21) study_char_diag.dat -----------------------
+# list of studies, age, surgical/non surgical, design 
+study_char.dat %>% 
+  filter(refid %in% diag_refids) %>% 
+  group_by(age, design, .groups = "drop") %>%
+  summarise(total = n()) %>%
+  ungroup() %>%
+  arrange(age, design) %>%
+  group_by(age, .groups = "drop") %>%
+  mutate(row = row_number()) %>%
+  ungroup() %>%
+  janitor::adorn_totals("row") %>%
+  mutate(
+    age = ifelse(row != 1, NA, age),
+    design = case_when(
+      design == "rct" ~ "RCT",
+      design == "crossover" ~ "Crossover",
+      design == "cluster" ~ "Cluster",
+      design == "nrsi" ~ "Nonrandomized",
+      design == "prospect_coh" ~ "Prospective Cohort",
+      design == "retrospect_coh" ~ "Retrospective Cohort",
+      design == "casecontrol" ~ "Case-Control",
+      design == "other" ~ "Before-After",
+      design == "fully_paired" ~ "Fully Paired"),
+      age = ifelse(row_number() == n(), "Total", age)
+  ) %>%
+  select(age, design, total) %>%
+  kbl(
+    booktabs = T, align = c("llr"),
+    col.names = c("Age", "Design", "N")
+  ) %>%
+  row_spec(c(0, 7), bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "10em") %>%
+  column_spec(3, width = "3em") %>% 
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    # alphabet = c("Footnote a", "Footnote b", ...),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+## *List of Studies*
+
+<br/>
+
+<font size = 4> Table `r table_n`. Studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
+
+```{r studiesIncludedList, echo = FALSE, include = TRUE}
+## • (updated 2021/11/16 09:06) included_studies.dat ----------------------
+included_studies.dat <- study_char_ba.dat %>%
+  mutate(
+    across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
+    across(surg_various:surg_other, ~ str_c(.x, ", ")),
+    across(surg_various:surg_other, ~ firstup(.x)),
+    across(surg_various:surg_other, ~ replace_na(.x, "")),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_list),
+    surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Headneck", "ENT"),
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2),
+    country = ifelse(grepl("USA", country), "USA", country),
+    country = ifelse(grepl("UK", country), "UK", country),
+    country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country),
+    design = case_when(
+      design == "rct" ~ "RCT",
+      design == "fully_paired" ~ "Fully paired"
+    ),
+    design = ifelse(study == "Claudius 2009", "Fully paired (random subset)", design)
+  ) %>% 
+  select(refid, study_l, year, age, design, n_analyze, country, centers, non_vh_hdi, surgs) %>% 
+  arrange(age, design, year) 
+
+## • (updated 2021/11/16 09:06) kable -------------------------------------
+included_studies.dat %>% 
+  select(refid, study_l, n_analyze, centers, country, surgs) %>% 
+  kbl(
+    booktabs = T, align = c("llccll"), escape = TRUE, # format = "latex",
+    col.names = c("            ID", "Study", "Analyzed (N)", "Centers", "Country^a^", "Surgery")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "6em") %>%
+  column_spec(2, width = "10em") %>%
+  column_spec(3, width = "6em") %>%
+  column_spec(4, width = "6em") %>%
+  column_spec(5, width = "10em") %>%
+  column_spec(6, width = "12em") %>%
+  pack_top(., "Adult", 1, 15) %>%
+  pack_sub(., "Fully Paired", 1, 14, bold = TRUE) %>% 
+  pack_sub(., "Fully Paired (random subset)", 15, 15, bold = TRUE) %>% 
+  pack_top(., "Pediatric", 16, 16) %>%
+  pack_sub(., "Fully Paired", 16, 16, bold = TRUE) %>% 
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    alphabet = c(
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country.",
+    "Multiple publications of the same study."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+# **Outcomes**
+
+<br/>
+
+## *Agreement*
+
+<font size = 4> Table `r table_n`. Text </font>
+
+<br/>
+
+```{r blandAltmanData, include = FALSE, echo = FALSE, eval = FALSE}
+## • (updated 2021/11/14 09:21) data --------------------------------------
+temp1 <- diag_ba.dat %>% 
+  select(-c(ba2_ind_thresh:ba2_pval))
+
+temp2 <- diag_ba.dat %>% 
+  filter(!is.na(ba2_ind_thresh)) %>% 
+  select(-c(ba1_ind_thresh:ba1_pval)) %>%
+  rename_at(vars(starts_with("ba2")), ~ str_replace(.,  "ba2", "ba1")) %>% 
+  mutate(ba1_pval = as.character(ba1_pval)) %>% # to allow bind_rows
+  select(-ba1_ref) # same as ref_test; may later need to verify for add refids)
+
+bland_altman.dat <- bind_rows(temp1, temp2) %>%
+  remove_empty(which = "cols") %>%
+  mutate(design = case_when(
+    study == "Claudius 2009" ~ "Fully paired (random subset)",
+    design == "fully_paired" ~ "Fully paired"
+  )) %>%
+  rename_at(vars(starts_with("ba1")), ~ str_replace(., "ba1", "ba"))
+
+rm(temp1, temp2)
+
+diag_mn.dat %>% 
+  
+
+## • (updated 2021/11/16 09:14) table -------------------------------------
+bland_altman_kbl <- bland_altman.dat %>%
+  mutate(
+    ba_loa_u = round(ba_loa_u, digits = 2),
+    ba_loa_l = round(ba_loa_l, digits = 2),
+    # ba_loa_l = ifelse(is.na(ba_loa_l) & !is.na(ba_loa_sd), formatC(ba_bias - 1.96 * ba_loa_sd, digits = 2), ba_loa_l),
+    ba_loa_l = ifelse(is.na(ba_loa_l) & !is.na(ba_loa_sd), round(ba_bias - 1.96 * ba_loa_sd, 2), ba_loa_l),
+    ba_loa_u = ifelse(is.na(ba_loa_u) & !is.na(ba_loa_sd), round(ba_bias + 1.96 * ba_loa_sd, 2), ba_loa_u),
+    # ba_loa_u = format(ba_loa_u, digits = 2),
+    ba_result = paste0(ba_bias, " (", ba_bias_95_l, " to ", ba_bias_95_u, ")"),
+    ba_loa = paste0("(",  ba_loa_l, " to ", ba_loa_u, ")"),
+    ba_result = str_replace(ba_result, "\\(NA to NA\\)", "" ),
+    ba_result = str_replace(ba_result, "(\\d+) $", "\\1" ),
+    ba_loa = str_replace(ba_loa, "\\(NA to NA\\)", " "),
+    time_at = ifelse(str_detect(ba_ind_thresh, "ge"), "time", "at"), # at a specfic TOFR or time to
+    ba_result = ifelse(!str_detect(ba_result, "^-"), paste0("  ", ba_result), ba_result)
+  ) %>%
+  arrange(age, ind_test, study, time_at, ba_ind_thresh, time_from, year) %>% 
+  select(age, refid, study, arm_id, design, year, arm_n, ind_test, ind_mon, ref_test, ref_mon, time_at, ba_ind_thresh, ba_ref_thresh, time_from, time_from_other, ba_result, ba_loa)
+
+# write_csv(bland_altman_kbl, file = "/Users/mgrant/Desktop/bland_altman-dat.csv", na = "") 
+```
+
+```{r blandAltmanKbl, include = TRUE, echo = FALSE, eval = FALSE}
+temp <- bland_altman_kbl %>% 
+  arrange(time_at, study, arm_id)
+
+contin.dat %>% 
+  
+
+temp <- study_arm.dat %>% 
+  select(refid, study, starts_with("timing"))
+
+write_csv(temp, file = "/Users/mgrant/Desktop/monitor.csv", na = "") 
+
+```
+
+# **Study/Participant Detail** 
+
+<br/>
+
+### *Study Characteristics* 
+
+<br>
+
+<font size = 4> Table `r table_n`. Study characteristics. </font>
+
+```{r createStudyCharTable, include = FALSE, echo = FALSE, eval = FALSE} 
+## (updated 2021/11/10 15:31) 2021/11/10 15:31 ----------------------------
+
+Hmisc::latex(Hmisc::describe(study_char_diag.dat), file = "/Users/mgrant/Desktop/temp.tex")
+
+study_char_table <- study_char_diag.dat %>%
+  mutate(
+    dates = str_c(date_start, "-", date_end),
+    country = countrycode::countryname(country, destination = "iso3c"),
+    low_r = noquote(if_else(non_vh_hdi == "yes", "\U2022", "", "")),
+    n = n_enrolled,
+    n_anal = n_analyze,
+    pilot = noquote(if_else(pilot == "yes", "\U2022", "", "")),
+    gen = noquote(if_else(!is.na(general), "\U2022", "", "")),
+    reg = noquote(if_else(!is.na(regional), "\U2022", "", "")),
+    registered = noquote(if_else(registered == "yes", "\U2022", "", ""))) %>% 
+  mutate(
+    across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
+    across(surg_various:surg_other, ~ str_c(.x, ", ")),
+    across(surg_various:surg_other, ~ firstup(.x)),
+    across(surg_various:surg_other, ~ replace_na(.x, "")),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_list),
+    surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Headneck", "ENT"),
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2)
+  ) %>%
+  select(refid, age, year, study, dates, country, low_r, n, centers, low_r, pilot, surgs, nct) %>% 
+  arrange(age,year)
+
+
+
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  select(refid, age, surg_nosurg, design, study, dates, country, n, pilot, setting, gen, reg, sed, surg, registered)
+
+```
+
+```{r studyCharKable, echo = FALSE, include = FALSE, eval = FALSE} 
+## (updated 2021/01/12 19:27) ---------------------------------------------
+study_char_table %>%
+  select(!c(refid, age, surg_nosurg, design)) %>% 
+  kbl(booktabs = T, align = c("lcccccccclc"), 
+      # format = "latex",
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Dates", "Country", " (N\\) ", "Pilot", 
+                    "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered")) %>%
+  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2), bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "15em") %>% 
+  # column_spec(2, width = "2em") %>% 
+  pack_top(., "Adult, Surgical", 1, 99) %>% 
+  pack_sub(., "RCT", 1, 84) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 85, 92) %>% 
+  pack_sub(., "Prospective Cohort", 93, 95) %>%
+  pack_sub(., "Retrospective Cohort", 96, 97) %>% 
+  pack_sub(., "Case-control", 98, 98) %>% 
+  pack_sub(., "Before-after", 99, 99) %>% 
+  pack_top(., "Adult, Non-surgical", 100, 111) %>% 
+  pack_sub(., "RCT", 100, 100) %>%
+  pack_sub(., "Crossover", 101, 109) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
+  pack_top(., "Pediatric, Surgical", 112, 120) %>% 
+  pack_sub(., "RCT", 112, 119) %>% 
+  # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "Prospective Cohort", 120, 120) %>% 
+  pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
+  pack_sub(., "RCT", 121, 121) %>%
+  pack_sub(., "Crossover", 122, 122) %>%
+  pack_sub(., "Prospective Cohort", 123, 123) %>% 
+  footnote(general_title = "",
+    general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
+    alphabet = c("Multiple publications from the same study."),
+    footnote_as_chunk = FALSE) # %>% 
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+
+
