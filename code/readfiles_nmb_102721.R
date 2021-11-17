@@ -97,10 +97,10 @@ pack_top_noind <- function(kable_input, name, a, b) {
 
 
 # subgroup title kable
-pack_sub <- function(kable_input, name, a, b) {
+pack_sub <- function(kable_input, name, a, b, bold = FALSE) {
   pack_rows(kable_input, name,
     start_row = a, end_row = b,
-    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE, indent = FALSE
+    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = bold, indent = FALSE
   )
 }
 
@@ -214,6 +214,13 @@ calc_mn_sd <- function(n_e, m_e, sd_e, md_e, q1_e, q3_e, min_e, max_e, study, tx
   temp[, c(2, 1, 3:7)]
 }
 
+tab_inc <- function() {
+  table_n <- table_n + 1
+  table_n}
+fig_inc <- function() {
+  figure_n <- figure_n + 1
+  figure_n}
+
 ## data files ####
 data_files <- as_tibble(list.files("data/"))
 
@@ -279,7 +286,7 @@ study_char.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
   select(-ris_code, -level, -study_char_k) %>%
   rename(author_dist = author, author = author_added) %>% # author distiller, author entered
-  select(refid, year, author:results, linked_references, labels) %>%
+  select(refid, year, author:comment, linked_references, labels) %>%
   group_by(refid) %>%
   slice(1) %>%  # use to temporarily remove duplicates from run-in
   ungroup()
@@ -293,7 +300,7 @@ study_char.dat <- read_csv(path) %>%
 age.dat <- read_csv(paste0("data/", age_file), col_types = c("ncccnccncccccccccc")) %>%
   janitor::clean_names() %>%
   select(refid, age) %>%
-  filter(refid %in% unique(study_char.dat$refid)) %>%
+  filter(refid %in% unique(study_char.dat$refid), !is.na(age)) %>%
   distinct() # duplicate records at full-text screening
 
 study_char.dat <- study_char.dat %>%
@@ -308,6 +315,7 @@ study_char.dat <- study_char.dat %>%
         "rct",
         "crossover",
         "cluster",
+        "fully_paired",
         "nrsi",
         "prospect_coh",
         "retrospect_coh",
@@ -317,8 +325,10 @@ study_char.dat <- study_char.dat %>%
       )
     )
   ) %>%
-    mutate(study = paste(author, year)) %>%
-    select(refid, study, everything())
+    mutate(study = paste(author, year),
+           study_l = paste0("[", study, "]", "(", "evidence_tables.html#", refid, ")")) %>%
+  # [Lien 1999](evidence_tables.html#1188)
+    select(refid, study, study_l, everything())
     # relocate(doi, .after = last_col()) %>%
     # relocate(title, .after = last_col())
 
@@ -364,8 +374,7 @@ study_char.dat %>%
 
 ## study arm ####
 path <- path_csv(study_arm_file)
-columns <- c("ncccnccnccccccccncccccccccccccccccccccnnnnnnnnncccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccnnccccncnnncncnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnc")
-study_arm.dat <- read_csv(path, col_types = columns)
+study_arm.dat <- read_csv(path)
 
 # number of studies date n =
 (study_arm_n <- study_arm.dat %>%
@@ -376,17 +385,20 @@ study_arm.dat <- read_csv(path, col_types = columns)
 study_arm.dat <- study_arm.dat %>%
   janitor::clean_names() %>%
   # temp fix duplicates [DELETE WHEN FIXED]
-  filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
-  filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
+  # filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
+  # filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
   # --------------------------------------------------------------------- *
-  select(-c(user, labels, ris_code, level, design))
+  select(-c(user, labels, ris_code, level, design)) %>%
+  group_by(refid) %>%
+  mutate(arm_id = row_number()) %>%
+  ungroup()
 
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 study_names <- study_char.dat %>% select(refid, study, age, design)
 
 study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
-  select(refid, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -400,10 +412,13 @@ path <- path_csv(cont_out_file)
 contin.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
   # temp fix duplicates [DELETE WHEN FIXED]
-  filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
-  filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
+  # filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
+  # filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
   # --------------------------------------------------------------------- *
-  select(-c(user, labels, ris_code, level, design))
+  select(-c(user, labels, ris_code, level, design)) %>%
+  group_by(refid) %>%
+  mutate(arm_id = row_number()) %>%
+  ungroup()
 
 (contin_n <- contin.dat %>%
     distinct(refid) %>%
@@ -412,7 +427,7 @@ contin.dat <- read_csv(path) %>%
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 contin.dat <- left_join(contin.dat, study_names, by = "refid") %>%
-  select(refid, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -468,6 +483,9 @@ length(unique(likert.dat$refid)) == dichot_n
 rm(list = ls(pattern = "*.file"))
 rm(list = ls(pattern = "*_n"))
 rm(age.dat)
+
+table_n <- 1
+figure_n <- 1
 
 ## ------------------------------------------------------------------------
 

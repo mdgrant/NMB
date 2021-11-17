@@ -1,10 +1,55 @@
 ---
 title: "About"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE
+    toc_float: 
+      collapsed: true
+      smooth_scroll: TRUE
+    toc_depth: 3
+    linkcolor: blue
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+# bibliography: "bib/cho.bib"
+# csl: jama.csl
+# link-citations: yes
+workflowr:
+  suppress_report: false
+# nocite: '@*'
 ---
 
-Describe your project.
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+</style>
+```
+
+<font size = 4> Included are draft summary and individual evidence tables, results, and strength of evidence ratings. </font>
+
+<font size = 4> Developed using [workflowr](https://jdblischak.github.io/workflowr/index.html) </font>
+
+<br>

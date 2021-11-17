@@ -3,12 +3,22 @@ output_dir: ../docs
 navbar:
   title: "NMB"
   left:
-  - text: About
-    href: about.html
+  - text: Strength of Evidence
+    href: soe.html
+  - text: Diagnostic
+    href: kq2.html
+  - text: Reversal
+    href: Reversal.html
   - text: Evidence Tables
     href: evidence_tables.html
-  - text: Appendix
-    href: appendix.html
+  - text: Appendices
+    menu:
+    - text: PRISMA
+      href: prisma.html
+    - text: Outcome Importance
+      href: outcome_importance.html
+  - text: About
+    href: about.html
   - text: License
     href: license.html
 output:

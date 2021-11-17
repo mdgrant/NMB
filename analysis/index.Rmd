@@ -1,11 +1,18 @@
 ---
 title: "Home"
-site: workflowr::wflow_site
+# date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
-  workflowr::wflow_html:
+  html_document:
     font: Source Sans Pro
     theme: cosmo
-    toc: false
+    # anchor_sections: TRUE
+    # toc_float: 
+    #   collapsed: true
+    #   smooth_scroll: TRUE
+    # toc_depth: 3
+    linkcolor: blue
+workflowr:
+  suppress_report: false
 ---
 
 ```{=html}
@@ -37,13 +44,22 @@ display: none !important;
 
 <br/><br/>
 
+<font size = 6> Strength of Evidence Ratings </font>
+
+[<font size = 5> Summary of Findings Tables </font>](soe.html)
+
+<font size = 6> Diagnostic </font>
+
+[<font size = 5> Comparative Accuracy </font>](soe.html)
+
+<font size = 6> Reversal </font>
+
+[<font size = 5> Sugammadex vs. Neostigmine </font>](reversal.html)
+
 [<font size = 5> Evidence Tables </font>](evidence_tables.html)
 
 [<font size = 5> Appendix </font>](appendix.html)
 
+<br/><br/>
 
-<!-- <font size = 6> Strength of Evidence Ratings </font> -->
-
-<!-- [<font size = 5> Summary of Findings Tables </font>](soe_final.html) -->
-
-<br><br>
+<font size = 3> All results are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail). </font>
