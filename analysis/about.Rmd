@@ -1,26 +1,11 @@
 ---
 title: "About"
-date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+site: workflowr::wflow_site
 output:
-  html_document:
+  workflowr::wflow_html:
     font: Source Sans Pro
     theme: cosmo
-    anchor_sections: TRUE
-    toc_float: 
-      collapsed: true
-      smooth_scroll: TRUE
-    toc_depth: 3
-    linkcolor: blue
-  latex_engine: xelatex
-  pdf_document:
-    toc: yes
-    toc_depth: '3'
-# bibliography: "bib/cho.bib"
-# csl: jama.csl
-# link-citations: yes
-workflowr:
-  suppress_report: false
-# nocite: '@*'
+    toc: false
 ---
 
 ```{=html}

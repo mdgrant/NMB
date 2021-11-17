@@ -1,18 +1,11 @@
 ---
 title: "Home"
-# date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+site: workflowr::wflow_site
 output:
-  html_document:
+  workflowr::wflow_html:
     font: Source Sans Pro
     theme: cosmo
-    # anchor_sections: TRUE
-    # toc_float: 
-    #   collapsed: true
-    #   smooth_scroll: TRUE
-    # toc_depth: 3
-    linkcolor: blue
-workflowr:
-  suppress_report: false
+    toc: false
 ---
 
 ```{=html}
