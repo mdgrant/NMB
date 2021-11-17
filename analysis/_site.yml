@@ -8,7 +8,7 @@ navbar:
   - text: Diagnostic
     href: kq2.html
   - text: Reversal
-    href: Reversal.html
+    href: reversal.html
   - text: Evidence Tables
     href: evidence_tables.html
   - text: Appendices
