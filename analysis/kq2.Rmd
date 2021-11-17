@@ -301,8 +301,7 @@ included_studies.dat %>%
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
-      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country.",
-    "Multiple publications of the same study."),
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
     general_title = "",
     footnote_as_chunk = FALSE
   )
