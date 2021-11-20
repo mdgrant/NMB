@@ -397,7 +397,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">KQ2</h1>
-<h4 class="date">17 November, 2021 (16:25)</h4>
+<h4 class="date">20 November, 2021 (16:24)</h4>
 
 </div>
 
@@ -422,7 +422,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-17
+<strong>Last updated:</strong> 2021-11-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -513,16 +513,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeff838bd68936b6a5a7ba4ab701dab7238e289e47targetblankff838bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/ff838bd68936b6a5a7ba4ab701dab7238e289e47" target="_blank">ff838bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3bca2c9a9114446957f88b14ad1be3c09ee3914ctargetblank3bca2c9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/3bca2c9a9114446957f88b14ad1be3c09ee3914c" target="_blank">3bca2c9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeff838bd68936b6a5a7ba4ab701dab7238e289e47targetblankff838bda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3bca2c9a9114446957f88b14ad1be3c09ee3914ctargetblank3bca2c9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/ff838bd68936b6a5a7ba4ab701dab7238e289e47" target="_blank">ff838bd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/3bca2c9a9114446957f88b14ad1be3c09ee3914c" target="_blank">3bca2c9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -533,13 +533,25 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    _@@/
+    Ignored:    analysis/index (original).Rmd
+    Ignored:    code/helpers.R
+    Ignored:    code/rob_summary.R
+    Ignored:    code/rob_traffic_light.R
+    Ignored:    code/rob_traffic_light_mg.R
+    Ignored:    used_files_dates.txt
+    Ignored:    used_rob_files_dates.txt
 
 Untracked files:
     Untracked:  .temp.lb
+    Untracked:  analysis/.gitignore
+    Untracked:  code/.gitignore
+    Untracked:  code/rob_111921.R
     Untracked:  data/
-    Untracked:  used_files_dates.txt
 
 Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/bib/nmb_all.bib
+    Modified:   analysis/index.Rmd
     Modified:   analysis/kq2.Rmd
 
 </code></pre>
@@ -579,6 +591,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/334af0c3a551e16bb4f317738229140c13097019/analysis/kq2.Rmd" target="_blank">334af0c</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-11-17
+</td>
+<td>
+remove footnote
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/334af0c3a551e16bb4f317738229140c13097019/docs/kq2.html" target="_blank">334af0c</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-11-17
+</td>
+<td>
+remove footnote
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1163,8 +1209,779 @@ Gen, Ortho, ENT, Plastic
 <p><br/></p>
 <div id="agreement" class="section level2">
 <h2><em>Agreement</em></h2>
-<p><font size = 4> Table 3. Text </font></p>
 <p><br/></p>
+<p><font size = 4> Table 3. Characteristics of monitors in studies reporting agreement (Bland-Altman) at specific TOFRs. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Index Device
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Reference Device
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Study<sup>a</sup>
+</th>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:left;">
+Type
+</th>
+<th style="text-align:left;">
+Monitor
+</th>
+<th style="text-align:center;">
+Pre
+</th>
+<th style="text-align:center;">
+Nml
+</th>
+<th style="text-align:left;">
+Type
+</th>
+<th style="text-align:left;">
+Monitor
+</th>
+<th style="text-align:center;">
+Pre
+</th>
+<th style="text-align:center;">
+Nml
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#1864">Capron 2006</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+32
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:left;width: 6em; ">
+MMG
+</td>
+<td style="text-align:left;width: 10em; ">
+Mechanomyograph
+</td>
+<td style="text-align:center;width: 4em; ">
+ns
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2120">Claudius 2009</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 6em; ">
+MMG
+</td>
+<td style="text-align:left;width: 10em; ">
+Mechanomyograph
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 6em; ">
+MMG
+</td>
+<td style="text-align:left;width: 10em; ">
+Mechanomyograph
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2566">Liang 2013</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+26
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 8em; ">
+Infinity Trident
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 10em; ">
+NMT-EMG
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2698">Stewart 2014</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+16
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 8em; ">
+ElectroSensor
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+KMG
+</td>
+<td style="text-align:left;width: 10em; ">
+MechanoSensor
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2877">Khandkar 2016</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+18
+</td>
+<td style="text-align:left;width: 6em; ">
+KMG
+</td>
+<td style="text-align:left;width: 8em; ">
+MechanoSensor
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 10em; ">
+ElectroSensor
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3180">Murphy (b) 2018</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+23
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (tri)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 10em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+23
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (tri)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (uni)
+</td>
+<td style="text-align:left;width: 10em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3392">Bowdle 2020</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (tri)
+</td>
+<td style="text-align:left;width: 8em; ">
+StimPod NMS 450
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:left;width: 6em; ">
+MMG
+</td>
+<td style="text-align:left;width: 10em; ">
+Mechanomyograph
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 8em; ">
+TwitchView
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:left;width: 6em; ">
+MMG
+</td>
+<td style="text-align:left;width: 10em; ">
+Mechanomyograph
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 8em; ">
+TwitchView
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:left;width: 6em; ">
+</td>
+<td style="text-align:left;width: 10em; ">
+TOF Watch S
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+<td style="text-align:center;width: 4em; ">
+￮
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3644">Renew 2021</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+115
+</td>
+<td style="text-align:left;width: 6em; ">
+AMG (tri)
+</td>
+<td style="text-align:left;width: 8em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 6em; ">
+EMG
+</td>
+<td style="text-align:left;width: 10em; ">
+TetraGraph
+</td>
+<td style="text-align:center;width: 4em; ">
+ns
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Pre: preload; Nml: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; ×: yes; ￮: no.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Fully paired designs.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+<p><font size = 4> Table 4. Reported agreement (Bland-Altman) at specific TOFRs. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: left; font-weight: bold; " colspan="1">
+<div style="">
+    Index
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: left; font-weight: bold; " colspan="1">
+<div style="">
+    Reference
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: left; font-weight: bold; " colspan="1">
+<div style="">
+TOFR
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: left; font-weight: bold; " colspan="1">
+<div style="">
+    Limits of
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study<sup>a</sup>
+</th>
+<th style="text-align:right;font-weight: bold;">
+N
+</th>
+<th style="text-align:left;font-weight: bold;">
+  Monitor
+</th>
+<th style="text-align:center;font-weight: bold;">
+    Monitor
+</th>
+<th style="text-align:left;font-weight: bold;">
+Compared
+</th>
+<th style="text-align:left;font-weight: bold;">
+    Bias (95% CI)
+</th>
+<th style="text-align:left;font-weight: bold;">
+  Agreement
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#1864">Capron 2006</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+32
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 9em; ">
+MMG
+</td>
+<td style="text-align:left;width: 6em; ">
+0.9
+</td>
+<td style="text-align:left;width: 10em; ">
+5.3% (-21% to 31%)
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2120">Claudius 2009</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 9em; ">
+MMG
+</td>
+<td style="text-align:left;width: 6em; ">
+1.0
+</td>
+<td style="text-align:left;width: 10em; ">
+0.06 (0.04 to 0.08)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.02 to 0.15)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Watch
+</td>
+<td style="text-align:center;width: 9em; ">
+MMG
+</td>
+<td style="text-align:left;width: 6em; ">
+1.0
+</td>
+<td style="text-align:left;width: 10em; ">
+0.06 (0.03 to 0.08)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.01 to 0.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2566">Liang 2013</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+26
+</td>
+<td style="text-align:left;width: 9em; ">
+Infinity Trident
+</td>
+<td style="text-align:center;width: 9em; ">
+NMT-EMG
+</td>
+<td style="text-align:left;width: 6em; ">
+1.0
+</td>
+<td style="text-align:left;width: 10em; ">
+0.15 (0.12 to 0.17)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.06 to 0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2698">Stewart 2014</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+16
+</td>
+<td style="text-align:left;width: 9em; ">
+ElectroSensor
+</td>
+<td style="text-align:center;width: 9em; ">
+MechanoSensor
+</td>
+<td style="text-align:left;width: 6em; ">
+0.9
+</td>
+<td style="text-align:left;width: 10em; ">
+0.08
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.08 to 0.25)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#2877">Khandkar 2016</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+18
+</td>
+<td style="text-align:left;width: 9em; ">
+MechanoSensor
+</td>
+<td style="text-align:center;width: 9em; ">
+ElectroSensor
+</td>
+<td style="text-align:left;width: 6em; ">
+0.9
+</td>
+<td style="text-align:left;width: 10em; ">
+0.08 (0.06 to 0.09)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.12 to 0.27)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3180">Murphy (b) 2018</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+23
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 9em; ">
+TOF Watch
+</td>
+<td style="text-align:left;width: 6em; ">
+All
+</td>
+<td style="text-align:left;width: 10em; ">
+0.015 (-0.002 to 0.031)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.1 to 0.13)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+23
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 9em; ">
+TOF Watch
+</td>
+<td style="text-align:left;width: 6em; ">
+All
+</td>
+<td style="text-align:left;width: 10em; ">
+0.021 (0.001 to 0.04)
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.1 to 0.14)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3392">Bowdle 2020</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 9em; ">
+StimPod NMS 450
+</td>
+<td style="text-align:center;width: 9em; ">
+MMG
+</td>
+<td style="text-align:left;width: 6em; ">
+All
+</td>
+<td style="text-align:left;width: 10em; ">
+-9.8%
+</td>
+<td style="text-align:left;width: 8em; ">
+(-51.3% to 31.8%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 9em; ">
+TwitchView
+</td>
+<td style="text-align:center;width: 9em; ">
+MMG
+</td>
+<td style="text-align:left;width: 6em; ">
+All
+</td>
+<td style="text-align:left;width: 10em; ">
+-4.7%
+</td>
+<td style="text-align:left;width: 8em; ">
+(-34.9% to 25.2%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:right;width: 4em; ">
+43
+</td>
+<td style="text-align:left;width: 9em; ">
+TwitchView
+</td>
+<td style="text-align:center;width: 9em; ">
+TOF Watch S
+</td>
+<td style="text-align:left;width: 6em; ">
+All
+</td>
+<td style="text-align:left;width: 10em; ">
+14.9%
+</td>
+<td style="text-align:left;width: 8em; ">
+(-13.0% to 42.8%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+<a href="evidence_tables.html#3644">Renew 2021</a>
+</td>
+<td style="text-align:right;width: 4em; ">
+115
+</td>
+<td style="text-align:left;width: 9em; ">
+TOF Scan
+</td>
+<td style="text-align:center;width: 9em; ">
+TetraGraph
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 10em; ">
+0.03
+</td>
+<td style="text-align:left;width: 8em; ">
+(-0.28 to 0.34)
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> MMG: mechanomyography.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Fully paired designs.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 </div>
 <div id="studyparticipant-detail" class="section level1">
@@ -1173,7 +1990,28 @@ Gen, Ortho, ENT, Plastic
 <div id="study-characteristics" class="section level3">
 <h3><em>Study Characteristics</em></h3>
 <p><br></p>
-<p><font size = 4> Table 3. Study characteristics. </font></p>
+<p><font size = 4> Table 5. Study characteristics. </font></p>
+<p><br/></p>
+</div>
+</div>
+<div id="risk-of-bias" class="section level1">
+<h1><strong>Risk of Bias</strong></h1>
+<p><br/></p>
+<div id="quadas-2" class="section level3">
+<h3><em>QUADAS-2</em></h3>
+<p><br></p>
+<p><font size = 4> Figure 1. Summary risk of bias appraisal (QUADAS-2) for included studies . </font></p>
+<p><img src="assets/QUADAS2_summary.png" style="width:750px;" align="left"/></p>
+<p><br clear="all" /></p>
+<p><font size = 4> Figure 2. Individual study risk of bias appraisal QUADAS-2) for included studies. </font></p>
+<p><img src="assets/QUADAS2_traffic.png" style="width:350px;" align="left"/></p>
+<p><br clear="all" /></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<p><br></p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
 <p><br/></p>
 <div id="refs" class="references csl-bib-body">
 <div id="ref-Capron2006" class="csl-entry">
@@ -1244,7 +2082,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.0-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [1] meta_5.1-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
  [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.0      
  [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
 [13] Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
@@ -1279,7 +2117,6 @@ loaded via a namespace (and not attached):
 [79] gtable_0.3.0           assertthat_0.2.1       xfun_0.28             
 [82] broom_0.7.10           later_1.3.0            viridisLite_0.4.0     
 [85] workflowr_1.6.2        ellipsis_0.3.2        </code></pre>
-</div>
 </div>
 </div>
 

@@ -43,7 +43,7 @@ display: none !important;
 
 <font size = 6> Diagnostic </font>
 
-[<font size = 5> Comparative Accuracy </font>](soe.html)
+[<font size = 5> Comparative Accuracy </font>](kq2.html)
 
 <font size = 6> Reversal </font>
 
