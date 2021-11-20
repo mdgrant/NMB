@@ -51,7 +51,13 @@ display: none !important;
 
 [<font size = 5> Evidence Tables </font>](evidence_tables.html)
 
-[<font size = 5> Appendix </font>](appendix.html)
+<br/>
+
+<font size = 6> Appendix </font>
+
+[<font size = 5> PRISMA </font>](prisma.html)
+
+[<font size = 5> Outcome Importance </font>](outcome_importance.html)
 
 <br/><br/>
 

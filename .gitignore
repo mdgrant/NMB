@@ -10,3 +10,5 @@ analysis/*html
 analysis/*_cache
 analysis/site_libs
 _@@
+used_files_dates.txt
+used_rob_files_dates.txt
