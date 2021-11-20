@@ -460,14 +460,15 @@ bland_altman_kbl_at %>%
   add_header_above(c(" " = 2, "Index Device" = 4, "Reference Device" = 4), line = TRUE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(0, bold = TRUE) %>% 
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "6em") %>%
-  column_spec(4, width = "8em") %>%
+  column_spec(4, width = "9em") %>%
   column_spec(5, width = "4em") %>%
   column_spec(6, width = "4em") %>%
   column_spec(7, width = "6em") %>%
-  column_spec(8, width = "10em") %>%
+  column_spec(8, width = "9em") %>%
   column_spec(9, width = "4em") %>%
   column_spec(10, width = "4em") %>%
   footnote(
@@ -530,18 +531,19 @@ bland_altman_kbl_at %>%
       levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
       labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
     ),
+    # ba_ind_thresh = ifelse(refid == 2120, "tofr9^b^", ba_ind_thresh),
     ba_ind_thresh = factor(ba_ind_thresh,
-      levels = c("all_meas", "tofr_at1", "tofr_at9", "tofr_pacu"),
-      labels = c("All", "1.0", "0.9", "PACU")),
+      levels = c("all_meas", "tofr_at1", "tofr_at9", "tofr_pacu", "tofr9^b^"),
+      labels = c("All", "1.0", "0.9", "PACU", "0.9^b^")),
     # ref_mon = ifelse(ref_mon == "MMG", "Mechanomyograph", ref_mon),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
   select(study_l, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
   kbl(
-    booktabs = T, align = c("lrlcll"),
+    booktabs = T, align = c("lrllcll"),
     col.names = c("Study^a^", "N", "  Monitor", "    Monitor", "Compared", "    Bias (95% CI)", "  Agreement")
   ) %>%
-  add_header_above(c(" " = 2, "    Index" = 1, "    Reference" = 1, "TOFR" = 1, " " = 1, "    Limits of" = 1), align = "l", line = FALSE, bold = TRUE) %>%
+  add_header_above(c(" " = 2, "    Index" = 1, "    Reference" = 1, "       TOFR" = 1, " " = 1, "    Limits of" = 1), align = "l", line = FALSE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   row_spec(0, bold = TRUE) %>% 
@@ -551,7 +553,7 @@ bland_altman_kbl_at %>%
   column_spec(4, width = "9em") %>%
   column_spec(5, width = "6em") %>%
   column_spec(6, width = "10em") %>%
-  column_spec(7, width = "8em") %>%
+  column_spec(7, width = "10em") %>%
   footnote(
     general = c("MMG: mechanomyography."),
     alphabet = c("Fully paired designs."),
