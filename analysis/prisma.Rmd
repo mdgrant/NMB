@@ -81,4 +81,4 @@ figure_n <- 1
 
 # **PRISMA Diagram**
 
-<img src="assets/nmb_prisma_111121.png" style="width:800px;" align="left"/>
+<img src="assets/nmb_prisma_111121.png" style="width:600px;" align="left"/>
