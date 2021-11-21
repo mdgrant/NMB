@@ -266,7 +266,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
+<font size = 4> Table `r table_n`. Studies, design, enrollment, centers, country, and surgery (see [References](kq2.html#References) for citations). </font>
 
 ```{r studiesIncludedList, echo = FALSE, include = TRUE}
 ## • (updated 2021/11/16 09:06) included_studies.dat ----------------------
@@ -718,6 +718,6 @@ figure_n <- fig_inc()
 
 <br>
 
-# References {#references} 
+# References {#references}     
 
 <br/>
