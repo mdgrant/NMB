@@ -46,12 +46,12 @@ display: none;
 display: none !important; 
 }
 
-:target {  /* fix target location so caption appears */
-    display: block;    
-    position: relative;     
-    top: 10px;
-    visibility: hidden;
-}
+<!-- :target {  /* fix target location so caption appears */ -->
+<!--     display: block;     -->
+<!--     position: relative;      -->
+<!--     top: 10px; -->
+<!--     visibility: hidden; -->
+<!-- } -->
 
 </style>
 ```
@@ -64,7 +64,7 @@ source("code/readfiles_nmb_102721.R")
 ```
 
 ```{r data}
-# reversal refids
+## (updated 2021/11/21 10:06) reversal refids -----------------------------
 rev_refids <- study_char.dat %>% 
   filter(rev_agt == "rev_agt") %>% 
   pull(refid) %>% 
@@ -182,16 +182,16 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 86) %>%
-  pack_sub(., "RCT", 1, 76, bold = TRUE) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 77, 79, bold = FALSE) %>% 
-  pack_sub(., "Prospective Cohort", 80, 82) %>% 
-  pack_sub(., "Retrospective Cohort", 83, 86) %>% 
-  pack_top(., "All ages", 87, 90) %>% 
-  pack_sub(., "RCT", 87, 90) %>% 
-  pack_top(., "Pediatric", 91, 99) %>%
-  pack_sub(., "RCT", 91, 98) %>% 
-  pack_sub(., "Case-control", 99, 99) %>% 
+  pack_top(., "Adult", 1, 104) %>%
+  pack_sub(., "RCT", 1, 91) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 92, 95) %>% 
+  pack_sub(., "Prospective Cohort", 96, 99) %>% 
+  pack_sub(., "Retrospective Cohort", 100, 104) %>% 
+  pack_top(., "All ages", 105, 108) %>% 
+  pack_sub(., "RCT", 105, 108) %>% 
+  pack_top(., "Pediatric", 109, 120) %>%
+  pack_sub(., "RCT", 109, 119) %>% 
+  pack_sub(., "Case-control", 120, 120) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -203,3 +203,7 @@ included_studies.dat %>%
 table_n <- tab_inc()
 ```
 
+
+
+# References 
+<a id="references"></a>
