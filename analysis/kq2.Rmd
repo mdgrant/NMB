@@ -383,7 +383,7 @@ bland_altman.dat <- bind_rows(temp1, temp2) %>%
   remove_empty(which = "cols") %>% 
   rename_at(vars(starts_with("ba1")), ~ str_replace(., "ba1", "ba")) 
 
-write_csv(bland_altman.dat, file = "/Users/mgrant/Desktop/bland_altman.csv", na = "")
+# write_csv(bland_altman.dat, file = "/Users/mgrant/Desktop/bland_altman.csv", na = "")
 
 rm(temp1, temp2)
 
@@ -449,8 +449,9 @@ bland_altman_kbl_at <- bland_altman_kbl %>%
     ba_result = ifelse(refid == 3392 & arm_id %in% c(1), "-0.98", ba_result),
     ba_result = ifelse(refid == 3392 & arm_id %in% c(2), "-0.47", ba_result),
     ba_loa = ifelse(refid == 3392 & arm_id %in% c(1), "(-0.51 to 0.32)", ba_loa),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(2), "(-0.35 to 0.25)", ba_loa)
-  )
+    ba_loa = ifelse(refid == 3392 & arm_id %in% c(2), "(-0.35 to 0.25)", ba_loa),
+    # post change
+    )
 
 # write.csv(bland_altman_kbl_at, file = "/Users/mgrant/Desktop/bland_altman_kbl_at1.csv")
   
@@ -531,7 +532,11 @@ bland_altman_kbl_at <- bland_altman_kbl %>%
     ba_result = ifelse(refid == 3392 & arm_id %in% c(3), "14.9%", ba_result),
     ba_loa = ifelse(refid == 3392 & arm_id %in% c(1), "(-51.3% to 31.8%)", ba_loa),
     ba_loa = ifelse(refid == 3392 & arm_id %in% c(2), "(-34.9% to 25.2%)", ba_loa),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(3), "(-13.0% to 42.8%)", ba_loa)
+    ba_loa = ifelse(refid == 3392 & arm_id %in% c(3), "(-13.0% to 42.8%)", ba_loa),
+    ba_ind_thresh = case_when(
+      refid == 1864 ~ "all_meas",
+      TRUE ~ ba_ind_thresh
+    )
   )
 
 # write.csv(bland_altman_kbl_at, file = "/Users/mgrant/Desktop/bland_altman_kbl_at1.csv")
