@@ -47,12 +47,12 @@ display: none;
 display: none !important; 
 }
 
-<!-- :target {  /* fix target location so caption appears */ -->
-<!--     display: block; -->
-<!--     position: relative; -->
-<!--     top: -60px; -->
-<!--     visibility: display; -->
-<!-- } -->
+:target {  /* fix target location so caption appears */
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: display;
+}
 
 </style>
 ```
@@ -71,9 +71,9 @@ evidence_tables <- study_char.dat %>%
     # study = author,
     study = str_replace(study, " ", " <br/> "),
     link = paste0("<a id=", shQuote(as.character(refid)), "></a>"),
-    reference = paste0("[@", author, year, "]"),
-    reference = str_replace(reference, " \\(b\\)", ""),
-    study = paste0(link, study, reference),
+    # reference = paste0("[@", author, year, "]"),
+    # reference = str_replace(reference, " \\(b\\)", ""),
+    study = paste0(link, study),
     # <a id="choTab15"></a>
     # link = paste0("<a id=\", refid, "\", "\\>\</a>"),
     include = firstup(include),
@@ -86,7 +86,7 @@ evidence_tables <- study_char.dat %>%
     incl_excl = str_replace(incl_excl, " NA", " Not specified.")
   ) %>% 
   # select(study, reference)
-  select(-c(author, reference))
+  select(-c(author))
 
 ```
 
@@ -107,7 +107,7 @@ temp <- evidence_tables %>%
 evidence_tables %>%
   filter(diag_acc == "diag_acc") %>% 
   arrange(age, design, study) %>% 
-  select(-c(refid, link, diag_acc:rev_agt, design, age, year)) %>%
+  select(study, n_enrolled, incl_excl, results, comment) %>% 
   kbl(
     booktabs = T, align = c("lclll"), escape = FALSE,
     col.names = c("Study", "N", "Inclusion Criteria", "Exclusion Criteria", "Results")
@@ -115,18 +115,19 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 33, TRUE, indent = FALSE) %>%
-  pack_sub(., "RCT", 1, 13, TRUE) %>%
-  pack_sub(., "Fully Paired", 14, 29, bold = TRUE) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 30, 31, bold = TRUE) %>%
-  pack_sub(., "Prospective Cohort", 32, 32, TRUE) %>%
-  pack_sub(., "Retrospective Cohort", 33, 33, TRUE) %>%
-  pack_top(., "Pediatric", 34, 34) %>%
+  pack_top(., "Adult", 1, 34) %>%
+  pack_sub(., "RCT", 1, 12) %>%
+  pack_sub(., "Fully Paired", 13, 30) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 31, 32) %>%
+  pack_sub(., "Prospective Cohort", 33, 33) %>%
+  pack_sub(., "Retrospective Cohort", 34, 34) %>%
+  pack_top(., "Pediatric", 35, 35) %>%
+  pack_sub(., "Fully Paired", 35, 35) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
-  column_spec(3, width = "18em") %>%
-  column_spec(4, width = "18em") %>%
-  column_spec(5, width = "30em")
+  column_spec(3, width = "17em") %>%
+  column_spec(4, width = "17em") %>%
+  column_spec(5, width = "28em")
 
 ```
 
@@ -142,13 +143,14 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 33, FALSE) %>%
-  pack_sub(., "RCT", 1, 13, TRUE) %>%
-  pack_sub(., "Fully Paired", 14, 29, TRUE) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 30, 31, TRUE) %>%
-  pack_sub(., "Prospective Cohort", 32, 32, TRUE) %>%
-  pack_sub(., "Retrospective Cohort", 33, 33, TRUE) %>%
-  pack_top(., "Pediatric", 34, 34, FALSE) %>%
+  pack_top(., "Adult", 1, 34) %>%
+  pack_sub(., "RCT", 1, 12) %>%
+  pack_sub(., "Fully Paired", 13, 30) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 31, 32) %>%
+  pack_sub(., "Prospective Cohort", 33, 33) %>%
+  pack_sub(., "Retrospective Cohort", 34, 34) %>%
+  pack_top(., "Pediatric", 35, 35) %>%
+  pack_sub(., "Fully Paired", 35, 35) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "20em") %>%
@@ -173,29 +175,30 @@ temp <- evidence_tables %>%
 evidence_tables %>%
   filter(rev_agt == "rev_agt") %>% 
   arrange(age, design, study) %>% 
-  select(-c(refid, link, diag_acc:rev_agt, design, age, year, comment, incl_excl)) %>%
+  select(study, n_enrolled, incl_excl, results, comment) %>% 
+  # select(-c(refid, link, diag_acc:rev_agt, design, age, year, comment, incl_excl)) %>%
   kbl(
     booktabs = T, align = c("lclll"), escape = FALSE,
-    col.names = c("Study", "N", "Inclusion Criteria", "Exclusion Criteria", "Results")
+    col.names = c("Study", "N", "Inclusion/Exclusion Criteria", "Results", "Comment")
   ) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 86, FALSE) %>%
-  pack_sub(., "RCT", 1, 76, bold = TRUE) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 77, 79, bold = TRUE) %>%
-  pack_sub(., "Prospective Cohort", 80, 82) %>%
-  pack_sub(., "Retrospective Cohort", 83, 86) %>%
-  pack_top(., "All Ages", 87, 90, FALSE) %>%
-  pack_sub(., "RCT", 91, 98) %>%
-  pack_top(., "Pediatric", 91, 99, FALSE) %>%
-  pack_sub(., "RCT", 91, 98) %>%
-  pack_sub(., "Case Control", 99, 99) %>%
+  pack_top(., "Adult", 1, 104) %>%
+  pack_sub(., "RCT", 1, 91) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 92, 95) %>%
+  pack_sub(., "Prospective Cohort", 96, 99) %>%
+  pack_sub(., "Retrospective Cohort", 100, 104) %>%
+  pack_top(., "All Ages", 105, 108) %>%
+  pack_sub(., "RCT", 105, 108) %>%
+  pack_top(., "Pediatric", 109, 120) %>%
+  pack_sub(., "RCT", 109, 119) %>%
+  pack_sub(., "Case Control", 120, 120) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
-  column_spec(3, width = "18em") %>%
-  column_spec(4, width = "18em") %>%
-  column_spec(5, width = "30em")
+  column_spec(3, width = "20em") %>%
+  column_spec(4, width = "20em") %>%
+  column_spec(5, width = "24em")
 
 ```
 

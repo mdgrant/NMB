@@ -270,8 +270,15 @@ table_n <- tab_inc()
 
 ```{r studiesIncludedList, echo = FALSE, include = TRUE}
 ## • (updated 2021/11/16 09:06) included_studies.dat ----------------------
-included_studies.dat <- study_char_ba.dat %>%
+included_studies.dat <- study_char.dat %>%
+  filter(refid %in% diag_refids) %>%
+  # filter(refid == 2703)
   mutate(
+    design_l = as.character(design),
+    design_l = factor(design_l,
+      levels = c("rct", "fully_paired", "nrsi", "prospect_coh", "retrospect_coh"),
+      labels = c("RCT", "Fully paired", "NRSI", "Prospective Cohort", "Retrospective Cohort")
+    ),
     across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
     across(surg_various:surg_other, ~ str_c(.x, ", ")),
     across(surg_various:surg_other, ~ firstup(.x)),
@@ -284,16 +291,26 @@ included_studies.dat <- study_char_ba.dat %>%
     country = ifelse(grepl("USA", country), "USA", country),
     country = ifelse(grepl("UK", country), "UK", country),
     country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country),
-    design = case_when(
-      design == "rct" ~ "RCT",
-      design == "fully_paired" ~ "Fully paired"
-    ),
-    design = ifelse(study == "Claudius 2009", "Fully paired (random subset)", design)
-  ) %>% 
-  select(refid, study_l, year, age, design, n_analyze, country, centers, non_vh_hdi, surgs) %>% 
-  arrange(age, design, year) 
+    # design = case_when(
+    #   design == "rct" ~ "RCT",
+    #   design == "fully_paired" ~ "Fully paired"
+    # ),
+    # design = ifelse(study == "Claudius 2009", "Fully paired (random subset)", design)
+  ) %>%
+  select(refid, study_l, year, age, design, design_l, n_analyze, country, centers, non_vh_hdi, surgs) %>%
+  arrange(age, design_l, year) 
 
 ## • (updated 2021/11/16 09:06) kable -------------------------------------
+temp <- included_studies.dat %>%
+  arrange(age, design_l, study_l) %>% 
+  select(study_l, refid, age, design_l) %>% 
+  group_by(age, design_l) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(end = cumsum(n),
+         start = end - n + 1) %>% 
+  select(age, design_l, start, end)
+
 included_studies.dat %>% 
   select(refid, study_l, n_analyze, centers, country, surgs) %>% 
   kbl(
@@ -309,11 +326,14 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 15) %>%
-  pack_sub(., "Fully Paired", 1, 14, bold = TRUE) %>% 
-  pack_sub(., "Fully Paired (random subset)", 15, 15, bold = TRUE) %>% 
-  pack_top(., "Pediatric", 16, 16) %>%
-  pack_sub(., "Fully Paired", 16, 16, bold = TRUE) %>% 
+  pack_top(., "Adult", 1, 34) %>%
+  pack_sub(., "RCT", 1, 12) %>% 
+  pack_sub(., "Fully Paired", 13, 30) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 31, 32) %>% 
+  pack_sub(., "Prospective Cohort", 33, 33) %>% 
+  pack_sub(., "Retrospective Cohort", 34, 34) %>% 
+  pack_top(., "Pediatric", 35, 35) %>% 
+  pack_sub(., "Fully Paired", 35, 35) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
