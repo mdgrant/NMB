@@ -60,31 +60,46 @@ display: none !important;
 ## • (updated 2021/11/10 21:46) setup -------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
-
 ```
 
 ```{r data, include = FALSE, eval = TRUE}
+## not run find comparisons not including quantative monitors ####
+# not_refids <- contin.dat %>%
+#     filter(str_detect(study_arm_k, "diag_acc")) %>% 
+#   select(refid:author, arm_n, subgroup, study_arm_k, mon_type, arm_diag_acc, mon_cat, mon_type, mon_notes) %>%
+#   mutate(
+#     subgroup = replace_na(subgroup, "none"),
+#     subgroup_up = ifelse(subgroup %in% "none", "", paste0("_", subgroup)),
+#     arm = paste0("diag_acc", subgroup_up),
+#   ) %>% 
+#   filter(!str_detect(mon_cat, "qual|clinical")) 
+
 ## • (updated 2021/11/16 09:02) create diag_ba.dat refids -----------------
-# refids diag all, bland-altman, mean diff, snsp
+
+# refids, bland-altman, mean diff, sens/spec
 diag_refids <- contin.dat %>% 
   filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!str_detect(mon_cat, "qual|clinical")) %>% 
   pull(refid) %>% 
   unique()
 
 diag_ba_refids <- contin.dat %>% 
   filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!str_detect(mon_cat, "qual|clinical")) %>% 
   filter_at(vars(ba1_ind_thresh:ba1_pval), any_vars(!is.na(.))) %>% 
   pull(refid) %>% 
   unique()
 
 diag_mn_refids <- contin.dat %>% 
   filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!str_detect(mon_cat, "qual|clinical")) %>% 
   filter_at(vars(tofr8_mean:tofr_fade_md_pval), any_vars(!is.na(.))) %>% 
   pull(refid) %>% 
   unique()
 
 diag_snsp_refids <- contin.dat %>% 
   filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!str_detect(mon_cat, "qual|clinical")) %>% 
   filter_at(vars(sens_ind_thresh:npv2_iqr_u), any_vars(!is.na(.))) %>% 
   pull(refid) %>% 
   unique()
@@ -93,87 +108,19 @@ study_arm_ba.dat <- study_arm.dat %>%
   filter(refid %in% diag_ba_refids)
 
 study_char_ba.dat <- study_char.dat %>% 
-  filter(refid %in% diag_ba_refids)   
+  filter(refid %in% diag_ba_refids) 
+
+study_arm_mn.dat <- study_arm.dat %>% 
+  filter(refid %in% diag_mn_refids)
+
+study_char_mn.dat <- study_char.dat %>% 
+  filter(refid %in% diag_mn_refids) 
 
 # study arm data to add (preload)
 study_arm_add <- study_arm_ba.dat %>% 
   select(refid, arm_id, mon_preload)
 
-## (updated 2021/11/19 19:39) diag_ba.dat ---------------------------------
-diag_ba.dat <- contin.dat %>%
-  filter(refid %in% diag_ba_refids) %>%
-  mutate(
-    subgroup = replace_na(subgroup, "none"),
-    subgroup_up = ifelse(subgroup == "none", "", paste0("_", subgroup)),
-    arm = paste0("diag_acc", subgroup_up),
-    mon_name = ifelse(mon_name == "Other Brand", mon_brand_oth, mon_name)
-  ) %>%
-  rename(ind_test = arm_diag_acc, ref_test = ba1_ref) %>%
-  select(-author) %>%
-  # add preload from study_arm.dat
-  left_join(study_arm_add, by = c("refid", "arm_id")) %>%
-  relocate(mon_preload, .after = mon_type) %>%
-  # add monitor brand for referent
-  mutate(
-    mon_arm1 = case_when(
-      # arm 2 or 3 referent in arm 1
-      arm_id == 2 ~ lag(mon_name),
-      arm_id == 3 ~ lag(mon_name, n = 2),
-      TRUE ~ NA_character_
-    ),
-    mon_arm2 = case_when(
-      arm_id == 3 ~ lag(mon_name, n = 1),
-      arm_id == 1 ~ lead(mon_name),
-      TRUE ~ NA_character_
-    ),
-    # add preload by arm
-    mon_preload1 = case_when(
-      # arm 2 or 3 referent in arm 1
-      arm_id == 2 ~ lag(mon_preload),
-      arm_id == 3 ~ lag(mon_preload, n = 2),
-      TRUE ~ NA_character_
-    ),
-    mon_preload2 = case_when(
-      arm_id == 3 ~ lag(mon_preload, n = 1),
-      arm_id == 1 ~ lead(mon_preload),
-      TRUE ~ NA_character_
-    ),
-    # # add normalized by arm
-    # mon_norm_ind = case_when(
-    #   # arm 2 or 3 referent in arm 1
-    #   arm_id == 1 ~ ba_ind1_norm),
-    #   arm_id == 3 ~ lag(mon_norm, n = 2),
-    #   TRUE ~ NA_character_
-    # ),
-    # mon_norm2 = case_when(
-    #   arm_id == 3 ~ lag(mon_norm, n = 1),
-    #   arm_id == 1 ~ lead(mon_norm),
-    #   TRUE ~ NA_character_
-    # ),
-    across(contains("preload"), ~ str_replace(.x, "preload_", ""))
-  ) %>% 
-  # select(refid, study, arm_id, starts_with("mon")) %>%
-  # filter(refid == 2844) %>% 
-  # filter_at(vars(ba1_ind_thresh:ba1_pval), any_vars(!is.na(.))) %>%
-  # remove_empty(which = "cols") %>%
-  # single variable for referent brand (2 arm studies)
-  mutate(
-    ref_mon = NA_character_,
-    ref_mon = ifelse(arm_id == 2, mon_arm1, ref_mon),
-    ref_mon = ifelse(arm_id == 1, mon_arm2, ref_mon),
-    ref_mon = ifelse(ref_test == "mmg", "MMG", ref_mon),
-    ref_preload = NA_character_,
-    ref_preload = ifelse(arm_id == 2, mon_preload1, ref_preload),
-    ref_preload = ifelse(arm_id == 1, mon_preload2, ref_preload)
-  ) %>% 
-  rename(ind_mon = mon_name, ind_preload = mon_preload) %>% 
-  select(refid, study, arm_id, year, design, age, arm, arm_n, subgroup, subgroup_up, ind_test, ind_mon, ref_test, ref_mon, ends_with("norm"), starts_with("mon"), contains("time_from"),  starts_with("ba"), bland_altman, everything()) %>% 
-  arrange(ind_test, ref_test) 
-  # select(refid, study, arm_id, ind_mon, ind_preload, ref_mon, ref_preload, contains("mon"), contains("preload"))
-
-write_csv(diag_ba.dat, file = "/Users/mgrant/Desktop/diag_ba.csv", na = "")
-
-## (updated 2021/11/19 19:43) diag_mn.dat ---------------------------------
+## ○ (updated 2021/11/19 19:43) diag_mn.dat ---------------------------------
 diag_mn.dat <- contin.dat %>% 
   filter(refid %in% diag_mn_refids) %>% 
   mutate(
@@ -184,25 +131,28 @@ diag_mn.dat <- contin.dat %>%
     ) %>% 
   select(refid, study, arm_id, year, design, age, arm, arm_n, subgroup, subgroup_up, dev_used, ends_with("_comp"), tofr8_mean:tofr_fade_md_pval)  
 
-temp <- diag_mn.dat %>% 
-  select(starts_with("tofr8_")) %>% 
-  rename_at(vars(contains("95")), ~ str_replace(., "95", "ci_95")) %>% 
-  rename_at(vars(starts_with("tofr8_")), ~ str_replace(., "tofr8_", "")) %>% 
-  mutate(
-    sd = ifelse(is.na(sd) & !is.na(ci_95_l + ci_95_u), round_1((ci_95_u - ci_95_l)/(1.96*4)), sd),
-    mean_sd = paste0(mean, " (", sd, ")"),
-    med_iqr_lu = case_when(
-      !is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0(med,  " (", iqr_l, "-", iqr_u, ")"),
-      !is.na(med) & !is.na(low + up) ~ paste0(med,  " {", low, "-", up, "}"),
-      !is.na(med) ~ as.character(med),
-      is.na(med) & !is.na(low + up) ~ paste0("{", low, "-", up, "}"),
-      is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0("(", iqr_l, "-", iqr_u, ")"),
-      TRUE ~ NA_character_),
-    mean_sd = str_replace(mean_sd, "NA \\(NA\\)", ""),
-    # med_iqr_lu = str_replace(med_iqr_lu, "NA (NA)", ""),
-  )
-
-# rm(study_arm_add)
+# temp <- diag_mn.dat %>% 
+#   remove_empty(which = "cols") %>% 
+#   select(starts_with("tofr8_")) %>% 
+#   rename_at(vars(contains("95")), ~ str_replace(., "95", "ci_95")) %>% 
+#   rename_at(vars(starts_with("tofr8_")), ~ str_replace(., "tofr8_", "")) %>% 
+#   mutate(
+#     sd = ifelse(is.na(sd) & !is.na(ci_95_l + ci_95_u), round_1((ci_95_u - ci_95_l)/(1.96*4)), sd),
+#     mean_sd = paste0(mean, " (", sd, ")"),
+#     med_iqr_lu = case_when(
+#       !is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0(med,  " (", iqr_l, "-", iqr_u, ")"),
+#       !is.na(med) & !is.na(low + up) ~ paste0(med,  " {", low, "-", up, "}"),
+#       !is.na(med) ~ as.character(med),
+#       is.na(med) & !is.na(low + up) ~ paste0("{", low, "-", up, "}"),
+#       is.na(med) & !is.na(iqr_l + iqr_u) ~ paste0("(", iqr_l, "-", iqr_u, ")"),
+#       TRUE ~ NA_character_),
+#     mean_sd = str_replace(mean_sd, "NA \\(NA\\)", ""),
+#     # med_iqr_lu = str_replace(med_iqr_lu, "NA (NA)", ""),
+#   )
+# 
+# # rm(study_arm_add)
+# 
+# write_csv(temp, "/Users/mgrant/Desktop/temp.csv", na = "")
 
 ```
 
@@ -244,7 +194,7 @@ study_char.dat %>%
     booktabs = T, align = c("llr"),
     col.names = c("Age", "Design", "N")
   ) %>%
-  row_spec(c(0, 7), bold = TRUE) %>%
+  row_spec(c(0, 3), bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "8em") %>%
@@ -266,7 +216,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
+<font size = 4> Table `r table_n`. Includded studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
 
 ```{r studiesIncludedList, echo = FALSE, include = TRUE}
 ## • (updated 2021/11/16 09:06) included_studies.dat ----------------------
@@ -311,6 +261,8 @@ temp <- included_studies.dat %>%
          start = end - n + 1) %>% 
   select(age, design_l, start, end)
 
+rm(temp)
+
 included_studies.dat %>% 
   select(refid, study_l, n_analyze, centers, country, surgs) %>% 
   kbl(
@@ -326,16 +278,12 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 34) %>%
-  pack_sub(., "RCT", 1, 12) %>% 
-  pack_sub(., "Fully Paired", 13, 30) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 31, 32) %>% 
-  pack_sub(., "Prospective Cohort", 33, 33) %>% 
-  pack_sub(., "Retrospective Cohort", 34, 34) %>% 
-  pack_top(., "Pediatric", 35, 35) %>% 
-  pack_sub(., "Fully Paired", 35, 35) %>% 
+  pack_top(., "Adult", 1, 19) %>%
+  pack_sub(., "Fully Paired", 1, 19) %>% 
+  pack_top(., "Pediatric", 20, 20) %>% 
+  pack_sub(., "Fully Paired", 20, 20) %>% 
   footnote(
-    general = "RCT: randomized controlled trial.",
+    # general = "RCT: randomized controlled trial.",
     alphabet = c(
       "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
     general_title = "",
@@ -351,110 +299,140 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Agreement*
+## *Diagnostic Accuracy (KQ2)*
+
+<br/>
+
+### Agreement — TOFR 
 
 <br/>
 
 ```{r blandAltmanData, include = FALSE, echo = FALSE, eval = TRUE}
-## • (updated 2021/11/14 09:21) data --------------------------------------
-temp1 <- diag_ba.dat %>% 
-  select(-c(ba2_ind_thresh:ba2_pval)) %>% 
-  mutate(comparison = "ba1")
-
-temp2 <- diag_ba.dat %>% 
-  filter(!is.na(ba2_ind_thresh)) %>% 
-  select(-c(ba1_ind_thresh:ba1_pval)) %>%
-  rename_at(vars(starts_with("ba2")), ~ str_replace(.,  "ba2", "ba1")) %>% 
-  mutate(ba1_pval = as.character(ba1_pval)) %>% # to allow bind_rows
-  select(-ba1_ref) %>% # same as ref_test; may later need to verify for add refids)
-  mutate(comparison = "ba2")
-
-bland_altman.dat <- bind_rows(temp1, temp2) %>%
-  mutate(design = case_when(
-    study == "Claudius 2009" ~ "Fully paired (random subset)",
-    design == "fully_paired" ~ "Fully paired"),
-    ind_norm =  NA_character_,
-    ref_norm =  NA_character_,
-    ind_norm = ifelse(comparison == "ba1", ba_ind1_norm, ind_norm),
-    ref_norm = ifelse(comparison == "ba1", ba_ref1_norm, ref_norm),
-    ind_norm = ifelse(comparison == "ba2", ba_ind2_norm, ind_norm),
-    ref_norm =  ifelse(comparison == "ba2", ba_ref2_norm, ref_norm),
-  ) %>%
-  remove_empty(which = "cols") %>% 
-  rename_at(vars(starts_with("ba1")), ~ str_replace(., "ba1", "ba")) 
-
-# write_csv(bland_altman.dat, file = "/Users/mgrant/Desktop/bland_altman.csv", na = "")
-
-rm(temp1, temp2)
-
-## • (updated 2021/11/16 09:14) table -------------------------------------
-bland_altman_kbl <- bland_altman.dat %>%
-  filter_at(vars(ba_bias:ba_loa_u_95_u), any_vars(!is.na(.))) %>%
+## • (updated 2021/12/07 15:15) diag_ba.dat -------------------------------
+# Hmisc::describe(diag_ba.dat)
+diag_ba.dat <- contin.dat %>%
+  filter(refid %in% diag_ba_refids) %>%
+  select(refid:author, arm_n, subgroup, subgroups, arm_diag_acc, mon_cat:mon_oth_nerv_spec, tofr8_time:tofr_fade, sens:tofr_comp_norm, ba1_ind_thresh:linked_references, arm_notes, mon_notes) %>%
   mutate(
-    ba_loa_u = round(ba_loa_u, digits = 2),
-    ba_loa_l = round(ba_loa_l, digits = 2),
-    # ba_loa_l = ifelse(is.na(ba_loa_l) & !is.na(ba_loa_sd), formatC(ba_bias - 1.96 * ba_loa_sd, digits = 2), ba_loa_l),
-    ba_loa_l = ifelse(is.na(ba_loa_l) & !is.na(ba_loa_sd), round(ba_bias - 1.96 * ba_loa_sd, 2), ba_loa_l),
-    ba_loa_u = ifelse(is.na(ba_loa_u) & !is.na(ba_loa_sd), round(ba_bias + 1.96 * ba_loa_sd, 2), ba_loa_u),
-    # ba_loa_u = format(ba_loa_u, digits = 2),
-    ba_result = paste0(ba_bias, " (", ba_bias_95_l, " to ", ba_bias_95_u, ")"),
-    # Capron 2006, 1864 % NEED TO FIX OTHERS LATER EG BOWDLE
-    ba_result = ifelse(refid == 1864, paste0(ba_bias, "%", " (", ba_bias_95_l, "%",  " to ", ba_bias_95_u, "%", ")"), ba_result), 
-    ba_loa = paste0("(", ba_loa_l, " to ", ba_loa_u, ")"),
-    ba_result = str_replace(ba_result, "\\(NA to NA\\)", ""),
-    ba_result = str_replace(ba_result, "(\\d+) $", "\\1"),
-    ba_result = str_replace(ba_result, "NA", ""),
-    ba_loa = str_replace(ba_loa, "\\(NA to NA\\)", " "),
+    subgroup = replace_na(subgroup, "none"),
+    subgroup_up = ifelse(subgroup %in% "none", "", paste0("_", subgroup)),
+    arm = paste0("diag_acc", subgroup_up),
+    mon_name = ifelse(mon_name == "Other Brand", mon_brand_oth, mon_name)
+  ) %>%
+  rename(ind_test = arm_diag_acc) %>%
+  select(refid:age, subgroup, arm_n, ind_test, arm_notes, starts_with("mon"), contains("time_from"), starts_with("ba"), notes_c:arm) %>%
+  select(-starts_with("monclin")) %>%
+  filter(!ind_test %in% "pns") %>% # remove any pns arms
+  mutate(mon_type = str_replace(mon_type, "mon_", "")) %>%
+  arrange(refid, ba1_ref) %>%
+  group_by(refid) %>%
+  mutate(
+    ref1_mon_name = NA,
+    ref1_mon_name = ifelse(ba1_ref == lead(mon_type), lead(mon_name), ref1_mon_name),
+    ref1_mon_name = ifelse(is.na(ref1_mon_name) & ba1_ref == lead(mon_type, n = 2), lead(mon_name, n = 2), ref1_mon_name),
+    ref1_mon_name = ifelse(ba1_ref == "mmg" & is.na(ref1_mon_name), "MMG unspecified", ref1_mon_name)
+  ) %>%
+  mutate(
+    ref2_mon_name = NA,
+    ref2_mon_name = ifelse(ba2_ref == lead(mon_type), lead(mon_name), ref2_mon_name),
+    ref2_mon_name = ifelse(is.na(ref2_mon_name) & ba1_ref == lead(mon_type, n = 2), lead(mon_name, n = 2), ref2_mon_name),
+    ref2_mon_name = ifelse(ba2_ref == "mmg" & is.na(ref2_mon_name), "MMG unspecified", ref2_mon_name)
+  ) %>%
+  ungroup() %>%
+  select(!contains("3")) %>% # all missing
+  filter(!is.na(ba1_ref)) # if have >1 per study, ba1 always populated
+
+# remove second set from diag_ba.dat
+diag_ba1.dat <- diag_ba.dat %>%
+  select(!contains("2")) %>%
+  rename_with(.fn = ~ str_replace(.x, "1", "")) %>%
+  select(-c(mon_cat, mon_type, arm, subgroup_up, linked_references)) %>%
+  select(refid:ind_test, mon_name, mon_brand_oth, mon_other_spec, ba_ref, ref_mon_name, mon_preload:mon_notes, contains("norm"), contains("preload"), contains("time_from"), everything()) %>%
+  relocate(arm_notes, .after = notes_c)
+
+# tibble with single row per bland-altman result
+diag_ba2.dat <- diag_ba.dat %>%
+  filter(!is.na(ref2_mon_name)) %>%
+  select(!contains("1")) %>%
+  rename_with(.fn = ~ str_replace(.x, "2", "")) %>%
+  select(-c(mon_cat, mon_type, arm, subgroup_up, linked_references)) %>%
+  select(refid:ind_test, mon_name, mon_brand_oth, mon_other_spec, ba_ref, ref_mon_name, mon_preload:mon_notes, contains("norm"), contains("preload"), contains("time_from"), everything()) %>%
+  relocate(arm_notes, .after = notes_c) %>%
+  mutate(ba_pval = as.character(ba_pval))
+
+bland_altman.dat <- bind_rows(diag_ba1.dat, diag_ba2.dat) %>%
+  rename(
+    ind_mon = ind_test,
+    ind_name = mon_name,
+    ind_preload = ba_ind_preload,
+    ind_norm = ba_ind_norm,
+    ind_oth_spec = mon_other_spec,
+    ind_brand_oth = mon_brand_oth,
+    ref_mon = ba_ref,
+    ref_name = ref_mon_name,
+    ref_preload = ba_ref_preload,
+    ref_norm = ba_ref_norm,
+  ) %>%
+  select(refid:arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm, ind_oth_spec, ind_brand_oth, everything()) %>%
+  mutate(
+    ref_preload = ifelse(ref_mon == "mmg", "yes", ref_preload),
     time_at = ifelse(str_detect(ba_ind_thresh, "at|pacu|all"), "at", "time"), # at a specfic TOFR or time to
-    ba_result = ifelse(!str_detect(ba_result, "^-"), paste0("  ", ba_result), ba_result),
     time_from = ifelse(time_from_other %in% "TOFR 0.2", "tofr_0.2", time_from),
     time_from = factor(time_from,
       levels = c("endsurg", "nmba_admin", "notgiven", "reverse_admin", "tofc0", "tofc2", "tofr_0.2"),
-      labels = c("End surg", "NMB admin", "Not stated", "Reversal admin", "TOFC 0", "TOFC 2", "TOFR 0.2")),
-    # fix Claudius 2009 MMG, Bowdle 2020 MMG preload
-    ref_preload = ifelse(refid %in% c(2120, 3392), "yes", ref_preload),
-    # fix Capron 2006 MMG 
-    ref_preload = ifelse(refid %in% c(1864), "ns", ref_preload)
-  ) %>%
-  arrange(age, ind_test, study, time_at, ba_ind_thresh, time_from, year) %>%
-  select(age, refid, study, arm_id, design, year, arm_n, ind_test, ind_mon, ind_preload, ind_norm, ref_test, ref_mon, ref_preload, ref_norm, time_at, ba_ind_thresh, ba_ref_thresh, time_from, time_from_other, ba_result, ba_loa)
+      labels = c("End surg", "NMB admin", "Not stated", "Reversal admin", "TOFC 0", "TOFC 2", "TOFR 0.2")
+    ),
+    # Khandkar 2016 used range
+    ba_ind_thresh = ifelse(refid == 2877, "0.80-0.99", ba_ind_thresh),
+    ba_ref_thresh = ifelse(refid == 2877, "0.80-0.99", ba_ref_thresh),
+    ref_name = ifelse(refid == 2877, "ElectroSensor", ref_name)
+  )
 
-# write_csv(bland_altman_kbl, file = "/Users/mgrant/Desktop/bland_altman-dat.csv", na = "") 
+rm(diag_ba1.dat, diag_ba2.dat)
+
+## • (updated 2021/12/07 15:16) table -------------------------------------
+bland_altman_kbl <- bland_altman.dat %>%
+  filter_at(vars(ba_bias:ba_loa_u_95_u), any_vars(!is.na(.))) %>%
+  mutate(
+    # levels of agreement
+    ba_loa_u = round(ba_loa_u, digits = 2),
+    ba_loa_l = round(ba_loa_l, digits = 2),
+    ba_loa_l = ifelse(is.na(ba_loa_l) & !is.na(ba_loa_sd), round(ba_bias - 1.96 * ba_loa_sd, 2), ba_loa_l),
+    ba_loa_u = ifelse(is.na(ba_loa_u) & !is.na(ba_loa_sd), round(ba_bias + 1.96 * ba_loa_sd, 2), ba_loa_u),
+    # change any reporting > 1.0 to percentages
+    ba_loa = case_when(
+      abs(ba_loa_l) > 1.0 ~ paste0("(", round_1(ba_loa_l), "% to ", round_1(ba_loa_u), "%)"), 
+      TRUE ~ paste0("(", ba_loa_l, " to ", ba_loa_u, ")")
+    ),
+    ba_loa = str_replace(ba_loa, "\\(NA to NA\\)", " "),
+    # bias
+    ba_result = case_when(
+      !is.na(ba_bias + ba_bias_95_l) & abs(ba_bias_95_l) > 1.0 ~ paste0(ba_bias, "% (", round_1(ba_bias_95_l), "% to ", round_1(ba_bias_95_u), "%)"),
+      !is.na(ba_bias) & (abs(ba_bias) > 1.0 | abs(ba_loa_l) > 1.0) ~ paste0(ba_bias, "%"),
+      !is.na(ba_bias + ba_bias_95_l) ~ paste0(ba_bias, " (", ba_bias_95_l, " to ", ba_bias_95_u, ")"),
+      !is.na(ba_bias) ~ as.character(ba_bias),
+      TRUE ~ ""
+      ),
+    ba_result = str_replace(ba_result, " \\(NA to NA\\)", ""),
+    ba_result = ifelse(!str_detect(ba_result, "^-"), paste0("  ", ba_result), ba_result) # to align
+  ) %>%
+  arrange(age, ind_mon, study, time_at, ba_ind_thresh, time_from, year) %>%
+  select(age, refid, study, arm_id, design, year, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm, time_at, ba_ind_thresh, ba_ref_thresh, time_from, time_from_other, ba_result, ba_loa, mon_nerve)
+
 ```
 
 <font size = 4> Table `r table_n`. Characteristics of monitors in studies reporting agreement (Bland-Altman) at specific TOFRs. </font>
 
-```{r blandAltmanKbl, include = TRUE, echo = FALSE, eval = TRUE}
-## (updated 2021/11/18 09:41) at specified TOFR ---------------------------
+```{r blandAltmanKblAt, include = TRUE, echo = FALSE, eval = TRUE}
+## • (updated 2021/12/07 15:19) at specified TOFR -------------------------
 bland_altman_kbl_at <- bland_altman_kbl %>%
   filter(time_at == "at") %>%
   mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
   select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa) %>%
-  arrange(year, refid, ind_test) %>%
+  arrange(year, refid, ind_mon) %>%
   left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
-  relocate(study_l, .after = study) %>%
-  # fix Bowdle 3392 TEMPORARY fix
-  group_by(refid) %>%
-  mutate(
-    arm_id = ifelse(refid == 3392, row_number(), arm_id)
-  ) %>%
-  ungroup() %>%
-  mutate(
-    ind_norm = ifelse(refid == 3392, "no", ind_norm),
-    ref_test = ifelse(refid == 3392 & arm_id %in% c(3), "amg", ref_test),
-    ref_mon = ifelse(refid == 3392 & arm_id %in% c(3), "TOF Watch S", ref_mon),
-    ref_preload = ifelse(refid == 3392 & arm_id %in% c(3), "no", ref_preload),
-    ind_preload = ifelse(refid == 3392 & arm_id %in% c(2), NA, ind_preload),
-    ref_norm = ifelse(refid == 3392, "no", ref_norm),
-    ba_result = ifelse(refid == 3392 & arm_id %in% c(1), "-0.98", ba_result),
-    ba_result = ifelse(refid == 3392 & arm_id %in% c(2), "-0.47", ba_result),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(1), "(-0.51 to 0.32)", ba_loa),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(2), "(-0.35 to 0.25)", ba_loa),
-    # post change
-    )
+  relocate(study_l, .after = study) 
 
-# write.csv(bland_altman_kbl_at, file = "/Users/mgrant/Desktop/bland_altman_kbl_at1.csv")
-  
 bland_altman_kbl_at %>%
   group_by(study) %>%
   mutate(
@@ -462,39 +440,41 @@ bland_altman_kbl_at %>%
   ) %>%
   ungroup() %>%
   mutate(
-    ind_test = factor(ind_test,
+    ind_mon = factor(ind_mon,
+      levels = c("amg_uni", "amg_tri", "amg_ns", "emg", "kmg", "mmg", "emg_cuff"),
+      labels = c("AMG (uni)", "AMG (tri)",  "AMG (ns)","EMG", "KMG", "MMG", "EMG (cuff)")
+    ),
+    ref_mon = factor(ref_mon,
       levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
       labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
     ),
-    ref_test = factor(ref_test,
-      levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
-      labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
-    ),
-    ref_mon = ifelse(ref_mon == "MMG", "Mechanomyograph", ref_mon),
+    ref_name = ifelse(ref_mon == "MMG", "", ref_name),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
-  select(study_l, arm_n, ind_test, ind_mon, ind_preload, ind_norm, ref_test, ref_mon, ref_preload, ref_norm) %>%
+  select(study_l, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
   kbl(
     booktabs = T, align = c("lrllccllcc"),
-    col.names = c("Study^a^", "N", "Type", "Monitor", "Pre", "Nml", "Type", "Monitor", "Pre", "Nml")
+    col.names = c("Study^a^", "N", "Type", "Monitor", "Pre^c^", "Nl^c^", "Type", "Monitor", "Pre^c^", "Nl^c^")
   ) %>%
-  add_header_above(c(" " = 2, "Index Device" = 4, "Reference Device" = 4), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 2, "Index Device^b^" = 4, "Reference Device^b^" = 4), line = TRUE, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   row_spec(0, bold = TRUE) %>% 
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "6em") %>%
-  column_spec(4, width = "9em") %>%
-  column_spec(5, width = "4em") %>%
-  column_spec(6, width = "4em") %>%
+  column_spec(4, width = "7em") %>%
+  column_spec(5, width = "2em") %>%
+  column_spec(6, width = "2em") %>%
   column_spec(7, width = "6em") %>%
-  column_spec(8, width = "9em") %>%
-  column_spec(9, width = "4em") %>%
-  column_spec(10, width = "4em") %>%
+  column_spec(8, width = "7em") %>%
+  column_spec(9, width = "2em") %>%
+  column_spec(10, width = "2em") %>%
   footnote(
-    general = "Pre: preload; Nml: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; \U000D7: yes; \UFFEE: no.",
-    alphabet = c("Fully paired designs."),
+    general = "Pre: preload; Nl: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; \U000D7: yes; \UFFEE: no; ns: not specified; NA: not applicable.",
+    alphabet = c("Fully paired designs.", 
+                 "Ulnar nerve except cuff which applies stimulus to the brachial plexus at the humeral level.",
+                 "No designation if not reported in publication or not applicable."),
     general_title = "",
     footnote_as_chunk = FALSE
   )
@@ -506,41 +486,22 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Reported agreement (Bland-Altman) at specific TOFRs. </font>
 
-```{r blandAltmanKblResult, include = TRUE, echo = FALSE, eval = TRUE}
+```{r blandAltmanKblResultAt, include = TRUE, echo = FALSE, eval = TRUE}
+## (updated 2021/11/30 11:26) blandAltmanKblResult ------------------------
 bland_altman_kbl_at <- bland_altman_kbl %>%
   filter(time_at == "at") %>%
   mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
   select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa) %>%
-  arrange(year, refid, ind_test) %>%
+  arrange(year, refid, ind_mon) %>%
   left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
-  relocate(study_l, .after = study) %>%
-  # fix Bowdle 3392 TEMPORARY fix
-  group_by(refid) %>%
+  relocate(study_l, .after = study) %>% 
   mutate(
-    arm_id = ifelse(refid == 3392, row_number(), arm_id)
-  ) %>%
-  ungroup() %>%
-  mutate(
-    ind_norm = ifelse(refid == 3392, "no", ind_norm),
-    ref_test = ifelse(refid == 3392 & arm_id %in% c(3), "amg", ref_test),
-    ref_mon = ifelse(refid == 3392 & arm_id %in% c(3), "TOF Watch S", ref_mon),
-    ref_preload = ifelse(refid == 3392 & arm_id %in% c(3), "no", ref_preload),
-    ind_preload = ifelse(refid == 3392 & arm_id %in% c(2), NA, ind_preload),
-    ref_norm = ifelse(refid == 3392, "no", ref_norm),
-    ba_result = ifelse(refid == 3392 & arm_id %in% c(1), "-9.8%", ba_result),
-    ba_result = ifelse(refid == 3392 & arm_id %in% c(2), "-4.7%", ba_result),
-    ba_result = ifelse(refid == 3392 & arm_id %in% c(3), "14.9%", ba_result),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(1), "(-51.3% to 31.8%)", ba_loa),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(2), "(-34.9% to 25.2%)", ba_loa),
-    ba_loa = ifelse(refid == 3392 & arm_id %in% c(3), "(-13.0% to 42.8%)", ba_loa),
     ba_ind_thresh = case_when(
       refid == 1864 ~ "all_meas",
       TRUE ~ ba_ind_thresh
     )
   )
 
-# write.csv(bland_altman_kbl_at, file = "/Users/mgrant/Desktop/bland_altman_kbl_at1.csv")
-  
 bland_altman_kbl_at %>%
   group_by(study) %>%
   mutate(
@@ -548,24 +509,24 @@ bland_altman_kbl_at %>%
   ) %>%
   ungroup() %>%
   mutate(
-    ind_test = factor(ind_test,
-      levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
-      labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
+    ind_mon = factor(ind_mon,
+      levels = c("amg_uni", "amg_tri", "amg_ns", "emg", "kmg", "mmg", "emg_cuff"),
+      labels = c("AMG (uni)", "AMG (tri)",  "AMG (ns)","EMG", "KMG", "MMG", "EMG (cuff)")
     ),
-    ref_test = factor(ref_test,
+    ref_mon = factor(ref_mon,
       levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
       labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
     ),
     # ba_ind_thresh = ifelse(refid == 2120, "tofr9^b^", ba_ind_thresh),
     ba_ind_thresh = factor(ba_ind_thresh,
-      levels = c("all_meas", "tofr_at1", "tofr_at9", "tofr_pacu", "tofr9^b^"),
-      labels = c("All", "1.0", "0.9", "PACU", "0.9^b^")),
+      levels = c("all_meas", "tofr_at1", "tofr_at9", "0.80-0.99", "tofr_pacu", "tofr9^b^", "tofr_at7"),
+      labels = c("All", "1.0", "0.9", "0.80-0.99", "PACU", "0.9^b^", "0.7")),
     # ref_mon = ifelse(ref_mon == "MMG", "Mechanomyograph", ref_mon),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
   select(study_l, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
   kbl(
-    booktabs = T, align = c("lrllcll"),
+    booktabs = T, align = c("lrcccll"),
     col.names = c("Study^a^", "N", "  Monitor", "    Monitor", "Compared", "    Bias (95% CI)", "  Agreement")
   ) %>%
   add_header_above(c(" " = 2, "    Index" = 1, "    Reference" = 1, "       TOFR" = 1, " " = 1, "    Limits of" = 1), align = "l", line = FALSE, bold = TRUE) %>%
@@ -577,7 +538,7 @@ bland_altman_kbl_at %>%
   column_spec(3, width = "9em") %>%
   column_spec(4, width = "9em") %>%
   column_spec(5, width = "6em") %>%
-  column_spec(6, width = "10em") %>%
+  column_spec(6, width = "12em") %>%
   column_spec(7, width = "10em") %>%
   footnote(
     general = c("MMG: mechanomyography."),
@@ -587,11 +548,140 @@ bland_altman_kbl_at %>%
   )
 
 table_n <- tab_inc()
-
-
 ```
 
+<br/>
 
+### Agreement — Time to a specified TOFR 
+
+<br/>
+
+<font size = 4> Table `r table_n`. Characteristics of monitors in studies reporting agreement (Bland-Altman) for time to a TOFR. </font>
+
+```{r blandAltmanKblTime, include = TRUE, echo = FALSE, eval = TRUE}
+## • (updated 2021/12/07 15:19) at specified TOFR -------------------------
+bland_altman_kbl_time <- bland_altman_kbl %>%
+  filter(time_at == "time") %>%
+  mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
+  select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa) %>%
+  arrange(year, refid, ind_mon) %>%
+  left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
+  relocate(study_l, .after = study) 
+
+bland_altman_kbl_time %>%
+  group_by(study) %>%
+  mutate(
+    study_l = ifelse(row_number() == 1, study_l, NA)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    ind_mon = factor(ind_mon,
+      levels = c("amg_uni", "amg_tri", "amg_ns", "emg", "kmg", "mmg", "emg_cuff"),
+      labels = c("AMG (uni)", "AMG (tri)",  "AMG (ns)","EMG", "KMG", "MMG", "EMG (cuff)")
+    ),
+    ref_mon = factor(ref_mon,
+      levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
+      labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
+    ),
+    ref_name = ifelse(ref_mon == "MMG", "", ref_name),
+    across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
+  ) %>%
+  select(study_l, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
+  kbl(
+    booktabs = T, align = c("lrllccllcc"),
+    col.names = c("Study^a^", "N", "Type", "Monitor", "Pre^c^", "Nl^c^", "Type", "Monitor", "Pre^c^", "Nl^c^")
+  ) %>%
+  add_header_above(c(" " = 2, "Index Device^b^" = 4, "Reference Device^b^" = 4), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(0, bold = TRUE) %>% 
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "4em") %>%
+  column_spec(3, width = "6em") %>%
+  column_spec(4, width = "7em") %>%
+  column_spec(5, width = "2em") %>%
+  column_spec(6, width = "2em") %>%
+  column_spec(7, width = "6em") %>%
+  column_spec(8, width = "7em") %>%
+  column_spec(9, width = "2em") %>%
+  column_spec(10, width = "2em") %>%
+  footnote(
+    general = "Pre: preload; Nl: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; \U000D7: yes; \UFFEE: no; ns: not specified; NA: not applicable.",
+    alphabet = c("Fully paired designs.", 
+                 "Ulnar nerve except cuff which applies stimulus to the brachial plexus at the humeral level.",
+                 "No designation if not reported in publication or not applicable."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+  
+<br/>
+
+<font size = 4> Table `r table_n`. Reported agreement (Bland-Altman) for time to a TOFR. </font>
+
+```{r blandAltmanKblResultTime, include = TRUE, echo = FALSE, eval = TRUE}
+## (updated 2021/11/30 11:26) blandAltmanKblResult ------------------------
+bland_altman_kbl_time <- bland_altman_kbl %>%
+  filter(time_at == "time") %>%
+  mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
+  select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa, time_from) %>%
+  arrange(year, refid, ind_mon) %>%
+  left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
+  relocate(study_l, .after = study) %>% 
+  mutate(time_from = ifelse(refid == 1064, "Neostigime", as.character(time_from)),
+ time_from = paste(time_from, "to"))
+
+bland_altman_kbl_time %>%
+  group_by(study) %>%
+  mutate(
+    study_l = ifelse(row_number() == 1, study_l, NA)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    ind_mon = factor(ind_mon,
+      levels = c("amg_uni", "amg_tri", "amg_ns", "emg", "kmg", "mmg", "emg_cuff"),
+      labels = c("AMG (uni)", "AMG (tri)",  "AMG (ns)","EMG", "KMG", "MMG", "EMG (cuff)")
+    ),
+    ref_mon = factor(ref_mon,
+      levels = c("amg_uni", "amg_tri", "emg", "kmg", "mmg"),
+      labels = c("AMG (uni)", "AMG (tri)", "EMG", "KMG", "MMG")
+    ),
+    # ba_ind_thresh = ifelse(refid == 2120, "tofr9^b^", ba_ind_thresh),
+    ba_ind_thresh = factor(ba_ind_thresh, levels = c("tofr_ge8", "tofr_ge9"), labels = c("≥8", "≥9")),
+    ba_ind_thresh = ifelse(refid == 1064, "≥8, ≥7 MMG", as.character(ba_ind_thresh)),
+    ba_ind_thresh = paste(time_from, "TOFR", ba_ind_thresh),
+    ba_result = ifelse(!grepl("^-", ba_result), paste0("  ", ba_result), ba_result),
+    # ba_result = str_replace(ba_result, "-", "–")
+  ) %>%
+  select(study_l, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
+  kbl(
+    booktabs = T, align = c("lrllllc"),
+    col.names = c("Study^a^", "N", "Index", "Reference", "                Time", "    Bias (95% CI)", "Agreement")
+  ) %>%
+  add_header_above(c(" " = 2, "                Monitor" = 2, " " = 1, " " = 1, "             Limits of" = 1), align = "l", line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, full_width = FALSE, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(0, bold = TRUE) %>% 
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "4em") %>%
+  column_spec(3, width = "6em") %>%
+  column_spec(4, width = "6em") %>%
+  column_spec(5, width = "16em") %>%
+  column_spec(6, width = "12em") %>%
+  column_spec(7, width = "10em") %>%
+  footnote(
+    general = c("MMG: mechanomyography."),
+    alphabet = c("Fully paired designs."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
 
 # **Study/Participant Detail** 
 
@@ -605,9 +695,7 @@ table_n <- tab_inc()
 
 ```{r createStudyCharTable, include = FALSE, echo = FALSE, eval = FALSE} 
 ## (updated 2021/11/10 15:31) 2021/11/10 15:31 ----------------------------
-
-Hmisc::latex(Hmisc::describe(study_char_diag.dat), file = "/Users/mgrant/Desktop/temp.tex")
-
+# Hmisc::latex(Hmisc::describe(study_char_diag.dat), file = "/Users/mgrant/Desktop/temp.tex")
 study_char_table <- study_char_diag.dat %>%
   mutate(
     dates = str_c(date_start, "-", date_end),
@@ -682,9 +770,6 @@ table_n <- tab_inc()
 ```
 
 <br/>
-
-
-
 
 
 # **Risk of Bias** 

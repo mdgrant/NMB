@@ -95,12 +95,11 @@ pack_top_noind <- function(kable_input, name, a, b) {
   )
 }
 
-
 # subgroup title kable
-pack_sub <- function(kable_input, name, a, b, bold = FALSE) {
+pack_sub <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
     start_row = a, end_row = b,
-    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = bold, indent = FALSE
+    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE,  indent = FALSE
   )
 }
 
@@ -138,6 +137,16 @@ or_join <- function(a_tbl, outcome) {
       c_tx = arm_tx.x, tx = arm_tx.y, study = study.x,
       n_c = arm_n.x, event_c = str_c(outcome, "_n.x"),
       n_e = arm_n.y, event_e = str_c(outcome, "_n.y"))
+}
+
+# calculate odds ratio, ci, and format no refid
+odds_ratio_y <- function(event1, n1, event2, n2, digits = 2) {
+  a <- meta::metabin(event1, n1, event2, n2, sm = "OR")
+  with(a, paste0(
+    sprintf(paste0("%.", digits, "f"), round(exp(TE), digits)), " (",
+    sprintf(paste0("%.", digits, "f"), round(exp(lower), digits)), "-",
+    sprintf(paste0("%.", digits, "f"), round(exp(upper), digits)), ")"))
+  # rename(or_ci = a)
 }
 
 # calculate odds ratio, ci, and format
@@ -221,6 +230,42 @@ fig_inc <- function() {
   figure_n <- figure_n + 1
   figure_n}
 
+# function recode design to formatted names
+design_fac_recode <- function(des_var) {
+  des_var <- fct_recode(des_var,
+    "RCT"                   = "rct",
+    "Crossover"             = "crossover",
+    "Cluster"               = "cluster",
+    "Fully paired"          = "fully_paired",
+    "Quasi-experimental"    = "quasiexp",
+    "NRSI"                  = "nrsi",
+    "Prospective cohort"    = "prospect_coh",
+    "Retrospective cohort"  = "retrospect_coh",
+    "Case control"          = "casecontrol",
+    "Case series"           = "case_series",
+    "Other"                 = "other"
+  )
+}
+
+# function factor study design
+# design_fac <- function(des_var) {
+#   des_var <- factor(des_var,
+#     levels = c(
+#       "rct",
+#       "crossover",
+#       "cluster",
+#       "fully_paired",
+#       "quasiexp",
+#       "nrsi",
+#       "prospect_coh",
+#       "retrospect_coh",
+#       "casecontrol",
+#       "case_series",
+#       "other"
+#     )
+#   )
+# }
+
 ## data files ####
 data_files <- as_tibble(list.files("data/"))
 
@@ -259,6 +304,11 @@ rob_file <- data_files %>%
   arrange(desc(value)) %>%
   slice(1)
 
+study_refs_file <- data_files %>%
+  filter(str_detect(value, "studyRefs")) %>%
+  arrange(desc(value)) %>%
+  slice(1)
+
 # display file characteristics
 a <- as.character(file.mtime(paste0("data/", study_arm_file)))
 b <- as.character(file.mtime(paste0("data/", study_char_file)))
@@ -266,13 +316,15 @@ c <- as.character(file.mtime(paste0("data/", cont_out_file)))
 d <- as.character(file.mtime(paste0("data/", dichot_out_file)))
 e <- as.character(file.mtime(paste0("data/", likert_out_file)))
 f <- as.character(file.mtime(paste0("data/", rob_file)))
+g <- as.character(file.mtime(paste0("data/", study_refs_file)))
 z <- matrix(c(
   paste(b, study_char_file),
   paste(a, study_arm_file),
   paste(c, cont_out_file),
   paste(d, dichot_out_file),
   paste(e, likert_out_file),
-  paste(f, rob_file)))
+  paste(f, rob_file),
+  paste(g, study_refs_file)))
 z
 
 # save list of files in current analysis
@@ -309,13 +361,13 @@ study_char.dat <- study_char.dat %>%
 
 study_char.dat <- study_char.dat %>%
   mutate(
-    design = ifelse(design == "quasiexp", "nrsi", design),
     design = factor(design,
       levels = c(
         "rct",
         "crossover",
         "cluster",
         "fully_paired",
+        "quasiexp",
         "nrsi",
         "prospect_coh",
         "retrospect_coh",
@@ -323,14 +375,17 @@ study_char.dat <- study_char.dat %>%
         "case_series",
         "other"
       )
-    )
+    ),
+  # shorten select study names
+    author = case_when(
+      refid == 3521 ~ "S Machado",
+      refid == 1064 ~ "K-Nielsen",
+      TRUE ~ author
+    ),
+    study = paste(author, year),
+    study_l = paste0("[", study, "]", "(", "evidence_tables.html#", refid, ")")
   ) %>%
-    mutate(study = paste(author, year),
-           study_l = paste0("[", study, "]", "(", "evidence_tables.html#", refid, ")")) %>%
-  # [Lien 1999](evidence_tables.html#1188)
-    select(refid, study, study_l, everything())
-    # relocate(doi, .after = last_col()) %>%
-    # relocate(title, .after = last_col())
+  select(refid, study, study_l, everything())
 
 study_char.dat %>%
   select(design) %>%
@@ -372,6 +427,12 @@ study_char.dat %>%
 #
 # rm(temp_1, temp_2)
 
+## study references ----------------------------
+study_refs.dat <- read_csv(paste0("data/", study_refs_file)) %>%
+  clean_names() %>%
+  remove_empty(which = "cols") %>%
+  select(-c(user, level, linked_references))
+
 ## study arm ####
 path <- path_csv(study_arm_file)
 study_arm.dat <- read_csv(path)
@@ -384,10 +445,6 @@ study_arm.dat <- read_csv(path)
 # delete <- length(names(study_arm.dat))
 study_arm.dat <- study_arm.dat %>%
   janitor::clean_names() %>%
-  # temp fix duplicates [DELETE WHEN FIXED]
-  # filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
-  # filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
-  # --------------------------------------------------------------------- *
   select(-c(user, labels, ris_code, level, design)) %>%
   group_by(refid) %>%
   mutate(arm_id = row_number()) %>%
@@ -411,10 +468,6 @@ path <- path_csv(cont_out_file)
 
 contin.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
-  # temp fix duplicates [DELETE WHEN FIXED]
-  # filter(!(refid %in% c(60, 664, 868, 887) & user == "Anne_Marbella")) %>%
-  # filter(!(refid == 1472 & user == "Madhulika_Agarkar")) %>%
-  # --------------------------------------------------------------------- *
   select(-c(user, labels, ris_code, level, design)) %>%
   group_by(refid) %>%
   mutate(arm_id = row_number()) %>%
@@ -435,7 +488,6 @@ length(unique(contin.dat$refid)) == contin_n
 
 # * (end)
 
-
 ## dichotomous outcome data ####
 path <- path_csv(dichot_out_file)
 dichot.dat <- read_csv(path) %>%
@@ -450,7 +502,11 @@ dichot.dat <- read_csv(path) %>%
 # use study_char design
 dichot.dat <- left_join(dichot.dat, study_names, by = "refid") %>%
   select(refid, study, year, design, age, everything()) %>%
-  relocate(linked_references, .after = last_col())
+  group_by(refid) %>%
+  mutate(arm_id = row_number()) %>%
+  ungroup() %>%
+  relocate(linked_references, .after = last_col()) %>%
+  relocate(arm_id, .after = refid)
 
 # check n same as study_arm_n
 length(unique(dichot.dat$refid)) == dichot_n
@@ -461,7 +517,10 @@ length(unique(dichot.dat$refid)) == dichot_n
 path <- path_csv(likert_out_file)
 likert.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
-  select(-c(user, labels, ris_code, level, design))
+  select(-c(user, labels, ris_code, level, design)) %>%
+  group_by(refid) %>%
+  mutate(arm_id = row_number()) %>%
+  ungroup()
 
 (likert_n <- likert.dat %>%
     distinct(refid) %>%
@@ -470,7 +529,7 @@ likert.dat <- read_csv(path) %>%
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 likert.dat <- left_join(likert.dat, study_names, by = "refid") %>%
-  select(refid, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -478,7 +537,6 @@ length(unique(likert.dat$refid)) == dichot_n
 
 # * (end)
 
-## ------------------------------------------------------------------------
 ## (updated 2021/11/05 17:09) cleanup -------------------------------------
 rm(list = ls(pattern = "*.file"))
 rm(list = ls(pattern = "*_n"))
@@ -487,9 +545,6 @@ rm(age.dat)
 table_n <- 1
 figure_n <- 1
 
-## ------------------------------------------------------------------------
-
-## (updated 2021/11/05 13:09) lme4: Mixed-effects modeling
 ## (updated 2021/11/05 13:09) rob data ------------------------------------
 ## (updated 2021/11/05 13:10) quadas --------------------------------------
 ## (updated 2021/11/05 13:10) robins-i ------------------------------------

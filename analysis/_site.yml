@@ -5,8 +5,12 @@ navbar:
   left:
   - text: Strength of Evidence
     href: soe.html
-  - text: Diagnostic
+  - text: NMM Technical
+    href: kq1.html
+  - text: NMM Diagnostic
     href: kq2.html
+  - text: NMM Outcomes
+    href: kq3.html
   - text: Reversal
     href: reversal.html
   - text: Evidence Tables

@@ -41,9 +41,11 @@ display: none !important;
 
 [<font size = 5> Summary of Findings Tables </font>](soe.html)
 
-<font size = 6> Diagnostic </font>
+<font size = 6> Neuromuscular Monitoring </font>
 
-[<font size = 5> Comparative Accuracy </font>](kq2.html)
+[<font size = 5> Diagnostic Accuracy </font>](kq2.html)
+
+[<font size = 5> NMM and Outcomes </font>](kq2.html)
 
 <font size = 6> Reversal </font>
 
