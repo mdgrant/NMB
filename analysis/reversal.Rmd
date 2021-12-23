@@ -96,7 +96,7 @@ study_char.dat %>%
     age = ifelse(row != 1, NA, age),
     design = case_when(
       design == "rct" ~ "RCT",
-      design == "crossover" ~ "Crossover",
+      design == "quasiexp" ~ "Quasi-Experimental",
       design == "cluster" ~ "Cluster",
       design == "nrsi" ~ "Nonrandomized",
       design == "prospect_coh" ~ "Prospective Cohort",
@@ -111,7 +111,7 @@ study_char.dat %>%
     booktabs = T, align = c("llr"),
     col.names = c("Age", "Design", "N")
   ) %>%
-  row_spec(c(0, 8), bold = TRUE) %>%
+  row_spec(c(0, 11), bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "8em") %>%
@@ -182,16 +182,19 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 104) %>%
-  pack_sub(., "RCT", 1, 91) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 92, 95) %>% 
-  pack_sub(., "Prospective Cohort", 96, 99) %>% 
-  pack_sub(., "Retrospective Cohort", 100, 104) %>% 
-  pack_top(., "All ages", 105, 108) %>% 
-  pack_sub(., "RCT", 105, 108) %>% 
-  pack_top(., "Pediatric", 109, 120) %>%
-  pack_sub(., "RCT", 109, 119) %>% 
-  pack_sub(., "Case-control", 120, 120) %>% 
+  pack_top(., "Adult", 1, 136) %>%
+  pack_sub(., "RCT", 1, 105) %>% 
+  pack_sub(., "Quasi-Experimental", 106, 106) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 107, 114) %>% 
+  pack_sub(., "Prospective Cohort", 115, 126) %>% 
+  pack_sub(., "Retrospective Cohort", 127, 136) %>% 
+  pack_top(., "All ages", 137, 141) %>% 
+  pack_sub(., "RCT", 137, 140) %>% 
+  pack_sub(., "Retrospective Cohort", 141, 141) %>% 
+  pack_top(., "Pediatric", 142, 158) %>%
+  pack_sub(., "RCT", 142, 153) %>% 
+  pack_sub(., "Prospective Cohort", 154, 157) %>% 
+  pack_sub(., "Case-control", 158, 158) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
