@@ -64,6 +64,10 @@ n_percent <- function(a, b){
   str_c(a," (", round_0(b), ")")
 }
 
+n_percent1 <- function(a, b){
+  str_c(a," (", round_1(b), ")")
+}
+
 bwgrp_pval <- function(m1, m2, n1, n2, pVal) {
   sd2 <- abs((m2 - m1) / qt(pVal / 2, n1 + n2 - 2)) * sqrt(n2 * n1 / (n2 + n1))
   sd1 <- sd2
@@ -329,7 +333,7 @@ z
 
 # save list of files in current analysis
 write_delim(data.frame(z), "used_files_dates.txt", delim = "--", col_names = FALSE)
-rm(a, b, c, d, e, f, z)
+rm(a, b, c, d, e, f, g, z)
 
 ## study characteristics ####
 path <- path_csv(study_char_file)
@@ -452,10 +456,10 @@ study_arm.dat <- study_arm.dat %>%
 
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
-study_names <- study_char.dat %>% select(refid, study, age, design)
+study_names <- study_char.dat %>% select(refid, study, study_l, age, design)
 
 study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
-  select(refid, arm_id, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -480,7 +484,7 @@ contin.dat <- read_csv(path) %>%
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 contin.dat <- left_join(contin.dat, study_names, by = "refid") %>%
-  select(refid, arm_id, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -501,7 +505,7 @@ dichot.dat <- read_csv(path) %>%
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 dichot.dat <- left_join(dichot.dat, study_names, by = "refid") %>%
-  select(refid, study, year, design, age, everything()) %>%
+  select(refid, study, study_l, year, design, age, everything()) %>%
   group_by(refid) %>%
   mutate(arm_id = row_number()) %>%
   ungroup() %>%
@@ -529,7 +533,7 @@ likert.dat <- read_csv(path) %>%
 # use updated study names for duplicate author year, appended w/letter
 # use study_char design
 likert.dat <- left_join(likert.dat, study_names, by = "refid") %>%
-  select(refid, arm_id, study, year, design, age, everything()) %>%
+  select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -541,6 +545,7 @@ length(unique(likert.dat$refid)) == dichot_n
 rm(list = ls(pattern = "*.file"))
 rm(list = ls(pattern = "*_n"))
 rm(age.dat)
+rm(path)
 
 table_n <- 1
 figure_n <- 1

@@ -62,11 +62,16 @@ knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
 
 ```
-
+bino
 ```{r data}
 ## (updated 2021/11/21 10:06) reversal refids -----------------------------
 rev_refids <- study_char.dat %>% 
   filter(rev_agt == "rev_agt") %>% 
+  pull(refid) %>% 
+  unique()
+
+temp_refids <- study_arm.dat %>% 
+  filter(subgroup == "neo_dosing") %>% 
   pull(refid) %>% 
   unique()
 
