@@ -36,7 +36,7 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -331,7 +331,13 @@ div.tocify {
   <a href="soe.html">Strength of Evidence</a>
 </li>
 <li>
-  <a href="kq2.html">Diagnostic</a>
+  <a href="kq1.html">NMM Technical</a>
+</li>
+<li>
+  <a href="kq2.html">NMM Diagnostic</a>
+</li>
+<li>
+  <a href="kq3.html">NMM Outcomes</a>
 </li>
 <li>
   <a href="reversal.html">Reversal</a>
@@ -373,14 +379,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">PRISMA</h1>
-<h4 class="date">20 November, 2021 (17:06)</h4>
+<h4 class="date">30 December, 2021 (12:10)</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -389,7 +395,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -398,17 +404,17 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-20
+<strong>Last updated:</strong> 2021-12-30
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>NMB/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>nmb/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -417,12 +423,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -489,16 +495,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreed9933694eb0c1c0a43d04c681292702f0a6ed33atargetblankd993369a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/d9933694eb0c1c0a43d04c681292702f0a6ed33a" target="_blank">d993369</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree29544c10ae4b8c0f1b9c0dd8147fcc238fc025d2targetblank29544c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/29544c10ae4b8c0f1b9c0dd8147fcc238fc025d2" target="_blank">29544c1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreed9933694eb0c1c0a43d04c681292702f0a6ed33atargetblankd993369a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree29544c10ae4b8c0f1b9c0dd8147fcc238fc025d2targetblank29544c1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/d9933694eb0c1c0a43d04c681292702f0a6ed33a" target="_blank">d993369</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/29544c10ae4b8c0f1b9c0dd8147fcc238fc025d2" target="_blank">29544c1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -510,6 +516,7 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    _@@/
     Ignored:    analysis/index (original).Rmd
+    Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    code/helpers.R
     Ignored:    code/rob_summary.R
     Ignored:    code/rob_traffic_light.R
@@ -519,13 +526,13 @@ Ignored files:
 
 Untracked files:
     Untracked:  .temp.lb
+    Untracked:  Thilen/
     Untracked:  analysis/.gitignore
+    Untracked:  analysis/kq3.Rmd
     Untracked:  code/.gitignore
+    Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
     Untracked:  data/
-
-Unstaged changes:
-    Modified:   analysis/prisma.Rmd
 
 </code></pre>
 <p>
@@ -564,6 +571,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/acb0ef4677bf9394728b08c6f188ecd38584dde5/analysis/prisma.Rmd" target="_blank">acb0ef4</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-11-20
+</td>
+<td>
+update prisma
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/acb0ef4677bf9394728b08c6f188ecd38584dde5/docs/prisma.html" target="_blank">acb0ef4</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-11-20
+</td>
+<td>
+update prisma
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -680,23 +721,23 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       whisker_0.4      knitr_1.36       magrittr_2.0.1  
- [5] workflowr_1.6.2  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
- [9] fansi_0.5.0      stringr_1.4.0    tools_4.1.2      xfun_0.28       
-[13] utf8_1.2.2       git2r_0.28.0     jquerylib_0.1.4  htmltools_0.5.2 
-[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.1       digest_0.6.28   
+ [1] Rcpp_1.0.7       whisker_0.4      knitr_1.37       magrittr_2.0.1  
+ [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
+ [9] fansi_0.5.0      stringr_1.4.0    tools_4.1.2      xfun_0.29       
+[13] utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2 
+[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.1       digest_0.6.29   
 [21] tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2     later_1.3.0     
-[25] sass_0.4.0       vctrs_0.3.8      promises_1.2.0.1 fs_1.5.0        
-[29] glue_1.5.0       evaluate_0.14    rmarkdown_2.11   stringi_1.7.5   
+[25] sass_0.4.0       vctrs_0.3.8      promises_1.2.0.1 fs_1.5.2        
+[29] glue_1.6.0       evaluate_0.14    rmarkdown_2.11   stringi_1.7.6   
 [33] bslib_0.3.1      compiler_4.1.2   pillar_1.6.4     jsonlite_1.7.2  
-[37] httpuv_1.6.3     pkgconfig_2.0.3 </code></pre>
+[37] httpuv_1.6.4     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

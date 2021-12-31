@@ -45,7 +45,7 @@ display: none !important;
 
 [<font size = 5> Diagnostic Accuracy </font>](kq2.html)
 
-[<font size = 5> NMM and Outcomes </font>](kq3.html)
+[<font size = 5> Outcomes </font>](kq3.html)
 
 <font size = 6> Reversal </font>
 
