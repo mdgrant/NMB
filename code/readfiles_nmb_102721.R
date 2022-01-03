@@ -9,6 +9,12 @@ library(formattable)
 suppressMessages(library(meta))
 settings.meta(CIbracket = "(", CIseparator = ", ")
 
+# convenience
+c_str <- function(x){
+  x <- Hmisc::Cs(x)
+  x
+}
+
 # kable defaults
 opt_font <-  c("Source Sans Pro")
 opt_boot <- c("striped", "hover", "condensed")
