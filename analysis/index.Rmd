@@ -41,7 +41,7 @@ display: none !important;
 
 [<font size = 5> Summary of Findings Tables </font>](soe.html)
 
-<font size = 6> Neuromuscular Monitoring </font>
+<font size = 6> Neuromuscular Monitoring (NMM)</font>
 
 [<font size = 5> Diagnostic Accuracy </font>](kq2.html)
 
@@ -51,7 +51,9 @@ display: none !important;
 
 [<font size = 5> Sugammadex vs. Neostigmine </font>](reversal.html)
 
-[<font size = 5> Evidence Tables </font>](evidence_tables.html)
+<font size = 6> Evidence Tables </font>
+
+[<font size = 5> Included Studies </font>](evidence_tables.html)
 
 <br/>
 

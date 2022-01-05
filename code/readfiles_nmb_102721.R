@@ -10,9 +10,10 @@ suppressMessages(library(meta))
 settings.meta(CIbracket = "(", CIseparator = ", ")
 
 # convenience
-c_str <- function(x){
-  x <- Hmisc::Cs(x)
-  x
+# ci using t dist
+ci_t = function(m, sd, n, low_up){
+  low_up <- ifelse(low_up == "low", -1, 1)
+  m + low_up * qt(0.975, n) * sd
 }
 
 # kable defaults
@@ -34,6 +35,7 @@ round_0    <- function(x) {formatC( round(x, 0), format = 'f', digits = 0)}
 round_1    <- function(x) {formatC( round(x, 1), format = 'f', digits = 1)}
 round_1d   <- function(x) {format(x, digits = 1)}
 round_0d   <- function(x) {format(x, digits = 0)}
+round_2d   <- function(x) {formatC(x, digits = 2, zero.print = TRUE)}
 round_2    <- function(x) {formatC( round(x, 2), format = 'f', digits = 2)}
 sd_conf_t  <- function(low, up, n){(abs(up - low)/2)/abs(qt(0.025, n))}
 sd_confint <- function(low, up){(abs(up - low)/2)/1.96}
@@ -110,6 +112,13 @@ pack_sub <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
     start_row = a, end_row = b,
     label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE,  indent = FALSE
+  )
+}
+
+pack_sub_bold <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-bottom: 0px solid;", color = "#646971", background = "white", bold = TRUE,  indent = FALSE, italic = FALSE
   )
 }
 
