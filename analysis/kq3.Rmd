@@ -492,10 +492,10 @@ nmm_kable <- dichot_ptout_tofr.dat %>%
     or_ci = ifelse(study == "Ueda 1991" & arm == 2, odds_ratio_y(2, 30, 17, 30), or_ci),
     rnmb_np = n_percent(rnmb1_n, rnmb1_per)
   ) %>%
-  mutate(
-    # add footnotes OR tofr
-    tofr_outcome = ifelse(refid %in% c(1489), paste0(tofr_outcome, "^b^"), tofr_outcome)
-  ) %>%
+  # mutate(
+  #   # add footnotes OR tofr
+  #   tofr_outcome = ifelse(refid %in% c(1489), paste0(tofr_outcome, "^b^"), tofr_outcome)
+  # ) %>%
   group_by(study) %>%
   mutate(
     study = ifelse(row_number() == 1, study, NA),
