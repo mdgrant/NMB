@@ -43,6 +43,8 @@ display: none !important;
 
 <font size = 6> Neuromuscular Monitoring (NMM)</font>
 
+[<font size = 5> Technical Performance </font>](kq1.html)
+
 [<font size = 5> Diagnostic Accuracy </font>](kq2.html)
 
 [<font size = 5> Outcomes </font>](kq3.html)
