@@ -77,6 +77,14 @@ source("code/readfiles_nmb_102721.R")
 ## • (updated 2021/11/16 09:02) create diag_ba.dat refids -----------------
 
 # refids, bland-altman, mean diff, sens/spec
+temp_diag_refids <- study_arm.dat %>% 
+  # filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!is.na(arm_diag_acc)) %>%
+  pull(refid) %>% 
+  unique()
+
+# temp_diag_refids[!temp_diag_refids %in% diag_refids]
+
 diag_refids <- contin.dat %>% 
   filter(str_detect(study_arm_k, "diag_acc")) %>% 
   filter(!str_detect(mon_cat, "qual|clinical")) %>% 
@@ -216,7 +224,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Includded studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
+<font size = 4> Table `r table_n`. Included studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
 
 ```{r studiesIncludedList, echo = FALSE, include = TRUE}
 ## • (updated 2021/11/16 09:06) included_studies.dat ----------------------

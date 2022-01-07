@@ -1,0 +1,236 @@
+---
+title: "KQ1"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: TRUE
+    toc_float: 
+      collapsed: true
+      smooth_scroll: TRUE
+    toc_depth: 3
+    linkcolor: blue
+  latex_engine: xelatex
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+# bibliography: "bib/kq1.bib"
+csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: false
+nocite: '@*'
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+<!-- :target {  /* fix target location so caption appears */ -->
+<!--     display: block;     -->
+<!--     position: relative;      -->
+<!--     top: 10px; -->
+<!--     visibility: hidden; -->
+<!-- } -->
+
+</style>
+```
+
+```{r setup, include = FALSE} 
+## • (updated 2021/11/10 21:46) setup -------------------------------------
+knitr::opts_chunk$set(echo = TRUE)
+source("code/readfiles_nmb_102721.R")
+```
+
+
+```{r data, include = FALSE, eval = TRUE}
+## • (updated 2021/11/16 09:02) create diag_ba.dat refids -----------------
+## (updated 2022/01/07 08:54) verify correct refids -----------------------
+tech_sc_refids <- study_char.dat %>% 
+  filter(!is.na(tech_perf)) %>% 
+  pull(refid) %>% 
+  unique()
+
+(tech_sa_refids <- study_arm.dat %>% 
+  filter(!is.na(arm_tech_perf)) %>% 
+# check discrepancy
+  filter(!refid %in% tech_sc_refids) %>%
+  pull(refid) %>%
+  unique())
+
+rm(tech_sa_refids, tech_sc_refids)
+
+## (updated 2022/01/07 08:55) tech_perf refids verified -------------------
+tech_refids <- study_arm.dat %>% 
+  filter(!is.na(arm_tech_perf)) %>% 
+  pull(refid) %>%
+  unique()
+
+contin_tech.dat <- contin.dat %>% 
+  filter(refid %in% tech_refids)
+
+dichot_tech.dat <- dichot.dat %>% 
+  filter(refid %in% tech_refids)
+
+likert_tech.dat <- likert.dat%>% 
+  filter(refid %in% tech_refids)
+```
+
+# **Included Studies** 
+
+<br/>
+
+<font size = 4> Table `r table_n`. Number of included studies according to age and design. </font>
+
+```{r tablesIncluded, include = TRUE, echo = FALSE} 
+## • (updated 2021/11/13 07:21) study_char_diag.dat -----------------------
+# list of studies, age, surgical/non surgical, design 
+study_char.dat %>% 
+  filter(refid %in% tech_refids) %>% 
+  group_by(age, design, .groups = "drop") %>%
+  summarise(total = n()) %>%
+  ungroup() %>%
+  arrange(age, design) %>%
+  group_by(age, .groups = "drop") %>%
+  mutate(row = row_number()) %>%
+  ungroup() %>%
+  janitor::adorn_totals("row") %>%
+  mutate(
+    age = ifelse(row != 1, NA, age),
+    design = case_when(
+      design == "rct" ~ "RCT",
+      design == "crossover" ~ "Crossover",
+      design == "cluster" ~ "Cluster",
+      design == "nrsi" ~ "Nonrandomized",
+      design == "prospect_coh" ~ "Prospective Cohort",
+      design == "retrospect_coh" ~ "Retrospective Cohort",
+      design == "casecontrol" ~ "Case-Control",
+      design == "other" ~ "Before-After",
+      design == "fully_paired" ~ "Fully Paired"),
+      age = ifelse(row_number() == n(), "Total", age)
+  ) %>%
+  select(age, design, total) %>%
+  kbl(
+    booktabs = T, align = c("llr"),
+    col.names = c("Age", "Design", "N")
+  ) %>%
+  row_spec(c(0, 4), bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "8em") %>%
+  column_spec(2, width = "10em") %>%
+  column_spec(3, width = "3em") %>% 
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    # alphabet = c("Footnote a", "Footnote b", ...),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+## *List of Studies*
+
+<br/>
+
+<font size = 4> Table `r table_n`. Included studies, design, enrollment, centers, country, and surgery (see [References](#references) for citations). </font>
+
+```{r studiesIncludedList, echo = FALSE, include = TRUE}
+## • (updated 2021/11/16 09:06) included_studies.dat ----------------------
+included_studies.dat <- study_char.dat %>%
+  filter(refid %in% tech_refids) %>%
+  mutate(
+    design_l = as.character(design),
+    design_l = factor(design_l,
+      levels = c("rct", "fully_paired", "nrsi", "prospect_coh", "retrospect_coh"),
+      labels = c("RCT", "Fully paired", "NRSI", "Prospective Cohort", "Retrospective Cohort")
+    ),
+    across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
+    across(surg_various:surg_other, ~ str_c(.x, ", ")),
+    across(surg_various:surg_other, ~ firstup(.x)),
+    across(surg_various:surg_other, ~ replace_na(.x, "")),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_list),
+    surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Headneck", "ENT"),
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2),
+    country = ifelse(grepl("USA", country), "USA", country),
+    country = ifelse(grepl("UK", country), "UK", country),
+    country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country),
+    # design = case_when(
+    #   design == "rct" ~ "RCT",
+    #   design == "fully_paired" ~ "Fully paired"
+    # ),
+    # design = ifelse(study == "Claudius 2009", "Fully paired (random subset)", design)
+  ) %>%
+  select(refid, study_l, year, age, design, design_l, n_analyze, country, centers, non_vh_hdi, surgs) %>%
+  arrange(age, design_l, year) 
+
+## • (updated 2021/11/16 09:06) kable -------------------------------------
+temp <- included_studies.dat %>%
+  arrange(age, design_l, study_l) %>% 
+  select(study_l, refid, age, design_l) %>% 
+  group_by(age, design_l) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(end = cumsum(n),
+         start = end - n + 1) %>% 
+  select(age, design_l, start, end)
+
+rm(temp)
+
+included_studies.dat %>% 
+  select(refid, study_l, n_analyze, centers, country, surgs) %>% 
+  kbl(
+    booktabs = T, align = c("llccll"), escape = TRUE, # format = "latex",
+    col.names = c("            ID", "Study", "Analyzed (N)", "Centers", "Country^a^", "Surgery")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "6em") %>%
+  column_spec(2, width = "10em") %>%
+  column_spec(3, width = "6em") %>%
+  column_spec(4, width = "6em") %>%
+  column_spec(5, width = "10em") %>%
+  column_spec(6, width = "12em") %>%
+  pack_top(., "Adult", 1, 24) %>%
+  pack_sub(., "RCT", 1, 5) %>% 
+  pack_sub(., "Fully Paired", 6, 23) %>% 
+  pack_sub(., "Prospective Cohort", 24, 24) %>% 
+  footnote(
+    general = "RCT: randomized controlled trial.",
+    alphabet = c(
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
