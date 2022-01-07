@@ -232,5 +232,136 @@ included_studies.dat %>%
 table_n <- tab_inc()
 ```
 
+<br/><br/>
+
+# **Study/Participant Detail** 
+
 <br/>
+
+### *Study Characteristics* 
+
+<br>
+
+<font size = 4> Table `r table_n`. Study characteristics. </font>
+
+```{r createStudyCharTable, include = FALSE, echo = FALSE, eval = FALSE} 
+## (updated 2021/11/10 15:31) 2021/11/10 15:31 ----------------------------
+# Hmisc::latex(Hmisc::describe(study_char_diag.dat), file = "/Users/mgrant/Desktop/temp.tex")
+study_char_table <- study_char_diag.dat %>%
+  mutate(
+    dates = str_c(date_start, "-", date_end),
+    country = countrycode::countryname(country, destination = "iso3c"),
+    low_r = noquote(if_else(non_vh_hdi == "yes", "\U2022", "", "")),
+    n = n_enrolled,
+    n_anal = n_analyze,
+    pilot = noquote(if_else(pilot == "yes", "\U2022", "", "")),
+    gen = noquote(if_else(!is.na(general), "\U2022", "", "")),
+    reg = noquote(if_else(!is.na(regional), "\U2022", "", "")),
+    registered = noquote(if_else(registered == "yes", "\U2022", "", ""))) %>% 
+  mutate(
+    across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
+    across(surg_various:surg_other, ~ str_c(.x, ", ")),
+    across(surg_various:surg_other, ~ firstup(.x)),
+    across(surg_various:surg_other, ~ replace_na(.x, "")),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_list),
+    surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Headneck", "ENT"),
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2)
+  ) %>%
+  select(refid, age, year, study, dates, country, low_r, n, centers, low_r, pilot, surgs, nct) %>% 
+  arrange(age,year)
+
+
+
+  arrange(age, desc(surg_nosurg), design, year, study) %>%
+  select(refid, age, surg_nosurg, design, study, dates, country, n, pilot, setting, gen, reg, sed, surg, registered)
+
+```
+
+```{r studyCharKable, echo = FALSE, include = FALSE, eval = FALSE} 
+## (updated 2021/01/12 19:27) ---------------------------------------------
+study_char_table %>%
+  select(!c(refid, age, surg_nosurg, design)) %>% 
+  kbl(booktabs = T, align = c("lcccccccclc"), 
+      # format = "latex",
+      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Dates", "Country", " (N\\) ", "Pilot", 
+                    "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered")) %>%
+  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2), bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
+  kable_styling(bootstrap_options = opt_boot) %>% 
+  column_spec(1, width = "15em") %>% 
+  # column_spec(2, width = "2em") %>% 
+  pack_top(., "Adult, Surgical", 1, 99) %>% 
+  pack_sub(., "RCT", 1, 84) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 85, 92) %>% 
+  pack_sub(., "Prospective Cohort", 93, 95) %>%
+  pack_sub(., "Retrospective Cohort", 96, 97) %>% 
+  pack_sub(., "Case-control", 98, 98) %>% 
+  pack_sub(., "Before-after", 99, 99) %>% 
+  pack_top(., "Adult, Non-surgical", 100, 111) %>% 
+  pack_sub(., "RCT", 100, 100) %>%
+  pack_sub(., "Crossover", 101, 109) %>%
+  pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
+  pack_top(., "Pediatric, Surgical", 112, 120) %>% 
+  pack_sub(., "RCT", 112, 119) %>% 
+  # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
+  pack_sub(., "Prospective Cohort", 120, 120) %>% 
+  pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
+  pack_sub(., "RCT", 121, 121) %>%
+  pack_sub(., "Crossover", 122, 122) %>%
+  pack_sub(., "Prospective Cohort", 123, 123) %>% 
+  footnote(general_title = "",
+    general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
+    alphabet = c("Multiple publications from the same study."),
+    footnote_as_chunk = FALSE) # %>% 
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+
+# **Risk of Bias** 
+
+<br/>
+
+### *QUADAS-2*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal (QUADAS-2) for included studies. </font>
+
+<img src="assets/kq1_quadas_summary.svg" style="width:750px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal QUADAS-2) for included studies. </font>
+
+<img src="assets/kq1_quadas_traffic.svg" style="width:650px;" align="left"/>
+<!-- <img src="assets/kq1_quadas_traffic.svg" style="width: 75%; height: 1000px;" align="left"/> -->
+
+```{r}
+figure_n <- fig_inc()
+```
+<br clear="all" />
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
+
+# References 
+<a id="references"></a>
+
+<br/>
+
+
+
 
