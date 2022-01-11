@@ -403,7 +403,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Study Evidence Tables</h1>
-<h4 class="date">26 December, 2021 (10:46)</h4>
+<h4 class="date">11 January, 2022 (08:08)</h4>
 
 </div>
 
@@ -428,7 +428,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-26
+<strong>Last updated:</strong> 2022-01-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -519,16 +519,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeeb4480d461d284dcf6ed089b843af68b32ec9608targetblankeb4480da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/eb4480d461d284dcf6ed089b843af68b32ec9608" target="_blank">eb4480d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreea99c6db3826fd0e9859dc2f36545c9f7bbc45afftargetblanka99c6dba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/a99c6db3826fd0e9859dc2f36545c9f7bbc45aff" target="_blank">a99c6db</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeeb4480d461d284dcf6ed089b843af68b32ec9608targetblankeb4480da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreea99c6db3826fd0e9859dc2f36545c9f7bbc45afftargetblanka99c6dba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/eb4480d461d284dcf6ed089b843af68b32ec9608" target="_blank">eb4480d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/a99c6db3826fd0e9859dc2f36545c9f7bbc45aff" target="_blank">a99c6db</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,17 +550,19 @@ Ignored files:
 
 Untracked files:
     Untracked:  .temp.lb
-    Untracked:  Thilen/
     Untracked:  analysis/.gitignore
-    Untracked:  analysis/kq3.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
+    Untracked:  code/rob_111921 (original).R
     Untracked:  code/rob_111921.R
+    Untracked:  code/rob_summary_mg.R
     Untracked:  data/
 
 Unstaged changes:
     Modified:   analysis/evidence_tables.Rmd
+    Modified:   analysis/kq1.Rmd
     Modified:   analysis/reversal.Rmd
+    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -599,6 +601,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/9d6453a293772bbdf637e31441613aefa3b49e96/analysis/evidence_tables.Rmd" target="_blank">9d6453a</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-12-30
+</td>
+<td>
+updates to kq2 kq3
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/9d6453a293772bbdf637e31441613aefa3b49e96/docs/evidence_tables.html" target="_blank">9d6453a</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2021-12-30
+</td>
+<td>
+updates to kq2 kq3
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -892,6 +928,442 @@ display: none !important;
 }
 
 </style>
+<div id="technical-performance-kq1" class="section level1">
+<h1><strong>Technical Performance KQ1</strong></h1>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+N
+</th>
+<th style="text-align:left;font-weight: bold;">
+Inclusion/Exclusion Criteria
+</th>
+<th style="text-align:left;font-weight: bold;">
+Results
+</th>
+<th style="text-align:left;font-weight: bold;">
+Comment
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="24">
+<td colspan="5" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Adult</strong>
+</td>
+</tr>
+<tr grouplength="5">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+RCT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1669"></a>Capron <br> 2004
+</td>
+<td style="text-align:center;width: 4em; ">
+60
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-III.<br>Exclude: Neurmuscular disease, hepatic or renal disease, abnormal airway anatomy, deviation from ideal body mass of &gt;= 25%, pregnancy, medication influencing neuromuscular blockade.
+</td>
+<td style="text-align:left;width: 20em; ">
+AMG TOFR for recovery should be 1.0 to avoid low degrees of rNMB. When MMG records TOFR &gt;= 0.9 the normalized AMG TOFR = 0.89 (0.63-1.06) and non-normalized = 0.97 (0.68-1.18).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1794"></a>Kopman <br> 2005
+</td>
+<td style="text-align:center;width: 4em; ">
+50
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II, age 20-64 years.<br>Exclude: Neuromuscular disease, BMI &lt; 35.
+</td>
+<td style="text-align:left;width: 20em; ">
+AMG TOFR &lt; 0.9 is indicative of incomplete recovery. AMG TOFR 0.95-1.0 when EMG TOF = 0.9 should be sought.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2192"></a>Suzuki <br> 2009
+</td>
+<td style="text-align:center;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II, age 20-60 years, female.<br>Exclude: Neuromuscular, hepatic and renal disorders, or were taking any drug known to interact with neuromuscular blocking agents, BMI &lt; 18.5 or &gt;=25.
+</td>
+<td style="text-align:left;width: 20em; ">
+The time for neostigmine-facilitated recovery to TOFR 0.9 was shorter in the CSM group than in the APM [11.4 (3.8) vs. 16.2 (6.0) min; p=0.016].
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="3316"></a>Mazzinari <br> 2019
+</td>
+<td style="text-align:center;width: 4em; ">
+50
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; age &gt;18; surgery not involving airway and lasting &gt;=90 min.<br>Exclude: Pregnant; diseases or drugs affecting neuromuscular function; chronic renal or hepatic failure; allergy to study drugs; hemodynamic instability; potentially large intraoperative blood loss.
+</td>
+<td style="text-align:left;width: 20em; ">
+A difference was not detected in time to TOFR &gt;=0.9 (non-normalized and normalized) among patients receiving tetanic stimulus prior to monitor calibration (n=22) compared with patients given standard monitor calibration (n=24).
+</td>
+<td style="text-align:left;width: 24em; ">
+To evaluate if the staircase phenomenon affects AMG monitoring. this study exposed one group to tetanic stimulation prior to calibration and one group had standard calibration.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="719"></a>Trevien <br> 1995
+</td>
+<td style="text-align:center;width: 4em; ">
+52
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; age 18-65; orthopedic surgical procedure requiring curarization for tracheal intubation, but needing no further curarization.<br>Exclude: Anatomic conditions predisposing difficult intubation; neuromuscular, renal, cardiac, hepatic, or respiratory diseases; malignant hyperthermia; drug or alcohol abuse; drugs affecting neuromuscular function.
+</td>
+<td style="text-align:left;width: 20em; ">
+Time to TOFR &gt;=0.8 was significantly shorter in patients receiving neostigmine administered at twitch height 10% at the adductor pollicis muscle (n=14) compared with patients receiving no reversal agent (n=15), p&lt;0.05. Time to TOFR &gt;=0.8 was significantly shorter in patients receiving neostigmine administered at first response at the orbicularis oculi muscle (n=16) compared with patients receiving no reversal agent (n=15), p&lt;0.05.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr grouplength="18">
+<td colspan="5" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
+Fully Paired
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1429"></a>Pelgrims <br> 2001
+</td>
+<td style="text-align:center;width: 4em; ">
+25
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II, age 18-65 years, male.<br>Exclude: Not specified.
+</td>
+<td style="text-align:left;width: 20em; ">
+Within patients no statistically significant differences were observed between pre-load and no preload for time to reach TOFR 0.9 (52.7 vs 52.8 min). The average time to reach TOFR 0.9 between TOF-Guard and ParaGraph was 68.0 and 63.8.
+</td>
+<td style="text-align:left;width: 24em; ">
+This is a two part study that compared TOF-Guard with and without preload and between two different AMGs TOF-Guard and ParaGraph.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1431"></a>Plaud <br> 2001
+</td>
+<td style="text-align:center;width: 4em; ">
+24
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II, age 18-60 years.<br>Exclude: Difficult airway, neuromuscular, cardiovascular, hepatic, and renal disease, medications know to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 20em; ">
+Time to TOFR 0.9 was similar when measure at adductor pollicis and corrugator supercilli (20 vs 22 min).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1476"></a>Dubois <br> 2002
+</td>
+<td style="text-align:center;width: 4em; ">
+40
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II.<br>Exclude: Neuromuscular disease, medications altering neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 20em; ">
+Time to reach a TOFR 0.9 was longer when measured by TOF-tube than TOF-watch with arm board (35.29 vs 34.02, p&lt;0.001) .
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1518"></a>Larsen <br> 2002
+</td>
+<td style="text-align:center;width: 4em; ">
+20
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II.<br>Exclude: Neuromuscular disease, medications know to interfere with neuromuscular transmission, obese.
+</td>
+<td style="text-align:left;width: 20em; ">
+Neuromuscular monitoring with AMG from the orbital part of the orbicularis muscle as used in this study was subject to a large uncertainty as a measure of paralysis during anesthesia, and it cannot therefore be recommended for routine monitoring.
+</td>
+<td style="text-align:left;width: 24em; ">
+Conclusions would have been stronger with bland-altman or sensitivity/specificity analysis. Based on digitized data, when the TOFR reached 0.9 at AA the median TOFR reported for OO was 0.82.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1769"></a>Dubois <br> 2005
+</td>
+<td style="text-align:center;width: 4em; ">
+20
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: Not specified.<br>Exclude: Neuromuscular disease, medications known to interfere with neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 20em; ">
+Use of TOF-tube (TOFR = 0.89) reduces measurement variability of an AMG when comparing to MMG TOFR 0.9 reference measure.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="1810"></a>Motamed <br> 2005
+</td>
+<td style="text-align:center;width: 4em; ">
+20
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II.<br>Exclude: Neuromuscular disease, renal or hepatic disease, medications known to interfere with neuromuscular function, difficult airway.
+</td>
+<td style="text-align:left;width: 20em; ">
+No difference in time to reach TOFR 0.9 between AMG PTC mode and AMG TOF mode (m=48 min, p=1).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2120"></a>Claudius <br> 2009
+</td>
+<td style="text-align:center;width: 4em; ">
+60
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-III, 18-65 years, surgery in supine position, within 20% of ideal body weight.<br>Exclude: Neuromuscular, renal, or hepatic disease, pregnancy, breast-feeding women.
+</td>
+<td style="text-align:left;width: 20em; ">
+Preload increases the precision of acceleromyography, and normalization of the TOF ratios decreases bias in relation to mechanomyography (bias 0.17, LoA 0.06-0.28).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2383"></a>Schreiber <br> 2011
+</td>
+<td style="text-align:center;width: 4em; ">
+100
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: Age &gt;18; elective orthopedic surgery under general anesthesia with endotracheal intubation; supine position and at least one arm available.<br>Exclude: Neuromuscular disease.
+</td>
+<td style="text-align:left;width: 20em; ">
+In patients undergoing orthopedic surgery (n=96), Bland-Altman analysis of calibrated and non-calibrated TOFR measurements by the TOF Watch were: mean (SD), 0.01 (0.07) and limits of agreement, -0.15 to 0.15. Mean TOFR (SD) at the end of surgery was 1.03 (0.12) calibrated and 1.01 (0.19) non-calibrated.
+</td>
+<td style="text-align:left;width: 24em; ">
+If TOFR &lt;0.9 used as threshold of neuromuscular block, K statistic=0.52. If TOFR &lt;1.0 used as threshold, K statistic=0.84.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2479"></a>Phillips <br> 2012
+</td>
+<td style="text-align:center;width: 4em; ">
+38
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: Age &gt;18; surgery requiring NMBA; arm available for electrodes.<br>Exclude: Not specified.
+</td>
+<td style="text-align:left;width: 20em; ">
+In a study of 31 patients in which EMG was used to measure TOF at 3 different muscle sights, the following bias (limits of agreement) were reported at TOFR=0.9: abductor digiti minimi and adductor pollicis, 0.10 (-0.10 to 0.30); abductor digiti minimi and first dorsal interosseous, 0.09 (-0.10 to 0.28); and adductor pollicis and first dorsal interosseous, 0.01 (-0.27 to 0.28).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2820"></a>Yamamoto <br> 2015
+</td>
+<td style="text-align:center;width: 4em; ">
+80
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; elective orthopedic, gynecological, and urological surgery under general anesthesia.<br>Exclude: Neuromuscular, hepatic, or renal disorders; drugs affecting neuromuscular function; BMI &gt;30 kg/m2; BMI &lt;18.5 kg/m2.
+</td>
+<td style="text-align:left;width: 20em; ">
+In both patient age groups, 20-60 (n=40) and &gt;=70 (n=38), and both sugammadex dosage groups (2 mg/kg and 4 mg/kg), time to TOFR &gt;=1.0 was significantly longer when measured at the adductor pollicis compared with the corrugator supercilii. In both patient age groups, time to TOFR &gt;=1.0 was significantly longer in patients receiving 2 mg/kg compared with patients receiving 4 mg/kg. In addition, patients &gt;=70 receiving 4 mg/kg sugammadex had significantly longer time to TOFR &gt;=1.0 compared with patients 20-60 when measured at the adductor pollicis.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="2952"></a>Vega <br> 2016
+</td>
+<td style="text-align:center;width: 4em; ">
+10
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I; age 18-65; elective surgery under general anesthesia.<br>Exclude: Pregnant; BMI &gt;25 mg/kg2; anticipated difficult airway; anticipated blood loss &gt;500 ml; diagnosis of any disease; allergy to NMBD; drugs affecting NMBD (aminoglycosides, anticonvulsants, calcium channel antagonists, digitalis, antidepressants, diuretics, corticosteroids).
+</td>
+<td style="text-align:left;width: 20em; ">
+A difference was not detected in time to TOFR &gt;=0.9 among patients (n=10) monitored by AMG at both the adductor pollicis muscle (29.9 +/- 6.7 min) and the masseter muscle (29.3 +/- 8.1) min) (p=0.77).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="3464"></a>Le <br> Merrer 2020
+</td>
+<td style="text-align:center;width: 4em; ">
+60
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; age &gt;=18; elective surgery with a hand and a foot available.<br>Exclude: Diabetes; neuropathy; emergency surgery; anticipated difficult airway; allergy to atracurium.
+</td>
+<td style="text-align:left;width: 20em; ">
+Among patients receiving neostigmine, a difference was not detected in time to TOFR &gt;0.9 at the flexor hallucis muscle compared with the adductor pollicis muscle. Among patients recovering spontaneously (n=41), time to TOFR &gt;0.9 was significantly shorter at the flexor hallucis muscle compared with the adductor pollicis muscle (p&lt;0.0001).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="3537"></a>Thudium <br> 2020
+</td>
+<td style="text-align:center;width: 4em; ">
+35
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: Age &gt;18; hip or knee arthroplasty using general anesthesia and NMBA.<br>Exclude: Emergency surgery; missing pulmonary function test or missing TOF measurements.
+</td>
+<td style="text-align:left;width: 20em; ">
+In patients undergoing hip or knee arthroplasty (n=20), earlier recovery to TOFR&gt;=0.9 was recorded at the corrugator supercilii muscle compared with the adductor pollicis muscle, median (IQR) difference: 20 (12.8-28) minutes.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="4140"></a>Eriksson <br> 1991
+</td>
+<td style="text-align:center;width: 4em; ">
+8
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I; scheduled for extirpation of neurinoma of acoustic nerve.<br>Exclude: Not specified.
+</td>
+<td style="text-align:left;width: 20em; ">
+In 8 healthy patients undergoing extirpation of a neurinoma of the acoustic nerve in which one arm is maintained at skin temperature 33 deg C/muscle temperature 34 deg C and one arm is cooled to skin temperature of 27 deg C/muscle temperature of 31 deg C, MMG measurements at the end of the study showed TOFR=0.97 +/- 0.02 and TOFR=0.90 +/- 0.04 in the warm and cool arms, respectively (p&lt;0.001).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="5309"></a>Sugi <br> 2013
+</td>
+<td style="text-align:center;width: 4em; ">
+29
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: Age 18-70; otolaryngologic or ophthalmic surgery under general anesthesia.<br>Exclude: Drugs affecting neuromuscular function; hepatic, renal, metabolic, endocrine, or neuromuscular dysfunction; BMI &gt;30 kg/m2.
+</td>
+<td style="text-align:left;width: 20em; ">
+When the flexor hallucis brevis muscle (FHBM) had recovered to TOFR=0.9 (measured by AMG), the TOFR at the first dorsal interosseous muscle (FDIM) was 0.44 +/- 0.23 (measured by EMG). Time to TOFR=0.9 from administration of neuromuscular block was significantly longer when measured at the FDIM compared with the FHBM, mean additional time: 27 (19.2-35.6) minutes.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="7005"></a>Baykara <br> 2010
+</td>
+<td style="text-align:center;width: 4em; ">
+130
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; age 18-65; surgery under general anesthesia requiring muscle relaxants lasting at least 1 h; within 20% of ideal body weight.<br>Exclude: Surgeries associated with massive blood loss or fluid replacement; hepatic, renal, or neuromuscular disease; pregnant; drugs affecting neuromuscular function.
+</td>
+<td style="text-align:left;width: 20em; ">
+To detect incidence of PORC (TOFR &lt;1.0) in the PACU, the use of non-normalized AMG values identified 67 patients (549%) compared with the use of normalized AMG values identifying 77 patients (63.1%) (p&lt;0.05). To detect incidence of severe PORC (TOFR &lt;0.7) in the PACU, the use of non-normalized AMG values identified 12 patients (10%) compared with the use of normalized AMG values identifying 22 patients (18.3%) (p=NS).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="7072"></a>Santanen <br> 1999
+</td>
+<td style="text-align:center;width: 4em; ">
+24
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-III; eye surgery (vitrectomy and/or ablation).<br>Exclude: Not specified.
+</td>
+<td style="text-align:left;width: 20em; ">
+Compared to a baseline EMG of 100 when muscle and skin temperatures are warm (muscle 36 deg C and skin 35-36 deg C), mean EMG measurement under cooler conditions (muscle 34-35 deg C and skin 32 deg C) was 108.9 +/- 1.2 (100.8-119.5).
+</td>
+<td style="text-align:left;width: 24em; ">
+Change in EMG/deg C cooler in muscle: 8.0 +/- 0.8 (range 0.3-16.5); change in EMG/deg C cooler in skin: 4.1 +/- 1.6 (range 0.3-37.9)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;width: 8em; " indentlevel="1">
+<a id="868"></a>Abdulatif <br> 1997
+</td>
+<td style="text-align:center;width: 4em; ">
+30
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-II; male; diagnostic endoscopic surgery.<br>Exclude: Cardiac, vascular, respiratory, hepatic, renal, or neuromuscular disorders; smokers; previous head and neck surgery; history of small joint arthritis; drugs affecting neuromuscular transmission.
+</td>
+<td style="text-align:left;width: 20em; ">
+Time to TOFR=0.9 was significantly longer at the adductor pollicis muscle compared with the orbicularis oculi muscle, among patients (n=30) monitored with the AMG TOF Guard at both sites simultaneously.
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+<tr grouplength="1">
+<td colspan="5" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 4em;width: 8em; " indentlevel="2">
+<a id="2490"></a>Thilen <br> 2012
+</td>
+<td style="text-align:center;width: 4em; ">
+150
+</td>
+<td style="text-align:left;width: 20em; ">
+Include: ASA I-IV; age 18-80; elective surgery with anticipated use of NMBA.<br>Exclude: Neuromuscular disorders.
+</td>
+<td style="text-align:left;width: 20em; ">
+Patients monitored qualitatively intraoperatively at the eye muscle (n=99) experienced significantly more rNMB (defined as TOFR &lt;0.9) in the PACU compared with patients monitored qualitatively intraoperatively at the adductor pollicis (n=51), 52% vs 22%, respectively (p&lt;0.01).
+</td>
+<td style="text-align:left;width: 24em; ">
+</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
 <div id="diagnostic-accuracy-kq2" class="section level1">
 <h1><strong>Diagnostic Accuracy KQ2</strong></h1>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
@@ -1322,6 +1794,7 @@ In 24 pediatric pts monitored by both the MechanoSensor (KMG) and an EMG monitor
 </tr>
 </tbody>
 </table>
+<p><br/></p>
 </div>
 <div id="monitoring-patient-outcomes-kq3" class="section level1">
 <h1><strong>Monitoring Patient Outcomes KQ3</strong></h1>
@@ -1614,6 +2087,7 @@ Retrospective chart review reported rNMB incidence of 1.6% and 32% in pts monito
 </tr>
 </tbody>
 </table>
+<p><br/></p>
 </div>
 <div id="reversal" class="section level1">
 <h1><strong>Reversal</strong></h1>
@@ -4232,6 +4706,8 @@ In a case control study of pediatric patients (newborn through adolescent), pati
 </tr>
 </tbody>
 </table>
+<p><br/></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 </div>
 <div id="references" class="section level1">
 <h1><strong>References</strong></h1>
@@ -5069,7 +5545,7 @@ other attached packages:
  [1] meta_5.1-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
  [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.1      
  [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
-[13] Cairo_1.5-12.2    countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+[13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-153           fs_1.5.2               bit64_4.0.5           
@@ -5097,8 +5573,8 @@ loaded via a namespace (and not attached):
 [67] pillar_1.6.4           boot_1.3-28            reprex_2.0.1          
 [70] glue_1.6.0             evaluate_0.14          modelr_0.1.8          
 [73] nloptr_1.2.2.3         vctrs_0.3.8            tzdb_0.2.0            
-[76] httpuv_1.6.4           cellranger_1.1.0       gtable_0.3.0          
-[79] assertthat_0.2.1       xfun_0.29              broom_0.7.10          
+[76] httpuv_1.6.5           cellranger_1.1.0       gtable_0.3.0          
+[79] assertthat_0.2.1       xfun_0.29              broom_0.7.11          
 [82] later_1.3.0            viridisLite_0.4.0      workflowr_1.7.0       
 [85] ellipsis_0.3.2        </code></pre>
 </div>
