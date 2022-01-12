@@ -30,6 +30,10 @@ nocite: '@*'
   font-family: Source Sans Pro;
 }
 
+.caption {
+  font-size: 15px;
+}
+
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   color: #090909;
   background-color: #0909093d;
@@ -60,9 +64,8 @@ display: none !important;
 ## (updated 2021/11/17 14:22) setup -------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
-
 ```
-bino
+
 ```{r data}
 ## (updated 2021/11/21 10:06) reversal refids -----------------------------
 rev_refids <- study_char.dat %>% 
@@ -134,7 +137,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## *List of Studies*
+## *Design, centers, country, surgery*
 
 <br/>
 
@@ -187,19 +190,19 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 136) %>%
-  pack_sub(., "RCT", 1, 105) %>% 
-  pack_sub(., "Quasi-Experimental", 106, 106) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 107, 114) %>% 
-  pack_sub(., "Prospective Cohort", 115, 126) %>% 
-  pack_sub(., "Retrospective Cohort", 127, 136) %>% 
-  pack_top(., "All ages", 137, 141) %>% 
-  pack_sub(., "RCT", 137, 140) %>% 
-  pack_sub(., "Retrospective Cohort", 141, 141) %>% 
-  pack_top(., "Pediatric", 142, 158) %>%
-  pack_sub(., "RCT", 142, 153) %>% 
-  pack_sub(., "Prospective Cohort", 154, 157) %>% 
-  pack_sub(., "Case-control", 158, 158) %>% 
+  pack_top(., "Adult", 1, 135) %>%
+  pack_sub(., "RCT", 1, 104) %>% 
+  pack_sub(., "Quasi-Experimental", 105, 105) %>% 
+  pack_sub(., "Nonrandomized Studies of Interventions", 106, 113) %>% 
+  pack_sub(., "Prospective Cohort", 115, 125) %>% 
+  pack_sub(., "Retrospective Cohort", 126, 135) %>% 
+  pack_top(., "All ages", 136, 140) %>% 
+  pack_sub(., "RCT", 136, 139) %>% 
+  pack_sub(., "Retrospective Cohort", 140, 140) %>% 
+  pack_top(., "Pediatric", 141, 157) %>%
+  pack_sub(., "RCT", 141, 152) %>% 
+  pack_sub(., "Prospective Cohort", 153, 156) %>% 
+  pack_sub(., "Case-control", 157, 157) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -209,9 +212,347 @@ included_studies.dat %>%
   )
 
 table_n <- tab_inc()
+rm(temp)
+```
+
+# **Outcomes**
+
+<br/>
+
+## *Residual Neuromusclar Block (TOFR/Clinical)*
+
+<br/>
+
+```{r rnmbData}
+## rnmbData (updated 2022/01/09 17:38)  -----------------------------------
+rnmb.dat <- readxl::read_xlsx("data/RevAgentSummary011122_mg.xlsx", range = "A6:AF50", col_types =  c("numeric", "text", "text", "text", "text", "numeric", rep("text", 26))) %>% 
+  clean_names() %>% 
+  fill(refid, study) %>% 
+  remove_empty(which = "cols") %>% 
+  mutate(
+    study_orig = study,
+    study = str_extract(study, "\\w*.{0,1}\\w* \\d{4}")
+  )
+
+temp <- study_char.dat %>% select(refid, study_l, age, design, year)
+rnmb.dat <- inner_join(rnmb.dat, temp, by = "refid") %>%
+  relocate(c(study_orig, study_l, age, design, year), .before = study) %>%
+  # fix links
+  mutate(
+    study_l = case_when(
+      study_orig == "Wu 2014 (Chinese)" ~ "[Wu 2014 (Chinese)](evidence_tables.html#2710)",
+      study_orig == "Wu 2014 (Caucasian)" ~ "[Wu 2014 (Caucasian)](evidence_tables.html#2710)",
+      study_orig == "Nemes 2017 (nl)" ~ "[Nemes 2017 (nl)](evidence_tables.html#3058)",
+      TRUE ~ study_l
+    ),
+    design = fct_drop(design),
+  ) %>% 
+    arrange(age, design, year)
+
+# get n from dichot data
+# temp <- dichot.dat %>% 
+#   filter(refid %in% rev_refids) %>% 
+#   select(refid, study, starts_with("rnmb")) %>% 
+#   remove_empty(which = "cols")
+
+rm(temp)
+```
+
+### Adult
+
+### &ensp;Agents, Anesthetics, and Monitors
+
+<br/>
+
+<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in studies reporting residual neuromuscular block in adults. </font>
+
+```{r rnmbDescrKbl}
+# roc <- cell_spec("Rocuromiun", angle = -60, align = "r")
+temp <- rnmb.dat %>%
+  filter(age == "Adult") %>%
+  arrange(design, study_l) %>%
+  select(study_l, refid, design) %>%
+  group_by(design) %>%
+  tally() %>%
+  ungroup() %>%
+  mutate(
+    end = cumsum(n),
+    start = end - n + 1
+  ) %>%
+  select(design, start, end)
+
+rnmb.dat %>% 
+  filter(age == "Adult") %>%
+  select(study_l, arm:ns_mon, -mg) %>% 
+  relocate(n, .before = arm) %>% 
+  group_by(study_l) %>% 
+  mutate(
+    # across(c(roc:ns_mon), ~ str_replace(.x, "x", "&#x25cf;")),
+    across(c(roc:ns_mon), ~ str_replace(.x, "x", "&times;")),
+    study_l = ifelse(row_number() != 1, "", study_l)) %>% 
+  ungroup() %>% 
+  kbl(
+    booktabs = T, align = c("llccccccccc"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg (mg)", "Roc", "Vec", "TIVA", "Inh", "NS", "AMG", "EMG", "KMG", "NS")
+  ) %>%
+  add_header_above(c(" " = 2, "Reversal" = 2, "NMBA" = 2, "Anesthetic" = 3, "Monitor" =  4), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "4em") %>% 
+  column_spec(4, width = "6em") %>% 
+  column_spec(c(5:13), width = "4em") %>% 
+  pack_top(., "RCT", 1, 30, indent = FALSE) %>% 
+  pack_top(., "Prospective Cohort", 31, 38, indent = FALSE) %>% 
+  pack_top(., "Retrospective Cohort", 39, 40, indent = FALSE) %>% 
+    footnote(
+    general = "NMBA: neuromuscular blocking agent; Neo: neostigmine; Sug: sugammadex; Spont: spontaneous; Roc: rocuronium; Vec: vecuronium; TIVA: total intravenous anesthesia; Inh: inhalation; NS: not specified; AMG: acceleromyography; EMG: electromyography; KMG: kinemyography; nl: normalized AMG.",
+    # alphabet = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )  
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+```{r rnmbKblPrimary, eval = FALSE, include = FALSE}
+## rnmbKbl (updated 2022/01/11 10:16)  ------------------------------------
+rnmb_prim.dat <- dichot.dat %>% 
+  filter(refid %in% rev_refids) %>% 
+  filter(if_any(starts_with("rnmb"), ~ !is.na(.))) %>% 
+  select(refid, arm_id, study, study_l, year, design, age, subgroups, subgroup, starts_with("rnmb"), notes_d) %>% 
+  filter(if_any(c(rnmb1_7, rnmb1_9, rnmb2_7, rnmb2_9, rnmb1_clinical, rnmb2_clinical),  ~ !is.na(.))) %>% 
+  # only rcts
+  filter(design == "rct") %>% 
+  remove_empty(which = "cols")
+
+rnmb_rev_agent <- study_arm.dat %>% 
+  filter(refid %in% rnmb_prim.dat$refid) %>% 
+  select(refid, study, arm_id, revagent, revtim, revtim_comment, -study)
+
+rnmb_prim.dat <- 
+  left_join(rnmb_prim.dat, rnmb_rev_agent, by = c("refid", "arm_id")) %>% 
+  relocate(revagent, .after = arm_id)
+
+write_csv(rnmb_prim.dat, "/Users/mgrant/Desktop/rnmb_prim.dat.csv", na = "")
+
+length(unique(rnmb_prim.dat$refid))
+```
+
+<br/>
+
+### &ensp;Incidence
+
+<br/>
+
+<font size = 4> Table `r table_n`. Incidence of residual neuromuscular block by TOFR and depth of anesthesia at reversal in adults. </font>
+
+```{r rnmbKbl}
+## rnmbKbl (updated 2022/01/11 15:15)  ------------------------------------
+# calculate odds ratios for 0.9
+dichot_format <- function(x) (x)
+
+temp <- rnmb.dat %>%
+  filter(age == "Adult") %>%
+  group_by(study_orig) %>%
+  mutate(
+    rx_n = n,
+    comp_n = lag(n),
+    rx_event = as.numeric(str_extract(lt_9, "\\d{1,2}")),
+    comp_event = lag(as.numeric(str_extract(lt_9, "\\d{1,2}")))
+  ) %>%
+  ungroup() %>%
+  mutate(
+    # fix for multiarm
+    rx_event = ifelse(refid == 3058, 1, rx_event),
+    rx_n = ifelse(refid == 3058, 27, rx_n),
+    rx_event = ifelse(refid == 2557, 5, rx_event),
+    rx_n = ifelse(refid == 2557, 117, rx_n),
+    rx_event = ifelse(refid == 2560, 4, rx_event),
+    rx_n = ifelse(refid == 2560, 57, rx_n),
+    or_ci_calc = case_when(
+      if_all(c(rx_event, rx_n, comp_event, comp_n), ~ !is.na(.)) ~ odds_ratio_y(rx_event, rx_n, comp_event, comp_n),
+      TRUE ~ NA_character_
+    ),
+    # relocate 
+    or_ci_calc = str_replace(or_ci_calc, "NA \\(NA-NA\\)", NA_character_),
+    # fix percentages
+    lt_1_n = as.numeric(str_extract(lt_1, "\\d{1,2}")),
+    lt_9_n = as.numeric(str_extract(lt_9, "\\d{1,2}")),
+    lt_7_n = as.numeric(str_extract(lt_7, "\\d{1,2}")),
+    clin_n = as.numeric(str_extract(clin, "\\d{1,2}")),
+    lt_1_per = lt_1_n / n,
+    lt_9_per = lt_9_n / n,
+    lt_7_per = lt_7_n / n,
+    clin_per = clin_n / n,
+    lt_1 = ifelse(!is.na(lt_1_per), paste0(lt_1_n, " (", round_0(lt_1_per * 100), ")"), lt_1),
+    lt_9 = ifelse(!is.na(lt_9_per), paste0(lt_9_n, " (", round_0(lt_9_per * 100), ")"), lt_9),
+    lt_7 = ifelse(!is.na(lt_7_per), paste0(lt_7_n, " (", round_0(lt_7_per * 100), ")"), lt_7),
+    clin = ifelse(!is.na(clin_per), paste0(clin_n, " (", round_0(clin_per * 100), ")"), clin),
+  ) %>%
+  group_by(study_l) %>% 
+  mutate(
+    or_ci_calc = lead(or_ci_calc)
+  ) %>% 
+  select(refid, study_l, arm, n, lt_1, lt_9, lt_7, clin, rx_n:or_ci_calc, lt_1_n:clin_per, ns_rnmb, deep:ns_depth, or_ci_calc, design, age, study_orig) %>%
+  mutate(
+    lt_1_bar = 0, lt_9_bar = 0, lt_7_bar = 0, clin_bar = 0,
+    lt_1_bar = color_bar2("#fdcccc", fun = dichot_format)(lt_1_per),
+    lt_9_bar = color_bar2("#fdcccc", fun = dichot_format)(lt_9_per),
+    lt_7_bar = color_bar2("#fdcccc", fun = dichot_format)(lt_7_per),
+    clin_bar = color_bar2("#fdcccc", fun = dichot_format)(clin_per),
+    lt_1_bar = str_replace(lt_1_bar, ">.*<", paste0(">", lt_1, "<")),
+    lt_9_bar = str_replace(lt_9_bar, ">.*<", paste0(">", lt_9, "<")),
+    lt_7_bar = str_replace(lt_7_bar, ">.*<", paste0(">", lt_7, "<")),
+    clin_bar = str_replace(clin_bar, ">.*<", paste0(">", clin, "<")),
+    across(lt_1_bar:clin_bar, ~ str_replace(., ">NA<", "><")),
+    # across(lt_1_bar:clin_bar, ~ case_when(
+    #   arm == "Sug" ~ str_replace(., "#fdcccc", "#c4ff9c"),
+    #   arm == "Neo" ~ str_replace(., "#fdcccc", "#b8bb6b"),
+    #   arm == "Placebo" ~ str_replace(., "#fdcccc", "#cfa975")),
+    #   )
+  )
+
+temp %>% 
+  select(study_l, n, arm, deep:ns_depth, lt_1_bar:clin_bar, ns_rnmb, or_ci_calc) %>% 
+  group_by(study_l) %>% 
+  mutate(
+    # across(c(roc:ns_mon), ~ str_replace(.x, "x", "&#x25cf;")),
+    across(c(deep:ns_depth), ~ str_replace(.x, "x", "&times;")),
+    study_l = ifelse(row_number() != 1, "", study_l)) %>% 
+  ungroup() %>% 
+  kbl(
+    booktabs = T, align = c("llccccclllllll"), escape = FALSE, # format = "latex")
+    col.names = c("Study", "N", "Agent", "Deep", "Mod", "Shal", "Min", "NS", "<1.0", "<0.9", "<0.7", "Clin", "NS", "OR (95% CI)^b^")) %>% 
+  add_header_above(c(" " = 2, "Reversal" = 1, "Depth of Block^a^" = 5, "Residual Neuromuscular Block" = 5, "  " = 1), line = TRUE, bold = TRUE) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>% 
+  column_spec(2, width = "2em") %>%
+  column_spec(3, width = "4em") %>%
+  column_spec(c(4:8), width = "3em") %>%
+  column_spec(c(9:12), width = "4em") %>%
+  column_spec(c(13), width = "3em") %>%
+  column_spec(14, width = or_width) %>%
+  pack_top(., "RCT", 1, 30, indent = FALSE) %>% 
+  pack_top(., "Prospective Cohort", 31, 38, indent = FALSE) %>% 
+  pack_top(., "Retrospective Cohort", 39, 40, indent = FALSE) %>% 
+    footnote(
+    general = "OR: odds ratio; Neo: neostigmine; Sug: sugammadex; Spont: spontaneous; Roc: rocuronium; Vec: vecuronium; NS: not specified; nl: normalized AMG.",
+    alphabet = c("Depth of block.",
+                 "Comparing the 2nd or last arm with previous. If no events in one arm, continuity correction used to estimate OR."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<a id="revFig1"></a> 
+
+### &ensp;Pooled (adult RCTs) 
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular block (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine. </font>
+
+
+```{r rnmbMetaRct, fig.width = 10, fig.height = 3.2}
+## rnmbMetaRct (updated 2022/01/12 14:28)  --------------------------------
+rnmb_meta.dat <- temp %>%
+  filter(design == "rct", arm %in% c("Neo", "Sug"), age == "Adult") %>%
+  mutate(
+    depth = case_when(
+      !is.na(deep) ~ "Deep",
+      !is.na(mod) ~ "Moderate",
+      !is.na(shallow) ~ "Shallow",
+      !is.na(min) ~ "Minimal",
+      TRUE ~ "Not specified",
+    )
+  ) %>%
+  select(refid, study_orig, depth, lt_9_n, n, arm) %>%
+  pivot_wider(id_cols = c("refid", "study_orig", "depth"), names_from = "arm", values_from = c("lt_9_n", "n")) %>%
+  filter(if_all(c(lt_9_n_Neo:n_Sug), ~ !is.na(.))) %>% 
+  arrange(depth)
+
+rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
+  data = rnmb_meta.dat,
+  studlab = study_orig,
+  sm = "OR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  prediction = FALSE,
+  # subgroup = depth,
+  digits = 2)
+
+forest(rnmb_meta,
+  fixed = FALSE,
+  lab.e = "Sugammadex",
+  lab.c = "Neostigmine",
+  rightcols = c("effect", "ci"),
+  rightlabs = c("OR", "(95% CI)"),
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = FALSE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  # pooled.events = TRUE,
+  subgroup = FALSE,
+  # print.subgroup.name = FALSE,
+  # text.subgroup.nohet = TRUE,
+  xlim = c(0.001, 5),
+  at = c(.001, 0.01, .1, 1, 2),
+  xlab = "Favors:     Sugammadex                   Neostigmine")
+
+figure_n <- fig_inc()
 ```
 
 
+# **Risk of Bias** 
+
+<br/>
+
+### *RCTs Clinical Outcomes*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for included RCTs reporting RNMB. </font>
+
+<img src="assets/reversal_rnmb_rob_clin_out.svg" style="width:750px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for reporting RNMB. </font>
+
+<img src="assets/reversal_rnmb_clin_out_traffic.svg" style="width:650px;" align="left"/>
+
+```{r}
+figure_n <- fig_inc()
+```
+<br clear="all" />
+
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
 
 # References 
 <a id="references"></a>
+
+
