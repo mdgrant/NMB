@@ -169,13 +169,12 @@
 </symbol>
 </g>
 </defs>
-<g id="surface6">
+<g id="surface11">
 <rect x="0" y="0" width="684" height="324" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <rect x="0" y="0" width="684" height="324" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.066978;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,100%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 324 L 684 324 L 684 0 L 0 0 Z M 0 324 "/>
 <path style="fill-rule:nonzero;fill:rgb(74.901961%,0%,0%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 621.171875 239.957031 L 658.171875 239.957031 L 658.171875 212.371094 L 621.171875 212.371094 Z M 621.171875 239.957031 "/>
-<path style="fill-rule:nonzero;fill:rgb(0.784314%,75.686275%,0%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 269.683594 239.957031 L 621.171875 239.957031 L 621.171875 212.371094 L 269.683594 212.371094 Z M 269.683594 239.957031 "/>
-<path style="fill-rule:nonzero;fill:rgb(49.803922%,49.803922%,49.803922%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 251.183594 239.957031 L 269.683594 239.957031 L 269.683594 212.371094 L 251.183594 212.371094 Z M 251.183594 239.957031 "/>
+<path style="fill-rule:nonzero;fill:rgb(0.784314%,75.686275%,0%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 251.183594 239.957031 L 621.171875 239.957031 L 621.171875 212.371094 L 251.183594 212.371094 Z M 251.183594 239.957031 "/>
 <path style="fill-rule:nonzero;fill:rgb(74.901961%,0%,0%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 621.171875 200.550781 L 658.171875 200.550781 L 658.171875 172.964844 L 621.171875 172.964844 Z M 621.171875 200.550781 "/>
 <path style="fill-rule:nonzero;fill:rgb(88.627451%,87.45098%,2.745098%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 602.671875 200.550781 L 621.171875 200.550781 L 621.171875 172.964844 L 602.671875 172.964844 Z M 602.671875 200.550781 "/>
 <path style="fill-rule:nonzero;fill:rgb(0.784314%,75.686275%,0%);fill-opacity:1;stroke-width:1.066978;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 251.183594 200.550781 L 602.671875 200.550781 L 602.671875 172.964844 L 251.183594 172.964844 Z M 251.183594 200.550781 "/>
