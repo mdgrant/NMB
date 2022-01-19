@@ -11,7 +11,7 @@
 
 
 
-<title>KQ3</title>
+<title>Monitoring and Patient Outcomes</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -380,8 +380,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">KQ3</h1>
-<h4 class="date">05 January, 2022 (08:06)</h4>
+<h1 class="title toc-ignore">Monitoring and Patient Outcomes</h1>
+<h4 class="date">19 January, 2022 (09:27)</h4>
 
 </div>
 
@@ -406,7 +406,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-05
+<strong>Last updated:</strong> 2022-01-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -497,16 +497,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree373e45537505f5a77ed3b430cbc3f4d3fdef306etargetblank373e455a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/373e45537505f5a77ed3b430cbc3f4d3fdef306e" target="_blank">373e455</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree845010bbfb552e0dcd5c756f3c9ad39260c673c4targetblank845010ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/845010bbfb552e0dcd5c756f3c9ad39260c673c4" target="_blank">845010b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree373e45537505f5a77ed3b430cbc3f4d3fdef306etargetblank373e455a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree845010bbfb552e0dcd5c756f3c9ad39260c673c4targetblank845010ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/373e45537505f5a77ed3b430cbc3f4d3fdef306e" target="_blank">373e455</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/845010bbfb552e0dcd5c756f3c9ad39260c673c4" target="_blank">845010b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -531,11 +531,18 @@ Untracked files:
     Untracked:  analysis/.gitignore
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
+    Untracked:  code/rob_111921 (original).R
     Untracked:  code/rob_111921.R
+    Untracked:  code/rob_summary_mg.R
     Untracked:  data/
 
 Unstaged changes:
+    Modified:   analysis/evidence_tables.Rmd
+    Modified:   analysis/kq1.Rmd
+    Modified:   analysis/kq2.Rmd
     Modified:   analysis/kq3.Rmd
+    Modified:   analysis/reversal.Rmd
+    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -574,6 +581,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/9e20947e6ef7f7cba5985ddd98d33a75c41c5598/analysis/kq3.Rmd" target="_blank">9e20947</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+delete erroneous footnote
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/9e20947e6ef7f7cba5985ddd98d33a75c41c5598/docs/kq3.html" target="_blank">9e20947</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+delete erroneous footnote
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -706,6 +747,10 @@ updates kq2 kq3
   font-family: Source Sans Pro;
 }
 
+.caption {
+  font-size: 15px;
+}
+
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   color: #090909;
   background-color: #0909093d;
@@ -722,6 +767,24 @@ display: none;
 display: none !important; 
 }
 
+.popover-title {
+      font-size: 12px;
+  }
+
+.popover-content {
+      font-size: 12px;
+  }
+  
+.popover-content {
+    background-color: white;
+    <!-- color: #FFFFFF; -->
+    padding: 2px;
+  }
+
+<!-- .arrow { -->
+<!--   border-right-color: red !important; -->
+<!-- } -->
+
 <!-- :target {  /* fix target location so caption appears */ -->
 <!--     display: block;     -->
 <!--     position: relative;      -->
@@ -730,6 +793,11 @@ display: none !important;
 <!-- } -->
 
 </style>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html: true, placement: top});
+});
+</script>
 <div id="included-studies" class="section level1">
 <h1><strong>Included Studies</strong></h1>
 <p><br/></p>
@@ -859,7 +927,7 @@ Surgery
 <td style="text-align:left;width: 10em; ">
 Denmark
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 GI
 </td>
 </tr>
@@ -879,7 +947,7 @@ GI
 <td style="text-align:left;width: 10em; ">
 Japan
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, GI
 </td>
 </tr>
@@ -899,7 +967,7 @@ Gyn, GI
 <td style="text-align:left;width: 10em; ">
 Denmark
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Plastic
 </td>
 </tr>
@@ -919,7 +987,7 @@ Plastic
 <td style="text-align:left;width: 10em; ">
 USA
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 GI
 </td>
 </tr>
@@ -939,7 +1007,7 @@ GI
 <td style="text-align:left;width: 10em; ">
 Denmark
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 GI
 </td>
 </tr>
@@ -959,7 +1027,7 @@ GI
 <td style="text-align:left;width: 10em; ">
 Denmark
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, Opth, ENT
 </td>
 </tr>
@@ -979,7 +1047,7 @@ Gyn, Opth, ENT
 <td style="text-align:left;width: 10em; ">
 USA
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, Neuro, Ortho, Plastic, Urol
 </td>
 </tr>
@@ -999,7 +1067,7 @@ Gyn, Neuro, Ortho, Plastic, Urol
 <td style="text-align:left;width: 10em; ">
 USA
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, Gen, Neuro, Ortho, Plastic, Thor, Urol
 </td>
 </tr>
@@ -1019,7 +1087,7 @@ Gyn, Gen, Neuro, Ortho, Plastic, Thor, Urol
 <td style="text-align:left;width: 10em; ">
 Kenya<sup>a</sup>
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, Gen, Opth, Oralmax, Ortho, ENT, Plastic, Urol
 </td>
 </tr>
@@ -1039,7 +1107,7 @@ Gyn, Gen, Opth, Oralmax, Ortho, ENT, Plastic, Urol
 <td style="text-align:left;width: 10em; ">
 India<sup>a</sup>
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, Urol, Abdominal
 </td>
 </tr>
@@ -1064,7 +1132,7 @@ Gyn, Urol, Abdominal
 <td style="text-align:left;width: 10em; ">
 USA
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Various
 </td>
 </tr>
@@ -1084,7 +1152,7 @@ Various
 <td style="text-align:left;width: 10em; ">
 USA
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Various, GI
 </td>
 </tr>
@@ -1109,7 +1177,7 @@ Various, GI
 <td style="text-align:left;width: 10em; ">
 India<sup>a</sup>
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Gyn, GI
 </td>
 </tr>
@@ -1128,7 +1196,7 @@ Gyn, GI
 </td>
 <td style="text-align:left;width: 10em; ">
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 GI, ENT
 </td>
 </tr>
@@ -1153,7 +1221,7 @@ GI, ENT
 <td style="text-align:left;width: 10em; ">
 Argentina
 </td>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 25em; ">
 Various
 </td>
 </tr>
@@ -1176,7 +1244,7 @@ Various
 <div id="anesthesia-and-reversal" class="section level2">
 <h2><em>Anesthesia and reversal</em></h2>
 <p><br/></p>
-<p><font size = 4> Table 3. Anesthetics and reversal employed in included studies.</font></p>
+<p><font size = 4> Table 3. Anesthetics and reversal in included studies.</font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -1725,10 +1793,6 @@ Various
 </tr>
 </tfoot>
 </table>
-<!-- <br/> -->
-<!-- ## *Comparators and outcomes*  -->
-<!-- <br/> -->
-<!-- <font size = 4> Table 4. Comparators and outcomes reported. </font> -->
 <p><br/></p>
 </div>
 </div>
@@ -1740,7 +1804,7 @@ Various
 <div id="incidence" class="section level3">
 <h3>Incidence</h3>
 <p><br/></p>
-<p><font size = 4> Table 4. Results from studies reporting residual neuromuscular blockade. Bars proportional to percentages (<b><font color = "#f1948a">clinical alone</font>, <font color = "#f5c800">any PNS</font>, or <font color = "#58d68d">quantitative</font></b> monitoring). </font> <font size = 3> (Limited importance time-related outcomes—time from extubation to TOFR 0.9—reported in only 2 studies and not summarize). </font></p>
+<p><font size = 4> Table 4. Results from studies reporting residual neuromuscular blockade. (Time-related outcomes—time from extubation to TOFR 0.9—reported in only 2 studies and not summarize). </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -1786,11 +1850,11 @@ OR (95% CI)<sup>b</sup>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#164">Ueda 1991</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 30
@@ -1799,7 +1863,7 @@ Clinical
 25 (83)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 83.30%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  16.70% , #f1948a 16.70% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.7
@@ -1812,10 +1876,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-Manual TOF
+<span style="     color: #7fb3d5 !important;">Manual TOF</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 30
@@ -1824,7 +1888,7 @@ Manual TOF
 17 (57)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 56.70%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.30% , #7fb3d5 43.30% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -1835,10 +1899,10 @@ Manual TOF
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-Manual TOF/DBS
+<span style="     color: #7fb3d5 !important;">Manual TOF/DBS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 30
@@ -1847,7 +1911,7 @@ Manual TOF/DBS
 2 (7)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 6.70%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  93.30% , #7fb3d5 93.30% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -1857,11 +1921,11 @@ Manual TOF/DBS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#664">Mortensen 1995</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 21
@@ -1870,7 +1934,7 @@ Clinical
 7 (33)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 33.30%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  66.70% , #f1948a 66.70% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.7
@@ -1883,10 +1947,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 19
@@ -1895,7 +1959,7 @@ AMG
 1 (5)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 5.30%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  94.70% , #76d7c4 94.70% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -1905,11 +1969,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#697">Shorten 1995</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 19
@@ -1918,7 +1982,7 @@ Clinical
 9 (47)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 47.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  53.00% , #f1948a 53.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.7
@@ -1931,10 +1995,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS/Clinical
+<span style="     color: #f1948a !important;">PNS/Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 20
@@ -1943,7 +2007,7 @@ PNS/Clinical
 3 (15)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 15.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  85.00% , #7fb3d5 85.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -1953,11 +2017,11 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#1045">Fruergaard 1998</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 30
@@ -1966,7 +2030,7 @@ Clinical
 17 (57)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 57.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.00% , #f1948a 43.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.7
@@ -1979,10 +2043,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 29
@@ -1991,7 +2055,7 @@ PNS
 7 (24)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 24.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  76.00% , #7fb3d5 76.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2001,11 +2065,11 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#1489">Gatke 2002</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 60
@@ -2014,7 +2078,7 @@ Clinical
 10 (17)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 16.70%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  83.30% , #f1948a 83.30% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.8
@@ -2027,10 +2091,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 60
@@ -2039,7 +2103,7 @@ AMG
 2 (3)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 3.30%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.70% , #76d7c4 96.70% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2049,11 +2113,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2071">Murphy 2008</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 90
@@ -2062,7 +2126,7 @@ PNS
 27 (30)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 30.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  70.00% , #7fb3d5 70.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.9
@@ -2075,10 +2139,10 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 89
@@ -2087,7 +2151,7 @@ AMG
 4 (4)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 4.50%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  95.50% , #76d7c4 95.50% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2097,11 +2161,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2367">Murphy 2011</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS/Clinical
+<span style="     color: #f1948a !important;">PNS/Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 74
@@ -2110,7 +2174,7 @@ PNS/Clinical
 37 (50)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 50.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  50.00% , #7fb3d5 50.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.9
@@ -2123,10 +2187,10 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 76
@@ -2135,7 +2199,7 @@ AMG
 11 (14)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 14.50%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  85.50% , #76d7c4 85.50% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2145,11 +2209,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3369">Wardhana 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -2158,7 +2222,7 @@ Clinical
 6 (17)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 16.70%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  83.30% , #f1948a 83.30% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.9
@@ -2171,10 +2235,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -2183,7 +2247,7 @@ AMG
 1 (3)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 2.80%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.20% , #76d7c4 97.20% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2198,11 +2262,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3209">Thilen 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 38
@@ -2211,7 +2275,7 @@ PNS
 12 (32)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 32.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  68.00% , #7fb3d5 68.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.7
@@ -2224,10 +2288,10 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 41
@@ -2236,7 +2300,7 @@ AMG
 1 (3)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 3.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.00% , #76d7c4 97.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2246,11 +2310,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2703">Todd 2014</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS/Clinical
+<span style="     color: #f1948a !important;">PNS/Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 96
@@ -2259,7 +2323,7 @@ PNS/Clinical
 30 (31)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 31.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  69.00% , #7fb3d5 69.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.9
@@ -2272,10 +2336,10 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-EMG
+<span style="     color: #76d7c4 !important;">EMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 96
@@ -2284,7 +2348,7 @@ EMG
 15 (15)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 15.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  85.00% , #76d7c4 85.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2299,11 +2363,11 @@ EMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3270">Domenech 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 177
@@ -2312,7 +2376,7 @@ Clinical
 57 (32)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 32.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  68.00% , #f1948a 68.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 &lt;0.9
@@ -2325,10 +2389,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 63
@@ -2337,7 +2401,7 @@ AMG
 1 (2)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 1.60%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  98.40% , #76d7c4 98.40% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:center;width: 4em; ">
 </td>
@@ -2366,10 +2430,87 @@ AMG
 </tfoot>
 </table>
 </div>
+<div id="pooled-tofr-0.9-rcts" class="section level3">
+<h3>Pooled TOFR &lt;0.9 (RCTs)</h3>
+</div>
+<div id="network-plot" class="section level3">
+<h3> Network Plot</h3>
+<p><br/></p>
+<p><font size = 4> Figure 1. Network plot — RCTs reporting residual neuromuscular block (TOFR &lt;0.9). </font></p>
+<p><img src="figure/kq3.Rmd/nmmNetplot-1.png" width="960" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+</div>
+<div id="forest-plot" class="section level3">
+<h3> Forest Plot</h3>
+<p><br/></p>
+<p><font size = 4> Figure 2. Pooled residual neuromuscular block (TOFR &lt;0.9) from randomized trials comparing quantitative, qualitative, and clinical monitoring (network meta-analysis). </font></p>
+<p><img src="figure/kq3.Rmd/nmmForest-1.png" width="768" style="display: block; margin: auto auto auto 0;" /> <font size = 3>I<sup>2</sup> = 30% (95% CI 0%, 66%)</font></p>
+<p><br/></p>
+</div>
+<div id="league-table-all-comparisons" class="section level3">
+<h3> League Table (all comparisons)</h3>
+<p><br/></p>
+<p><font size = 4> Table 5. League table of odds ratios comparing upper left to lower right. Network comparisons in lower left triangle and direct comparisons in upper right. </font></p>
+<table class="table table-striped table-hover table-condensed" style="font-size: 18px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+<span style=" font-weight: bold;    ">Quantitative</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.19 (0.10, 0.37)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.10 (0.04, 0.30)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.24 (0.13, 0.43)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+<span style=" font-weight: bold;    ">Qualitative</span>
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.16 (0.07, 0.37)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.06 (0.03, 0.12)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+0.24 (0.12, 0.47)
+</td>
+<td style="text-align:center;vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;width: 10em; ">
+<span style=" font-weight: bold;    ">Clinical</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+</div>
+<div id="node-splitting-forest-plot" class="section level3">
+<h3> Node Splitting Forest Plot</h3>
+<p><br/></p>
+<p><font size = 4> Figure 3. Comparison of direct and indirect evidence (network meta-analysis). </font></p>
+<p><img src="figure/kq3.Rmd/nmmNodeSplit-1.png" width="768" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/></p>
+</div>
 <div id="mean-tofr" class="section level3">
 <h3>Mean TOFR</h3>
 <p><br/></p>
-<p><font size = 4> Table 5. Results from studies reporting mean TOFR at extubation or in the PACU. </font></p>
+<p><font size = 4> Table 6. Results from studies reporting mean TOFR at extubation or in the PACU. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -2422,7 +2563,7 @@ Med [Range] {IQR}
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#60">Pedersen 1990</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2444,7 +2585,7 @@ Clinical (pan)
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 Clinical (vec)
@@ -2466,7 +2607,7 @@ vs. pancuronium p&lt;.01
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 PNS (pan)
@@ -2487,7 +2628,7 @@ PNS (pan)
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 PNS (vec)
@@ -2509,7 +2650,7 @@ vs. pancuronium p&lt;.01
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#164">Ueda 1991</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2532,7 +2673,7 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 Manual TOF
@@ -2555,7 +2696,7 @@ vs. clinical p&lt;.05
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 Manual TOF/DBS
@@ -2578,7 +2719,7 @@ vs. clinical p&lt;.001
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#664">Mortensen 1995</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2600,7 +2741,7 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 AMG
@@ -2622,7 +2763,7 @@ difference not detected
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#697">Shorten 1995</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2644,7 +2785,7 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 PNS/Clinical
@@ -2666,7 +2807,7 @@ vs. clinical p&lt;.05
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#1045">Fruergaard 1998</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2689,7 +2830,7 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 PNS
@@ -2712,7 +2853,7 @@ vs. clinical p=.02
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2367">Murphy 2011</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2734,7 +2875,7 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 AMG
@@ -2756,7 +2897,7 @@ vs. clinical p=.004
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3369">Wardhana 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2778,7 +2919,7 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 AMG
@@ -2805,7 +2946,7 @@ vs. clinical p=.05
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2703">Todd 2014</a>
 </td>
 <td style="text-align:left;width: 8em; ">
@@ -2828,7 +2969,7 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
 EMG
@@ -2865,7 +3006,7 @@ vs. clinical p=.008
 <div id="pulmonary-complications" class="section level2">
 <h2><em>Pulmonary complications</em></h2>
 <p><br/></p>
-<p><font size = 4> Table 6. Results of studies reporting pulmonary complications. Bars proportional to percentages (<b><font color = "#f1948a">clinical alone</font>, <font color = "#f5c800">any PNS</font>, <font color = "#aec176">any monitoring</font>, or <font color = "#58d68d">quantitative</font></b> monitoring). </font></p>
+<p><font size = 4> Table 7. Results of studies reporting pulmonary complications. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -2915,11 +3056,11 @@ Note
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3105">Adembesa 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 84
@@ -2928,7 +3069,7 @@ Clinical
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -2936,10 +3077,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 84
@@ -2948,7 +3089,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 —
@@ -2962,11 +3103,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3209">Thilen 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 38
@@ -2975,7 +3116,7 @@ PNS
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -2983,10 +3124,10 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 41
@@ -2995,7 +3136,7 @@ AMG
 1 (2.4)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 2.44%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.56% , #76d7c4 97.56% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 2.85 (0.11-72.16)
@@ -3009,11 +3150,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3140">Goyal 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 66
@@ -3022,7 +3163,7 @@ Clinical
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3030,10 +3171,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 89
@@ -3042,7 +3183,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 —
@@ -3061,11 +3202,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3369">Wardhana 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3074,7 +3215,7 @@ Clinical
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3082,10 +3223,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3094,7 +3235,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 —
@@ -3113,11 +3254,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3209">Thilen 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 38
@@ -3126,7 +3267,7 @@ PNS
 1 (2.6)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 2.63%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.37% , #7fb3d5 97.37% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3134,10 +3275,10 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 41
@@ -3146,7 +3287,7 @@ AMG
 2 (4.9)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 4.88%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  95.12% , #76d7c4 95.12% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 1.90 (0.17-21.82)
@@ -3165,11 +3306,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#2071">Murphy 2008</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS
+<span style="     color: #7fb3d5 !important;">PNS</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 90
@@ -3178,7 +3319,7 @@ PNS
 9 (10.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 10.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  90.00% , #7fb3d5 90.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3187,10 +3328,10 @@ PNS
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 89
@@ -3199,7 +3340,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 0.05 (0.00-0.84)
@@ -3209,11 +3350,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3105">Adembesa 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 84
@@ -3222,7 +3363,7 @@ Clinical
 16 (19.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 19.05%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  80.95% , #f1948a 80.95% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3231,10 +3372,10 @@ Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 84
@@ -3243,7 +3384,7 @@ AMG
 5 (6.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 5.95%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  94.05% , #76d7c4 94.05% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 0.27 (0.09-0.77)
@@ -3253,11 +3394,11 @@ AMG
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3369">Wardhana 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3266,7 +3407,7 @@ Clinical
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3275,10 +3416,10 @@ pO<sub>2</sub> unspecified
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3287,7 +3428,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 —
@@ -3307,11 +3448,11 @@ pO<sub>2</sub> unspecified
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3369">Wardhana 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3320,7 +3461,7 @@ Clinical
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3329,10 +3470,10 @@ Distress/bronchospasm
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 36
@@ -3341,7 +3482,7 @@ AMG
 1 (2.8)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 2.78%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.22% , #76d7c4 97.22% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 3.08 (0.12-78.27)
@@ -3361,11 +3502,11 @@ Distress/bronchospasm
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3140">Goyal 2018</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-Clinical
+<span style="     color: #f1948a !important;">Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 66
@@ -3374,7 +3515,7 @@ Clinical
 2 (3.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f1948a; width: 3.03%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.97% , #f1948a 96.97% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3383,10 +3524,10 @@ at 48hr postop
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-AMG
+<span style="     color: #76d7c4 !important;">AMG</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 89
@@ -3395,7 +3536,7 @@ AMG
 0 (0.0)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 0.00%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 0.14 (0.01-3.05)
@@ -3415,11 +3556,11 @@ at 48hr postop
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3303">Kirmeier 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-PNS/Clinical
+<span style="     color: #f1948a !important;">PNS/Clinical</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 2686
@@ -3428,7 +3569,7 @@ PNS/Clinical
 292 (10.9)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 10.87%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  89.13% , #7fb3d5 89.13% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3437,10 +3578,10 @@ PNS/Clinical
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-Quantitative
+<span style="     color: #76d7c4 !important;">Quantitative</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 4182
@@ -3449,7 +3590,7 @@ Quantitative
 441 (10.5)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #58d68d; width: 10.55%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  89.45% , #76d7c4 89.45% , #76d7c4 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 1.07 (0.90-1.29)<sup>b</sup>
@@ -3459,11 +3600,11 @@ Quantitative
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 <a href="evidence_tables.html#3303">Kirmeier 2019</a>
 </td>
 <td style="text-align:left;width: 8em; ">
-None
+<span style="     color: #f1948a !important;">None</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 9927
@@ -3472,7 +3613,7 @@ None
 676 (6.8)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #f5c800; width: 6.81%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  93.19% , #7fb3d5 93.19% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 </td>
@@ -3481,10 +3622,10 @@ None
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 10em; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left;width: 10em; ">
 </td>
 <td style="text-align:left;width: 8em; ">
-Any NMM
+<span style="     color: #76d7c4 !important;">Any NMM</span>
 </td>
 <td style="text-align:left;width: 5em; ">
 7223
@@ -3493,7 +3634,7 @@ Any NMM
 765 (10.6)
 </td>
 <td style="text-align:left;width: 7em; ">
-<span style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #aec176; width: 10.59%"> </span>
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  89.41% , #c39bd3 89.41% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 <td style="text-align:left;width: 8em; ">
 1.31 (1.15-1.49)<sup>b</sup>
@@ -3535,8 +3676,1861 @@ Any NMM
 <p><br/></p>
 <div id="study-characteristics" class="section level3">
 <h3><em>Study Characteristics</em></h3>
+</div>
+<div id="adult-studies" class="section level3">
+<h3>  <u>Adult Studies</u></h3>
 <p><br></p>
-<p><font size = 4> Table 7. Study characteristics. </font></p>
+<p><font size = 4> Table 8. Characteristics of studies including only adults. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Anesthesia
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Dates
+</th>
+<th style="text-align:left;font-weight: bold;">
+Country
+</th>
+<th style="text-align:left;font-weight: bold;">
+ N
+</th>
+<th style="text-align:center;font-weight: bold;">
+Pilot
+</th>
+<th style="text-align:center;font-weight: bold;">
+Setting
+</th>
+<th style="text-align:center;font-weight: bold;">
+Gen
+</th>
+<th style="text-align:center;font-weight: bold;">
+Reg
+</th>
+<th style="text-align:left;font-weight: bold;">
+Type of Surgery
+</th>
+<th style="text-align:center;font-weight: bold;">
+Registered
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="10">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Pedersen 1990
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+DNK
+</td>
+<td style="text-align:left;width: 4em; ">
+80
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+GI
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Ueda 1991
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+JPN
+</td>
+<td style="text-align:left;width: 4em; ">
+90
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, GI
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Mortensen 1995
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+DNK
+</td>
+<td style="text-align:left;width: 4em; ">
+40
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Plastic
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Shorten 1995
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+USA
+</td>
+<td style="text-align:left;width: 4em; ">
+39
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+GI
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Fruergaard 1998
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+DNK
+</td>
+<td style="text-align:left;width: 4em; ">
+60
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+GI
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Gatke 2002
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+DNK
+</td>
+<td style="text-align:left;width: 4em; ">
+120
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, Opth, ENT
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2008
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+USA
+</td>
+<td style="text-align:left;width: 4em; ">
+185
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, Neuro, Ortho, Plastic, Urol
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2011
+</td>
+<td style="text-align:left;width: 8em; ">
+10/06-10/10
+</td>
+<td style="text-align:left;width: 5em; ">
+USA
+</td>
+<td style="text-align:left;width: 4em; ">
+150
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, Gen, Neuro, Ortho, Plastic, Thor, Urol
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Adembesa 2018
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+KEN<sup>a</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+168
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, Gen, Opth, Oralmax, Ortho, ENT, Plastic, Urol
+</td>
+<td style="text-align:center;width: 5em; ">
+•
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wardhana 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+</td>
+<td style="text-align:left;width: 5em; ">
+IND<sup>a</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+80
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, Urol, Abdom
+</td>
+<td style="text-align:center;width: 5em; ">
+•
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Quasi-Experimental</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Todd 2014
+</td>
+<td style="text-align:left;width: 8em; ">
+08/11-12/12
+</td>
+<td style="text-align:left;width: 5em; ">
+USA
+</td>
+<td style="text-align:left;width: 4em; ">
+197
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Various
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Thilen 2018
+</td>
+<td style="text-align:left;width: 8em; ">
+01/16-06/16
+</td>
+<td style="text-align:left;width: 5em; ">
+USA
+</td>
+<td style="text-align:left;width: 4em; ">
+88
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Various, GI
+</td>
+<td style="text-align:center;width: 5em; ">
+•
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Goyal 2018
+</td>
+<td style="text-align:left;width: 8em; ">
+03/14-02/17
+</td>
+<td style="text-align:left;width: 5em; ">
+IND<sup>a</sup>
+</td>
+<td style="text-align:left;width: 4em; ">
+190
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Gyn, GI
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Kirmeier 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+06/14-04/15
+</td>
+<td style="text-align:left;width: 5em; ">
+</td>
+<td style="text-align:left;width: 4em; ">
+17150
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+GI, ENT
+</td>
+<td style="text-align:center;width: 5em; ">
+•
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="10" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Retrospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Domenech 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+06/15-12/15
+</td>
+<td style="text-align:left;width: 5em; ">
+ARG
+</td>
+<td style="text-align:left;width: 4em; ">
+240
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 5em; ">
+Hosp
+</td>
+<td style="text-align:center;width: 3em; ">
+•
+</td>
+<td style="text-align:center;width: 3em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+Various
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Non very high <a href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human Development Index</a> country.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+<div id="patient-characteristics" class="section level3">
+<h3><em>Patient Characteristics</em></h3>
+</div>
+<div id="adult-studies-1" class="section level3">
+<h3>  <u>Adult Studies</u></h3>
+<p><br></p>
+<p><font size = 4> Table 9. Patient characteristics in studies including only adults. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+ASA Class
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Age
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Female
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Race
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+BMI
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="6">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Comorbidities (%)<sup>a</sup>
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+ N
+</th>
+<th style="text-align:center;font-weight: bold;">
+1
+</th>
+<th style="text-align:center;font-weight: bold;">
+2
+</th>
+<th style="text-align:center;font-weight: bold;">
+3
+</th>
+<th style="text-align:center;font-weight: bold;">
+4
+</th>
+<th style="text-align:center;font-weight: bold;">
+M <u>Med</u>
+</th>
+<th style="text-align:left;font-weight: bold;">
+(%)
+</th>
+<th style="text-align:left;font-weight: bold;">
+W
+</th>
+<th style="text-align:left;font-weight: bold;">
+B
+</th>
+<th style="text-align:left;font-weight: bold;">
+A
+</th>
+<th style="text-align:center;font-weight: bold;">
+M <u>Med</u>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Card
+</th>
+<th style="text-align:left;font-weight: bold;">
+Renal
+</th>
+<th style="text-align:left;font-weight: bold;">
+Pulm
+</th>
+<th style="text-align:left;font-weight: bold;">
+Hep
+</th>
+<th style="text-align:left;font-weight: bold;">
+DM
+</th>
+<th style="text-align:left;font-weight: bold;">
+Neur
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="10">
+<td colspan="18" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Pedersen 1990
+</td>
+<td style="text-align:left;width: 3em; ">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+80
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+<u>68</u>
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  66.00% , #c39bd3 66.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">34</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Ueda 1991
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+90
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+51
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.00% , #c39bd3 43.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">57</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Mortensen 1995
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+40
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+40
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  20.00% , #c39bd3 20.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">80</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Shorten 1995
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+39
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+43
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  5.00% , #c39bd3 5.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">95</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Fruergaard 1998
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+59
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+<u>49</u>
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  44.00% , #c39bd3 44.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">56</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Gatke 2002
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+120
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+39
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  82.00% , #c39bd3 82.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">18</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2008
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+179
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+47
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  51.00% , #c39bd3 51.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">49</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.00% , #76d7c4 97.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">3</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  90.00% , #76d7c4 90.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">10</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  91.00% , #76d7c4 91.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">9</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2011
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+150
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+53
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  54.00% , #c39bd3 54.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">46</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Adembesa 2018
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+168
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+<u>37</u>
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  44.00% , #c39bd3 44.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">56</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  0.00% , #7fb3d5 0.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%">100</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+<u>25</u>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wardhana 2019
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+72
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+42
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  22.00% , #c39bd3 22.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">78</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+23
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #76d7c4 100.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">0</span>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="18" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Quasi-Experimental</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Todd 2014
+</td>
+<td style="text-align:left;width: 3em; ">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+192
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Thilen 2018
+</td>
+<td style="text-align:left;width: 3em; ">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+79
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="18" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Goyal 2018
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+155
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+38
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  45.00% , #c39bd3 45.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">55</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  0.00% , #7fb3d5 0.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%">100</span>
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Kirmeier 2019
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+6868
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+56
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  47.00% , #c39bd3 47.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">53</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+27
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  91.00% , #76d7c4 91.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">9</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  88.00% , #76d7c4 88.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">12</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  95.00% , #76d7c4 95.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">5</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  88.00% , #76d7c4 88.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">12</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  88.00% , #76d7c4 88.00% , #76d7c4 100.00% , transparent 100.00% ); width: 100%">12</span>
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="18" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Retrospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Domenech 2019
+</td>
+<td style="text-align:left;width: 3em; ">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+×
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+</td>
+<td style="text-align:center;width: 2em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="ASA class (1 to 4)">
+240
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Age">
+54
+</td>
+<td style="text-align:left;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Female %">
+<span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  37.00% , #c39bd3 37.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%">63</span>
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="White %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Black %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Asian %">
+</td>
+<td style="text-align:center;width: 4em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="BMI">
+27
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Cardiac %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Renal %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Pulmonary %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Hepatic %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Diabetes %">
+</td>
+<td style="text-align:left;width: 3em; " data-toggle="popover" data-container="body" data-trigger="hover" data-placement="right" data-content="Nuerological %">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Empty cells indicate no information in publication.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/></p>
+</div>
+</div>
+<div id="funding-and-conflict-of-interest" class="section level1">
+<h1><strong>Funding and Conflict of Interest</strong></h1>
+<p><br/></p>
+<div id="adult-studies-2" class="section level3">
+<h3>  <u>Adult Studies</u></h3>
+<p><br></p>
+<p><font size = 4> Table 10. Funding<sup>a</sup> and reported conflict of interest in studies including only adults. </font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="6">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Funding Source(s)
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Author Conflict of Interest
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:center;font-weight: bold;">
+Pub
+</th>
+<th style="text-align:center;font-weight: bold;">
+<span style="color:red">Pub/Ind</span>
+</th>
+<th style="text-align:center;font-weight: bold;">
+<span style="color:red">Ind</span>
+</th>
+<th style="text-align:center;font-weight: bold;">
+None
+</th>
+<th style="text-align:center;font-weight: bold;">
+NR<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Description
+</th>
+<th style="text-align:center;font-weight: bold;">
+No
+</th>
+<th style="text-align:center;font-weight: bold;">
+<span style="color:red">Yes</span>
+</th>
+<th style="text-align:center;font-weight: bold;">
+NR<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="10">
+<td colspan="11" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>RCT</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Pedersen 1990
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+Danish Medical Research Council, the Danish Heart Foundation, the Lily Benthine Lund Foundation, the Director I. Henriksen Foundation, the Danish Society of Anaesthesiology Foundation
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Ueda 1991
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Mortensen 1995
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Shorten 1995
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Fruergaard 1998
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Gatke 2002
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+<span style="color:red">×</span>
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+Organon Teknika
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Murphy 2008
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+<span style="color:red">×</span>
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+Consultancy fee from Organon, Inc. 
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Murphy 2011
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+NorthShore University HealthSystem
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+<span style="color:red">×</span>
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+Murphy on advisory board of MSD
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Adembesa 2018
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Wardhana 2019
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="11" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Quasi-Experimental</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Todd 2014
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Thilen 2018
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+University of Washington
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="11" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Prospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Goyal 2018
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+All India Institute of Medical Sciences research grant
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Kirmeier 2019
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+European Soc of Anaesthesiology
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+</tr>
+<tr grouplength="2">
+<td colspan="11" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Retrospective Cohort</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 12em; ">
+Domenech 2019
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+×
+</td>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:center;width: 4em; ">
+<span style="color:red">×</span>
+</td>
+<td style="text-align:center;width: 4em; ">
+</td>
+<td style="text-align:left;width: 20em; ">
+GD: consultant for MSD
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme (funded 23 (22%) of RCTs and 26 (19%) of studies listed).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Not reported meaning no mention in publication of funding source or author conflicts of interest.
+</td>
+</tr>
+</tfoot>
+</table>
 <p><br/></p>
 </div>
 </div>
@@ -3571,46 +5565,51 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.1-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
- [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.1      
- [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
-[13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+ [1] netmeta_2.0-1     meta_5.1-1        formattable_0.2.1 naniar_0.6.1     
+ [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4      
+ [9] readr_2.1.1       tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5    
+[13] tidyverse_1.3.1   Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0    
+[17] kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
   [1] minqa_1.2.4            colorspace_2.0-2       ellipsis_0.3.2        
-  [4] visdat_0.5.3           rprojroot_2.0.2        htmlTable_2.3.0       
+  [4] visdat_0.5.3           rprojroot_2.0.2        htmlTable_2.4.0       
   [7] snakecase_0.11.0       base64enc_0.1-3        fs_1.5.2              
- [10] rstudioapi_0.13.0-9000 bit64_4.0.5            fansi_0.5.0           
+ [10] rstudioapi_0.13.0-9000 bit64_4.0.5            fansi_1.0.2           
  [13] lubridate_1.8.0        mathjaxr_1.4-0         xml2_1.3.3            
- [16] splines_4.1.2          knitr_1.37             Formula_1.2-4         
- [19] jsonlite_1.7.2         workflowr_1.7.0        nloptr_1.2.2.3        
- [22] broom_0.7.10           cluster_2.1.2          dbplyr_2.1.1          
- [25] png_0.1-7              compiler_4.1.2         httr_1.4.2            
- [28] backports_1.4.1        assertthat_0.2.1       Matrix_1.4-0          
- [31] fastmap_1.1.0          cli_3.1.0              later_1.3.0           
- [34] htmltools_0.5.2        tools_4.1.2            gtable_0.3.0          
- [37] glue_1.6.0             Rcpp_1.0.7             cellranger_1.1.0      
- [40] jquerylib_0.1.4        vctrs_0.3.8            svglite_2.0.0         
- [43] nlme_3.1-153           xfun_0.29              lme4_1.1-27.1         
- [46] rvest_1.0.2            CompQuadForm_1.4.3     lifecycle_1.0.1       
- [49] MASS_7.3-54            scales_1.1.1           vroom_1.5.7           
- [52] hms_1.1.1              promises_1.2.0.1       parallel_4.1.2        
- [55] metafor_3.0-2          RColorBrewer_1.1-2     yaml_2.2.1            
- [58] gridExtra_2.3          sass_0.4.0             rpart_4.1-15          
- [61] latticeExtra_0.6-29    stringi_1.7.6          highr_0.9             
- [64] checkmate_2.0.0        boot_1.3-28            rlang_0.4.12          
- [67] pkgconfig_2.0.3        systemfonts_1.0.3      evaluate_0.14         
- [70] lattice_0.20-45        htmlwidgets_1.5.4      bit_4.0.4             
- [73] tidyselect_1.1.1       magrittr_2.0.1         R6_2.5.1              
- [76] generics_0.1.1         Hmisc_4.6-0            DBI_1.1.2             
- [79] pillar_1.6.4           haven_2.4.3            whisker_0.4           
- [82] foreign_0.8-81         withr_2.4.3            survival_3.2-13       
- [85] nnet_7.3-16            modelr_0.1.8           crayon_1.4.2          
- [88] utf8_1.2.2             tzdb_0.2.0             rmarkdown_2.11        
- [91] jpeg_0.1-9             grid_4.1.2             readxl_1.3.1          
- [94] data.table_1.14.2      git2r_0.29.0           reprex_2.0.1          
- [97] digest_0.6.29          webshot_0.5.2          httpuv_1.6.4          
-[100] munsell_0.5.0          viridisLite_0.4.0      bslib_0.3.1           </code></pre>
+ [16] splines_4.1.2          extrafont_0.17         knitr_1.37            
+ [19] Formula_1.2-4          jsonlite_1.7.2         workflowr_1.7.0       
+ [22] nloptr_1.2.2.3         broom_0.7.11           Rttf2pt1_1.3.9        
+ [25] cluster_2.1.2          dbplyr_2.1.1           png_0.1-7             
+ [28] rjags_4-12             compiler_4.1.2         httr_1.4.2            
+ [31] backports_1.4.1        assertthat_0.2.1       Matrix_1.4-0          
+ [34] fastmap_1.1.0          cli_3.1.0              later_1.3.0           
+ [37] htmltools_0.5.2        tools_4.1.2            igraph_1.2.11         
+ [40] coda_0.19-4            gtable_0.3.0           glue_1.6.0            
+ [43] Rcpp_1.0.8             cellranger_1.1.0       jquerylib_0.1.4       
+ [46] vctrs_0.3.8            svglite_2.0.0          nlme_3.1-155          
+ [49] extrafontdb_1.0        xfun_0.29              rbibutils_2.2.7       
+ [52] lme4_1.1-27.1          rvest_1.0.2            CompQuadForm_1.4.3    
+ [55] lifecycle_1.0.1        MASS_7.3-55            scales_1.1.1          
+ [58] vroom_1.5.7            hms_1.1.1              promises_1.2.0.1      
+ [61] parallel_4.1.2         metafor_3.0-2          RColorBrewer_1.1-2    
+ [64] yaml_2.2.1             gridExtra_2.3          sass_0.4.0            
+ [67] rpart_4.1-15           latticeExtra_0.6-29    stringi_1.7.6         
+ [70] highr_0.9              checkmate_2.0.0        boot_1.3-28           
+ [73] Rdpack_2.1.3           rlang_0.4.12           pkgconfig_2.0.3       
+ [76] systemfonts_1.0.3      evaluate_0.14          lattice_0.20-45       
+ [79] htmlwidgets_1.5.4      bit_4.0.4              tidyselect_1.1.1      
+ [82] plyr_1.8.6             magrittr_2.0.1         R6_2.5.1              
+ [85] Hmisc_4.6-0            generics_0.1.1         DBI_1.1.2             
+ [88] foreign_0.8-82         pillar_1.6.4           haven_2.4.3           
+ [91] whisker_0.4            withr_2.4.3            nnet_7.3-17           
+ [94] survival_3.2-13        abind_1.4-5            modelr_0.1.8          
+ [97] crayon_1.4.2           utf8_1.2.2             tzdb_0.2.0            
+[100] rmarkdown_2.11         jpeg_0.1-9             grid_4.1.2            
+[103] readxl_1.3.1           BUGSnet_1.0.4          data.table_1.14.2     
+[106] git2r_0.29.0           reprex_2.0.1           digest_0.6.29         
+[109] webshot_0.5.2          httpuv_1.6.5           munsell_0.5.0         
+[112] viridisLite_0.4.0      bslib_0.3.1            magic_1.5-9           </code></pre>
 </div>
 </div>
 
