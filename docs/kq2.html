@@ -11,7 +11,7 @@
 
 
 
-<title>KQ2</title>
+<title>Diagnostic</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -402,8 +402,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">KQ2</h1>
-<h4 class="date">07 January, 2022 (09:18)</h4>
+<h1 class="title toc-ignore">Diagnostic</h1>
+<h4 class="date">19 January, 2022 (09:30)</h4>
 
 </div>
 
@@ -428,7 +428,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-07
+<strong>Last updated:</strong> 2022-01-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -519,16 +519,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreed0904b15e586c8b51825d95bbdbff9a9640a320atargetblankd0904b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/d0904b15e586c8b51825d95bbdbff9a9640a320a" target="_blank">d0904b1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree9ca26fd3f4c46132502e4bb6297c5fb74890e773targetblank9ca26fda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/9ca26fd3f4c46132502e4bb6297c5fb74890e773" target="_blank">9ca26fd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreed0904b15e586c8b51825d95bbdbff9a9640a320atargetblankd0904b1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree9ca26fd3f4c46132502e4bb6297c5fb74890e773targetblank9ca26fda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/d0904b15e586c8b51825d95bbdbff9a9640a320a" target="_blank">d0904b1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/9ca26fd3f4c46132502e4bb6297c5fb74890e773" target="_blank">9ca26fd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -551,14 +551,21 @@ Ignored files:
 Untracked files:
     Untracked:  .temp.lb
     Untracked:  analysis/.gitignore
-    Untracked:  analysis/kq1.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
+    Untracked:  code/rob_111921 (original).R
     Untracked:  code/rob_111921.R
+    Untracked:  code/rob_summary_mg.R
     Untracked:  data/
 
 Unstaged changes:
+    Modified:   analysis/evidence_tables.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/kq1.Rmd
     Modified:   analysis/kq2.Rmd
+    Modified:   analysis/kq3.Rmd
+    Modified:   analysis/reversal.Rmd
+    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -597,6 +604,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/54cecec7299213b7a9b6cdc9ed2a14fd7d31a12f/analysis/kq2.Rmd" target="_blank">54cecec</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2022-01-07
+</td>
+<td>
+kq1 initial, kq update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/54cecec7299213b7a9b6cdc9ed2a14fd7d31a12f/docs/kq2.html" target="_blank">54cecec</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2022-01-07
+</td>
+<td>
+kq1 initial, kq update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1598,8 +1639,7 @@ Gen, Ortho, ENT, Plastic
 <div id="diagnostic-accuracy-kq2" class="section level2">
 <h2><em>Diagnostic Accuracy (KQ2)</em></h2>
 <p><br/></p>
-<div id="agreement-tofr" class="section level3">
-<h3>Agreement — TOFR</h3>
+<p>-### Agreement — TOFR</p>
 <p><br/></p>
 <p><font size = 4> Table 3. Characteristics of monitors in studies reporting agreement (Bland-Altman) at specific TOFRs. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
@@ -2631,7 +2671,6 @@ PACU
 </tfoot>
 </table>
 <p><br/></p>
-</div>
 <div id="agreement-time-to-a-specified-tofr" class="section level3">
 <h3>Agreement — Time to a specified TOFR</h3>
 <p><br/></p>
@@ -3510,7 +3549,7 @@ TOFC 0 to TOFR ≥9
 <div class="csl-left-margin">9. </div><div class="csl-right-inline">Todd MM, Hindman BJ, King BJ. The implementation of quantitative electromyographic neuromuscular monitoring in an academic anesthesia department. <em>Anesth Analg</em>. 2014;119(2):323-331. doi:<a href="https://doi.org/10.1213/ane.0000000000000261">10.1213/ane.0000000000000261</a></div>
 </div>
 <div id="ref-Colegrave2016" class="csl-entry">
-<div class="csl-left-margin">10. </div><div class="csl-right-inline">Colegrave N, Billard V, Motamed C, Bourgain JL. Comparison of the TOF-scan<span><span></span></span>acceleromyograph to TOF-watch SX<span><span></span></span>: Influence of calibration. <em>Anaesth Crit Care Pain Med</em>. 2016;35(3):223-227. doi:<a href="https://doi.org/10.1016/j.accpm.2016.01.003">10.1016/j.accpm.2016.01.003</a></div>
+<div class="csl-left-margin">10. </div><div class="csl-right-inline">Colegrave N, Billard V, Motamed C, Bourgain JL. Comparison of the TOF-scan<span></span>acceleromyograph to TOF-watch SX<span></span>: Influence of calibration. <em>Anaesth Crit Care Pain Med</em>. 2016;35(3):223-227. doi:<a href="https://doi.org/10.1016/j.accpm.2016.01.003">10.1016/j.accpm.2016.01.003</a></div>
 </div>
 <div id="ref-Khandkar2016" class="csl-entry">
 <div class="csl-left-margin">11. </div><div class="csl-right-inline">Khandkar C, Liang S, Phillips S, Lee CY, Stewart PA. Comparison of kinemyography and electromyography during spontaneous recovery from non-depolarising neuromuscular blockade. <em>Anaesth Intensive Care</em>. 2016;44(6):745-751. doi:<a href="https://doi.org/10.1177/0310057x1604400618">10.1177/0310057x1604400618</a></div>
@@ -3537,16 +3576,16 @@ TOFC 0 to TOFR ≥9
 <div class="csl-left-margin">18. </div><div class="csl-right-inline">Domenech G, Kampel MA, Garcı́a Guzzo ME, Novas DS, Terrasa SA, Fornari GG. Usefulness of intra-operative neuromuscular blockade monitoring and reversal agents for postoperative residual neuromuscular blockade: A retrospective observational study. <em>BMC Anesthesiol</em>. 2019;19(1):143. doi:<a href="https://doi.org/10.1186/s12871-019-0817-4">10.1186/s12871-019-0817-4</a></div>
 </div>
 <div id="ref-Kameyama2019" class="csl-entry">
-<div class="csl-left-margin">19. </div><div class="csl-right-inline">Kameyama Y, Takagi S, Seto K, et al. Efficiency of the TOF-cuff<span><span></span></span>for the evaluation of rocuronium-induced neuromuscular block and its reversal with sugammadex: A comparative study vs. acceleromyography. <em>J Anesth</em>. 2019;33(1):80-84. doi:<a href="https://doi.org/10.1007/s00540-018-2587-4">10.1007/s00540-018-2587-4</a></div>
+<div class="csl-left-margin">19. </div><div class="csl-right-inline">Kameyama Y, Takagi S, Seto K, et al. Efficiency of the TOF-cuff<span></span>for the evaluation of rocuronium-induced neuromuscular block and its reversal with sugammadex: A comparative study vs. acceleromyography. <em>J Anesth</em>. 2019;33(1):80-84. doi:<a href="https://doi.org/10.1007/s00540-018-2587-4">10.1007/s00540-018-2587-4</a></div>
 </div>
 <div id="ref-Wardhana2019" class="csl-entry">
 <div class="csl-left-margin">20. </div><div class="csl-right-inline">Wardhana A, Kurniawaty J, Uyun Y. Optimised reversal without train-of-four monitoring versus reversal using quantitative train-of-four monitoring: An equivalence study. <em>Indian J Anaesth</em>. 2019;63(5):361-367. doi:<a href="https://doi.org/10.4103/ija.IJA{\_}94{\_}19">10.4103/ija.IJA{\_}94{\_}19</a></div>
 </div>
 <div id="ref-Markle2020" class="csl-entry">
-<div class="csl-left-margin">21. </div><div class="csl-right-inline">Markle A, Graf N, Horn K, Welter JE, Dullenkopf A. Neuromuscular monitoring using TOF-cuff<span><span></span></span>versus TOF-scan<span><span></span></span>: An observational study under clinical anesthesia conditions. <em>Minerva Anestesiol</em>. 2020;86(7):704-711. doi:<a href="https://doi.org/10.23736/s0375-9393.20.14272-x">10.23736/s0375-9393.20.14272-x</a></div>
+<div class="csl-left-margin">21. </div><div class="csl-right-inline">Markle A, Graf N, Horn K, Welter JE, Dullenkopf A. Neuromuscular monitoring using TOF-cuff<span></span>versus TOF-scan<span></span>: An observational study under clinical anesthesia conditions. <em>Minerva Anestesiol</em>. 2020;86(7):704-711. doi:<a href="https://doi.org/10.23736/s0375-9393.20.14272-x">10.23736/s0375-9393.20.14272-x</a></div>
 </div>
 <div id="ref-Sfeir-Machado2020" class="csl-entry">
-<div class="csl-left-margin">22. </div><div class="csl-right-inline">Sfeir Machado E, Keli-Barcelos G, Dupuis-Lozeron E, Tramèr MR, Czarnetzki C. Assessment of spontaneous neuromuscular recovery: A comparison of the TOF-cuff(<span><span></span></span>) with the TOF watch SX(<span><span></span></span>). <em>Acta Anaesthesiol Scand</em>. 2020;64(2):173-179. doi:<a href="https://doi.org/10.1111/aas.13487">10.1111/aas.13487</a></div>
+<div class="csl-left-margin">22. </div><div class="csl-right-inline">Sfeir Machado E, Keli-Barcelos G, Dupuis-Lozeron E, Tramèr MR, Czarnetzki C. Assessment of spontaneous neuromuscular recovery: A comparison of the TOF-cuff(<span></span>) with the TOF watch SX(<span></span>). <em>Acta Anaesthesiol Scand</em>. 2020;64(2):173-179. doi:<a href="https://doi.org/10.1111/aas.13487">10.1111/aas.13487</a></div>
 </div>
 <div id="ref-Motamed2021" class="csl-entry">
 <div class="csl-left-margin">23. </div><div class="csl-right-inline">Motamed C, Demiri M, Colergrave N. Comparison of train of four measurements with kinemyography NMT DATEX and accelerography TOFscan. <em>Med Sci (Basel)</em>. 2021;9(2). doi:<a href="https://doi.org/10.3390/medsci9020021">10.3390/medsci9020021</a></div>
@@ -3586,7 +3625,7 @@ other attached packages:
 [13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-153           fs_1.5.2               bit64_4.0.5           
+ [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
  [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
  [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
@@ -3601,11 +3640,11 @@ loaded via a namespace (and not attached):
 [37] htmlwidgets_1.5.4      rlang_0.4.12           readxl_1.3.1          
 [40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.1        
 [43] jsonlite_1.7.2         vroom_1.5.7            magrittr_2.0.1        
-[46] Matrix_1.4-0           Rcpp_1.0.7             munsell_0.5.0         
-[49] fansi_0.5.0            lifecycle_1.0.1        visdat_0.5.3          
+[46] Matrix_1.4-0           Rcpp_1.0.8             munsell_0.5.0         
+[49] fansi_1.0.2            lifecycle_1.0.1        visdat_0.5.3          
 [52] stringi_1.7.6          whisker_0.4            yaml_2.2.1            
 [55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.4-0        
-[58] MASS_7.3-54            grid_4.1.2             parallel_4.1.2        
+[58] MASS_7.3-55            grid_4.1.2             parallel_4.1.2        
 [61] promises_1.2.0.1       crayon_1.4.2           lattice_0.20-45       
 [64] haven_2.4.3            splines_4.1.2          hms_1.1.1             
 [67] knitr_1.37             pillar_1.6.4           boot_1.3-28           
