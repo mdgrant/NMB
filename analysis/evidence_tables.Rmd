@@ -62,10 +62,9 @@ knitr::opts_chunk$set(echo = TRUE)
 source("code/readFiles_nmb_102721.R")
 
 ```
-
 ```{r evidenceTables}
 evidence_tables <- study_char.dat %>%
-  select(refid, study, n_enrolled, include, exclude, results, diag_acc:rev_agt, design, age, year, author, comment) %>%
+  select(refid, study, n_enrolled, include, exclude, results, tech_perf:rev_agt, design, age, year, author, comment) %>%
   # filter(refid == 3180) %>% 
   mutate(
     # study = author,
@@ -89,43 +88,35 @@ evidence_tables <- study_char.dat %>%
   select(-c(author))
 
 ```
+  
+# **Technical Performance KQ1** 
 
-# **Diagnostic Accuracy KQ2** 
-
-```{r evidenceTablesDiag, include = FALSE, eval = FALSE}
-temp <- evidence_tables %>%
-  filter(diag_acc == "diag_acc") %>% 
-  arrange(age, design, study) %>% 
-  select(study, refid, age, design) %>% 
-  group_by(age, design) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  mutate(end = cumsum(n),
-         start = end - n + 1) %>% 
-  select(age, design, start, end)
-
+```{r evidenceTablesTechPerfComment}
 evidence_tables %>%
-  filter(diag_acc == "diag_acc") %>% 
+  filter(!is.na(tech_perf)) %>% 
   arrange(age, design, study) %>% 
   select(study, n_enrolled, incl_excl, results, comment) %>% 
   kbl(
     booktabs = T, align = c("lclll"), escape = FALSE,
-    col.names = c("Study", "N", "Inclusion Criteria", "Exclusion Criteria", "Results")
+    col.names = c("Study", "N", "Inclusion/Exclusion Criteria", "Results", "Comment")
   ) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 23) %>%
-  pack_sub(., "Fully Paired", 1, 23) %>%
-  pack_top(., "Pediatric", 24, 24) %>%
-  pack_sub(., "Fully Paired", 24, 24) %>%
+  pack_top(., "Adult", 1, 24) %>%
+  pack_sub(., "RCT", 1, 5) %>% 
+  pack_sub(., "Fully Paired", 6, 23) %>%
+  pack_top(., "Prospective Cohort", 24, 24) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
-  column_spec(3, width = "17em") %>%
-  column_spec(4, width = "17em") %>%
-  column_spec(5, width = "28em")
-
+  column_spec(3, width = "20em") %>%
+  column_spec(4, width = "20em") %>%
+  column_spec(5, width = "24em")
 ```
+
+<br/>
+
+# **Diagnostic Accuracy KQ2** 
 
 ```{r evidenceTablesDiagAccComment}
 evidence_tables %>%
@@ -149,43 +140,9 @@ evidence_tables %>%
   column_spec(5, width = "24em")
 ```
 
+<br/>
+
 # **Monitoring Patient Outcomes KQ3** 
-
-```{r evidenceTablesDiagOut, include = FALSE, eval = FALSE}
-temp <- evidence_tables %>%
-  filter(diag_pt_out == "diag_pt_out") %>% 
-  arrange(age, design, study) %>% 
-  select(study, refid, age, design) %>% 
-  group_by(age, design) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  mutate(end = cumsum(n),
-         start = end - n + 1) %>% 
-  select(age, design, start, end)
-
-evidence_tables %>%
-  filter(diag_pt_out == "diag_pt_out") %>% 
-  arrange(age, design, study) %>% 
-  select(study, n_enrolled, incl_excl, results, comment) %>% 
-  kbl(
-    booktabs = T, align = c("lclll"), escape = FALSE,
-    col.names = c("Study", "N", "Inclusion Criteria", "Exclusion Criteria", "Results")
-  ) %>%
-  row_spec(0, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 15) %>%
-  pack_sub(., "RCT", 1, 10) %>%
-  pack_sub(., "Quasi-Experimental", 11, 12) %>%
-  pack_sub(., "Prospective Cohort", 13, 14) %>%
-  pack_sub(., "Retrospective Cohort", 15, 15) %>%
-  column_spec(1, width = "8em") %>%
-  column_spec(2, width = "4em") %>%
-  column_spec(3, width = "17em") %>%
-  column_spec(4, width = "17em") %>%
-  column_spec(5, width = "28em")
-
-```
 
 ```{r evidenceTablesDiagOutComment}
 evidence_tables %>%
@@ -210,6 +167,8 @@ evidence_tables %>%
   column_spec(4, width = "20em") %>%
   column_spec(5, width = "24em")
 ```
+
+<br/>
 
 # **Reversal** 
 
@@ -257,5 +216,9 @@ evidence_tables %>%
   column_spec(5, width = "24em")
 
 ```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 # **References**

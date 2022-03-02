@@ -62,7 +62,6 @@ knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
 ```
 
-
 ```{r data, include = FALSE, eval = TRUE}
 ## • (updated 2021/11/16 09:02) create diag_ba.dat refids -----------------
 ## (updated 2022/01/07 08:54) verify correct refids -----------------------
@@ -86,13 +85,16 @@ tech_refids <- study_arm.dat %>%
   pull(refid) %>%
   unique()
 
+# write refids to use in risk of bias
+write_csv(tibble(tech_refids), "data/tech_refids.csv", na = "")
+
 contin_tech.dat <- contin.dat %>% 
   filter(refid %in% tech_refids)
 
 dichot_tech.dat <- dichot.dat %>% 
   filter(refid %in% tech_refids)
 
-likert_tech.dat <- likert.dat%>% 
+likert_tech.dat <- likert.dat %>% 
   filter(refid %in% tech_refids)
 ```
 
@@ -322,18 +324,17 @@ table_n <- tab_inc()
 
 <br/>
 
-
 # **Risk of Bias** 
 
 <br/>
 
-### *QUADAS-2*
+### *Diagnostic Studies*
 
 <br>
 
 <font size = 4> Figure `r figure_n`. Summary risk of bias appraisal (QUADAS-2) for included studies. </font>
 
-<img src="assets/kq1_quadas_summary.svg" style="width:750px;" align="left"/>
+<img src="assets/kq1_quadas_summary.svg" style="width:700px;" align="left"/>
 
 <br clear="all" />
 
@@ -343,15 +344,43 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal QUADAS-2) for included studies. </font>
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal (QUADAS-2) for included diagnostic studies. </font>
 
-<img src="assets/kq1_quadas_traffic.svg" style="width:650px;" align="left"/>
+<img src="assets/kq1_quadas_traffic.svg" style="width:565px;" align="left"/>
 <!-- <img src="assets/kq1_quadas_traffic.svg" style="width: 75%; height: 1000px;" align="left"/> -->
 
 ```{r}
 figure_n <- fig_inc()
 ```
 <br clear="all" />
+
+<br/>
+
+### *RCTs Clinical Outcomes*
+
+<br>
+
+<font size = 4> Figure `r figure_n`. Summary risk of bias appraisal for included RCTs reporting clinical outcomes. </font>
+
+<img src="assets/kq1_rob_clin_out.svg" style="width:750px;" align="left"/>
+
+<br clear="all" />
+
+```{r}
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Individual study risk of bias appraisal for included RCTs. </font>
+
+<img src="assets/kq1_rob_clin_out_traffic.svg" style="width:650px;" align="left"/>
+
+```{r}
+figure_n <- fig_inc()
+```
+<br clear="all" />
+
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 

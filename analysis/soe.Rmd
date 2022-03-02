@@ -47,19 +47,19 @@ display: none;
 display: none !important; 
 }
 
-<!-- @font-face { -->
-<!--     font-family: "GRADE-quality"; -->
-<!--     src: url(); -->
-<!--     src: url('https://gradepro.org/fonts/GRADE-quality.eot'); -->
-<!--     src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix') -->
-<!--         format('embedded-opentype'), -->
-<!--       url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'), -->
-<!--       url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'), -->
-<!--       url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality') -->
-<!--         format('svg'); -->
-<!--     font-weight: normal; -->
-<!--     font-style: normal; -->
-<!--   } -->
+@font-face {
+    font-family: "GRADE-quality";
+    src: url();
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot');
+    src: url('https://gradepro.org/fonts/GRADE-quality.eot?#iefix')
+        format('embedded-opentype'),
+      url('https://gradepro.org/fonts/GRADE-quality.woff') format('woff'),
+      url('https://gradepro.org/fonts/GRADE-quality.ttf') format('truetype'),
+      url('https://gradepro.org/fonts/GRADE-quality.svg#GRADE-quality')
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .quality-sign {
       font-family: 'GRADE-quality', Cambria, Helvetica, Arial;
@@ -105,18 +105,38 @@ fig_inc <- function() {
 
 table_n <- 1
 figure_n <- 1
-
-pack_sub <- function(kable_input, name, a, b) {
+# top level kable
+pack_top <- function(kable_input, name, a, b, indent_tf = TRUE) {
   pack_rows(kable_input, name,
             start_row = a, end_row = b,
-            label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE
+            indent = indent_tf,
+            label_row_css = "border-top: 1px solid;",
+            color = "black",
+            background = "#EBEBEB",
   )
 }
 
-pack_top <- function(kable_input, name, a, b) {
+# top level kable no indent
+pack_topnoind <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
             start_row = a, end_row = b,
-            label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB"
+            label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB",
+            indent = FALSE
+  )
+}
+
+# subgroup title kable
+pack_sub <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+    start_row = a, end_row = b,
+    label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = FALSE,  indent = FALSE
+  )
+}
+
+pack_sub_bold <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-bottom: 0px solid;", color = "#646971", background = "white", bold = TRUE,  indent = FALSE, italic = FALSE
   )
 }
 
@@ -124,18 +144,34 @@ firstup <- function(x) {
   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
   x
 }
+
+# grade footnote
+vlow <-  '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>'
+
+low <- '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>'
+
+mod <- '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>'
+
+high <- '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>'
+
+grade_foot <- c("Very low:", vlow, "Low:", low, "Moderate:", mod, "High:", high)
+
 ```
 
-```{r soeData, include = TRUE}
-## (updated 2021/05/13 11:45) soeData -------------------------------------
+<font size = 4> Ratings for important outcomes according to study design.</font>
+
+# **Monitoring Technical Performance** 
+
+```{r soeKq1Data, include = TRUE}
+## soeKq1Data (updated 2022/01/20 09:18) ----------------------------------
 col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
-soe.dat <- readxl::read_xlsx("data/soe_111721.xlsx", range = "A1:Z2", sheet = "soe", col_types = col_types_nmb) %>%
+soe_kq1.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z8", sheet = "soe_kq1", col_types = col_types_nmb) %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
     n = paste0(n, outcome),
     # outcome = tools::toTitleCase(outcome) %>%
-    outcome = str_to_sentence(outcome),
+    # outcome = str_to_sentence(outcome),
     out_import = case_when(
       out_import == "Limited" ~ "●",
       # out_import == "Limited" ~ "●○○",
@@ -145,8 +181,8 @@ soe.dat <- readxl::read_xlsx("data/soe_111721.xlsx", range = "A1:Z2", sheet = "s
   )
 
 ## (updated 2021/11/17 11:44) soe_summary ---------------------------------
-soe_summary <- soe.dat %>%
-  select(n, comparison, outcome, n_s, grade, acc, out_import, result_summary, result_links) %>%
+soe_summary <- soe_kq1.dat %>%
+  select(n, comparison, outcome, n_s, grade, acc, out_import, summary, result_links) %>%
   mutate(
     grade = case_when(
       grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
@@ -158,7 +194,7 @@ soe_summary <- soe.dat %>%
   )
 
 ## (updated 2021/11/17 11:44) domain_summary ------------------------------
-domain_summary <- soe.dat %>% 
+domain_summary <- soe_kq1.dat %>% 
   select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
   mutate(design = str_to_sentence(design),
          consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
@@ -171,26 +207,18 @@ domain_summary <- soe.dat %>%
 
 ```
 
-<font size = 4> Ratings in the following tables are for selected important outcomes obtained from randomized controlled trials. </font>
-
-# **Reversal Agents (Toy Results)** 
-
 <br/>
-
-#    **Adult**
-
-## *Sugammadex vs. Neostigmine*
 
 ### Strength of Evidence Ratings
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for important outcomes in randomized controlled trials comparing sugammadex with neostigmine in adults.  </font>
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to neuromuscular monitor technical performance.  </font>
 
-```{r chofasting, include = TRUE}
-## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
+```{r kq1SOE, include = TRUE}
+## kq1SOE (updated 2022/01/20 15:00) --------------------------------------
 soe_summary %>% 
-  filter(comparison == "sug_neo") %>% 
+  # filter(comparison == "sug_neo") %>% 
   select(!c(comparison, n)) %>% 
   # slice(1,2,11) %>% 
     kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
@@ -207,8 +235,16 @@ soe_summary %>%
   column_spec(5, width = "5em") %>% 
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
-  # pack_top(., "Patient Reported Outcomes", 1, 2) %>%
-  footnote(general = "OR: odds ratio; SMD: standardized mean difference; MD: mean difference; CHO: carbohydrate; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  pack_topnoind(., "Fully Paired", 1, 6) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  footnote(general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -223,21 +259,20 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings in studies comparing carbohydrate drinks with fasting in adults. </font>
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence rating for outcomes relevant to neuromuscular monitor technical performance. </font>
 
-```{r chofastingDomain, include = TRUE, eval = TRUE}
+```{r kq1Domain, include = TRUE, eval = TRUE}
 ## (updated 2021/05/14 08:02) sug_neo_domain_summary --------------------------
-sug_neo_domain_summary <- domain_summary %>%
-  filter(comparison == "sug_neo") %>%
+kq1_domain_summary <- domain_summary %>%
+  # filter(comparison == "sug_neo") %>%
   select(-summary) %>%
   mutate(
-    design = str_replace(design, "Rct", "RCT"),
-    design = str_replace(design, "[Nn]rsi", "NRSI"),
-    design = str_replace(design, "cohort", "Cohort"),
+    design = str_replace(design, "fully_paired", "Fully Paired"),
+    design = str_replace(design, "pro_cohort", "Cohort"),
   )
          
 # (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- sug_neo_domain_summary %>% 
+foot_unique <- kq1_domain_summary %>% 
   select(ends_with("foot")) 
 
 foot_unique <- c(t(foot_unique)) %>% 
@@ -247,7 +282,7 @@ foot_unique <- c(t(foot_unique)) %>%
 foot_unique <- unique(foot_unique)
 
 numbers <- c(1:100)
-sug_neo_domain <- sug_neo_domain_summary %>% 
+kq1_domain <- kq1_domain_summary %>% 
   mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
          consist_let = numbers[match(consist_foot, foot_unique)],
          direct_let  = numbers[match(direct_foot, foot_unique)],
@@ -256,14 +291,14 @@ sug_neo_domain <- sug_neo_domain_summary %>%
          )
 
 ## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(sug_neo_domain)) {
+for (i in 1:nrow(kq1_domain)) {
   for (j in 7:11) {
-    sug_neo_domain[i, j] <- ifelse(!is.na(sug_neo_domain[i, j + 10]), paste0(sug_neo_domain[i, j], "^", sug_neo_domain[i, j + 10], "^"), sug_neo_domain[i, j])
+    kq1_domain[i, j] <- ifelse(!is.na(kq1_domain[i, j + 10]), paste0(kq1_domain[i, j], "^", kq1_domain[i, j + 10], "^"), kq1_domain[i, j])
   }
 }
 
 ## (updated 2021/05/14 08:27) domain summary table ------------------------
-sug_neo_domain %>% 
+kq1_domain %>% 
   mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
   select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
     kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
@@ -278,6 +313,15 @@ sug_neo_domain %>%
   column_spec(2, width = "4em") %>% 
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
+    pack_topnoind(., "Fully Paired", 1, 6) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = foot_unique,
            general_title = "",  
@@ -292,5 +336,456 @@ table_n <- tab_inc()
 
 <br/>
 
+
+
+
+<br/>
+
+# **Monitoring Outcomes** 
+
+```{r soeKq3Data, include = TRUE}
+## soeKq3 Data (updated 2022/01/20 09:18) ----------------------------------
+col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
+soe_kq3.dat <- readxl::read_xlsx("data/soe_111721_mac_copy.xlsx", range = "A1:Z13", sheet = "soe_kq3", col_types = col_types_nmb) %>%
+  clean_names() %>%
+  mutate(
+    n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
+    n = paste0(n, outcome),
+    # outcome = tools::toTitleCase(outcome) %>%
+    # outcome = str_to_sentence(outcome),
+    out_import = case_when(
+      out_import == "Limited" ~ "●",
+      # out_import == "Limited" ~ "●○○",
+      out_import == "Important" ~ "●●",
+      out_import == "Critical" ~ "●●●"
+    )
+  )
+
+## (updated 2021/11/17 11:44) soe_summary ---------------------------------
+soe_summary <- soe_kq3.dat %>%
+  select(n, comparison, outcome, n_s, grade, acc, out_import, summary, result_links) %>%
+  mutate(
+    grade = case_when(
+      grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "moderate" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>',
+      grade == "high" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>', # )% >%
+      TRUE ~ grade
+    )
+  )
+
+## (updated 2021/11/17 11:44) domain_summary ------------------------------
+domain_summary <- soe_kq3.dat %>% 
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
+  mutate( #design = str_to_sentence(design),
+         consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
+         direct_foot  = ifelse(!grepl("\\.$", direct_foot ) & !is.na(direct_foot ), paste0(direct_foot , "."), direct_foot ),
+         prec_foot    = ifelse(!grepl("\\.$", prec_foot   ) & !is.na(prec_foot   ), paste0(prec_foot   , "."), prec_foot   ),
+         rob_foot     = ifelse(!grepl("\\.$", rob_foot    ) & !is.na(rob_foot    ), paste0(rob_foot    , "."), rob_foot    ),
+         other_foot   = ifelse(!grepl("\\.$", other_foot  ) & !is.na(other_foot  ), paste0(other_foot  , "."), other_foot  ),
+         across(ends_with("foot"), firstup)
+         ) 
+
+```
+
+<br/>
+
+### Strength of Evidence Ratings
+
+<br/>
+
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring.  </font>
+
+```{r Kq3SOE, include = TRUE}
+## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
+soe_summary %>% 
+  filter(!str_detect(n, ".99")) %>% 
+  select(!c(comparison, n)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
+  pack_topnoind(., "Qualitative vs. Clinical", 1, 2) %>% 
+  pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>% 
+  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>% 
+  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>% 
+  # pack_topnoind(., "Fully Paired", 1, 6) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  footnote(
+    general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           number = c("● Limited, ●● Important, ●●● Critical."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+### GRADE Domains 
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings relevant to outcomes with neuromuscular monitoring. </font>
+
+```{r kq3Domain, include = TRUE, eval = TRUE}
+## (updated 2021/05/14 08:02) sug_neo_domain_summary --------------------------
+kq1_domain_summary <- domain_summary %>%
+  # filter(comparison == "sug_neo") %>%
+  select(-summary) %>%
+  mutate(
+    design = str_replace(design, "fully_paired", "Fully Paired"),
+    design = str_replace(design, "pro_cohort", "Cohort"),
+  )
+         
+# (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+foot_unique <- kq1_domain_summary %>% 
+  select(ends_with("foot")) 
+
+foot_unique <- c(t(foot_unique)) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na) 
+
+foot_unique <- unique(foot_unique)
+
+numbers <- c(1:100)
+kq1_domain <- kq1_domain_summary %>% 
+  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
+         consist_let = numbers[match(consist_foot, foot_unique)],
+         direct_let  = numbers[match(direct_foot, foot_unique)],
+         prec_let    = numbers[match(prec_foot, foot_unique)],
+         other_let   = numbers[match(other_foot, foot_unique)],
+         )
+
+## (updated 2021/05/14 08:04) add footnotes -------------------------------
+for (i in 1:nrow(kq1_domain)) {
+  for (j in 7:11) {
+    kq1_domain[i, j] <- ifelse(!is.na(kq1_domain[i, j + 10]), paste0(kq1_domain[i, j], "^", kq1_domain[i, j + 10], "^"), kq1_domain[i, j])
+  }
+}
+
+## (updated 2021/05/14 08:27) domain summary table ------------------------
+kq1_domain %>% 
+    filter(!str_detect(n, ".99")) %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  pack_topnoind(., "Qualitative vs. Clinical", 1, 2) %>% 
+  pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>% 
+  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>% 
+  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  footnote(
+    # general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           number = foot_unique,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+  table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+# **Reversal** 
+
+```{r soekq4Data, include = TRUE}
+## soekq4 Data (updated 2022/01/20 09:18) ----------------------------------
+col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
+soe_kq4.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z6", sheet = "soe_kq4", col_types = col_types_nmb) %>%
+  clean_names() %>%
+  mutate(
+    n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
+    n = paste0(n, outcome),
+    # outcome = tools::toTitleCase(outcome) %>%
+    # outcome = str_to_sentence(outcome),
+    out_import = case_when(
+      out_import == "Limited" ~ "●",
+      # out_import == "Limited" ~ "●○○",
+      out_import == "Important" ~ "●●",
+      out_import == "Critical" ~ "●●●"
+    )
+  )
+
+## (updated 2021/11/17 11:44) soe_summary ---------------------------------
+soe_summary <- soe_kq4.dat %>%
+  select(n, comparison, outcome, n_s, grade, acc, out_import, summary, result_links) %>%
+  mutate(
+    grade = case_when(
+      grade == "very low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "low" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span><span class="quality-sign">◯</span>',
+      grade == "moderate" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">◯</span>',
+      grade == "high" ~ '<span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span><span class="quality-sign">⨁</span>', # )%>%
+      TRUE ~ grade
+    )
+  )
+
+## (updated 2021/11/17 11:44) domain_summary ------------------------------
+domain_summary <- soe_kq4.dat %>% 
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
+  mutate(design = str_to_sentence(design),
+         consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
+         direct_foot  = ifelse(!grepl("\\.$", direct_foot ) & !is.na(direct_foot ), paste0(direct_foot , "."), direct_foot ),
+         prec_foot    = ifelse(!grepl("\\.$", prec_foot   ) & !is.na(prec_foot   ), paste0(prec_foot   , "."), prec_foot   ),
+         rob_foot     = ifelse(!grepl("\\.$", rob_foot    ) & !is.na(rob_foot    ), paste0(rob_foot    , "."), rob_foot    ),
+         other_foot   = ifelse(!grepl("\\.$", other_foot  ) & !is.na(other_foot  ), paste0(other_foot  , "."), other_foot  ),
+         across(ends_with("foot"), firstup)
+         ) 
+
+```
+
+<br/>
+
+### Strength of Evidence Ratings
+
+<br/>
+
+<font size = 4> Table `r table_n`. Strength of evidence for reversal outcomes comparing sugammadex with neostigmine.</font>
+
+```{r Kq4SOE, include = TRUE}
+## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
+soe_summary %>% 
+  filter(!str_detect(n, "99")) %>% 
+  select(!c(comparison, n)) %>% 
+  # slice(1,2,11) %>% 
+    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
+  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "9em") %>%  
+  column_spec(2, width = "5em") %>%  
+  column_spec(c(3:4), width = "6em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "24em") %>% 
+  column_spec(7, width = "7em") %>% 
+  # pack_topnoind(., "Fully Paired", 1, 6) %>% 
+  pack_sub_bold(., "Sugammadex vs. Neostigmine", 1, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  footnote(
+    general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           number = c("● Limited, ●● Important, ●●● Critical."),
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+
+```
+
+<br/>
+
+### GRADE Domains 
+
+<br>
+
+<font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings for reversal outcomes comparing sugammadex with neostigmine. </font>
+
+```{r kq4Domain, include = TRUE, eval = TRUE}
+## (updated 2021/05/14 08:02) sug_neo_domain_summary --------------------------
+kq1_domain_summary <- domain_summary %>%
+  # filter(comparison == "sug_neo") %>%
+  select(-summary) %>%
+  mutate(
+    design = str_replace(design, "fully_paired", "Fully Paired"),
+    design = str_replace(design, "pro_cohort", "Cohort"),
+  )
+         
+# (updated 2021/05/14 07:42) get list of unique footnotes ----------------
+foot_unique <- kq1_domain_summary %>% 
+  select(ends_with("foot")) 
+
+foot_unique <- c(t(foot_unique)) %>% 
+  unlist(use.names = FALSE) %>% 
+  discard(is.na) 
+
+foot_unique <- unique(foot_unique)
+
+numbers <- c(1:100)
+kq1_domain <- kq1_domain_summary %>% 
+  mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
+         consist_let = numbers[match(consist_foot, foot_unique)],
+         direct_let  = numbers[match(direct_foot, foot_unique)],
+         prec_let    = numbers[match(prec_foot, foot_unique)],
+         other_let   = numbers[match(other_foot, foot_unique)],
+         )
+
+## (updated 2021/05/14 08:04) add footnotes -------------------------------
+for (i in 1:nrow(kq1_domain)) {
+  for (j in 7:11) {
+    kq1_domain[i, j] <- ifelse(!is.na(kq1_domain[i, j + 10]), paste0(kq1_domain[i, j], "^", kq1_domain[i, j + 10], "^"), kq1_domain[i, j])
+  }
+}
+
+## (updated 2021/05/14 08:27) domain summary table ------------------------
+kq1_domain %>% 
+    filter(!str_detect(n, "99")) %>% 
+  mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
+  select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
+    kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
+    col.names = c("Outcome", "Design", "N (pts)", "Bias", "Inconsistency", "Indirectness", "Imprecision", "Other")) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  add_header_above(c(" " = 1, "Studies" = 2, "Domains" = 5), line = TRUE, bold = TRUE) %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # row_spec(c(1, 2, 11), color = "red") %>%
+  # row_spec(c(1, 2, 3), color = "red") %>%
+  column_spec(1, width = "13em") %>%  
+  column_spec(2, width = "4em") %>% 
+  column_spec(3, width = "10em") %>% 
+  column_spec(4:8, width = "8em") %>% 
+  pack_sub_bold(., "Sugammadex vs. Neostigmine", 1, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
+  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
+  # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  footnote(
+    # general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+           number = foot_unique,
+           general_title = "",  
+           footnote_as_chunk = FALSE)
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br/>
+
+
+# **Rating Systems Reference**
+
+#   GRADE
+
+<br>
+<font size = 4> 
+**High** --- We are very confident that the true effect lies close to that of the estimate of the effect.
+
+**Moderate** ---  We are moderately confident in the effect estimate: The true effect is likely to be close to the estimate of the effect, but there is a possibility that it is substantially different.
+
+**Low** --- Our confidence in the effect estimate is limited: The true effect may be substantially different from the estimate of the effect.
+
+**Very Low** ---  We have very little confidence in the effect estimate: The true effect is likely to be substantially different from the estimate of effect. 
+
+</font>
+
+## Domains (downgrading)
+<font size = 4>
+
+*Bias* --- Systematic error (eg, selection bias, confounding bias, measurement bias).
+
+*Inconsistency* --- Unexplained heterogeneity of results; studies find effect estimates that differ widely.
+
+*Imprecision* --- The range of plausible effects estimated from relevant studies.
+
+*Indirectness* --- Direct evidence consists of research that directly compares the interventions which we are interested in, delivered to the populations in which we are interested, and measures the outcomes important to patients.
+
+*Other (eg, publication bias)* --- Selective publication or reporting of results (typically of positive results).
+
+## Domains (updgrading)
+
+*Effect Size*
+
+*Dose-response*
+
+*Plausible Residual Confounding*
+
+</font>
+
+<br/><br/>
+
+#   ACC/AHA
+
+<font size = 4>
+
+**Level A** --- High-quality evidence from more than 1 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated by high-quality registry studies.
+
+**Level B-R** --- Moderate-quality evidence from 1 or more randomized controlled trials. Meta-analyses of moderate-quality RCTs.
+
+**Level B-NR** --- Moderate-quality evidence from 1 or more well-designed, well-executed nonrandomized studies, observational studies, or registry studies. Meta-analyses of such studies.
+
+**Level C-LD** --- Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.
+
+**Level C-EO** --- Consensus of expert opinion based on clinical experience when evidence is insufficient, vague, or conflicting. 
+
+</font>
+
+<font size = 3> RCT: randomized controlled trial; NR: nonrandomized; LD: limited data; EO: expert opinion </font>
+
+&nbsp; <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
 
 

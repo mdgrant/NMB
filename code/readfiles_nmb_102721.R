@@ -9,6 +9,75 @@ library(formattable)
 suppressMessages(library(meta))
 settings.meta(CIbracket = "(", CIseparator = ", ")
 
+qinu <- function(df, var){
+  df %>%
+    select({{var}}) %>%
+    distinct() %>%
+    count() %>%
+    pull(n)
+}
+
+proc_freq <- function(df, a, b){
+  df %>%
+    group_by({{a}}, {{b}}) %>%
+    tally() %>%
+    spread({{a}}, n) %>%
+    gt::gt()
+}
+
+`%notin%` <- Negate(`%in%`)
+
+options(todor_patterns = c("FIXME", "TODO", "CHANGED", "TEXT", "NOTE", "REVIEW", "QUESTION", "RESUME"))
+
+color_1 <- "#76d7c4"
+color_2 <- "#7fb3d5"
+color_3 <- "#c39bd3"
+color_4 <- "#f1948a"
+
+# color_bar2
+bg <- function(start, end, color, ...) {
+  paste(
+    "linear-gradient(270deg, transparent ", percent(start), ",",
+    color, percent(start), ",", color, percent(end),
+    ", transparent", percent(end), ")"
+  )
+}
+
+color_bar2 <- function(color = "lightgray", fun = "proportion", ...) {
+  fun <- match.fun(fun)
+  formatter("span", style = function(x) {
+    style(
+      display = "inline-block",
+      `unicode-bidi` = "plaintext",
+      "background" = bg(1 - fun(as.numeric(x), ...), 1, color), "width" = "100%"
+    )
+  })
+}
+
+# function to add color_bar2 w or w/o number
+bar_wn = function(var_nper_or_per, percent, color, div_by){
+  dichot_format <- function(x) (percent/div_by)
+  with_bar <-  color_bar2(color, fun = dichot_format)(var_nper_or_per)
+  with_bar <-  str_replace(with_bar, ">.*<", paste0(">", var_nper_or_per, "<"))
+  with_bar <- ifelse(is.na(var_nper_or_per), NA, with_bar)
+  return(with_bar)
+}
+
+bar_wn1d = function(var_nper_or_per, percent, color, div_by){
+  dichot_format <- function(x) (percent/div_by)
+  with_bar <-  color_bar2(color, fun = dichot_format)(var_nper_or_per)
+  with_bar <-  str_replace(with_bar, ">.*<", paste0(">", formatC(var_nper_or_per, digits = 1, format = "f"), "<"))
+  with_bar <- ifelse(is.na(var_nper_or_per), NA, with_bar)
+  return(with_bar)
+}
+
+# spacing
+study_width <- "10em"
+bar_width <- "7em"
+bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%  →  100%</span>"
+or_width <- "8em"
+note_width <- "12em"
+
 # convenience
 # ci using t dist
 ci_t = function(m, sd, n, low_up){
@@ -39,6 +108,8 @@ round_2d   <- function(x) {formatC(x, digits = 2, zero.print = TRUE)}
 round_2    <- function(x) {formatC( round(x, 2), format = 'f', digits = 2)}
 sd_conf_t  <- function(low, up, n){(abs(up - low)/2)/abs(qt(0.025, n))}
 sd_confint <- function(low, up){(abs(up - low)/2)/1.96}
+sd_conf_cont_t <- function(low, up, n){sqrt(n)*(abs(up - low)/2)/abs(qt(0.025, n))}
+sd_confint_cont <- function(low, up, n){sqrt(n)*(abs(up - low)/2)/1.96}
 
 conf_tl    <- function(samp_mean, samp_sd, n, low_up) {
   error <- qt(0.975, df = n - 1) * samp_sd / (sqrt(n))
@@ -76,6 +147,10 @@ n_percent1 <- function(a, b){
   str_c(a," (", round_1(b), ")")
 }
 
+n_percent_dig <- function(a, b, n){
+  str_c(a," (", formatC(b, digits = n, format = "f"), ")")
+}
+
 bwgrp_pval <- function(m1, m2, n1, n2, pVal) {
   sd2 <- abs((m2 - m1) / qt(pVal / 2, n1 + n2 - 2)) * sqrt(n2 * n1 / (n2 + n1))
   sd1 <- sd2
@@ -99,7 +174,7 @@ pack_top <- function(kable_input, name, a, b, indent_tf = TRUE) {
 }
 
 # top level kable no indent
-pack_top_noind <- function(kable_input, name, a, b) {
+pack_topnoind <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
             start_row = a, end_row = b,
             label_row_css = "border-top: 1px solid;", color = "black", background = "#EBEBEB",
@@ -395,7 +470,20 @@ study_char.dat <- study_char.dat %>%
         "other"
       )
     ),
-  # shorten select study names
+    design_f = fct_recode(design,
+      "RCT" = "rct",
+      "Crossover" = "crossover",
+      "Cluster Randomized" = "cluster",
+      "Fully Paired" = "fully_paired",
+      "Before-After/Time Series" = "quasiexp",
+      "Nonrandomized Trial" = "nrsi",
+      "Prospective Cohort" = "prospect_coh",
+      "Retrospective Cohort" = "retrospect_coh",
+      "Case-Control" = "casecontrol",
+      "Case Series" = "case_series",
+      "Other" = "other"
+    ),
+    # shorten select study names
     author = case_when(
       refid == 3521 ~ "S Machado",
       refid == 1064 ~ "K-Nielsen",
@@ -404,11 +492,16 @@ study_char.dat <- study_char.dat %>%
     study = paste(author, year),
     study_l = paste0("[", study, "]", "(", "evidence_tables.html#", refid, ")")
   ) %>%
+  relocate(design_f, .after = design) %>%
   select(refid, study, study_l, everything())
 
 study_char.dat %>%
   select(design) %>%
   tabyl(design)
+
+# study_identifiers
+study_ident <- study_char.dat %>%
+  select(refid, study, study_l, age, design, design_f)
 
 # * (end)
 
@@ -474,8 +567,19 @@ study_arm.dat <- study_arm.dat %>%
 study_names <- study_char.dat %>% select(refid, study, study_l, age, design)
 
 study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
+  mutate(
+    mon_cat = str_replace(mon_cat, "moncat_", ""),
+    mon_cat_f = factor(mon_cat),
+    mon_cat_f = fct_collapse(mon_cat_f, "Quant" = "quan", "Qual" = "qual", "Clin" = "clin", "None/NS" = c("none", "not_described")),
+    mon_cat_f = fct_relevel(mon_cat_f, c("Quant", "Qual", "Clin", "None/NS"))
+  ) %>%
   select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
-  relocate(linked_references, .after = last_col())
+  mutate(across(starts_with("depth_rev"), ~ str_replace(.x, "depth_rev_", ""))) %>%
+  unite(., col = "depth_rev_f", depth_rev_deep:depth_rev_clincrit, sep = ":", remove = FALSE, na.rm = TRUE) %>%
+  mutate(depth_rev_f = factor(depth_rev_f, levels = c("deep", "deep:mod", "deep:mod:shall", "mod", "mod:shall", "mod:shall:min", "min", "shall", "clincrit", "endsurg", "oth", "ns"))) %>%
+  relocate(depth_rev_f, .before = depth_rev_deep) %>%
+  relocate(linked_references, .after = last_col()) %>%
+  relocate(mon_cat_f, .after = mon_cat)
 
 # check n same as study_arm_n
 length(unique(study_arm.dat$refid)) == study_arm_n
@@ -500,6 +604,10 @@ contin.dat <- read_csv(path) %>%
 # use study_char design
 contin.dat <- left_join(contin.dat, study_names, by = "refid") %>%
   select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
+  mutate(across(starts_with("depth_rev"), ~ str_replace(.x, "depth_rev_", ""))) %>%
+  unite(., col = "depth_rev_f", depth_rev_deep:depth_rev_clincrit, sep = ":", remove = FALSE, na.rm = TRUE) %>%
+  mutate(depth_rev_f = factor(depth_rev_f, levels = c("deep", "deep:mod", "deep:mod:shall", "mod", "mod:shall", "mod:shall:min", "min", "shall", "clincrit", "endsurg", "oth", "ns"))) %>%
+  relocate(depth_rev_f, .before = depth_rev_deep) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
@@ -524,6 +632,10 @@ dichot.dat <- left_join(dichot.dat, study_names, by = "refid") %>%
   group_by(refid) %>%
   mutate(arm_id = row_number()) %>%
   ungroup() %>%
+  mutate(across(starts_with("depth_rev"), ~ str_replace(.x, "depth_rev_", ""))) %>%
+  unite(., col = "depth_rev_f", depth_rev_deep:depth_rev_clincrit, sep = ":", remove = FALSE, na.rm = TRUE) %>%
+  mutate(depth_rev_f = factor(depth_rev_f, levels = c("deep", "deep:mod", "deep:mod:shall", "mod", "mod:shall", "mod:shall:min", "min", "shall", "clincrit", "endsurg", "oth", "ns"))) %>%
+  relocate(depth_rev_f, .before = depth_rev_deep) %>%
   relocate(linked_references, .after = last_col()) %>%
   relocate(arm_id, .after = refid)
 
@@ -549,6 +661,10 @@ likert.dat <- read_csv(path) %>%
 # use study_char design
 likert.dat <- left_join(likert.dat, study_names, by = "refid") %>%
   select(refid, arm_id, study, study_l, year, design, age, everything()) %>%
+  # mutate(across(starts_with("depth_rev"), ~ str_replace(.x, "depth_rev_", ""))) %>%
+  # unite(., col = "depth_rev_f", depth_rev_deep:depth_rev_clincrit, sep = ":", remove = FALSE, na.rm = TRUE) %>%
+  # mutate(depth_rev = factor(depth_rev_f, levels = c("deep", "deep:mod", "deep:mod:shall", "mod", "mod:shall", "mod:shall:min", "min", "shall", "clincrit", "endsurg", "oth", "ns"))) %>%
+  # relocate(depth_rev_f, .before = depth_rev_deep) %>%
   relocate(linked_references, .after = last_col())
 
 # check n same as study_arm_n
