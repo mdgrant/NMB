@@ -1979,8 +1979,8 @@ table_n <- tab_inc()
 
 ## *Adverse Events*
 
-```{r adverse}
-## adverse -------------------------------------------- (2022-02-28 16:07) @----
+```{r adverseData}
+## adverseData ---------------------------------------- (2022-02-28 16:07) @----
 adverse.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xlsx",
   sheet = "Adverse Events", range = "A4:N79",
   col_types = c("numeric", rep("text", 6), "numeric", rep("text", 6))
@@ -2035,6 +2035,8 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
   relocate(study_l:design, .before = study) %>%
   rename(arm_n = n) %>%
   left_join(., study_arm_rev.dat[, c("refid", "arm", "arm_n", "depth_rev_f")], by = c("refid", "arm", "arm_n")) %>%
+  # delete eroneous Niu 2020 match
+  distinct() %>% 
   relocate(depth_rev_f, .before = arm) %>% 
   select(-c(le_90:resp_fail))
   
@@ -2542,9 +2544,9 @@ table_n <- tab_inc()
 
 ###  Hypoxia (adults)
 
-<font size = 4> Table `r table_n`. Hypoxia </font>
-
 <br/>
+
+<font size = 4> Table `r table_n`. Hypoxia </font>
 
 ```{r hypoxia} 
 ## groupings ------------------------------------------ (2022-03-02 08:30) @----
@@ -2649,7 +2651,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled hypoxia by definition in adult RCTs. </font>
+<font size = 4> Figure `r figure_n`. Pooled incidence of hypoxia by definition in adult RCTs. </font>
 
 ```{r hypoxiaPooled,  fig.width = 10, fig.height = 7.5}
 ## hypoxiaPooled -------------------------------------- (2022-03-02 10:25) @----
@@ -2706,9 +2708,79 @@ figure_n <- fig_inc()
 
 ```
 
+<br/>
 
+###  Composite (adults)
 
+<br/>
 
+```{r composite} 
+## groupings ------------------------------------------ (2022-03-02 08:30) @----
+# composite_dat %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## composite ------------------------------------------ (2022-03-02 14:30) @----
+popc.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    composite_np = n_percent_dig(composite_n, composite_n / arm_n * 100, 1),
+    composite_p_bar = NA_character_,
+    composite_p = composite_n / arm_n,
+    composite_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(composite_p, composite_p, color_4, 1), composite_p_bar),
+    composite_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(composite_p, composite_p, color_1, 1), composite_p_bar),
+    composite_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(composite_p, composite_p, color_2, 1), composite_p_bar),
+    composite_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(composite_p, composite_p, color_3, 1), composite_p_bar),
+    composite_p_bar = str_replace(composite_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+      str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
+    )
+  ) %>%
+  filter(!is.na(composite_np)) %>%
+  arrange(design, year, refid) %>%
+  select(study, arm_n, arm_c, mg_kg, depth_rev_f, composite_np, composite_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "Reversal", "Composite, N (%)", " ")
+  ) %>%
+  add_header_above(c(" " = 4, " Depth at" = 1, " " = 2), bold = TRUE, align = "l", line = FALSE) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 5), width = "8em") %>%
+  column_spec(6, width = "11em") %>%
+  column_spec(7, width = "10em") %>%
+  pack_topnoind(., "RCT", 1, 23) %>%
+  pack_topnoind(., "Nonrandomized Trials", 24, 25) %>%
+  pack_topnoind(., "Prospective Cohort", 26, 34) %>%
+  pack_topnoind(., "Retrospective Cohort", 35, 38) %>%
+  footnote(
+    general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
+    # number = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
 
 
 <br/><br/>
