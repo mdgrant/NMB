@@ -2041,7 +2041,7 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
   select(-c(le_90:resp_fail))
 
 ponv.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xlsx",
-  sheet = "PONV", range = "A5:K113",
+  sheet = "PONV", range = "A5:K111",
   col_types = c("numeric", rep("text", 5), "numeric", rep("text", 4))
 )) %>%
   rename_with(., ~ tolower(.x)) %>%
@@ -2266,7 +2266,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Bradycardia pooled results from RCTs comparing sugammadex and neostigmine. </font>
 
-```{r pooledBrady, fig.width = 10, fig.height = 4.5}
+```{r pooledBrady, fig.width = 10, fig.height = 5}
 ## pooledBrady --------------------------------------- (2022-02-28 16:07) @----
 brady_meta.dat <- adverse.dat %>%
   filter(age == "Adult", design == "rct") %>%
@@ -2580,7 +2580,7 @@ table_n <- tab_inc()
 
 <br/>
 
-## PONV
+## *PONV*
 
 ###  PONV (adults)
 
@@ -2629,7 +2629,7 @@ ponv.dat %>%
   mutate(study = ifelse(row_number() != 1, NA, study)) %>%
   kbl(
     booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "N", "Agent", "mg/kg", "ponvcardia, N (%)", " ")
+    col.names = c("Study", "N", "Agent", "mg/kg <u>mg</u>", "PONV, N (%)", " ")
   ) %>%
   row_spec(0, bold = TRUE, align = "l") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
@@ -2736,6 +2736,7 @@ forest(ponv_netmeta_nma,
 
 figure_n <- fig_inc()
 ```
+I^2^ = 0% (0.0%, 55.0%)
 
 <br/>
 
@@ -2791,6 +2792,233 @@ netsplit(ponv_netmeta_nma,
 
 figure_n <- fig_inc()
 ```
+
+<br/>
+
+###  Nausea (adults)
+
+<br/>
+
+<font size = 4> Table `r table_n`. Postoperative nausea. </font>
+
+```{r nausea}
+## tally ---------------------------------------------- (2022/03/04 11:22) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## nausea --------------------------------------------- (2022/03/04 11:22) @----
+ponv.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    nausea_p = nausea_n / arm_n * 100,
+    nausea_np = n_percent_dig(nausea_n, nausea_n / arm_n * 100, 1),
+    nausea_p_bar = NA_character_,
+    nausea_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(nausea_p, nausea_p, color_4, 100), nausea_p_bar),
+    nausea_p_bar = ifelse(str_detect(arm, "Sug"), bar_wn1d(nausea_p, nausea_p, color_1, 100), nausea_p_bar),
+    nausea_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(nausea_p, nausea_p, color_2, 100), nausea_p_bar),
+    nausea_p_bar = str_replace(nausea_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    )
+  ) %>%
+  filter(!is.na(nausea_n)) %>%
+  arrange(design, year, refid) %>%
+  select(study, arm_n, arm_c, mg_kg, nausea_np, nausea_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg <u>mg</u>", "Nausea, N (%)", " ")
+  ) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 4), width = "8em") %>%
+  column_spec(5, width = "11em") %>%
+  column_spec(6, width = "10em") %>%
+  pack_rows(., "RCT", 1, 60, indent = FALSE) %>%
+  pack_rows(., "Nonrandomized Trial", 61, 62, indent = FALSE) %>%
+  pack_rows(., "Retrospective Cohort", 63, 68, indent = FALSE) %>%
+  # pack_rows(., "Case Control", 9, 10) %>%
+  footnote(
+    general = "IBW: ideal body weight; CBW: corrected body weight.",
+    #        number = c("● Limited, ●● Important, ●●● Critical."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+### *Pooled*
+
+<font size = 4> Figure `r figure_n`. Network of comparators in RCTs. </font>
+
+```{r nauseaMeta}
+## nauseanmaData ---------------------------------------- (2022-03-04 09:31) @----
+library(netmeta)
+nma_nausea <- ponv.dat %>%
+  filter(design == "rct", !is.na(nausea_n)) %>%
+  select(refid, study, arm, arm_n, nausea_n) %>% 
+  # Plaud 2009 no events, McDonagh 2011 only sugammadex
+  filter(!(study == "Li 2021" & arm == "Sug (TBW)"), study != "McDonagh 2011", study != "Plaud 2009") %>% 
+  mutate(
+    # arm_n = ifelse(study == "Zhu 2020" & arm == "Neo", 78, arm_n),
+    # nausea_n = ifelse(study == "Zhu 2020" & arm == "Neo", 7, nausea_n),
+    study = ifelse(study == "Alkenany 2013" & str_detect(arm, "vec"), "Alkenany 2013, Vec", study),
+    study = ifelse(study == "Alkenany 2013" & str_detect(arm, "roc"), "Alkenany 2013, Roc", study),
+    study = ifelse(study == "Wu 2014" & str_detect(arm, "Cauc"), "Wu 2014, Caucasian", study),
+    study = ifelse(study == "Wu 2014" & str_detect(arm, "Chin"), "Wu 2014, Chinese", study),
+    arm = ifelse(arm %in% c("Spont", "Placebo"), "Spont/Plac", arm),
+    arm = str_remove(arm, " Chinese"),
+    arm = str_remove(arm, " Caucasian"),
+    arm = str_remove(arm, " vec"),
+    arm = str_remove(arm, " roc"),
+    arm = str_remove(arm, " \\(CBW\\)"),
+    arm = str_remove(arm, " \\(TBW\\)"),
+    arm_n = ifelse(study == "Li 2021" & arm == "Sug", 96, arm_n),
+    nausea_n = ifelse(study == "Li 2021" & arm == "Sug", 30, nausea_n),
+  )
+```
+
+```{r nauseaMetaPlot, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 10, fig.asp = .5}
+## plot ----------------------------------------------- (2022-03-04 09:29) @----
+temp <- BUGSnet::data.prep(
+  arm.data = nma_nausea,
+  # arm.data = rgv_meta_log.dat,
+  varname.t = "arm",
+  varname.s = "study"
+)
+
+BUGSnet::net.plot(temp,
+  node.scale = 2,
+  edge.scale = 1.5,
+  label.offset2 = 3,
+  label.offset1 = 8,
+  study.counts = TRUE,
+  node.lab.cex = 1,
+  edge.lab.cex = 1.2
+)
+
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Network results. </font>
+
+```{r nauseaMetaForest, fig.align = 'left', fig.width = 10, fig.height = 2.5}
+pairs.dat <- pairwise(
+  treat = arm,
+  event = nausea_n,
+  n = arm_n,
+  studlab = study,
+  data = nma_nausea,
+  sm = "RR"
+)
+
+trts <- c("Sug", "Neo", "Spont/Plac")
+
+nausea_netmeta_nma <- netmeta(
+  pairs.dat,
+  random = TRUE,
+  # backtransf = TRUE,
+  prediction = TRUE,
+  seq = trts,
+  sm = "RR",
+  reference.group = "Sug"
+)
+
+forest(nausea_netmeta_nma,
+       xlab = "Relative Risk",
+       xlim = c(.5, 2),
+       rightlabs = c("RR", "95% CI  "),
+       # at = c(0.01, .1, 0.5, 1, 2)
+       )
+
+figure_n <- fig_inc()
+```
+I^2^ = 12% (0%, 44%)
+
+<br/>
+
+<font size = 4> Table `r table_n`. League table. </font>
+
+```{r leagueTableNausea}
+## leagueTable (updated 2022/01/19 06:34) ---------------------------------
+nausea_league <- netleague(nausea_netmeta_nma,
+  digits = 2,
+  fixed = FALSE,
+  # direct = FALSE,
+  seq = trts
+)
+
+temp <- as_tibble(nausea_league$random) %>% 
+  mutate(
+    across(V1:V3, ~ if_else(.x %in% c("Sug", "Neo", "Spont/Plac"),
+      cell_spec(.x, bold = TRUE), .x
+    ))
+  ) 
+
+temp %>% 
+  kbl(
+    booktabs = T, align = c("ccc"), escape = FALSE,
+    col.names = c(rep(" ", 3))
+  ) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "center", font_size = 18) %>%
+  # kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(1:3, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;") %>% 
+  column_spec(1:3, width = "10em")
+  # footnote(
+  #   general = "I^2^ = 30 (95% CI: 0%, 66%)",
+  #   # alphabet = c("Footnote a", "Footnote b", ...),
+  #   general_title = "",
+  #   footnote_as_chunk = FALSE
+  # )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+### &ensp;Node Splitting Forest Plot
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Comparison of direct and indirect evidence (network meta-analysis). </font>
+
+```{r nauseaNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5}
+netsplit(nausea_netmeta_nma,
+         order = trts) %>% 
+  forest()
+
+figure_n <- fig_inc()
+```
+
+
+
+
+
+
 
 ## *Postoperative Pulmonary Complications*
 
