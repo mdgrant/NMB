@@ -2039,10 +2039,33 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
   distinct() %>% 
   relocate(depth_rev_f, .before = arm) %>% 
   select(-c(le_90:resp_fail))
-  
+
+ponv.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xlsx",
+  sheet = "PONV", range = "A5:K113",
+  col_types = c("numeric", rep("text", 5), "numeric", rep("text", 4))
+)) %>%
+  rename_with(., ~ tolower(.x)) %>%
+  clean_names() %>%
+  remove_empty(which = "cols") %>%
+  mutate(refid = as.numeric(refid)) %>%
+  remove_empty(which = "rows") %>%
+  fill(refid:study) %>%
+  mutate(
+    mg_kg = ifelse(!is.na(mg), paste0("<u>", mg, "</u>"), mg_kg),
+    design = tolower(design),
+    ponv_n = as.numeric(str_extract(ponv, "^\\d*")),
+    nausea_n = as.numeric(str_extract(nausea, "^\\d*")),
+    vomit_n = as.numeric(str_extract(vomit, "^\\d*")),
+  ) %>%
+  relocate(c(ponv_n, nausea_n, vomit_n), .after = arm_n) %>% 
+  select(-c(design, ponv, nausea, vomit)) %>% # replace with from study char
+  left_join(., study_ident[, c("refid", "study_l", "age", "design")], by = "refid") %>% 
+  relocate(study_l:design, .before = study)
+
 # refids from spreadsheets
-adverse_refid <- unique(adverse.dat$refid)
-popc_refid <- unique(popc.dat$refid)
+adverse_refids <- unique(adverse.dat$refid)
+popc_refids <- unique(popc.dat$refid)
+ponv_refids <- unique(ponv.dat$refid)
 
 ```
 
@@ -2172,50 +2195,67 @@ table_n <- tab_inc()
 <font size = 4> Table `r table_n`. Bradycardia </font>
 
 ```{r bradycardia}
+## tally ---------------------------------------------- (2022-03-04 08:00) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
 ## bradycardia ---------------------------------------- (2022-02-13 08:07) @----
-adverse.dat %>% 
-  filter(age == "Adult") %>% 
-  mutate(year = str_extract(study, "\\d{4}"),
-         brady_p = brady_n/n * 100,
-         brady_np = n_percent_dig(brady_n, brady_n/n * 100, 1),
-         design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
-          brady_p_bar = NA_character_,
-  brady_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(brady_p, brady_p, color_4, 100), brady_p_bar),
-  brady_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(brady_p, brady_p, color_1, 100), brady_p_bar),
-  brady_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(brady_p, brady_p, color_2, 100), brady_p_bar),
-  brady_p_bar = str_replace(brady_p_bar, ">.*<", ">&nbsp;<"),
-  arm_c = case_when(
-    str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-    str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
-  )) %>% 
+adverse.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    brady_p = brady_n / n * 100,
+    brady_np = n_percent_dig(brady_n, brady_n / n * 100, 1),
+    brady_p_bar = NA_character_,
+    brady_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(brady_p, brady_p, color_4, 100), brady_p_bar),
+    brady_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(brady_p, brady_p, color_1, 100), brady_p_bar),
+    brady_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(brady_p, brady_p, color_2, 100), brady_p_bar),
+    brady_p_bar = str_replace(brady_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    )
+  ) %>%
   filter(!is.na(brady_n)) %>%
-  arrange(design, year, refid) %>% 
-  select(study, n, arm_c, mg_kg, brady_np, brady_p_bar) %>% 
-  group_by(study) %>% 
-  mutate(study = ifelse(row_number() != 1, NA, study)) %>% 
- kbl(
+  arrange(design, year, refid) %>%
+  select(study, n, arm_c, mg_kg, brady_np, brady_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
     booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
     col.names = c("Study", "N", "Agent", "mg/kg", "Bradycardia, N (%)", " ")
   ) %>%
   row_spec(0, bold = TRUE, align = "l") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
-  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
   column_spec(1, width = study_width) %>%
-  column_spec(2, width = "6em") %>% 
-  column_spec(c(3,4), width = "8em") %>% 
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 4), width = "8em") %>%
   column_spec(5, width = "11em") %>%
   column_spec(6, width = "10em") %>%
-  pack_rows(., "RCT", 1, 38, indent = FALSE) %>% 
-  pack_rows(., "Prospective Cohort", 39, 42, indent = FALSE) %>% 
-  pack_rows(., "Retrospective Cohort", 43, 44, indent = FALSE) %>% 
-  # pack_rows(., "Case Control", 9, 10) %>% 
-  footnote(general = "IBW: ideal body weight.",
-  #        number = c("● Limited, ●● Important, ●●● Critical."),
-           general_title = "",
-           footnote_as_chunk = FALSE)
+  pack_rows(., "RCT", 1, 40, indent = FALSE) %>%
+  pack_rows(., "Nonrandomized Trial", 41, 42, indent = FALSE) %>%
+  pack_rows(., "Retrospective Cohort", 43, 44, indent = FALSE) %>%
+  # pack_rows(., "Case Control", 9, 10) %>%
+  footnote(
+    general = "IBW: ideal body weight.",
+    #        number = c("● Limited, ●● Important, ●●● Critical."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
 
 table_n <- tab_inc()
 ```
@@ -2226,7 +2266,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Bradycardia pooled results from RCTs comparing sugammadex and neostigmine. </font>
 
-```{r pooledBrady, fig.width = 10, fig.height = 4.7}
+```{r pooledBrady, fig.width = 10, fig.height = 4.5}
 ## pooledBrady --------------------------------------- (2022-02-28 16:07) @----
 brady_meta.dat <- adverse.dat %>%
   filter(age == "Adult", design == "rct") %>%
@@ -2294,7 +2334,7 @@ Risk difference 9.1% (95% CI: 4.0, 14.1).
 
 <font size = 4> Figure `r figure_n`. Bradycardia in neostigmine arms by dose. </font>
 
-```{r neoRate, fig.width = 10, fig.height = 4.7}
+```{r neoRate, fig.width = 10, fig.height = 6}
 ## neoRate -------------------------------------------- (2022-02-28 16:09) @----
 temp <- brady_meta.dat %>% 
   arrange(mg_kg_Neo)
@@ -2474,7 +2514,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Tachycardia. </font>
+<font size = 4> Table `r table_n`. Arrhythmia </font>
 
 ```{r arrythmia}
 ## arrhythmia ----------------------------------------- (2022-02-28 16:15) @----
@@ -2539,6 +2579,218 @@ table_n <- tab_inc()
 ```
 
 <br/>
+
+## PONV
+
+###  PONV (adults)
+
+<br/>
+
+<font size = 4> Table `r table_n`. Postoperative nausea and vomiting. </font>
+
+```{r PONV}
+## tally ---------------------------------------------- (2022/03/04 08:22) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## ponv ----------------------------------------------- (2022-03-04 08:21) @----
+ponv.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    ponv_p = ponv_n / arm_n * 100,
+    ponv_np = n_percent_dig(ponv_n, ponv_n / arm_n * 100, 1),
+    ponv_p_bar = NA_character_,
+    ponv_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(ponv_p, ponv_p, color_4, 100), ponv_p_bar),
+    ponv_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(ponv_p, ponv_p, color_1, 100), ponv_p_bar),
+    ponv_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(ponv_p, ponv_p, color_2, 100), ponv_p_bar),
+    ponv_p_bar = str_replace(ponv_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    )
+  ) %>%
+  filter(!is.na(ponv_n)) %>%
+  arrange(design, year, refid) %>%
+  select(study, arm_n, arm_c, mg_kg, ponv_np, ponv_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "ponvcardia, N (%)", " ")
+  ) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 4), width = "8em") %>%
+  column_spec(5, width = "11em") %>%
+  column_spec(6, width = "10em") %>%
+  pack_rows(., "RCT", 1, 30, indent = FALSE) %>%
+  pack_rows(., "Nonrandomized Trial", 31, 32, indent = FALSE) %>%
+  pack_rows(., "Retrospective Cohort", 33, 34, indent = FALSE) %>%
+  # pack_rows(., "Case Control", 9, 10) %>%
+  footnote(
+    # general = "IBW: ideal body weight.",
+    #        number = c("● Limited, ●● Important, ●●● Critical."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+### *Pooled*
+
+<font size = 4> Figure `r figure_n`. Network of comparators in RCTs. </font>
+
+```{r ponvMeta}
+## ponvnmaData ---------------------------------------- (2022-03-04 09:31) @----
+library(netmeta)
+nma_ponv <- ponv.dat %>%
+  filter(design == "rct", !is.na(ponv_n)) %>%
+  select(refid, study, arm, arm_n, ponv_n) %>% 
+  filter(!(study == "Zhu 2020" & arm_n == 38), study != "McDonagh 2011") %>% 
+  mutate(
+    arm_n = ifelse(study == "Zhu 2020" & arm == "Neo", 78, arm_n),
+    ponv_n = ifelse(study == "Zhu 2020" & arm == "Neo", 7, ponv_n),
+    arm = ifelse(arm %in% c("Spont", "Placebo"), "Spont/Plac", arm),
+    study = ifelse(study == "Wu 2014" & str_detect(arm, "Cauc"), "Wu 2014, Caucasian", study),
+    study = ifelse(study == "Wu 2014" & str_detect(arm, "Chin"), "Wu 2014, Chinese", study),
+    arm = str_remove(arm, " Chinese"),
+    arm = str_remove(arm, " Caucasian"),
+  )
+```
+
+
+```{r ponvMetaPlot, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 10, fig.asp = .5}
+## plot ----------------------------------------------- (2022-03-04 09:29) @----
+temp <- BUGSnet::data.prep(
+  arm.data = nma_ponv,
+  # arm.data = rgv_meta_log.dat,
+  varname.t = "arm",
+  varname.s = "study"
+)
+
+BUGSnet::net.plot(temp,
+  node.scale = 4,
+  edge.scale = 1.5,
+  label.offset2 = 3,
+  label.offset1 = 8,
+  study.counts = TRUE,
+  node.lab.cex = 1,
+  edge.lab.cex = 1.2
+)
+
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Network results. </font>
+
+```{r ponvMetaForest, fig.align = 'left', fig.width = 10, fig.height = 2.5}
+# <!-- fig.asp = .5} -->
+pairs.dat <- pairwise(
+  treat = arm,
+  event = ponv_n,
+  n = arm_n,
+  studlab = study,
+  data = nma_ponv,
+  sm = "RR"
+)
+
+trts <- c("Sug", "Neo", "Spont/Plac")
+
+ponv_netmeta_nma <- netmeta(
+  pairs.dat,
+  random = TRUE,
+  # backtransf = TRUE,
+  prediction = TRUE,
+  seq = trts,
+  sm = "RR",
+  reference.group = "Sug"
+)
+
+forest(ponv_netmeta_nma,
+       xlab = "Relative Risk",
+       xlim = c(.5, 4),
+       # at = c(0.01, .1, 0.5, 1, 2)
+       )
+
+figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Table `r table_n`. League table. </font>
+
+```{r leagueTable}
+## leagueTable (updated 2022/01/19 06:34) ---------------------------------
+ponv_league <- netleague(ponv_netmeta_nma,
+  digits = 2,
+  fixed = FALSE,
+  # direct = FALSE,
+  seq = trts
+)
+
+temp <- as_tibble(ponv_league$random) %>% 
+  mutate(
+    across(V1:V3, ~ if_else(.x %in% c("Sug", "Neo", "Spont/Plac"),
+      cell_spec(.x, bold = TRUE), .x
+    ))
+  ) 
+
+temp %>% 
+  kbl(
+    booktabs = T, align = c("ccc"), escape = FALSE,
+    col.names = c(rep(" ", 3))
+  ) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "center", font_size = 18) %>%
+  # kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  row_spec(1:3, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;") %>% 
+  column_spec(1:3, width = "10em")
+  # footnote(
+  #   general = "I^2^ = 30 (95% CI: 0%, 66%)",
+  #   # alphabet = c("Footnote a", "Footnote b", ...),
+  #   general_title = "",
+  #   footnote_as_chunk = FALSE
+  # )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+### &ensp;Node Splitting Forest Plot
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Comparison of direct and indirect evidence (network meta-analysis). </font>
+
+```{r ponvNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5}
+netsplit(ponv_netmeta_nma,
+         order = trts) %>% 
+  forest()
+
+figure_n <- fig_inc()
+```
 
 ## *Postoperative Pulmonary Complications*
 
@@ -2673,12 +2925,12 @@ hypox_meta.dat <- hypox_dat %>%
 hypox_meta <- metabin(hypox_n_Sug, arm_n_Sug, hypox_n_Neo, arm_n_Neo,
   data = hypox_meta.dat,
   studlab = study,
-  sm = "RR",
+  sm = "OR",
   method = "MH",
   method.tau = "PM",
   hakn = TRUE,
   prediction = TRUE,
-  # subset = !study_orig %in% c("Wu 2014 (Chinese)", "Wu 2014 (Caucasian)"),
+  subset = hypox_defn == "SaO2 ≤90%",
   subgroup = hypox_defn)
 
 forest(hypox_meta,
@@ -2711,6 +2963,8 @@ figure_n <- fig_inc()
 <br/>
 
 ###  Composite (adults)
+
+<font size = 4> Table `r table_n`. Composite pulmonary complications. </font>
 
 <br/>
 
