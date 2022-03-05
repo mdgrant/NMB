@@ -2037,6 +2037,7 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
     altelectasis_n = as.numeric(str_extract(atelectasis, "^\\d*")),
     pneumonia_n = as.numeric(str_extract(pneumonia, "^\\d*")),
     obstruct_n = as.numeric(str_extract(up_obstruct, "^\\d*")),
+    resp_fail_n = as.numeric(str_extract(resp_fail, "^\\d*")),
     postop_reint_n = as.numeric(str_extract(postop_reint, "^\\d*")),
   ) %>%
   remove_empty(which = "rows") %>%
@@ -3487,9 +3488,9 @@ figure_n <- fig_inc()
 
 ###  Composite (adults)
 
-<font size = 4> Table `r table_n`. Composite pulmonary complications. </font>
-
 <br/>
+
+<font size = 4> Table `r table_n`. Composite pulmonary complications. </font>
 
 ```{r composite} 
 ## groupings ------------------------------------------ (2022-03-02 08:30) @----
@@ -3549,6 +3550,163 @@ popc.dat %>%
   pack_topnoind(., "Nonrandomized Trials", 24, 25) %>%
   pack_topnoind(., "Prospective Cohort", 26, 34) %>%
   pack_topnoind(., "Retrospective Cohort", 35, 38) %>%
+  footnote(
+    general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
+    # number = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<a id="revTab25"></a>
+
+###  Pneumonia (adults)
+
+<br/>
+
+<font size = 4> Table `r table_n`. Pneumonia. </font>
+
+```{r pneumonia} 
+## groupings ------------------------------------------ (2022-03-02 08:30) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## pneumonia ------------------------------------------ (2022-03-02 14:30) @----
+popc.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    pneumonia_np = n_percent_dig(pneumonia_n, pneumonia_n / arm_n * 100, 1),
+    pneumonia_p_bar = NA_character_,
+    pneumonia_p = pneumonia_n / arm_n,
+    pneumonia_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(pneumonia_p, pneumonia_p, color_4, 1), pneumonia_p_bar),
+    pneumonia_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(pneumonia_p, pneumonia_p, color_1, 1), pneumonia_p_bar),
+    pneumonia_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(pneumonia_p, pneumonia_p, color_2, 1), pneumonia_p_bar),
+    pneumonia_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(pneumonia_p, pneumonia_p, color_3, 1), pneumonia_p_bar),
+    pneumonia_p_bar = str_replace(pneumonia_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+      str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
+    )
+  ) %>%
+  filter(!is.na(pneumonia_np)) %>%
+  arrange(design, year, refid) %>%
+  select(study, arm_n, arm_c, mg_kg, depth_rev_f, pneumonia_np, pneumonia_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "Reversal", "Pneumonia, N (%)", " ")
+  ) %>%
+  add_header_above(c(" " = 4, " Depth at" = 1, " " = 2), bold = TRUE, align = "l", line = FALSE) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 5), width = "8em") %>%
+  column_spec(6, width = "11em") %>%
+  column_spec(7, width = "10em") %>%
+  pack_topnoind(., "RCT", 1, 12) %>%
+  pack_topnoind(., "Prospective Cohort", 13, 15) %>%
+  pack_topnoind(., "Retrospective Cohort", 16, 23) %>%
+  pack_topnoind(., "Case-Control", 24, 25) %>%
+  footnote(
+    general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
+    # number = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<a id="revTab26"></a>
+
+###  Respiratory Failure (adults)
+
+<font size = 4> Table `r table_n`. Respiratory failure. </font>
+
+<br/>
+
+```{r resp_fail} 
+## groupings ------------------------------------------ (2022-03-02 08:30) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## resp_fail ------------------------------------------ (2022-03-02 14:30) @----
+popc.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    resp_fail_np = n_percent_dig(resp_fail_n, resp_fail_n / arm_n * 100, 1),
+    resp_fail_p_bar = NA_character_,
+    resp_fail_p = resp_fail_n / arm_n,
+    resp_fail_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(resp_fail_p, resp_fail_p, color_4, 1), resp_fail_p_bar),
+    resp_fail_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(resp_fail_p, resp_fail_p, color_1, 1), resp_fail_p_bar),
+    resp_fail_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(resp_fail_p, resp_fail_p, color_2, 1), resp_fail_p_bar),
+    resp_fail_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(resp_fail_p, resp_fail_p, color_3, 1), resp_fail_p_bar),
+    resp_fail_p_bar = str_replace(resp_fail_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+      str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
+    )
+  ) %>%
+  filter(!is.na(resp_fail_np)) %>%
+  arrange(design, year, refid) %>%
+  select(study, arm_n, arm_c, mg_kg, depth_rev_f, resp_fail_np, resp_fail_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "Reversal", "Failure, N (%)", " ")
+  ) %>%
+  add_header_above(c(" " = 4, " Depth at" = 1, "Respiratory" = 2), bold = TRUE, align = "l", line = FALSE) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 5), width = "8em") %>%
+  column_spec(6, width = "11em") %>%
+  column_spec(7, width = "10em") %>%
+  pack_topnoind(., "RCT", 1, 2) %>%
+  pack_topnoind(., "Prospective Cohort", 3, 4) %>%
+  pack_topnoind(., "Retrospective Cohort", 5, 6) %>%
+  result_pack(., "OR 0.45; 95% CI, 0.37 to 0.56)", 7, padding = 62) %>% 
+  pack_topnoind(., "Case-Control", 7, 8) %>%
   footnote(
     general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
     # number = c(""),
