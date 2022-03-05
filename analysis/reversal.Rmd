@@ -2766,6 +2766,7 @@ forest(ponv_netmeta_nma,
        )
 
 figure_n <- fig_inc()
+
 ```
 I^2^ = 0% (0.0%, 55.0%)
 
@@ -2826,6 +2827,14 @@ netsplit(ponv_netmeta_nma,
   forest()
 
 figure_n <- fig_inc()
+```
+
+<br/>
+
+<font size = 4> Comparison-adjusted funnel plot. </font>
+
+```{r ponvFunnel, fig.width = 7, fig.height = 3}
+funnel(ponv_netmeta_nma, order = trts)
 ```
 
 <a id="revTab19"></a>
@@ -3057,6 +3066,12 @@ netsplit(nausea_netmeta_nma,
 figure_n <- fig_inc()
 ```
 
+<font size = 4> Comparison-adjusted funnel plot. </font>
+
+```{r nauseaFunnel, fig.width = 7, fig.height = 3}
+funnel(nausea_netmeta_nma, order = trts)
+```
+
 <a id="revTab21"></a>
 
 ###  Vomiting (adults)
@@ -3285,6 +3300,16 @@ netsplit(vomit_netmeta_nma,
 
 figure_n <- fig_inc()
 ```
+
+<br/>
+
+<font size = 4> Comparison-adjusted funnel plot. </font>
+
+```{r vomitFunnel, fig.width = 7, fig.height = 3}
+funnel(vomit_netmeta_nma, order = trts)
+```
+
+<br/>
 
 ## * Postoperative Pulmonary Complications*
 
