@@ -823,7 +823,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<a id="kq4Fig1"></a>
+<a id="kq4Fig2"></a>
 
 ###  Pooled TOFR \<0.9 (RCTs)
 
@@ -888,7 +888,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 
-<a id="kq4Fig2"></a>Pooled RR 0.17 (95% CI: 0.06, 0.49; I^2^ = 66%)
+<a id="kq4Fig3"></a>Pooled RR 0.17 (95% CI: 0.06, 0.49; I^2^ = 66%)
 
 <br/>
 
@@ -1782,6 +1782,8 @@ end_surg <- update.meta(temp, subset = depth_f == "End of Surgery", prediction =
 
 ```
 
+<a id="revFig4"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Difference in time to recovery in minutes (TOFR \>0.9) from deep block to reversal in RCTs enrolling adults. </font>
@@ -1791,6 +1793,8 @@ forest_time(deep)
 grid::grid.text("Deep Block", .1, .9, gp = grid::gpar(cex = 1.3))
 figure_n <- fig_inc()
 ```
+
+<a id="revFig5"></a>
 
 <br/>
 
@@ -1804,6 +1808,8 @@ figure_n <- fig_inc()
 
 Hartung-Knapp adjustment not applied to allow comparability with other levels of block ; overall result yielded the same confidence interval with or without.
 
+<a id="revFig6"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Difference in time to recovery in minutes (TOFR \>0.9) from shallow block to reversal in RCTs enrolling adults. </font>
@@ -1813,6 +1819,8 @@ forest_time(shallow)
 grid::grid.text("Shallow Block", .1, .9, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
+
+<a id="revFig7"></a>
 
 <br/>
 
@@ -2147,6 +2155,8 @@ table_n <- tab_inc()
 
 ###  Anaphylaxis
 
+<a id="revTab13"></a>
+
 <br/>
 
 <font size = 4> Table `r table_n`. Anaphylaxis in studies enrolling adult patients.  </font>
@@ -2189,6 +2199,8 @@ table_n <- tab_inc()
 ```
 
 <br/>
+
+<a id="revTab14"></a>
 
 ###  Bradycardia
 
@@ -2264,6 +2276,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig9"></a>
+
 ###     *Pooled*
 
 <font size = 4> Figure `r figure_n`. Bradycardia pooled results from RCTs comparing sugammadex and neostigmine. </font>
@@ -2332,11 +2346,13 @@ figure_n <- fig_inc()
 ```
 Risk difference 9.1% (95% CI: 4.0, 14.1).
 
+<a id="revFig10"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Bradycardia in neostigmine arms by dose. </font>
 
-```{r neoRate, fig.width = 10, fig.height = 6}
+```{r neoRate, fig.width = 10, fig.height = 5.5}
 ## neoRate -------------------------------------------- (2022-02-28 16:09) @----
 temp <- brady_meta.dat %>% 
   arrange(mg_kg_Neo)
@@ -2368,10 +2384,12 @@ forest(neo_brady_meta,
   log = "x"
 )
 
-figure_n <- tab_inc()
+figure_n <- fig_inc()
 ```
 
 <br/>
+
+<a id="revTab15"></a>
 
 ###  Tachycardia (adults) RCTs
 
@@ -2440,6 +2458,8 @@ adverse.dat %>%
 
 table_n <- tab_inc()  
 ```
+
+<a id="revFig11"></a>
 
 <br/>
 
@@ -2511,6 +2531,8 @@ figure_n <- fig_inc()
 ```
 
 <br/>
+
+<a id="revTab16"></a>
 
 ###  Arrhythmias (adults) RCTs
 
@@ -2585,6 +2607,8 @@ table_n <- tab_inc()
 
 ## * PONV*
 
+<a id="revTab17"></a>
+
 ###  PONV (adults)
 
 <br/>
@@ -2657,6 +2681,8 @@ ponv.dat %>%
 table_n <- tab_inc()
 ```
 
+<a id="revFig12"></a>
+
 <br/>
 
 ### *Pooled*
@@ -2704,6 +2730,8 @@ BUGSnet::net.plot(temp,
 figure_n <- fig_inc()
 ```
 
+<a id="revFig13"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Network results. </font>
@@ -2740,6 +2768,8 @@ forest(ponv_netmeta_nma,
 figure_n <- fig_inc()
 ```
 I^2^ = 0% (0.0%, 55.0%)
+
+<a id="revTab18"></a>
 
 <br/>
 
@@ -2782,6 +2812,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig14"></a>
+
 ### &ensp;Node Splitting Forest Plot
 
 <br/>
@@ -2795,6 +2827,8 @@ netsplit(ponv_netmeta_nma,
 
 figure_n <- fig_inc()
 ```
+
+<a id="revTab19"></a>
 
 <br/>
 
@@ -2925,6 +2959,8 @@ BUGSnet::net.plot(temp,
 figure_n <- fig_inc()
 ```
 
+<a id="revFig16"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Network results. </font>
@@ -2961,6 +2997,8 @@ forest(nausea_netmeta_nma,
 figure_n <- fig_inc()
 ```
 I^2^ = 12% (0%, 44%)
+
+<a id="revTab20"></a>
 
 <br/>
 
@@ -3003,6 +3041,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig17"></a>
+
 ### &ensp;Node Splitting Forest Plot
 
 <br/>
@@ -3016,6 +3056,8 @@ netsplit(nausea_netmeta_nma,
 
 figure_n <- fig_inc()
 ```
+
+<a id="revTab21"></a>
 
 ###  Vomiting (adults)
 
@@ -3146,6 +3188,8 @@ BUGSnet::net.plot(temp,
 figure_n <- fig_inc()
 ```
 
+<a id="revFig19"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Network results. </font>
@@ -3182,6 +3226,8 @@ forest(vomit_netmeta_nma,
 figure_n <- fig_inc()
 ```
 I^2^ = 12% (0%, 50%)
+
+<a id="revTab22"></a>
 
 <br/>
 
@@ -3224,6 +3270,8 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig20"></a>
+
 ### &ensp;Node Splitting Forest Plot
 
 <br/>
@@ -3238,24 +3286,9 @@ netsplit(vomit_netmeta_nma,
 figure_n <- fig_inc()
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## * Postoperative Pulmonary Complications*
+
+<a id="revTab23"></a>
 
 ###  Hypoxia (adults)
 
@@ -3362,13 +3395,15 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig21"></a>
+
 ###     *Pooled*
 
 <br/>
 
 <font size = 4> Figure `r figure_n`. Pooled incidence of hypoxia by definition in adult RCTs. </font>
 
-```{r hypoxiaPooled,  fig.width = 10, fig.height = 7.5}
+```{r hypoxiaPooled,  fig.width = 10, fig.height = 7.2}
 ## hypoxiaPooled -------------------------------------- (2022-03-02 10:25) @----
 hypox_meta.dat <- hypox_dat %>% 
   filter(design == "rct", str_detect(arm, "Neo|Sug"), !is.na(hypox_n), refid %notin% c(7015, 4935)) %>% 
@@ -3393,7 +3428,7 @@ hypox_meta <- metabin(hypox_n_Sug, arm_n_Sug, hypox_n_Neo, arm_n_Neo,
   method.tau = "PM",
   hakn = TRUE,
   prediction = TRUE,
-  subset = hypox_defn == "SaO2 ≤90%",
+  # subset = hypox_defn == "SaO2 ≤90%",
   subgroup = hypox_defn)
 
 forest(hypox_meta,
@@ -3419,11 +3454,11 @@ forest(hypox_meta,
 
 figure_n <- fig_inc()
 
-
-
 ```
 
 <br/>
+
+<a id="revTab24"></a>
 
 ###  Composite (adults)
 
