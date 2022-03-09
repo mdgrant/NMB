@@ -2,25 +2,27 @@
 title: "Study Characteristics"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
-  html_document:
-    font: Source Sans Pro
-    theme: cosmo
-    anchor_sections: TRUE
-    toc_float: 
-      collapsed: FALSE
-      smooth_scroll: TRUE
-    toc_depth: 3
-    linkcolor: blue
-  latex_engine: xelatex
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: "bib/kq4.bib"
+  latex_engine: xelatex
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+    toc_depth: 3
+    linkcolor: blue
+bibliography: bib/kq4.bib
 csl: jama.csl
 link-citations: yes
 workflowr:
-  suppress_report: false
-# nocite: '@*'
+  suppress_report: no
 ---
 
 ```{=html}

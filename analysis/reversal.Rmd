@@ -869,7 +869,7 @@ forest(rnmb_meta,
   label.e = "Sugammadex",
   label.c = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("OR", "(95% CI)"),
+  rightlabs = c("RR", "(95% CI)"),
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -899,7 +899,7 @@ figure_n <- fig_inc()
 rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
   data = rnmb_meta.dat,
   studlab = study_orig,
-  sm = "OR",
+  sm = "RR",
   method = "MH",
   method.tau = "PM",
   hakn = TRUE,
@@ -962,7 +962,7 @@ figure_n <- fig_inc()
 <!-- rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo,  -->
 <!--   data = rnmb_meta.dat, -->
 <!--   studlab = study_orig, -->
-<!--   sm = "OR", -->
+<!--   sm = "RR", -->
 <!--   method = "MH", -->
 <!--   method.tau = "PM", -->
 <!--   hakn = FALSE, -->
@@ -974,7 +974,7 @@ figure_n <- fig_inc()
 <!--   lab.e = "Sugammadex", -->
 <!--   lab.c = "Neostigmine", -->
 <!--   rightcols = c("effect", "ci"), -->
-<!--   rightlabs = c("OR", "(95% CI)"), -->
+<!--   rightlabs = c("RR", "(95% CI)"), -->
 <!--   digits = 2, -->
 <!--   digits.tau2 = 1, -->
 <!--   overall.hetstat = TRUE, -->
@@ -1022,7 +1022,7 @@ figure_n <- fig_inc()
 <!-- rnmb_meta <- metabin(lt_7_n_Sug, n_Sug, lt_7_n_Neo, n_Neo,  -->
 <!--   data = rnmb_meta.dat, -->
 <!--   studlab = study_orig, -->
-<!--   sm = "OR", -->
+<!--   sm = "RR", -->
 <!--   method = "MH", -->
 <!--   method.tau = "PM", -->
 <!--   hakn = FALSE, -->
@@ -1035,7 +1035,7 @@ figure_n <- fig_inc()
 <!--   lab.e = "Sugammadex", -->
 <!--   lab.c = "Neostigmine", -->
 <!--   rightcols = c("effect", "ci"), -->
-<!--   rightlabs = c("OR", "(95% CI)"), -->
+<!--   rightlabs = c("RR", "(95% CI)"), -->
 <!--   digits = 2, -->
 <!--   digits.tau2 = 1, -->
 <!--   overall.hetstat = TRUE, -->
@@ -1724,7 +1724,7 @@ forest_time <- function(time_meta){
   # sortvar = -TE,
   xlim = c(-50, 10),
   rightcols = c("effect", "ci"),
-  rightlabs = c("SD", "95% CI     "),
+  rightlabs = c("MD", "95% CI     "),
   xlab = "Favors Sugammadex      Favors Neostigmine",
   smlab = "Mean Difference (minutes)",
 )
@@ -3449,7 +3449,7 @@ hypox_meta.dat <- hypox_dat %>%
 hypox_meta <- metabin(hypox_n_Sug, arm_n_Sug, hypox_n_Neo, arm_n_Neo,
   data = hypox_meta.dat,
   studlab = study,
-  sm = "OR",
+  sm = "RR",
   method = "MH",
   method.tau = "PM",
   hakn = TRUE,
