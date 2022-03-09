@@ -13,7 +13,7 @@
 
 <title>Strength of Evidence</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -35,8 +35,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="site_libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="site_libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -77,6 +78,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +99,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -322,7 +327,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -343,14 +348,26 @@ div.tocify {
 <li>
   <a href="kq3.html">NMM Outcomes</a>
 </li>
-<li>
-  <a href="reversal.html">Reversal</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Reversal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="reversal.html">Results</a>
+    </li>
+    <li>
+      <a href="summary_rev.html">Summary Study &amp; Patient Charcteristics</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="evidence_tables.html">Evidence Tables</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Appendices
      
     <span class="caret"></span>
@@ -383,7 +400,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Strength of Evidence</h1>
-<h4 class="date">05 March, 2022 (09:52)</h4>
+<h4 class="date">09 March, 2022 (08:28)</h4>
 
 </div>
 
@@ -441,11 +458,16 @@ span b { font-size: 60%; font-weight: normal }
 <p><font size = 4> Ratings for important outcomes according to study
 design.</font></p>
 </div>
-<div id="monitoring-technical-performance" class="section level1">
-<h1><strong>Monitoring Technical Performance</strong></h1>
+<div id="monitoring-technical-performance"
+class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Monitoring Technical
+Performance</strong><a href="#monitoring-technical-performance"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><br/></p>
-<div id="strength-of-evidence-ratings" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="strength-of-evidence-ratings" class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 1. Strength of evidence for outcomes relevant
 to neuromuscular monitor technical performance. </font></p>
@@ -740,8 +762,9 @@ controlled trial; NRSI: nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 2. GRADE domains for strength of evidence
 rating for outcomes relevant to neuromuscular monitor technical
@@ -1080,11 +1103,16 @@ deviation.
 <p><br/></p>
 </div>
 </div>
-<div id="monitoring-outcomes" class="section level1">
-<h1><strong>Monitoring Outcomes</strong></h1>
+<div id="monitoring-outcomes" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Monitoring Outcomes</strong><a
+href="#monitoring-outcomes" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><br/></p>
-<div id="strength-of-evidence-ratings-1" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="strength-of-evidence-ratings-1"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-1" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 3. Strength of evidence for outcomes relevant
 to outcomes with neuromuscular monitoring. </font></p>
@@ -1445,8 +1473,9 @@ controlled trial; NRSI: nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-1" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-1" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-1"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 4. GRADE domains for strength of evidence
 ratings relevant to outcomes with neuromuscular monitoring. </font></p>
@@ -1893,11 +1922,15 @@ hypoxia.
 <p><br/></p>
 </div>
 </div>
-<div id="reversal" class="section level1">
-<h1><strong>Reversal</strong></h1>
+<div id="reversal" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Reversal</strong><a href="#reversal"
+class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><br/></p>
-<div id="strength-of-evidence-ratings-2" class="section level3">
-<h3>Strength of Evidence Ratings</h3>
+<div id="strength-of-evidence-ratings-2"
+class="section level3 hasAnchor">
+<h3 class="hasAnchor">Strength of Evidence Ratings<a
+href="#strength-of-evidence-ratings-2" class="anchor-section"
+aria-label="Anchor link to header"></a></h3>
 <p><br/></p>
 <p><font size = 4> Table 5. Strength of evidence for reversal outcomes
 comparing sugammadex with neostigmine.</font></p>
@@ -2430,8 +2463,9 @@ controlled trial; NRSI: nonrandomized study of interventions.
 </table>
 <p><br/></p>
 </div>
-<div id="grade-domains-2" class="section level3">
-<h3>GRADE Domains</h3>
+<div id="grade-domains-2" class="section level3 hasAnchor">
+<h3 class="hasAnchor">GRADE Domains<a href="#grade-domains-2"
+class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><br></p>
 <p><font size = 4> Table 6. GRADE domains for strength of evidence
 ratings for reversal outcomes comparing sugammadex with neostigmine.
@@ -3049,11 +3083,14 @@ residual neuromuscular blockade. Direct relationship to reversal agent?.
 <p><br/></p>
 </div>
 </div>
-<div id="rating-systems-reference" class="section level1">
-<h1><strong>Rating Systems Reference</strong></h1>
+<div id="rating-systems-reference" class="section level1 hasAnchor">
+<h1 class="hasAnchor"><strong>Rating Systems Reference</strong><a
+href="#rating-systems-reference" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 </div>
-<div id="grade" class="section level1">
-<h1>  GRADE</h1>
+<div id="grade" class="section level1 hasAnchor">
+<h1 class="hasAnchor">  GRADE<a href="#grade" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><br> <font size = 4> <strong>High</strong> — We are very confident
 that the true effect lies close to that of the estimate of the
 effect.</p>
@@ -3068,8 +3105,10 @@ estimate of the effect.</p>
 effect estimate: The true effect is likely to be substantially different
 from the estimate of effect.</p>
 <p></font></p>
-<div id="domains-downgrading" class="section level2">
-<h2>Domains (downgrading)</h2>
+<div id="domains-downgrading" class="section level2 hasAnchor">
+<h2 class="hasAnchor">Domains (downgrading)<a
+href="#domains-downgrading" class="anchor-section"
+aria-label="Anchor link to header"></a></h2>
 <p><font size = 4></p>
 <p><em>Bias</em> — Systematic error (eg, selection bias, confounding
 bias, measurement bias).</p>
@@ -3084,8 +3123,9 @@ the outcomes important to patients.</p>
 <p><em>Other (eg, publication bias)</em> — Selective publication or
 reporting of results (typically of positive results).</p>
 </div>
-<div id="domains-updgrading" class="section level2">
-<h2>Domains (updgrading)</h2>
+<div id="domains-updgrading" class="section level2 hasAnchor">
+<h2 class="hasAnchor">Domains (updgrading)<a href="#domains-updgrading"
+class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Effect Size</em></p>
 <p><em>Dose-response</em></p>
 <p><em>Plausible Residual Confounding</em></p>
@@ -3093,8 +3133,9 @@ reporting of results (typically of positive results).</p>
 <p><br/><br/></p>
 </div>
 </div>
-<div id="accaha" class="section level1">
-<h1>  ACC/AHA</h1>
+<div id="accaha" class="section level1 hasAnchor">
+<h1 class="hasAnchor">  ACC/AHA<a href="#accaha" class="anchor-section"
+aria-label="Anchor link to header"></a></h1>
 <p><font size = 4></p>
 <p><strong>Level A</strong> — High-quality evidence from more than 1
 RCTs. Meta-analyses of high-quality RCTs. One or more RCTs corroborated
@@ -3150,14 +3191,14 @@ loaded via a namespace (and not attached):
  [7] utf8_1.2.2             cellranger_1.1.0       R6_2.5.1              
 [10] backports_1.4.1        visdat_0.5.3           reprex_2.0.1          
 [13] evaluate_0.15          httr_1.4.2             pillar_1.7.0          
-[16] rlang_1.0.1            rematch_1.0.1          readxl_1.3.1          
-[19] rstudioapi_0.13.0-9000 jquerylib_0.1.4        rmarkdown_2.11        
+[16] rlang_1.0.2            rematch_1.0.1          readxl_1.3.1          
+[19] rstudioapi_0.13.0-9000 jquerylib_0.1.4        rmarkdown_2.12        
 [22] webshot_0.5.2          htmlwidgets_1.5.4      munsell_0.5.0         
 [25] broom_0.7.12           modelr_0.1.8           compiler_4.1.2        
-[28] httpuv_1.6.5           xfun_0.29              pkgconfig_2.0.3       
+[28] httpuv_1.6.5           xfun_0.30              pkgconfig_2.0.3       
 [31] systemfonts_1.0.4      htmltools_0.5.2        tidyselect_1.1.2      
 [34] workflowr_1.7.0        fansi_1.0.2            viridisLite_0.4.0     
-[37] withr_2.4.3            tzdb_0.2.0             crayon_1.5.0          
+[37] withr_2.5.0            tzdb_0.2.0             crayon_1.5.0          
 [40] dbplyr_2.1.1           later_1.3.0            grid_4.1.2            
 [43] jsonlite_1.8.0         gtable_0.3.0           lifecycle_1.0.1       
 [46] DBI_1.1.2              git2r_0.29.0           magrittr_2.0.2        
