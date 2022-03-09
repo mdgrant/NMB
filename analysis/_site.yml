@@ -12,7 +12,11 @@ navbar:
   - text: NMM Outcomes
     href: kq3.html
   - text: Reversal
-    href: reversal.html
+    menu:
+    - text: Results
+      href: reversal.html
+    - text: Summary Study & Patient Charcteristics
+      href: summary_rev.html
   - text: Evidence Tables
     href: evidence_tables.html
   - text: Appendices

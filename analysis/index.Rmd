@@ -53,6 +53,8 @@ display: none !important;
 
 [<font size = 5> Sugammadex vs. Neostigmine </font>](reversal.html)
 
+[<font size = 5> Summary Study/Patient Characteristics </font>](summary_rev.html)
+
 <font size = 6> Evidence Tables </font>
 
 [<font size = 5> Included Studies </font>](evidence_tables.html)

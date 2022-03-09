@@ -128,6 +128,12 @@ conf_q <- function(samp_mean, samp_sd, n) {
   c(ci_low, ci_up)
 }
 
+# variable coded as TF with NAs will give "n (XX.X)" percent, can specify digits
+
+n_per_tfna <- function(var_name, n_dig = 1){
+  paste0(sum(var_name == TRUE, na.rm = TRUE), " (", format(round(100*(mean(var_name, na.rm = TRUE)), n_dig), nsmall = 1), ")")
+}
+
 # variable coded as TF will give "n (XX.X)" percent, can specify digits
 n_per_tf <- function(var_name, n_dig = 1){
   paste0(sum(var_name == TRUE), " (", format(round(100*(mean(var_name)), n_dig), nsmall = 1), ")")

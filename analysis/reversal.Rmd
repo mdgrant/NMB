@@ -856,7 +856,7 @@ rnmb_meta.dat <- temp %>%
 rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
   data = rnmb_meta.dat,
   studlab = study_orig,
-  sm = "OR",
+  sm = "RR",
   method = "MH",
   method.tau = "PM",
   hakn = TRUE,
@@ -911,7 +911,7 @@ forest(rnmb_meta,
   label.e = "Sugammadex",
   label.c = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("OR", "(95% CI)"),
+  rightlabs = c("RR", "(95% CI)"),
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -1669,7 +1669,7 @@ compare_refids <- meta_time.dat %>%
 meta_time.dat <- meta_time.dat %>% 
   filter(refid %in% compare_refids) %>% 
   pivot_wider(names_from = "arm", values_from = n:range_u) %>% 
-  mutate(volatiles = ifelse(!is.na(volatiles), "Volatile Anesthetic", "No volatiles"))
+  mutate(volatiles = ifelse(!is.na(volatiles), "Volatile anesthetic", "No volatiles"))
 
 ## meta analysis (updated 2022/01/18 10:27) ------------------------------
 temp <- metacont(
@@ -1703,7 +1703,7 @@ temp <- metacont(
 
 forest_time <- function(time_meta){
   forest(time_meta,
-  weight.study = "random",
+  # weight.study = "random",
   fixed = FALSE,
   label.e = "Sugammadex",
   label.c = "Neostigmine",
@@ -3533,6 +3533,7 @@ popc.dat %>%
   select(study, arm_n, arm_c, mg_kg, depth_rev_f, composite_np, composite_p_bar) %>%
   group_by(study) %>%
   mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  # add_row() %>% 
   kbl(
     booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
     col.names = c("Study", "N", "Agent", "mg/kg", "Reversal", "Composite, N (%)", " ")
@@ -3550,6 +3551,7 @@ popc.dat %>%
   pack_topnoind(., "Nonrandomized Trials", 24, 25) %>%
   pack_topnoind(., "Prospective Cohort", 26, 34) %>%
   pack_topnoind(., "Retrospective Cohort", 35, 38) %>%
+  # result_pack(., "")
   footnote(
     general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
     # number = c(""),
