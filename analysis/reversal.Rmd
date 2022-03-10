@@ -3855,6 +3855,8 @@ figure_n <- tab_inc()
 ```
 Results from 3 nonrandomized studies adjusted for potential confounding (Li 2021 and Yu 2021 propensity scores, Kheterpal 2020 matched cohort design).
 
+<br/>
+
 <a id="revTab26"></a>
 
 ###  Respiratory Failure (adults)
