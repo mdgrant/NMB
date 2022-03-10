@@ -250,7 +250,6 @@ rnmb_ma_refids <- rnmb_ma.dat %>%
 # rnmb_ma_refids[!rnmb_ma_refids %in% rnmb_dist_refids]
 # rnmb_dist_refids[!rnmb_dist_refids %in% rnmb_ma_refids]
 ## rnmb_dist_refids ----------------------------------- (2022-02-21 08:59) @----
-
 rnmb_ma.dat %>% 
   select(refid, study, arm, deep:ns_depth)
 
@@ -3312,7 +3311,7 @@ funnel(vomit_netmeta_nma, order = trts)
 
 <br/>
 
-## * Postoperative Pulmonary Complications*
+## * Pulmonary Complications*
 
 <a id="revTab23"></a>
 
@@ -3553,7 +3552,7 @@ composite %>%
   pack_topnoind(., "RCT", 1, 23) %>%
   pack_topnoind(., "Nonrandomized Trials", 24, 25) %>%
   pack_topnoind(., "Prospective Cohort", 26, 34) %>%
-  pack_topnoind(., "Retrospective Cohort", 35, 38) %>%
+  pack_topnoind(., "Retrospective Cohort", 35, 40) %>%
   # result_pack(., "")
   footnote(
     general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
@@ -3567,16 +3566,18 @@ table_n <- tab_inc()
 
 <br/>
 
+<a id="revFig22"></a>
+
 ###     *Pooled*
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled incidence of postoperative pulmonary complications in randomized and nonrandomized studies, and component endpoints included in each study's defintion. </font>
+<font size = 4> Figure `r figure_n`. Pooled incidence of postoperative pulmonary complications in randomized and nonrandomized studies, and component endpoints included in each study's definition. </font>
 
-```{r compositeMeta, fig.width = 12, fig.height = 5.6}
+```{r compositeMeta, fig.width = 12, fig.height = 5.7}
 ## compositeMeta -------------------------------------- (2022-03-10 07:43) @----
 # add composite definition
-comp_defn <- readxl::read_xlsx("data/POPCRevAgent_030922.xlsx", sheet = "comp_defn", range = "A1:C11") %>% 
+comp_defn <- readxl::read_xlsx("data/POPCRevAgent_030922.xlsx", sheet = "comp_defn", range = "A1:C12") %>% 
   rename(studlab = study) %>% 
   select(studlab, defn)
 
@@ -3610,10 +3611,11 @@ comp_rct <- comp_rct_meta %>%
 # nonrandomized 
 comp_nrsi <- tribble(
   ~studlab, ~TE, ~seTE, ~design, 
+  "Ledowski 2013" ,  0.157,  0.895, "nrsi",
   "Kirmeier 2018",   0.0296, sd_confint(log(0.85), log(1.25)), "nrsi",
   "Kheterpal 2020", -0.3567, sd_confint(log(0.63), log(0.77)), "nrsi",
   "Li 2021",        -0.1165, sd_confint(log(0.65), log(1.22)), "nrsi",
-  "Ledowski 2013" ,  0.157,  0.895, "nrsi",
+  "Yu 2021",         log(0.35), sd_confint(log(0.23), log(0.54)), "nrsi",
 )
 
 add_cols_n <- comp_meta_dat %>% 
@@ -3631,7 +3633,6 @@ comp_meta <- bind_rows(comp_rct, comp_nrsi) %>%
     eneo = ifelse(studlab == "Li 2021", 461, eneo)
   )
 
-# RESUME;
 all_meta <- metagen(TE, seTE,
   studlab = studlab,
   subgroup = design,
@@ -3667,11 +3668,11 @@ forest(all_meta,
   # at = c(.001, 0.01, .1, 1, 2),
   xlab = "Favors: Sugammadex             Neostigmine")
 
-grid::grid.text("Sugammadex  Neostigmine", .285, .955, gp = grid::gpar(cex = 1.1))
+grid::grid.text("Sugammadex  Neostigmine", .285, .955, gp = grid::gpar(cex = 1.1, fontface = "bold"))
 
 figure_n <- tab_inc()
 ```
-Results from 3 nonrandomized studies adjusted (Li 2021 using propensity scores, Kirmeir 2018 multivariable regression with a likely sufficient set of deconfounders, and Kheterpal 2020 in a matched cohort design).
+Results from 3 nonrandomized studies adjusted for potential confounding (Kirmeir 2018 multivariable regression with a likely sufficient set of deconfounders, Li 2021 and Yu 2021 propensity scores,  and Kheterpal 2020 matched cohort design).
 
 POPC: postoperative pulmonary complications; NRSI: nonrandomized study of interventions; APN: Aspiration pneumonitis; ARI: Acute Respiratory Insufficiency; ATX: Atelectasis; BRN: Broncospasm; HAP: Pneumonia; HOX: Hypoxia; IPE: Iatrogenic Pulmonary Embolism; LSP: Laryngospasm; PAL: Prolonged Air Leakage; PCG: Pulmonary Congestion; PED: Pulmonary Edema; PIX: Pulmonary Infection; PNS: Pneumonitis; PRI: Postop Reintubation; PTX: Pneumothorax; RFA: Reflux Aspiration; RPF: Repiratory Failure; RSD: Respiratory Depression; SRP: Spasmotic Respiratory Pattern; UAO: Upper airway obstruction; VXN: Ventilation > 48 hrs.
 
@@ -3702,7 +3703,7 @@ POPC: postoperative pulmonary complications; NRSI: nonrandomized study of interv
 #     select(design, start, end)
 
 ## pneumonia ------------------------------------------ (2022-03-02 14:30) @----
-popc.dat %>%
+pneumonia <- popc.dat %>%
   filter(age == "Adult") %>%
   mutate(
     year = str_extract(study, "\\d{4}"),
@@ -3724,7 +3725,10 @@ popc.dat %>%
   ) %>%
   filter(!is.na(pneumonia_np)) %>%
   arrange(design, year, refid) %>%
-  select(study, arm_n, arm_c, mg_kg, depth_rev_f, pneumonia_np, pneumonia_p_bar) %>%
+  select(study, arm_n, arm_c, mg_kg, depth_rev_f, pneumonia_np, pneumonia_p_bar, design, arm)
+
+pneumonia %>% 
+  select(-c(design, arm)) %>% 
   group_by(study) %>%
   mutate(study = ifelse(row_number() != 1, NA, study)) %>%
   kbl(
@@ -3755,6 +3759,101 @@ table_n <- tab_inc()
 ```
 
 <br/>
+
+<a id="revFig23"></a>
+
+###     *Pooled*
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of postoperative pneumonia in randomized and nonrandomized studies. </font>
+
+```{r pneumoniaMeta, fig.width = 10, fig.height = 5}
+## pneumoniaMeta -------------------------------------- (2022-03-10 10:47) @----
+pneum_meta_dat <- pneumonia %>% 
+  mutate(pneum_n = as.numeric(str_extract(pneumonia_np, "^\\d{1,4}")),
+         arm = str_extract(arm, "^\\w{1,5}")) %>% 
+  select(study, arm, arm_n, pneum_n, design) %>% 
+  filter(arm %in% c("Sug", "Neo")) %>% 
+  group_by(study) %>% 
+  filter(!all(pneum_n == 0), n() > 1, !all(arm == "Neo"), !all(arm == "Sug")) %>% 
+  ungroup() %>% 
+  pivot_wider(., names_from = "arm", values_from = c("pneum_n", "arm_n"))
+
+# rct effect sizes
+pneum_rct_meta <- metabin(pneum_n_Sug, arm_n_Sug, pneum_n_Neo, arm_n_Neo,
+  data = pneum_meta_dat,
+  studlab = study,
+  sm = "OR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  prediction = TRUE,
+  subset = design == "rct"
+)
+
+pneum_rct <- pneum_rct_meta %>% 
+  as_tibble(.) %>% 
+  mutate(design = "rct") %>% 
+  select(studlab, TE, seTE, design)
+
+# nonrandomized 
+pneum_nrsi <- tribble(
+  ~studlab, ~TE, ~seTE, ~design, 
+  "Kheterpal 2020", log(0.53), sd_confint(log(0.44), log(0.62)), "nrsi",
+  "Li 2021",        log(0.94), sd_confint(log(0.66), log(1.34)), "nrsi",
+  "Yu 2021",        log(0.33), sd_confint(log(0.01), log(8.16)), "nrsi",
+)
+
+add_cols_n <- pneum_meta_dat %>% 
+  select(study, pneum_n_Sug, arm_n_Sug, pneum_n_Neo, arm_n_Neo) %>% 
+  rename(studlab = study, nsug = arm_n_Sug, nneo = arm_n_Neo, esug = pneum_n_Sug, eneo = pneum_n_Neo)
+
+pneum_meta <- bind_rows(pneum_rct, pneum_nrsi) %>%
+  left_join(., add_cols_n, by = "studlab") %>%
+  mutate(design = toupper(design)) 
+
+# RESUME;
+all_meta <- metagen(TE, seTE,
+  studlab = studlab,
+  subgroup = design,
+  sm = "OR",
+  backtransf = TRUE,
+  data = pneum_meta
+)
+
+forest(all_meta,
+  fixed = FALSE,
+  label.e = "Sugammadex",
+  label.c = "Neostigmine",
+  rightcols = c("effect", "ci"),
+  leftcols = c("studlab", "esug", "nsug", "eneo", "nneo"), 
+  rightlabs = c("OR", "(95% CI)"),
+  leftlabs = c("Study", "Events", "Total", "Events", "Total"),
+  just.addcols = "left",
+  just.addcols.left = "right",
+  colgap.right = "5mm",
+  colgap.left = "2mm",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = TRUE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  text.subgroup.nohet = TRUE,
+  colgap.forest.left = "5mm",
+  xlim = c(0.1, 10),
+  # at = c(.001, 0.01, .1, 1, 2),
+  xlab = "Favors: Sugammadex             Neostigmine")
+
+grid::grid.text("Sugammadex   Neostigmine", .38, .96, gp = grid::gpar(cex = 1.0, fontface = "bold"))
+
+figure_n <- tab_inc()
+```
+Results from 3 nonrandomized studies adjusted for potential confounding (Li 2021 and Yu 2021 propensity scores, Kheterpal 2020 matched cohort design).
 
 <a id="revTab26"></a>
 
@@ -3832,7 +3931,6 @@ popc.dat %>%
 
 table_n <- tab_inc()
 ```
-
 
 <br/><br/>
 
