@@ -610,7 +610,7 @@ rm(temp)
 #     start = end - n + 1
 #   ) %>%
 #   select(design, start, end)
-## rnmbDescrKbl (updated 2022/01/16 09:56) ------------------------------
+## rnmbDescrKbl --------------------------------------- (2022-03-10 07:16) @----
 # rnmb.dat %>% 
 rnmb_ma.dat %>% 
   filter(age == "Adult") %>%
@@ -803,10 +803,10 @@ temp %>%
   column_spec(13, width = "4em", popover = "Clinical") %>%
   column_spec(14, width = "3em", popover = "Not specified") %>%
   column_spec(15, width = or_width, popover = "OR (95% CI)") %>%
-  pack_top(., "RCT", 1, 30, indent = FALSE) %>% 
-  pack_top(., "Nonrandomized Studies of Intervention", 31, 32, indent = FALSE) %>% 
-  pack_top(., "Prospective Cohort", 33, 43, indent = FALSE) %>% 
-  pack_top(., "Retrospective Cohort", 44, 45, indent = FALSE) %>% 
+  pack_top(., "RCT", 1, 30, indent_tf = FALSE) %>% 
+  pack_top(., "Nonrandomized Studies of Intervention", 31, 32, indent_tf = FALSE) %>% 
+  pack_top(., "Prospective Cohort", 33, 43, indent_tf = FALSE) %>% 
+  pack_top(., "Retrospective Cohort", 44, 45, indent_tf = FALSE) %>% 
   footnote(
     general = "OR: odds ratio; Neo: neostigmine; Sug: sugammadex; Spont: spontaneous; Roc: rocuronium; Vec: vecuronium; NS: not specified; nl: normalized AMG.",
     alphabet = c(
@@ -1654,7 +1654,7 @@ table_n <- tab_inc()
 meta_time.dat <- time_result_adult %>%
   filter(design == "rct", tofr == 0.9) %>% 
   filter(arm %in% c("Sug", "Neo")) %>% 
-  select(refid, study, arm, depth_f, n, mean, sd, med, iqr_l, iqr_u, range_l, range_u, volatiles)
+  select(refid, study, arm, depth_f, n, mean, sd, med, iqr_l, iqr_u, range_l, range_u, volatiles) 
 
 # exclude studies without sug neo comparison, ie single row
 compare_refids <- meta_time.dat %>% 
@@ -3508,7 +3508,7 @@ figure_n <- fig_inc()
 #     select(design, start, end)
 
 ## composite ------------------------------------------ (2022-03-02 14:30) @----
-popc.dat %>%
+composite <- popc.dat %>%
   filter(age == "Adult") %>%
   mutate(
     year = str_extract(study, "\\d{4}"),
@@ -3530,7 +3530,10 @@ popc.dat %>%
   ) %>%
   filter(!is.na(composite_np)) %>%
   arrange(design, year, refid) %>%
-  select(study, arm_n, arm_c, mg_kg, depth_rev_f, composite_np, composite_p_bar) %>%
+  select(study, arm_n, arm_c, mg_kg, depth_rev_f, composite_np, composite_p_bar, design, arm)
+
+composite %>% 
+  select(-c(design, arm)) %>% 
   group_by(study) %>%
   mutate(study = ifelse(row_number() != 1, NA, study)) %>%
   # add_row() %>% 
@@ -3561,6 +3564,117 @@ popc.dat %>%
 
 table_n <- tab_inc()
 ```
+
+<br/>
+
+###     *Pooled*
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of postoperative pulmonary complications in randomized and nonrandomized studies, and component endpoints included in each study's defintion. </font>
+
+```{r compositeMeta, fig.width = 12, fig.height = 5.6}
+## compositeMeta -------------------------------------- (2022-03-10 07:43) @----
+# add composite definition
+comp_defn <- readxl::read_xlsx("data/POPCRevAgent_030922.xlsx", sheet = "comp_defn", range = "A1:C11") %>% 
+  rename(studlab = study) %>% 
+  select(studlab, defn)
+
+comp_meta_dat <- composite %>% 
+  mutate(comp_n = as.numeric(str_extract(composite_np, "^\\d{1,4}")),
+         arm = str_extract(arm, "^\\w{1,5}")) %>% 
+  select(study, arm, arm_n, comp_n, design) %>% 
+  filter(arm %in% c("Sug", "Neo")) %>% 
+  group_by(study) %>% 
+  filter(!all(comp_n == 0), n() > 1, !all(arm == "Neo"), !all(arm == "Sug")) %>% 
+  ungroup() %>% 
+  pivot_wider(., names_from = "arm", values_from = c("comp_n", "arm_n"))
+
+# rct effect sizes
+comp_rct_meta <- metabin(comp_n_Sug, arm_n_Sug, comp_n_Neo, arm_n_Neo,
+  data = comp_meta_dat,
+  studlab = study,
+  sm = "OR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  prediction = TRUE,
+  subset = design == "rct"
+)
+
+comp_rct <- comp_rct_meta %>% 
+  as_tibble(.) %>% 
+  mutate(design = "rct") %>% 
+  select(studlab, TE, seTE, design)
+
+# nonrandomized 
+comp_nrsi <- tribble(
+  ~studlab, ~TE, ~seTE, ~design, 
+  "Kirmeier 2018",   0.0296, sd_confint(log(0.85), log(1.25)), "nrsi",
+  "Kheterpal 2020", -0.3567, sd_confint(log(0.63), log(0.77)), "nrsi",
+  "Li 2021",        -0.1165, sd_confint(log(0.65), log(1.22)), "nrsi",
+  "Ledowski 2013" ,  0.157,  0.895, "nrsi",
+)
+
+add_cols_n <- comp_meta_dat %>% 
+  select(study, comp_n_Sug, arm_n_Sug, comp_n_Neo, arm_n_Neo) %>% 
+  rename(studlab = study, nsug = arm_n_Sug, nneo = arm_n_Neo, esug = comp_n_Sug, eneo = comp_n_Neo)
+
+comp_meta <- bind_rows(comp_rct, comp_nrsi) %>%
+  left_join(., comp_defn, by = "studlab") %>%
+  left_join(., add_cols_n, by = "studlab") %>%
+  mutate(design = toupper(design)) %>%
+  mutate(
+    nsug = ifelse(studlab == "Li 2021", 2691, nsug),
+    esug = ifelse(studlab == "Li 2021", 114, esug),
+    nneo = ifelse(studlab == "Li 2021", 7800, nneo),
+    eneo = ifelse(studlab == "Li 2021", 461, eneo)
+  )
+
+# RESUME;
+all_meta <- metagen(TE, seTE,
+  studlab = studlab,
+  subgroup = design,
+  sm = "OR",
+  backtransf = TRUE,
+  data = comp_meta
+)
+
+forest(all_meta,
+  fixed = FALSE,
+  label.e = "Sugammadex",
+  label.c = "Neostigmine",
+  rightcols = c("effect", "ci", "defn"),
+  leftcols = c("studlab", "esug", "nsug", "eneo", "nneo"), 
+  rightlabs = c("OR", "(95% CI)", "POPC"),
+  leftlabs = c("Study", "Events", "Total", "Events", "Total"),
+  just.addcols = "left",
+  just.addcols.left = "right",
+  colgap.right = "5mm",
+  colgap.left = "2mm",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = TRUE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  text.subgroup.nohet = TRUE,
+  colgap.forest.left = "5mm",
+  # xlim = c(0.001, 5),
+  # at = c(.001, 0.01, .1, 1, 2),
+  xlab = "Favors: Sugammadex             Neostigmine")
+
+grid::grid.text("Sugammadex  Neostigmine", .285, .955, gp = grid::gpar(cex = 1.1))
+
+figure_n <- tab_inc()
+```
+Results from 3 nonrandomized studies adjusted (Li 2021 using propensity scores, Kirmeir 2018 multivariable regression with a likely sufficient set of deconfounders, and Kheterpal 2020 in a matched cohort design).
+
+POPC: postoperative pulmonary complications; NRSI: nonrandomized study of interventions; APN: Aspiration pneumonitis; ARI: Acute Respiratory Insufficiency; ATX: Atelectasis; BRN: Broncospasm; HAP: Pneumonia; HOX: Hypoxia; IPE: Iatrogenic Pulmonary Embolism; LSP: Laryngospasm; PAL: Prolonged Air Leakage; PCG: Pulmonary Congestion; PED: Pulmonary Edema; PIX: Pulmonary Infection; PNS: Pneumonitis; PRI: Postop Reintubation; PTX: Pneumothorax; RFA: Reflux Aspiration; RPF: Repiratory Failure; RSD: Respiratory Depression; SRP: Spasmotic Respiratory Pattern; UAO: Upper airway obstruction; VXN: Ventilation > 48 hrs.
+
 
 <br/>
 
