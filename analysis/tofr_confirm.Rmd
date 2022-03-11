@@ -292,7 +292,7 @@ rnmb_meta_distiller.dat <- rnmb.dat %>%
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given sugammadex according to whether TOFR was confirmed prior to extubation.  </font>
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given sugammadex according to whether TOFR was reported as confirmed prior to extubation.  </font>
 
 ```{r rnmbMetaTofrSug, fig.width = 10, fig.height = 8}
 ## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
@@ -300,7 +300,7 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   data = rnmb_meta_distiller.dat,
   studlab = study,
   sm = "PAS",
-  # method.tau = "PM",
+  # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
   subset = arm == "Sug",
@@ -331,7 +331,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given neostigmine according to whether TOFR was confirmed prior to extubation.  </font>
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given neostigmine according to whether TOFR was reported as confirmed prior to extubation.  </font>
 
 ```{r rnmbMetaTofrNeo, fig.width = 10, fig.height = 8}
 ## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
