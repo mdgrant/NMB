@@ -15,6 +15,8 @@ navbar:
     menu:
     - text: Results
       href: reversal.html
+    - text: TOFR Confirmed Before Extubation
+      href: tofr_confirm.html
     - text: Summary Study & Patient Charcteristics
       href: summary_rev.html
   - text: Evidence Tables

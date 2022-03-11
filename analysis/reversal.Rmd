@@ -498,8 +498,7 @@ rnmb.dat <- left_join(rnmb.dat, rnmb_depth, by = c("refid", "study", "arm", "arm
 
 rm(study_arm_rnmb.dat, dichot_rnmb.dat, study_char_rnmb.dat)
 
-## RESUME table --------------------------------------- (2022-02-21 17:35) @----
-# RESUME: rnmb table
+## table ---------------------------------------------- (2022-02-21 17:35) @----
 temp <- rnmb.dat %>%
   mutate(
     # dose_comb = neo_dose,

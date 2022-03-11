@@ -11,7 +11,7 @@
 
 
 
-<title>Home</title>
+<title>TOFR Confirmation</title>
 
 <script src="site_libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -232,6 +235,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -239,6 +305,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -321,7 +397,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">TOFR Confirmation</h1>
+<h4 class="date">11 March, 2022 (10:40)</h4>
 
 </div>
 
@@ -354,7 +431,7 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -388,12 +465,96 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211025code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211025)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211025code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211025)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -453,13 +614,12 @@ Ignored files:
 Untracked files:
     Untracked:  .temp.lb
     Untracked:  analysis/.gitignore
+    Untracked:  analysis/tofr_confirm.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
     Untracked:  code/rob_summary_mg.R
     Untracked:  data/
-    Untracked:  tofr_confirm.Rmd
-    Untracked:  tofr_confirm.html
 
 Unstaged changes:
     Modified:   analysis/_site.yml
@@ -479,617 +639,10 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
-(<code>docs/index.html</code>) files. If you’ve configured a remote Git
-repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
-in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/943edd0930a530e01c9efc0da1e675b037ca5c7f/docs/index.html" target="_blank">943edd0</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-09
-</td>
-<td>
-update index
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/a84470f2bd862e2aa09bd69b6f23676659c9eed1/analysis/index.Rmd" target="_blank">a84470f</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-09
-</td>
-<td>
-add summary tab to reversal
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/e4f02063db9038ef82a1c6c6b191630dc5b27866/analysis/index.Rmd" target="_blank">e4f0206</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-02
-</td>
-<td>
-reversal pages and misc rmd updates
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/c185b8a05c4ce68c7ee5f485f19e861bf7c01f72/docs/index.html" target="_blank">c185b8a</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2022-01-19
-</td>
-<td>
-kq2 index updates
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/d0904b15e586c8b51825d95bbdbff9a9640a320a/analysis/index.Rmd" target="_blank">d0904b1</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2022-01-06
-</td>
-<td>
-add kq1 initial
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/d0904b15e586c8b51825d95bbdbff9a9640a320a/docs/index.html" target="_blank">d0904b1</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2022-01-06
-</td>
-<td>
-add kq1 initial
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/373e45537505f5a77ed3b430cbc3f4d3fdef306e/analysis/index.Rmd" target="_blank">373e455</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2022-01-05
-</td>
-<td>
-fix headings, kq3 misc
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/373e45537505f5a77ed3b430cbc3f4d3fdef306e/docs/index.html" target="_blank">373e455</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2022-01-05
-</td>
-<td>
-fix headings, kq3 misc
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/25e24c64e932d6367ffabb487abb0c468b9656db/docs/index.html" target="_blank">25e24c6</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-30
-</td>
-<td>
-remove NMM from outcomes
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/1e5b6821461dfa6fb28d6cc467ff521167ad5c73/analysis/index.Rmd" target="_blank">1e5b682</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-30
-</td>
-<td>
-update headers
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/b0d802f8885c4d753cfbf4e514423d2255f192c8/analysis/index.Rmd" target="_blank">b0d802f</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-30
-</td>
-<td>
-correct index link to kq3
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/b0d802f8885c4d753cfbf4e514423d2255f192c8/docs/index.html" target="_blank">b0d802f</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-30
-</td>
-<td>
-correct index link to kq3
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/e53efb078f5b65e2743e77049db6e10540d7e8ea/docs/index.html" target="_blank">e53efb0</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-20
-</td>
-<td>
-update index
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/9070e33eee71593e39f95ab35a2d40012544460e/analysis/index.Rmd" target="_blank">9070e33</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-12-20
-</td>
-<td>
-updates kq2 kq3
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/d9933694eb0c1c0a43d04c681292702f0a6ed33a/analysis/index.Rmd" target="_blank">d993369</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-20
-</td>
-<td>
-update index
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/d9933694eb0c1c0a43d04c681292702f0a6ed33a/docs/index.html" target="_blank">d993369</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-20
-</td>
-<td>
-update index
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/e5cd639f103361c82d5674574928f7491cc5a03d/analysis/index.Rmd" target="_blank">e5cd639</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-20
-</td>
-<td>
-misc updates kq2 initial ba
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/3bca2c9a9114446957f88b14ad1be3c09ee3914c/docs/index.html" target="_blank">3bca2c9</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-20
-</td>
-<td>
-fix index links
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/eaf5d1aa0f8ba659df754d76ea8c3d6bbd4b8a87/analysis/index.Rmd" target="_blank">eaf5d1a</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-17
-</td>
-<td>
-remove toc
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/eaf5d1aa0f8ba659df754d76ea8c3d6bbd4b8a87/docs/index.html" target="_blank">eaf5d1a</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-17
-</td>
-<td>
-remove toc
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/de88d889e1672061f2674a442c195fa1ca499390/analysis/index.Rmd" target="_blank">de88d88</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-17
-</td>
-<td>
-update all pages for outline
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/de88d889e1672061f2674a442c195fa1ca499390/docs/index.html" target="_blank">de88d88</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-17
-</td>
-<td>
-update all pages for outline
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/626f5ea0b8b133859b465e3a3d5e81e03c6c5676/docs/index.html" target="_blank">626f5ea</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-fix home
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/e0f9bd2b1c06c3b97183722e17892ee3e5de8be3/docs/index.html" target="_blank">e0f9bd2</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-fix home
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/f6777005487da393a398e8479b9ff3047ae4b961/docs/index.html" target="_blank">f677700</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-merge
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/4bda671aebc9a38f50a3f73a2de12bc64e5d7d09/docs/index.html" target="_blank">4bda671</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-Update headers
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/b84549649e3b404d53a3db3f546e52974f994fd2/docs/index.html" target="_blank">b845496</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-update headers
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/c17b5a28925ccff686ea93bcb39a3f8cae44a0f6/analysis/index.Rmd" target="_blank">c17b5a2</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-update appendix
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/c17b5a28925ccff686ea93bcb39a3f8cae44a0f6/docs/index.html" target="_blank">c17b5a2</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-update appendix
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/014d39896334c80878bdc47fdb153e3c05bf38ab/analysis/index.Rmd" target="_blank">014d398</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-add files for site
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/014d39896334c80878bdc47fdb153e3c05bf38ab/docs/index.html" target="_blank">014d398</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-11-09
-</td>
-<td>
-add files for site
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/ce731d663bbe9cdbbf093d81d756af1805126866/analysis/index.Rmd" target="_blank">ce731d6</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-10-26
-</td>
-<td>
-remove wfr icon
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/c7516d68d447507b7480dae2dafc00338e6f07ba/analysis/index.Rmd" target="_blank">c7516d6</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-10-26
-</td>
-<td>
-font and menu
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/ac47874a2826a85dfb59c6133458b565eb3fd95d/analysis/index.Rmd" target="_blank">ac47874</a>
-</td>
-<td>
-Mark Grant
-</td>
-<td>
-2021-10-25
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
@@ -1100,6 +653,10 @@ Start workflowr project.
   font-family: Source Sans Pro;
 }
 
+.caption {
+  font-size: 15px;
+}
+
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   color: #090909;
   background-color: #0909093d;
@@ -1108,44 +665,120 @@ Start workflowr project.
 .lightable-classic.lightable-hover tbody tr:hover {
     background-color: #c5d4e4;
 }
-
 .btn-xs, .btn-group-xs>.btn { 
 display: none; 
 }
 
 .btn-default {
-display: none !important;
+display: none !important; 
 }
 
+.popover-title {
+      font-size: 12px;
+  }
+
+.popover-content {
+      font-size: 12px;
+  }
+  
+.popover-content {
+    background-color: white;
+    <!-- color: #FFFFFF; -->
+    padding: 2px;
+  }
+
+<!-- .arrow { -->
+<!--   border-right-color: red !important; -->
+<!-- } -->
+
+<!-- :target {  /* fix target location so caption appears */ -->
+<!--     display: block;     -->
+<!--     position: relative;      -->
+<!--     top: 10px; -->
+<!--     visibility: hidden; -->
+<!-- } -->
+
 </style>
-<p><br/><br/></p>
-<p><font size = 6> Strength of Evidence Ratings </font></p>
-<p><a href="soe.html"><font size = 5> Summary of Findings Tables
-</font></a></p>
-<p><font size = 6> Neuromuscular Monitoring (NMM)</font></p>
-<p><a href="kq1.html"><font size = 5> Technical Performance
-</font></a></p>
-<p><a href="kq2.html"><font size = 5> Diagnostic </font></a></p>
-<p><a href="kq3.html"><font size = 5> Outcomes </font></a></p>
-<p><font size = 6> Reversal </font></p>
-<p><a href="reversal.html"><font size = 5> Sugammadex vs. Neostigmine
-</font></a></p>
-<p><a href="tofr_confirm.html"><font size = 5> TOFR Confirmation Before
-Extubation </font></a></p>
-<p><a href="summary_rev.html"><font size = 5> Summary Study/Patient
-Characteristics </font></a></p>
-<p><font size = 6> Evidence Tables </font></p>
-<p><a href="evidence_tables.html"><font size = 5> Included Studies
-</font></a></p>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html: true, placement: top});
+});
+</script>
 <p><br/></p>
-<p><font size = 6> Appendix </font></p>
-<p><a href="prisma.html"><font size = 5> PRISMA </font></a></p>
-<p><a href="outcome_importance.html"><font size = 5> Outcome Importance
-</font></a></p>
-<p><br/><br/></p>
-<p><font size = 3> All results are in draft form and not for citation
-(contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further
-detail). </font></p>
+<!-- ### From RCT arms comparing sugammadex and neostigmine -->
+<div id="tofr-0.9-before-extubation" class="section level2">
+<h2>TOFR ≥ 0.9 Before Extubation</h2>
+<p><a id="kq4Fig1"></a></p>
+<p><br/></p>
+<p><font size = 4> Figure 1. Incidence of residual neuromuscular block
+(TOFR &lt;0.9) in RCTs among patients given sugammadex according to
+whether TOFR was confirmed prior to extubation. </font></p>
+<p><img src="figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" width="960" style="display: block; margin: auto auto auto 0;" /></p>
+<p><font size = 4> Figure 2. Incidence of residual neuromuscular block
+(TOFR &lt;0.9) in RCTs among patients given neostigmine according to
+whether TOFR was confirmed prior to extubation. </font></p>
+<p><img src="figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" width="960" style="display: block; margin: auto auto auto 0;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] meta_5.2-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [5] stringr_1.4.0     dplyr_1.0.8       purrr_0.3.4       readr_2.1.2      
+ [9] tidyr_1.2.0       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
+[13] Cairo_1.5-14      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
+ [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
+ [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
+[10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
+[13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
+[16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
+[19] compiler_4.1.2         git2r_0.29.0           cli_3.2.0             
+[22] rvest_1.0.2            xml2_1.3.3             sass_0.4.0            
+[25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
+[28] minqa_1.2.4            rmarkdown_2.12         svglite_2.1.0         
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
+[34] highr_0.9              dbplyr_2.1.1           fastmap_1.1.0         
+[37] htmlwidgets_1.5.4      rlang_1.0.2            readxl_1.3.1          
+[40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.2        
+[43] jsonlite_1.8.0         vroom_1.5.7            magrittr_2.0.2        
+[46] Matrix_1.4-0           Rcpp_1.0.8             munsell_0.5.0         
+[49] fansi_1.0.2            lifecycle_1.0.1        visdat_0.5.3          
+[52] stringi_1.7.6          yaml_2.3.5             CompQuadForm_1.4.3    
+[55] snakecase_0.11.0       mathjaxr_1.6-0         MASS_7.3-55           
+[58] grid_4.1.2             parallel_4.1.2         promises_1.2.0.1      
+[61] crayon_1.5.0           lattice_0.20-45        haven_2.4.3           
+[64] splines_4.1.2          hms_1.1.1              knitr_1.37            
+[67] pillar_1.7.0           boot_1.3-28            reprex_2.0.1          
+[70] glue_1.6.2             evaluate_0.15          modelr_0.1.8          
+[73] vctrs_0.3.8            nloptr_2.0.0           tzdb_0.2.0            
+[76] httpuv_1.6.5           cellranger_1.1.0       gtable_0.3.0          
+[79] assertthat_0.2.1       xfun_0.30              broom_0.7.12          
+[82] later_1.3.0            viridisLite_0.4.0      workflowr_1.7.0       
+[85] ellipsis_0.3.2        </code></pre>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -1163,6 +796,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1195,6 +830,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
