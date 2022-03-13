@@ -17,10 +17,10 @@ output:
     toc_depth: '3'
 # bibliography: "bib/kq4.bib"
 # csl: jama.csl
-link-citations: yes
+# link-citations: yes
 workflowr:
   suppress_report: false
-# nocite: '@*'
+nocite: '@*'
 ---
 
 ```{=html}
@@ -84,7 +84,7 @@ $(document).ready(function(){
 </script>
 ```
 
-```{r setup, include = FALSE} 
+```{r setup, include = FALSE}
 ## setup ---------------------------------------------- (2022-02-14 16:17) @----
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
@@ -127,24 +127,6 @@ rnmb_dist_refids <- dichot.dat %>%
   distinct() %>%
   pull()
 
-## from spreadsheet ----------------------------------- (2022-02-22 14:32) @----
-
-## studies with rnmb data
-
-
-# rcts only from spreadsheet 2022/02/21 08:04 n=21 (checked same in excel sheet) 
-rnmb_ma.dat <- suppressMessages(read_csv("data/rnmb_read_011322.csv")) %>% 
-  clean_names() %>% 
-  filter(!is.na(arm)) %>% 
-  fill(refid, study) %>% 
-  remove_empty(which = "cols") %>% 
-  mutate(
-    study_orig = study,
-    study = str_extract(study, "\\w*.{0,1}\\w* \\d{4}"),
-    mg_kg = ifelse(is.na(mg_kg) & !is.na(mg), paste0("<u>", mg, "</u>"), mg_kg),
-    refid = suppressWarnings(as.numeric(refid))
-  ) %>% 
-  select(-mg) # milligram can delete
 
 ## data char, arm, dichot ----------------------------- (2022-02-21 10:32) @----
 study_char_rev.dat <- study_char.dat %>%
@@ -170,7 +152,7 @@ study_arm_rev.dat <- study_arm.dat %>%
     arm = factor(arm, levels = c("Sug", "Neo", "Plac", "Spont", "Pyrid", "Other"), ordered = TRUE),
     volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.))
   ) %>%
-  select(refid, arm_id, study, year, design, arm_n, arm, age, study_arm_k, subgroup, depth, starts_with("depth_rev_"), anesth:anes_agent_spec, neo_dose, neo_max_dose, neo_dose_unit, sug_dose, sug_dose_max, nmbagent, gen_type, revtim, revtim_comment, mon_cat, mon_cat_f)
+  select(refid, arm_id, study, year, design, arm_n, arm, age, study_arm_k, subgroup, depth, depth_rev_f, starts_with("depth_rev_"), anesth:anes_agent_spec, neo_dose, neo_max_dose, neo_dose_unit, sug_dose, sug_dose_max, nmbagent, gen_type, revtim, revtim_comment, mon_cat, mon_cat_f)
 
 dichot_rev.dat <- dichot.dat %>%
   mutate(
@@ -181,56 +163,10 @@ dichot_rev.dat <- dichot.dat %>%
     )
   )
 
-# study_arm_rev.dat %>% tabyl(depth)
-
-## comparators ---------------------------------------- (2022-02-21 10:32) @----
-comparators <- study_arm_rev.dat %>% 
-  # filter(design == "rct") %>% 
-  arrange(year) %>% 
-  select(refid, study, design, subgroup, arm_id, arm, age) %>% 
-  pivot_wider(id_cols = c(refid, study, design, subgroup), names_from = arm, values_from = arm_id, values_fn = list) %>% 
-  select(refid:design, subgroup, Sug, Neo, Plac, Spont, Pyrid, Other) %>% 
-  mutate(across(Sug:Other, ~ as.numeric(. != "NULL"))) %>% 
-  mutate(across(Sug:Other, ~ as.character(.))) %>% 
-  mutate(across(Sug:Other, ~ ifelse(. == "1", cur_column(), ""))) %>% 
-  mutate(compare = str_c(Sug, Neo, Plac, Spont, Pyrid, sep = ":"),
-         compare = str_replace_all(compare, ":{2,3}", ":"),
-         compare = str_replace(compare, "^:", ""),
-         compare = str_replace_all(compare, ":{1,3}$", ""))
-
-# subgroups with comparators
-comp_subgroup <- comparators %>% 
-  filter(subgroup != "none", str_detect(compare, ":")) 
-
-rct_nosub_comp <- comparators %>% 
-  filter(design == "rct", refid %notin% subgroup_refids) 
-
-## comparators by arm --------------------------------- (2022-02-21 13:33) @----
-comp_rct_arm <- study_arm_rev.dat %>% 
-  mutate(study = case_when(
-    study == "Wu 2014" & arm_n < 50 ~ "Wu 2014 (Caucasian)",
-    study == "Wu 2014" & arm_n >= 50 ~"Wu 2014 (Chinese)",
-    TRUE ~ study)) %>% 
-  filter(design == "rct", refid %notin% subgroup_refids) %>% 
-  arrange(year) %>% 
-  select(refid, study, design, subgroup, arm_id, arm, arm_n, age) %>% 
-  mutate(event_placeholder = 1)
-
+# study_arm_rev.dat %>% tabyl(depth_rev_f)
 ```
 
 ```{r rnmbData, echo = FALSE}
-## rnmbData_ma_sheet ---------------------------------- (2022-02-15 11:25) @----
-rnmb_depth <- rnmb_ma.dat %>%
-  select(refid, study, study_orig, arm, n, deep:ns_depth) %>%
-  mutate(across(deep:ns_depth, ~ ifelse(. == "x", cur_column(), ""))) %>%
-  unite(., col = "depth_rev_ma_f", deep:ns_depth, sep = ":", remove = FALSE, na.rm = TRUE) %>%
-  mutate(
-    depth_rev_ma_f = factor(depth_rev_ma_f, levels = c("deep", "deep:mod", "deep:mod:shallow", "mod", "mod:shallow", "mod:shallow:min", "min", "shallow", "clincrit", "endsurg", "oth", "ns")),
-    study = study_orig
-  ) %>%
-  rename(arm_n = n) %>%
-  select(c(-study_orig))
-
 ## rnmb.dat ------------------------------------------- (2022-02-21 09:00) @----
 # add subgroup studies with relevant main effects
 # Martinez-Ubieto 2016; need to combine spontaneous arms
@@ -254,16 +190,21 @@ rnmb.dat <- left_join(rnmb.dat, study_char_rnmb.dat, by = c("refid")) %>%
   relocate(c(study_l, age, design, year), .before = study) %>% 
   filter(refid %in% rnmb_dist_refids) 
 
-rnmb.dat <- left_join(rnmb.dat, rnmb_depth, by = c("refid", "study", "arm", "arm_n"))
-
 tofr_confirm <- study_arm.dat %>% 
 group_by(refid) %>%
   slice(1) %>%
-  select(refid, extbconf) %>%
+  select(refid, extbconf, tofrext) %>%
   mutate(extbconf = case_when(
-    extbconf == "yes" ~ "TOFR ≥0.9 confirmed",
+    extbconf == "yes" ~ "TOFR confirmed",
     extbconf == "no" ~ "TOFR not confirmed",
     extbconf == "ns" ~ "Not stated"
+  ),
+  tofr = case_when(
+    str_detect(tofrext, "1") ~ '1.0',
+    str_detect(tofrext, "9") ~ "0.9",
+    str_detect(tofrext, "8") ~ "0.8",
+    str_detect(tofrext, "7") ~ "0.7",
+    str_detect(tofrext, "ns") ~ "NS",
   ))
 
 rnmb.dat <- left_join(rnmb.dat, tofr_confirm, by = "refid")
@@ -275,16 +216,10 @@ rnmb_meta_distiller.dat <- rnmb.dat %>%
     !is.na(rnmb1_9) ~ rnmb1_n,
     !is.na(rnmb2_9) ~ rnmb2_n)
   ) %>% 
-  select(study, arm, arm_n, rnmb_n, extbconf)
-  
-# depth_freq <- proc_freq(rnmb.dat, depth, depth_rev_f)
-# write_csv(depth_freq, "/Users/mgrant/Desktop/depth_freq.csv", na = "")
-# depth_compare <- rnmb.dat %>% 
-#   select(refid, study, depth_rev_f, depth)
-# write_csv(depth_compare, "/Users/mgrant/Desktop/depth_compare.csv", na = "")
-# 3 refids (2834 3491 4997) to be added 2022/02/21 17:01
-# rnmb_dist_refids[rnmb_dist_refids %notin% rnmb_ma.dat$refid]
+  select(study, design, arm, arm_n, rnmb_n, extbconf, tofr, depth_rev_f) %>% 
+  arrange(tofr, depth_rev_f)
 ```
+
 
 ## TOFR ≥ 0.9 Before Extubation
 
@@ -292,9 +227,9 @@ rnmb_meta_distiller.dat <- rnmb.dat %>%
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given sugammadex according to whether TOFR was reported as confirmed prior to extubation.  </font>
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given sugammadex according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
 
-```{r rnmbMetaTofrSug, fig.width = 10, fig.height = 8}
+```{r rnmbMetaTofrSug, fig.width = 10, fig.height = 7.5}
 ## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
   data = rnmb_meta_distiller.dat,
@@ -303,15 +238,17 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
-  subset = arm == "Sug",
+  subset = arm == "Sug", # & study != "Alday 2019",
   subgroup = extbconf)
+
+# dmetar::find.outliers(rnmb_meta)
 
 forest(rnmb_meta,
   fixed = FALSE,
   # label.e = "Sugammadex",
   # label.c = "Neostigmine",
-  rightcols = c("effect", "ci"),
-  rightlabs = c("Incidence", "(95% CI)"),
+  rightcols = c("effect", "ci", "depth_rev_f"),
+  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -323,17 +260,24 @@ forest(rnmb_meta,
   print.subgroup.name = FALSE,
   text.subgroup.nohet = TRUE,
   colgap.forest.left = "30mm",
-  # xlim = c(0.001, 5),
+  just.addcols.right = "left",
+  xlim = c(0, 0.8),
   # at = c(.001, 0.01, .1, 1, 2),
   # xlab = "Favors:     Sugammadex          Neostigmine"
   )
 
+grid::grid.text("Sugammadex", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
+
 figure_n <- fig_inc()
 ```
+mod: moderate; min: minimal; oth: other; ns: not stated.<br/>
+Excluding Alday 2019 (an outlier) yielded a pooled result of 0.04 (95% CI: 0.1, 0.07)
 
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in RCTs among patients given neostigmine according to whether TOFR was reported as confirmed prior to extubation.  </font>
+<br/>
 
-```{r rnmbMetaTofrNeo, fig.width = 10, fig.height = 8}
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
+
+```{r rnmbMetaTofrNeo, fig.width = 10, fig.height = 7.5}
 ## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
   data = rnmb_meta_distiller.dat,
@@ -349,8 +293,8 @@ forest(rnmb_meta,
   fixed = FALSE,
   # label.e = "Sugammadex",
   # label.c = "Neostigmine",
-  rightcols = c("effect", "ci"),
-  rightlabs = c("Incidence", "(95% CI)"),
+  rightcols = c("effect", "ci", "depth_rev_f"),
+  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -362,11 +306,27 @@ forest(rnmb_meta,
   print.subgroup.name = FALSE,
   text.subgroup.nohet = TRUE,
   colgap.forest.left = "30mm",
+  just.addcols.right = "left",
   # xlim = c(0.001, 5),
   # at = c(.001, 0.01, .1, 1, 2),
   # xlab = "Favors:     Sugammadex          Neostigmine"
   )
 
+grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
+
 figure_n <- fig_inc()
 ```
+mod: moderate; min: minimal; oth: other; ns: not stated.
+
+
+
+
+
+
+
+
+
+
+
+
 
