@@ -118,7 +118,7 @@ subgroup_refids <- study_arm.dat %>%
 # from latest distiller 2022/02/21 08:13 n=26
 rnmb_dist_refids <- dichot.dat %>%
   filter(refid %in% rev_refids) %>%
-  filter(!is.na(rnmb), !refid %in% subgroup_refids) %>%
+  filter(!is.na(rnmb), !refid %in% subgroup_refids) %>% # TODO: check if corrext
   # remove single arm studies; 2022/02/21 08:52 will be Yip 2304, Alenezu 3574
   group_by(refid) %>%
   filter(n() >= 2) %>%
@@ -211,7 +211,7 @@ rnmb.dat <- left_join(rnmb.dat, tofr_confirm, by = "refid")
 
 rnmb_meta_distiller.dat <- rnmb.dat %>%
   filter(!is.na(extbconf), !is.na(rnmb1_9) | !is.na(rnmb2_9)) %>%
-  filter(arm %in% c("Sug", "Neo")) %>%
+  filter(arm %in% c("Sug", "Neo", "Spont")) %>%
   mutate(rnmb_n = case_when(
     !is.na(rnmb1_9) ~ rnmb1_n,
     !is.na(rnmb2_9) ~ rnmb2_n)
@@ -230,7 +230,7 @@ rnmb_meta_distiller.dat <- rnmb.dat %>%
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given sugammadex according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
 
 ```{r rnmbMetaTofrSug, fig.width = 10, fig.height = 7.5}
-## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
+## rnmbMetaConfirm (updated 2022/01/21 09:58) -----------------------
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
   data = rnmb_meta_distiller.dat,
   studlab = study,

@@ -30,6 +30,10 @@ nocite: '@*'
   font-family: Source Sans Pro;
 }
 
+.caption {
+  font-size: 15px;
+}
+
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   color: #090909;
   background-color: #0909093d;
@@ -46,6 +50,24 @@ display: none;
 display: none !important; 
 }
 
+.popover-title {
+      font-size: 12px;
+  }
+
+.popover-content {
+      font-size: 12px;
+  }
+  
+.popover-content {
+    background-color: white;
+    <!-- color: #FFFFFF; -->
+    padding: 2px;
+  }
+
+<!-- .arrow { -->
+<!--   border-right-color: red !important; -->
+<!-- } -->
+
 <!-- :target {  /* fix target location so caption appears */ -->
 <!--     display: block;     -->
 <!--     position: relative;      -->
@@ -54,6 +76,12 @@ display: none !important;
 <!-- } -->
 
 </style>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html: true, placement: top});
+});
+</script>
 ```
 
 ```{r setup, include = FALSE} 
@@ -192,17 +220,15 @@ included_studies.dat <- study_char.dat %>%
   arrange(age, design_l, year) 
 
 ## • (updated 2021/11/16 09:06) kable -------------------------------------
-temp <- included_studies.dat %>%
-  arrange(age, design_l, study_l) %>% 
-  select(study_l, refid, age, design_l) %>% 
-  group_by(age, design_l) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  mutate(end = cumsum(n),
-         start = end - n + 1) %>% 
-  select(age, design_l, start, end)
-
-rm(temp)
+# included_studies.dat %>%
+#   arrange(age, design_l, study_l) %>%
+#   select(study_l, refid, age, design_l) %>%
+#   group_by(age, design_l) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(end = cumsum(n),
+#          start = end - n + 1) %>%
+#   select(age, design_l, start, end)
 
 included_studies.dat %>% 
   select(refid, study_l, n_analyze, centers, country, surgs) %>% 
@@ -219,10 +245,10 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 24) %>%
-  pack_sub(., "RCT", 1, 5) %>% 
-  pack_sub(., "Fully Paired", 6, 23) %>% 
-  pack_sub(., "Prospective Cohort", 24, 24) %>% 
+  pack_top(., "Adult", 1, 23) %>%
+  pack_sub(., "RCT", 1, 4) %>% 
+  pack_sub(., "Fully Paired", 5, 22) %>% 
+  pack_sub(., "Prospective Cohort", 23, 23) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -246,10 +272,10 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Study characteristics. </font>
 
-```{r createStudyCharTable, include = FALSE, echo = FALSE, eval = FALSE} 
-## (updated 2021/11/10 15:31) 2021/11/10 15:31 ----------------------------
-# Hmisc::latex(Hmisc::describe(study_char_diag.dat), file = "/Users/mgrant/Desktop/temp.tex")
-study_char_table <- study_char_diag.dat %>%
+```{r createStudyCharTable, include = FALSE}
+## (updated 2021/01/12 09:30) createStudyCharTable ------------------------
+study_char_table <- study_char.dat %>%
+  filter(refid %in% tech_refids) %>% 
   mutate(
     dates = str_c(date_start, "-", date_end),
     country = countrycode::countryname(country, destination = "iso3c"),
@@ -257,72 +283,286 @@ study_char_table <- study_char_diag.dat %>%
     n = n_enrolled,
     n_anal = n_analyze,
     pilot = noquote(if_else(pilot == "yes", "\U2022", "", "")),
+    setting = case_when(
+      !is.na(hospital) ~ "Hosp",
+      !is.na(ambulatory) ~ "Amb",
+      !is.na(other_setting) ~ "Other"
+    ),
     gen = noquote(if_else(!is.na(general), "\U2022", "", "")),
     reg = noquote(if_else(!is.na(regional), "\U2022", "", "")),
-    registered = noquote(if_else(registered == "yes", "\U2022", "", ""))) %>% 
-  mutate(
+    sed = noquote(if_else(!is.na(sedation), "\U2022", "", "")),
+    registered = noquote(if_else(registered == "yes", "\U2022", "", "")),
     across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
     across(surg_various:surg_other, ~ str_c(.x, ", ")),
     across(surg_various:surg_other, ~ firstup(.x)),
     across(surg_various:surg_other, ~ replace_na(.x, "")),
-    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdom, ", ""),
     surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_list),
     surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Car", "Card"),
+    surgs = str_replace(surgs, "Cr", "GI"),
+    surgs = str_replace(surgs, "Gi", "GI"),
     surgs = str_replace(surgs, "Headneck", "ENT"),
-    surgs = str_sub(surgs, 1, nchar(surgs) - 2)
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2),
+    country = ifelse(grepl("USA", country), "USA", country),
+    country = ifelse(grepl("UK", country), "UK", country),
+    country = ifelse(!is.na(non_vh_hdi), str_c(country, "^a^"), country)
   ) %>%
-  select(refid, age, year, study, dates, country, low_r, n, centers, low_r, pilot, surgs, nct) %>% 
-  arrange(age,year)
-
-
-
-  arrange(age, desc(surg_nosurg), design, year, study) %>%
-  select(refid, age, surg_nosurg, design, study, dates, country, n, pilot, setting, gen, reg, sed, surg, registered)
+  arrange(age, design, year, study) %>%
+  select(refid, age, design, study_l, dates, country, n, pilot, setting, gen, reg, -sed,  surgs, registered)
 
 ```
 
-```{r studyCharKable, echo = FALSE, include = FALSE, eval = FALSE} 
+```{r studyCharKableAdult, echo = FALSE}
 ## (updated 2021/01/12 19:27) ---------------------------------------------
+# temp <- study_char_table %>%
+#   arrange(age, design, study) %>% 
+#   filter(age == "Adult") %>% 
+#   select(study, refid, age, design) %>% 
+#   group_by(age, design) %>% 
+#   tally() %>% 
+#   ungroup() %>% 
+#   mutate(end = cumsum(n),
+#          start = end - n + 1) %>% 
+#   select(age, design, start, end)
+
 study_char_table %>%
-  select(!c(refid, age, surg_nosurg, design)) %>% 
-  kbl(booktabs = T, align = c("lcccccccclc"), 
+  filter(age == "Adult") %>% 
+  select(!c(refid, age, design)) %>% 
+  kbl(booktabs = T, align = c("llllcccclc"), 
       # format = "latex",
-      col.names = c("\\ \\ \\ \\ \\ \\ \\ Study", "Dates", "Country", " (N\\) ", "Pilot", 
-                    "Setting", "Gen", "Reg", "Sed", "Type of Surgery", "Registered")) %>%
-  add_header_above(c(" " = 3, "Enrolled" = 1, " " = 2, "Anesthetic" = 3, " " = 2), bold = TRUE) %>% 
+      col.names = c("Study", "Dates", "Country", " N ", "Pilot", 
+                    "Setting", "Gen", "Reg", "Type of Surgery", "Registered")) %>%
+  add_header_above(c(" " = 6, "Anesthesia" = 2, " " = 2), bold = TRUE) %>% 
   row_spec(0, bold = TRUE) %>% 
-  kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>% 
-  kable_styling(bootstrap_options = opt_boot) %>% 
-  column_spec(1, width = "15em") %>% 
-  # column_spec(2, width = "2em") %>% 
-  pack_top(., "Adult, Surgical", 1, 99) %>% 
-  pack_sub(., "RCT", 1, 84) %>% 
-  pack_sub(., "Nonrandomized Studies of Interventions", 85, 92) %>% 
-  pack_sub(., "Prospective Cohort", 93, 95) %>%
-  pack_sub(., "Retrospective Cohort", 96, 97) %>% 
-  pack_sub(., "Case-control", 98, 98) %>% 
-  pack_sub(., "Before-after", 99, 99) %>% 
-  pack_top(., "Adult, Non-surgical", 100, 111) %>% 
-  pack_sub(., "RCT", 100, 100) %>%
-  pack_sub(., "Crossover", 101, 109) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
-  pack_top(., "Pediatric, Surgical", 112, 120) %>% 
-  pack_sub(., "RCT", 112, 119) %>% 
-  # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
-  pack_sub(., "Prospective Cohort", 120, 120) %>% 
-  pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
-  pack_sub(., "RCT", 121, 121) %>%
-  pack_sub(., "Crossover", 122, 122) %>%
-  pack_sub(., "Prospective Cohort", 123, 123) %>% 
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>% 
+  column_spec(2, width = "8em") %>% 
+  column_spec(3, width = "5em") %>% 
+  column_spec(4, width = "4em") %>% 
+  column_spec(5, width = "4em") %>% 
+  column_spec(6, width = "5em") %>% 
+  column_spec(7, width = "3em") %>% 
+  column_spec(8, width = "3em") %>% 
+  column_spec(9, width = "15em") %>% 
+  column_spec(10, width = "5em") %>% 
+  pack_top(., "Adult", 1, 23) %>%
+  pack_sub(., "RCT", 1, 4) %>% 
+  pack_sub(., "Fully Paired", 5, 22) %>% 
+  pack_sub(., "Prospective Cohort", 23, 23) %>% 
   footnote(general_title = "",
-    general = "Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; TKA: total knee arthroplasty; THA: total hip arthroplasty.",
-    alphabet = c("Multiple publications from the same study."),
+    general = c("Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial"),
+    alphabet = c("Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
     footnote_as_chunk = FALSE) # %>% 
+
+table_n <- tab_inc()
+```
+<br/>
+
+### *Patient Characteristics*
+
+###   <u>Adult Studies</u>
+
+<br>
+
+<font size = 4> Table `r table_n`. Patient characteristics in studies including only adults. </font>
+
+```{r ptCharTableData, include = FALSE}
+## ptCharTableData (updated 2022/01/15 10:08) ----------------------------
+pt_char_table <- study_arm.dat %>%
+  filter(refid %in% tech_refids) %>%
+  group_by(refid) %>%
+  summarize(
+    N = sum(arm_n),
+    wgt = arm_n / N,
+    asa_1_all = round(sum(asa_1 * wgt, na.rm = FALSE)),
+    asa_2_all = round(sum(asa_2 * wgt, na.rm = FALSE)),
+    asa_3_all = round(sum(asa_3 * wgt, na.rm = FALSE)),
+    asa_12_all = round(sum(asa_12 * wgt, na.rm = FALSE)),
+    asa_123_all = round(sum(asa_123 * wgt, na.rm = FALSE)),
+    asa_23_all = round(sum(asa_23 * wgt, na.rm = FALSE)),
+    asa_34_all = round(sum(asa_34 * wgt, na.rm = FALSE)),
+    age_mn_all = round(sum(age_mean * wgt, na.rm = FALSE)),
+    age_md_all = round(sum(age_med * wgt, na.rm = FALSE)),
+    sex_all = round(sum(female * wgt, na.rm = FALSE)),
+    white_all = round(sum(white * wgt, na.rm = FALSE)),
+    black_all = round(sum(black * wgt, na.rm = FALSE)),
+    asian_all = round(sum(asian * wgt, na.rm = FALSE)),
+    bmi_mn_all = round(sum(bmi_mean * wgt, na.rm = FALSE)),
+    bmi_md_all = round(sum(bmi_med * wgt, na.rm = FALSE)),
+    cardiac_all = round(sum(cardiac * wgt, na.rm = FALSE)),
+    cancer_all = round(sum(cancer * wgt, na.rm = FALSE)),
+    renal_all = round(sum(renal * wgt, na.rm = FALSE)),
+    gi_all = round(sum(gi * wgt, na.rm = FALSE)),
+    pulm_all = round(sum(pulm * wgt, na.rm = FALSE)),
+    hepatic = round(sum(hepatic * wgt, na.rm = FALSE)),
+    dm_all = round(sum(dm * wgt, na.rm = FALSE)),
+    neuro_all = round(sum(neuro * wgt, na.rm = FALSE))
+  ) %>%
+  filter(row_number() == 1) %>%
+  ungroup() %>%
+  # remove_empty(which = "cols") %>%
+  # categorize asa class
+  mutate(
+    asa_1 = ifelse(if_any(c(asa_1_all, asa_12_all, asa_123_all), ~ !is.na(.)), "\U00D7", NA),
+    asa_2 = ifelse(if_any(c(asa_12_all, asa_2_all, asa_123_all, asa_23_all), ~ !is.na(.)), "\U00D7", NA),
+    asa_3 = ifelse(if_any(c(asa_123_all, asa_3_all, asa_23_all, asa_34_all), ~ !is.na(.)), "\U00D7", NA),
+    asa_4 = ifelse(if_any(c(asa_34_all), ~ !is.na(.)), "\U00D7", NA)
+  ) %>%
+  relocate(c(asa_1, asa_2, asa_3, asa_4), .after = asa_34_all) %>%
+  mutate(across(c(cardiac_all:neuro_all), ~ bar_wn(.x, .x, color_1, 100)),
+    across(c(white_all:asian_all), ~ bar_wn(.x, .x, color_2, 100)),
+    sex_all = bar_wn(sex_all, sex_all, color_3, 100),
+    age_sum = ifelse(is.na(age_mn_all) & !is.na(age_md_all), paste0("<u>", age_md_all, "</u>"), age_mn_all),
+    bmi = ifelse(is.na(bmi_mn_all) & !is.na(bmi_md_all), paste0("<u>", bmi_md_all, "</u>"), bmi_mn_all)
+  ) %>%
+  relocate(bmi, .before = bmi_mn_all) %>%
+  relocate(age_sum, .before = age_mn_all) %>%
+  select(-c(asa_1_all:asa_34_all, wgt, bmi_mn_all, bmi_md_all, age_mn_all, age_md_all))
+
+pt_char_table <- left_join(pt_char_table, study_char.dat[, c("refid", "age", "design", "study_l", "year")], by = "refid") %>% 
+  relocate(c(age, design, study_l, year), .after = "refid") %>% 
+  arrange(design, year)
+
+```
+
+```{r ptCharTableAdult}
+## ptCharTableData (updated 2022/01/15 10:08)  ----------------------------
+# pt_char_table %>%
+#   arrange(age, design, study) %>%
+#   filter(age == "Adult") %>%
+#   select(study, refid, age, design) %>%
+#   group_by(age, design) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(
+#     end = cumsum(n),
+#     start = end - n + 1
+#   ) %>%
+#   select(age, design, start, end)
+
+pt_char_table %>% 
+  filter(age == "Adult") %>% 
+  select(-c(refid, year, age, design)) %>% 
+  select(study_l:bmi, cardiac_all, renal_all, pulm_all, hepatic, dm_all, neuro_all) %>% 
+    kbl(booktabs = T, align = c("llcccccllllcllllll"), escape = FALSE,
+      col.names = c("Study", " N ", "1", "2", "3", "4", "M <u>Med</u>", "(%)", "W", "B", "A", "M <u>Med</u>", "Card", "Renal", "Pulm", "Hep", "DM", "Neur")) %>% 
+  add_header_above(c(" " = 2, "ASA Class" = 4, "Age" = 1, "Female", "Race" = 3, "BMI" = 1, "Comorbidities (%)^a^" = 6), bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>% 
+  column_spec(2, width = "3em") %>% 
+  column_spec(3:6, width = "2em", popover = "ASA class (1 to 4)") %>% 
+  column_spec(7, width = "4em", popover = "Age") %>% 
+  column_spec(8, width = "4em", popover = "Female %") %>% 
+  column_spec(9, width = "3em", popover = "White %") %>%
+  column_spec(10, width = "3em", popover = "Black %") %>%
+  column_spec(11, width = "3em", popover = "Asian %") %>%
+  column_spec(12, width = "4em", popover = "BMI") %>% 
+  column_spec(13, width = "3em", popover = "Cardiac %") %>%
+  column_spec(14, width = "3em", popover = "Renal %") %>% 
+  column_spec(15, width = "3em", popover = "Pulmonary %") %>% 
+  column_spec(16, width = "3em", popover = "Hepatic %") %>% 
+  column_spec(17, width = "3em", popover = "Diabetes %") %>% 
+  column_spec(18, width = "3em", popover = "Nuerological %") %>% 
+  pack_top(., "Adult", 1, 23) %>%
+  pack_sub(., "RCT", 1, 4) %>% 
+  pack_sub(., "Fully Paired", 5, 22) %>% 
+  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  footnote(general_title = "",
+    general = c("M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial."),
+    alphabet = c("Empty cells indicate no information in publication."),
+    footnote_as_chunk = FALSE)  
 
 table_n <- tab_inc()
 ```
 
 <br/>
+
+# **Funding and Conflict of Interest**
+
+<br/>
+
+###   <u>Adult Studies</u>
+
+<br>
+
+<font size = 4> Table `r table_n`. Funding^a^ and reported conflict of interest in studies including only adults. </font>
+
+```{r createFundingTable, include = FALSE}
+## (updated 2021/01/12 09:28) createFundingTable --------------------------
+study_fund_table <- study_char.dat %>%
+  filter(refid %in% tech_refids) %>% 
+  mutate(
+    sponsor_desc = str_replace(sponsor_desc, "MSD", "Merck Sharp & Dohme Corp"),
+    sponsor_desc = str_replace(sponsor_desc, "Merck & Co", "MSD"),
+    sponsor_desc = str_replace(sponsor_desc, "Merck Sharp & Dohme Corp", "MSD"),
+    sponsor_desc = str_replace(sponsor_desc, "Merck", "MSD"),
+    sponsor_desc = firstup(sponsor_desc),
+    # sponsor_desc = str_replace(sponsor_desc, "MSD", "Merck Sharp & Dohme"),
+    auth_coi_desc = str_replace_all(auth_coi_desc, "MSD", "Merck Sharp & Dohme Corp"),
+    auth_coi_desc = str_replace_all(auth_coi_desc, "Merck & Co", "Merck Sharp & Dohme Corp"),
+    auth_coi_desc = str_replace_all(auth_coi_desc, "Merck Sharp & Dohme Corp", "MSD"),
+    auth_coi_desc = str_replace_all(auth_coi_desc, "Merck", "MSD"),
+    # auth_coi_desc = str_replace_all(auth_coi_desc, "MSD", "Merck Sharp & Dohme"),
+    # sponsor_desc = str_to_title(sponsor_desc),
+    auth_not_report = noquote(if_else(author_coi == "not_auth_rep", "\U00D7", "", "")),
+    # auth_not_report = if_else(author_coi == "not_auth_rep", "&times", "", ""),
+    auth_no_coi = noquote(if_else(author_coi == "none_auth_coi", "\U00D7", "", "")),
+    auth_coi = noquote(if_else(author_coi == "author_coi", '<span style="color:red">\U00D7</span>', "", "")),
+    registered = noquote(if_else(registered == "yes", "\U00D7", "", "")),
+    public = noquote(if_else(funding == "public", "\U00D7", "", "")),
+    pub_indus = noquote(if_else(funding == "pub_indus", '<span style="color:red">\U00D7</span>', "", "")),
+    industry = noquote(if_else(funding == "industry", '<span style="color:red">\U00D7</span>', "", "")),
+    none = noquote(if_else(funding == "none", "\U00D7", "", "")),
+    not_reported = noquote(if_else(funding == "NR", "\U00D7", "", ""))) %>%
+  arrange(age, design, year, study) %>%
+  select(refid, study_l, age, design, public, pub_indus, industry, none, not_reported, sponsor_desc, auth_no_coi, auth_coi, auth_not_report, auth_coi_desc)
+
+```
+
+```{r fundingKable, echo = FALSE}
+## (updated 2021/01/12 09:28) fundingKable --------------------------------
+study_fund_table %>% 
+  filter(age == "Adult") %>% 
+  select(!c(refid, age, design)) %>% 
+  kbl(booktabs = T, align = c("lccccclcccl"),
+      col.names = c("Study", "Pub", '<span style="color:red">Pub/Ind</span>', '<span style="color:red">Ind</span>',  "None", "NR^a^", "Description", "No", '<span style="color:red">Yes</span>', "NR^a^", "Description"),
+      escape = FALSE) %>%
+  add_header_above(c(" " = 1, "Funding Source(s)" = 6, "Author Conflict of Interest" = 4), line = TRUE, bold = TRUE) %>% 
+  row_spec(0, bold = TRUE) %>% 
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "12em") %>% 
+  column_spec(2:6, width = "4em") %>% 
+  column_spec(7, width = "20em") %>% 
+  column_spec(8:10, width = "4em") %>% 
+  column_spec(11, width = "20em") %>% 
+  pack_top(., "Adult", 1, 23) %>%
+  pack_sub(., "RCT", 1, 4) %>% 
+  pack_sub(., "Fully Paired", 5, 22) %>% 
+  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  footnote(general = "Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme.",
+          alphabet = c("Not reported meaning no mention in publication of funding source or author conflicts of interest."))
+          # general_title = " ",
+          # alphabet_title = " ",
+          # footnote_as_chunk = T)
+
+table_n <- tab_inc()
+
+# merck studies
+# study_fund_table %>% 
+#   # filter(age == "Adult", design == "rct") %>% 
+#   filter(age == "Adult") %>% 
+#   mutate(
+#     msd_fund = grepl("MSD|Merck", sponsor_desc)
+#   ) %>% 
+#   tabyl(msd_fund)
+```
+
+<br><br/>
 
 # **Risk of Bias** 
 

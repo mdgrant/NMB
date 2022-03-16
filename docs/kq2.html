@@ -13,7 +13,7 @@
 
 <title>Diagnostic</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -71,6 +71,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 /* for pandoc --citeproc since 2.11 */
 div.csl-bib-body { }
@@ -117,6 +118,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -342,7 +346,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -363,14 +367,29 @@ div.tocify {
 <li>
   <a href="kq3.html">NMM Outcomes</a>
 </li>
-<li>
-  <a href="reversal.html">Reversal</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Reversal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="reversal.html">Results</a>
+    </li>
+    <li>
+      <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
+    </li>
+    <li>
+      <a href="summary_rev.html">Summary Study &amp; Patient Charcteristics</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="evidence_tables.html">Evidence Tables</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Appendices
      
     <span class="caret"></span>
@@ -403,14 +422,16 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Diagnostic</h1>
-<h4 class="date">19 January, 2022 (10:30)</h4>
+<h4 class="date">16 March, 2022 (15:57)</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -419,7 +440,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -428,17 +451,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-19
+<strong>Last updated:</strong> 2022-03-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>nmb/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>nmb/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -447,91 +480,138 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211025code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211025)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211025code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211025)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211025code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211025code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211025)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20211025)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec185b8a05c4ce68c7ee5f485f19e861bf7c01f72targetblankc185b8aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mdgrant/NMB/tree/c185b8a05c4ce68c7ee5f485f19e861bf7c01f72" target="_blank">c185b8a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree67c6be9e6bd58b54d8b63a97849592644f9aff63targetblank67c6be9a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/mdgrant/NMB/tree/67c6be9e6bd58b54d8b63a97849592644f9aff63" target="_blank">67c6be9</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec185b8a05c4ce68c7ee5f485f19e861bf7c01f72targetblankc185b8aa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree67c6be9e6bd58b54d8b63a97849592644f9aff63targetblank67c6be9a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/mdgrant/NMB/tree/c185b8a05c4ce68c7ee5f485f19e861bf7c01f72" target="_blank">c185b8a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/mdgrant/NMB/tree/67c6be9e6bd58b54d8b63a97849592644f9aff63" target="_blank">67c6be9</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -539,9 +619,14 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    _@@/
+    Ignored:    analysis/.DS_Store
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
+    Ignored:    analysis/reversal (original).Rmd
+    Ignored:    analysis/tofr_confirm (old).Rmd
+    Ignored:    analysis/used_files_dates.txt
     Ignored:    code/helpers.R
+    Ignored:    code/rob_111921 (original).R
     Ignored:    code/rob_summary.R
     Ignored:    code/rob_traffic_light.R
     Ignored:    code/rob_traffic_light_mg.R
@@ -553,23 +638,21 @@ Untracked files:
     Untracked:  analysis/.gitignore
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
-    Untracked:  code/rob_111921 (original).R
     Untracked:  code/rob_111921.R
     Untracked:  code/rob_summary_mg.R
     Untracked:  data/
+    Untracked:  propFreemanTukeyMain9.txt
 
 Unstaged changes:
-    Modified:   analysis/evidence_tables.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   analysis/kq1.Rmd
-    Modified:   analysis/kq2.Rmd
-    Modified:   analysis/kq3.Rmd
     Modified:   analysis/reversal.Rmd
-    Modified:   code/readfiles_nmb_102721.R
+    Modified:   analysis/tofr_confirm.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -580,7 +663,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/kq2.Rmd</code>) and HTML (<code>docs/kq2.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/kq2.Rmd</code>) and HTML
+(<code>docs/kq2.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -604,6 +691,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/e4f02063db9038ef82a1c6c6b191630dc5b27866/analysis/kq2.Rmd" target="_blank">e4f0206</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-02
+</td>
+<td>
+reversal pages and misc rmd updates
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/47269cc064d4adba3b4645cae58f471d7fb9d222/docs/kq2.html" target="_blank">47269cc</a>
+</td>
+<td>
+Mark Grant
+</td>
+<td>
+2022-01-19
+</td>
+<td>
+misc updates rob tables
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1052,7 +1173,8 @@ display: none !important;
 <div id="included-studies" class="section level1">
 <h1><strong>Included Studies</strong></h1>
 <p><br/></p>
-<p><font size = 4> Table 1. Number of included studies according to age and design. </font></p>
+<p><font size = 4> Table 1. Number of included studies according to age
+and design. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -1113,7 +1235,9 @@ Total
 <div id="list-of-studies" class="section level2">
 <h2><em>List of Studies</em></h2>
 <p><br/></p>
-<p><font size = 4> Table 2. Included studies, design, enrollment, centers, country, and surgery (see <a href="#references">References</a> for citations). </font></p>
+<p><font size = 4> Table 2. Included studies, design, enrollment,
+centers, country, and surgery (see <a href="#references">References</a>
+for citations). </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -1642,7 +1766,9 @@ Gen, Ortho, ENT, Plastic
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>a</sup> Non very high <a href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human Development Index</a> country.
+<sup>a</sup> Non very high <a
+href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human
+Development Index</a> country.
 </td>
 </tr>
 </tfoot>
@@ -1659,7 +1785,8 @@ Gen, Ortho, ENT, Plastic
 <div id="agreement-tofr" class="section level3">
 <h3>Agreement — TOFR</h3>
 <p><br/></p>
-<p><font size = 4> Table 3. Characteristics of monitors in studies reporting agreement (Bland-Altman) at specific TOFRs. </font></p>
+<p><font size = 4> Table 3. Characteristics of monitors in studies
+reporting agreement (Bland-Altman) at specific TOFRs. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -2216,7 +2343,10 @@ TetraGraph
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> Pre: preload; Nl: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; ×: yes; ￮: no; ns: not specified; NA: not applicable.
+<sup></sup> Pre: preload; Nl: normalized; AMG: acceleromyography; uni:
+uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG:
+mechanomyography; ns: not specified; ×: yes; ￮: no; ns: not specified;
+NA: not applicable.
 </td>
 </tr>
 <tr>
@@ -2226,18 +2356,21 @@ TetraGraph
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>b</sup> Ulnar nerve except cuff which applies stimulus to the brachial plexus at the humeral level.
+<sup>b</sup> Ulnar nerve except cuff which applies stimulus to the
+brachial plexus at the humeral level.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>c</sup> No designation if not reported in publication or not applicable.
+<sup>c</sup> No designation if not reported in publication or not
+applicable.
 </td>
 </tr>
 </tfoot>
 </table>
 <p><br/></p>
-<p><font size = 4> Table 3. Reported agreement (Bland-Altman) at specific TOFRs. </font></p>
+<p><font size = 4> Table 3. Reported agreement (Bland-Altman) at
+specific TOFRs. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -2693,7 +2826,8 @@ PACU
 <div id="agreement-time-to-a-specified-tofr" class="section level3">
 <h3>Agreement — Time to a specified TOFR</h3>
 <p><br/></p>
-<p><font size = 4> Table 4. Characteristics of monitors in studies reporting agreement (Bland-Altman) for time to a TOFR. </font></p>
+<p><font size = 4> Table 4. Characteristics of monitors in studies
+reporting agreement (Bland-Altman) for time to a TOFR. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -3128,7 +3262,10 @@ TOF Scan
 <tfoot>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> Pre: preload; Nl: normalized; AMG: acceleromyography; uni: uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG: mechanomyography; ns: not specified; ×: yes; ￮: no; ns: not specified; NA: not applicable.
+<sup></sup> Pre: preload; Nl: normalized; AMG: acceleromyography; uni:
+uniaxial; tri: triaxial; EMG: electromyography; KMG: kinemyography; MMG:
+mechanomyography; ns: not specified; ×: yes; ￮: no; ns: not specified;
+NA: not applicable.
 </td>
 </tr>
 <tr>
@@ -3138,18 +3275,21 @@ TOF Scan
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>b</sup> Ulnar nerve except cuff which applies stimulus to the brachial plexus at the humeral level.
+<sup>b</sup> Ulnar nerve except cuff which applies stimulus to the
+brachial plexus at the humeral level.
 </td>
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup>c</sup> No designation if not reported in publication or not applicable.
+<sup>c</sup> No designation if not reported in publication or not
+applicable.
 </td>
 </tr>
 </tfoot>
 </table>
 <p><br/></p>
-<p><font size = 4> Table 5. Reported agreement (Bland-Altman) for time to a TOFR. </font></p>
+<p><font size = 4> Table 5. Reported agreement (Bland-Altman) for time
+to a TOFR. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -3525,10 +3665,12 @@ TOFC 0 to TOFR ≥9
 <div id="quadas-2" class="section level3">
 <h3><em>QUADAS-2</em></h3>
 <p><br></p>
-<p><font size = 4> Figure 1. Summary risk of bias appraisal (QUADAS-2) for included studies . </font></p>
+<p><font size = 4> Figure 1. Summary risk of bias appraisal (QUADAS-2)
+for included studies . </font></p>
 <p><img src="assets/QUADAS2_summary.png" style="width:750px;" align="left"/></p>
 <p><br clear="all" /></p>
-<p><font size = 4> Figure 2. Individual study risk of bias appraisal QUADAS-2) for included studies. </font></p>
+<p><font size = 4> Figure 2. Individual study risk of bias appraisal
+QUADAS-2) for included studies. </font></p>
 <p><img src="assets/QUADAS2_traffic.png" style="width:350px;" align="left"/></p>
 <p><br clear="all" /></p>
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
@@ -3541,91 +3683,222 @@ TOFC 0 to TOFR ≥9
 <p><br/></p>
 <div id="refs" class="references csl-bib-body">
 <div id="ref-Mortensen1995" class="csl-entry">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Mortensen CR, Berg H, el-Mahdy A, Viby-Mogensen J. Perioperative monitoring of neuromuscular transmission using acceleromyography prevents residual neuromuscular block following pancuronium. <em>Acta Anaesthesiol Scand</em>. 1995;39(6):797-801. doi:<a href="https://doi.org/10.1111/j.1399-6576.1995.tb04173.x">10.1111/j.1399-6576.1995.tb04173.x</a></div>
+<div class="csl-left-margin">1. </div><div
+class="csl-right-inline">Mortensen CR, Berg H, el-Mahdy A, Viby-Mogensen
+J. Perioperative monitoring of neuromuscular transmission using
+acceleromyography prevents residual neuromuscular block following
+pancuronium. <em>Acta Anaesthesiol Scand</em>. 1995;39(6):797-801.
+doi:<a
+href="https://doi.org/10.1111/j.1399-6576.1995.tb04173.x">10.1111/j.1399-6576.1995.tb04173.x</a></div>
 </div>
 <div id="ref-Dahaba1997" class="csl-entry">
-<div class="csl-left-margin">2. </div><div class="csl-right-inline">Dahaba AA, Rehak PH, List WF. Assessment of accelerography with the TOF-GUARD: A comparison with electromyography. <em>Eur J Anaesthesiol</em>. 1997;14(6):623-629. doi:<a href="https://doi.org/10.1017/s026502159700104x">10.1017/s026502159700104x</a></div>
+<div class="csl-left-margin">2. </div><div
+class="csl-right-inline">Dahaba AA, Rehak PH, List WF. Assessment of
+accelerography with the TOF-GUARD: A comparison with electromyography.
+<em>Eur J Anaesthesiol</em>. 1997;14(6):623-629. doi:<a
+href="https://doi.org/10.1017/s026502159700104x">10.1017/s026502159700104x</a></div>
 </div>
 <div id="ref-Dahaba2002" class="csl-entry">
-<div class="csl-left-margin">3. </div><div class="csl-right-inline">Dahaba AA, Klobucar F von, Rehak PH, List WF. The neuromuscular transmission module versus the relaxometer mechanomyograph for neuromuscular block monitoring. <em>Anesth Analg</em>. 2002;94(3):591-6; table of contents. doi:<a href="https://doi.org/10.1097/00000539-200203000-00021">10.1097/00000539-200203000-00021</a></div>
+<div class="csl-left-margin">3. </div><div
+class="csl-right-inline">Dahaba AA, Klobucar F von, Rehak PH, List WF.
+The neuromuscular transmission module versus the relaxometer
+mechanomyograph for neuromuscular block monitoring. <em>Anesth
+Analg</em>. 2002;94(3):591-6; table of contents. doi:<a
+href="https://doi.org/10.1097/00000539-200203000-00021">10.1097/00000539-200203000-00021</a></div>
 </div>
 <div id="ref-Dubois2005" class="csl-entry">
-<div class="csl-left-margin">4. </div><div class="csl-right-inline">Dubois PE, Gourdin M, Russell K, Jamart J. Installation of the hand influences acceleromyography measurement. A comparison with mechanomyography during neuromuscular recovery. <em>Acta Anaesthesiol Belg</em>. 2005;56(2):163-166.</div>
+<div class="csl-left-margin">4. </div><div
+class="csl-right-inline">Dubois PE, Gourdin M, Russell K, Jamart J.
+Installation of the hand influences acceleromyography measurement. A
+comparison with mechanomyography during neuromuscular recovery. <em>Acta
+Anaesthesiol Belg</em>. 2005;56(2):163-166.</div>
 </div>
 <div id="ref-Capron2006" class="csl-entry">
-<div class="csl-left-margin">5. </div><div class="csl-right-inline">Capron F, Fortier LP, Racine S, Donati F. Tactile fade detection with hand or wrist stimulation using train-of-four, double-burst stimulation, 50-hertz tetanus, 100-hertz tetanus, and acceleromyography. <em>Anesth Analg</em>. 2006;102(5):1578-1584. doi:<a href="https://doi.org/10.1213/01.ane.0000204288.24395.38">10.1213/01.ane.0000204288.24395.38</a></div>
+<div class="csl-left-margin">5. </div><div
+class="csl-right-inline">Capron F, Fortier LP, Racine S, Donati F.
+Tactile fade detection with hand or wrist stimulation using
+train-of-four, double-burst stimulation, 50-hertz tetanus, 100-hertz
+tetanus, and acceleromyography. <em>Anesth Analg</em>.
+2006;102(5):1578-1584. doi:<a
+href="https://doi.org/10.1213/01.ane.0000204288.24395.38">10.1213/01.ane.0000204288.24395.38</a></div>
 </div>
 <div id="ref-Trager2006" class="csl-entry">
-<div class="csl-left-margin">6. </div><div class="csl-right-inline">Trager G, Michaud G, Deschamps S, Hemmerling TM. Comparison of phonomyography, kinemyography and mechanomyography for neuromuscular monitoring. <em>Can J Anaesth</em>. 2006;53(2):130-135. doi:<a href="https://doi.org/10.1007/bf03021816">10.1007/bf03021816</a></div>
+<div class="csl-left-margin">6. </div><div
+class="csl-right-inline">Trager G, Michaud G, Deschamps S, Hemmerling
+TM. Comparison of phonomyography, kinemyography and mechanomyography for
+neuromuscular monitoring. <em>Can J Anaesth</em>. 2006;53(2):130-135.
+doi:<a
+href="https://doi.org/10.1007/bf03021816">10.1007/bf03021816</a></div>
 </div>
 <div id="ref-Liang2013" class="csl-entry">
-<div class="csl-left-margin">7. </div><div class="csl-right-inline">Liang SS, Stewart PA, Phillips S. An ipsilateral comparison of acceleromyography and electromyography during recovery from nondepolarizing neuromuscular block under general anesthesia in humans. <em>Anesth Analg</em>. 2013;117(2):373-379. doi:<a href="https://doi.org/10.1213/ANE.0b013e3182937fc4">10.1213/ANE.0b013e3182937fc4</a></div>
+<div class="csl-left-margin">7. </div><div
+class="csl-right-inline">Liang SS, Stewart PA, Phillips S. An
+ipsilateral comparison of acceleromyography and electromyography during
+recovery from nondepolarizing neuromuscular block under general
+anesthesia in humans. <em>Anesth Analg</em>. 2013;117(2):373-379. doi:<a
+href="https://doi.org/10.1213/ANE.0b013e3182937fc4">10.1213/ANE.0b013e3182937fc4</a></div>
 </div>
 <div id="ref-Stewart2014" class="csl-entry">
-<div class="csl-left-margin">8. </div><div class="csl-right-inline">Stewart PA, Freelander N, Liang S, Heller G, Phillips S. Comparison of electromyography and kinemyography during recovery from non-depolarising neuromuscular blockade. <em>Anaesth Intensive Care</em>. 2014;42(3):378-384. doi:<a href="https://doi.org/10.1177/0310057x1404200316">10.1177/0310057x1404200316</a></div>
+<div class="csl-left-margin">8. </div><div
+class="csl-right-inline">Stewart PA, Freelander N, Liang S, Heller G,
+Phillips S. Comparison of electromyography and kinemyography during
+recovery from non-depolarising neuromuscular blockade. <em>Anaesth
+Intensive Care</em>. 2014;42(3):378-384. doi:<a
+href="https://doi.org/10.1177/0310057x1404200316">10.1177/0310057x1404200316</a></div>
 </div>
 <div id="ref-Todd2014" class="csl-entry">
-<div class="csl-left-margin">9. </div><div class="csl-right-inline">Todd MM, Hindman BJ, King BJ. The implementation of quantitative electromyographic neuromuscular monitoring in an academic anesthesia department. <em>Anesth Analg</em>. 2014;119(2):323-331. doi:<a href="https://doi.org/10.1213/ane.0000000000000261">10.1213/ane.0000000000000261</a></div>
+<div class="csl-left-margin">9. </div><div class="csl-right-inline">Todd
+MM, Hindman BJ, King BJ. The implementation of quantitative
+electromyographic neuromuscular monitoring in an academic anesthesia
+department. <em>Anesth Analg</em>. 2014;119(2):323-331. doi:<a
+href="https://doi.org/10.1213/ane.0000000000000261">10.1213/ane.0000000000000261</a></div>
 </div>
 <div id="ref-Colegrave2016" class="csl-entry">
-<div class="csl-left-margin">10. </div><div class="csl-right-inline">Colegrave N, Billard V, Motamed C, Bourgain JL. Comparison of the TOF-scan<span></span>acceleromyograph to TOF-watch SX<span></span>: Influence of calibration. <em>Anaesth Crit Care Pain Med</em>. 2016;35(3):223-227. doi:<a href="https://doi.org/10.1016/j.accpm.2016.01.003">10.1016/j.accpm.2016.01.003</a></div>
+<div class="csl-left-margin">10. </div><div
+class="csl-right-inline">Colegrave N, Billard V, Motamed C, Bourgain JL.
+Comparison of the TOF-scan<span></span>acceleromyograph to TOF-watch
+SX<span></span>: Influence of calibration. <em>Anaesth Crit Care Pain
+Med</em>. 2016;35(3):223-227. doi:<a
+href="https://doi.org/10.1016/j.accpm.2016.01.003">10.1016/j.accpm.2016.01.003</a></div>
 </div>
 <div id="ref-Khandkar2016" class="csl-entry">
-<div class="csl-left-margin">11. </div><div class="csl-right-inline">Khandkar C, Liang S, Phillips S, Lee CY, Stewart PA. Comparison of kinemyography and electromyography during spontaneous recovery from non-depolarising neuromuscular blockade. <em>Anaesth Intensive Care</em>. 2016;44(6):745-751. doi:<a href="https://doi.org/10.1177/0310057x1604400618">10.1177/0310057x1604400618</a></div>
+<div class="csl-left-margin">11. </div><div
+class="csl-right-inline">Khandkar C, Liang S, Phillips S, Lee CY,
+Stewart PA. Comparison of kinemyography and electromyography during
+spontaneous recovery from non-depolarising neuromuscular blockade.
+<em>Anaesth Intensive Care</em>. 2016;44(6):745-751. doi:<a
+href="https://doi.org/10.1177/0310057x1604400618">10.1177/0310057x1604400618</a></div>
 </div>
 <div id="ref-Unterbuchner2017" class="csl-entry">
-<div class="csl-left-margin">12. </div><div class="csl-right-inline">Unterbuchner C, Blobner M, Pühringer F, et al. Development of an algorithm using clinical tests to avoid post-operative residual neuromuscular block. <em>BMC Anesthesiol</em>. 2017;17(1):101. doi:<a href="https://doi.org/10.1186/s12871-017-0393-4">10.1186/s12871-017-0393-4</a></div>
+<div class="csl-left-margin">12. </div><div
+class="csl-right-inline">Unterbuchner C, Blobner M, Pühringer F, et al.
+Development of an algorithm using clinical tests to avoid post-operative
+residual neuromuscular block. <em>BMC Anesthesiol</em>. 2017;17(1):101.
+doi:<a
+href="https://doi.org/10.1186/s12871-017-0393-4">10.1186/s12871-017-0393-4</a></div>
 </div>
 <div id="ref-Veiga-Ruiz2017" class="csl-entry">
-<div class="csl-left-margin">13. </div><div class="csl-right-inline">Veiga Ruiz G, Garcı́a Cayuela J, Orozco Montes J, Parreño Caparrós M, Garcı́a Rojo B, Aguayo Albasini JL. Monitoring intraoperative neuromuscular blockade and blood pressure with one device (TOF-cuff): A comparative study with mechanomyography and invasive blood pressure. <em>Rev Esp Anestesiol Reanim</em>. 2017;64(10):560-567. doi:<a href="https://doi.org/10.1016/j.redar.2017.03.013">10.1016/j.redar.2017.03.013</a></div>
+<div class="csl-left-margin">13. </div><div
+class="csl-right-inline">Veiga Ruiz G, Garcı́a Cayuela J, Orozco Montes
+J, Parreño Caparrós M, Garcı́a Rojo B, Aguayo Albasini JL. Monitoring
+intraoperative neuromuscular blockade and blood pressure with one device
+(TOF-cuff): A comparative study with mechanomyography and invasive blood
+pressure. <em>Rev Esp Anestesiol Reanim</em>. 2017;64(10):560-567.
+doi:<a
+href="https://doi.org/10.1016/j.redar.2017.03.013">10.1016/j.redar.2017.03.013</a></div>
 </div>
 <div id="ref-Adembesa2018" class="csl-entry">
-<div class="csl-left-margin">14. </div><div class="csl-right-inline">Adembesa I, Mung’ayi V, Premji Z, Kamya D. A randomized control trial comparing train of four ratio &gt; 0.9 to clinical assessment of return of neuromuscular function before endotracheal extubation on critical respiratory events in adult patients undergoing elective surgery at a tertiary hospital in nairobi. <em>Afr Health Sci</em>. 2018;18(3):807-816. doi:<a href="https://doi.org/10.4314/ahs.v18i3.40">10.4314/ahs.v18i3.40</a></div>
+<div class="csl-left-margin">14. </div><div
+class="csl-right-inline">Adembesa I, Mung’ayi V, Premji Z, Kamya D. A
+randomized control trial comparing train of four ratio &gt; 0.9 to
+clinical assessment of return of neuromuscular function before
+endotracheal extubation on critical respiratory events in adult patients
+undergoing elective surgery at a tertiary hospital in nairobi. <em>Afr
+Health Sci</em>. 2018;18(3):807-816. doi:<a
+href="https://doi.org/10.4314/ahs.v18i3.40">10.4314/ahs.v18i3.40</a></div>
 </div>
 <div id="ref-Goyal2018" class="csl-entry">
-<div class="csl-left-margin">15. </div><div class="csl-right-inline">Goyal S, Kothari N, Chaudhary D, Verma S, Bihani P, Rodha MS. Reversal agents: Do we need to administer with neuromuscular monitoring - an observational study. <em>Indian J Anaesth</em>. 2018;62(3):219-224. doi:<a href="https://doi.org/10.4103/ija.IJA{\_}652{\_}17">10.4103/ija.IJA{\_}652{\_}17</a></div>
+<div class="csl-left-margin">15. </div><div
+class="csl-right-inline">Goyal S, Kothari N, Chaudhary D, Verma S,
+Bihani P, Rodha MS. Reversal agents: Do we need to administer with
+neuromuscular monitoring - an observational study. <em>Indian J
+Anaesth</em>. 2018;62(3):219-224. doi:<a
+href="https://doi.org/10.4103/ija.IJA{\_}652{\_}17">10.4103/ija.IJA{\_}652{\_}17</a></div>
 </div>
 <div id="ref-Murphy2018" class="csl-entry">
-<div class="csl-left-margin">16. </div><div class="csl-right-inline">Murphy GS, Szokol JW, Avram MJ, et al. Comparison of the TOFscan and the TOF-watch SX during recovery of neuromuscular function. <em>Anesthesiology</em>. 2018;129(5):880-888. doi:<a href="https://doi.org/10.1097/aln.0000000000002400">10.1097/aln.0000000000002400</a></div>
+<div class="csl-left-margin">16. </div><div
+class="csl-right-inline">Murphy GS, Szokol JW, Avram MJ, et al.
+Comparison of the TOFscan and the TOF-watch SX during recovery of
+neuromuscular function. <em>Anesthesiology</em>. 2018;129(5):880-888.
+doi:<a
+href="https://doi.org/10.1097/aln.0000000000002400">10.1097/aln.0000000000002400</a></div>
 </div>
 <div id="ref-Thilen2018" class="csl-entry">
-<div class="csl-left-margin">17. </div><div class="csl-right-inline">Thilen SR, Ng IC, Cain KC, Treggiari MM, Bhananker SM. Management of rocuronium neuromuscular block using a protocol for qualitative monitoring and reversal with neostigmine. <em>Br J Anaesth</em>. 2018;121(2):367-377. doi:<a href="https://doi.org/10.1016/j.bja.2018.03.029">10.1016/j.bja.2018.03.029</a></div>
+<div class="csl-left-margin">17. </div><div
+class="csl-right-inline">Thilen SR, Ng IC, Cain KC, Treggiari MM,
+Bhananker SM. Management of rocuronium neuromuscular block using a
+protocol for qualitative monitoring and reversal with neostigmine.
+<em>Br J Anaesth</em>. 2018;121(2):367-377. doi:<a
+href="https://doi.org/10.1016/j.bja.2018.03.029">10.1016/j.bja.2018.03.029</a></div>
 </div>
 <div id="ref-Domenech2019" class="csl-entry">
-<div class="csl-left-margin">18. </div><div class="csl-right-inline">Domenech G, Kampel MA, Garcı́a Guzzo ME, Novas DS, Terrasa SA, Fornari GG. Usefulness of intra-operative neuromuscular blockade monitoring and reversal agents for postoperative residual neuromuscular blockade: A retrospective observational study. <em>BMC Anesthesiol</em>. 2019;19(1):143. doi:<a href="https://doi.org/10.1186/s12871-019-0817-4">10.1186/s12871-019-0817-4</a></div>
+<div class="csl-left-margin">18. </div><div
+class="csl-right-inline">Domenech G, Kampel MA, Garcı́a Guzzo ME, Novas
+DS, Terrasa SA, Fornari GG. Usefulness of intra-operative neuromuscular
+blockade monitoring and reversal agents for postoperative residual
+neuromuscular blockade: A retrospective observational study. <em>BMC
+Anesthesiol</em>. 2019;19(1):143. doi:<a
+href="https://doi.org/10.1186/s12871-019-0817-4">10.1186/s12871-019-0817-4</a></div>
 </div>
 <div id="ref-Kameyama2019" class="csl-entry">
-<div class="csl-left-margin">19. </div><div class="csl-right-inline">Kameyama Y, Takagi S, Seto K, et al. Efficiency of the TOF-cuff<span></span>for the evaluation of rocuronium-induced neuromuscular block and its reversal with sugammadex: A comparative study vs. acceleromyography. <em>J Anesth</em>. 2019;33(1):80-84. doi:<a href="https://doi.org/10.1007/s00540-018-2587-4">10.1007/s00540-018-2587-4</a></div>
+<div class="csl-left-margin">19. </div><div
+class="csl-right-inline">Kameyama Y, Takagi S, Seto K, et al. Efficiency
+of the TOF-cuff<span></span>for the evaluation of rocuronium-induced
+neuromuscular block and its reversal with sugammadex: A comparative
+study vs. acceleromyography. <em>J Anesth</em>. 2019;33(1):80-84. doi:<a
+href="https://doi.org/10.1007/s00540-018-2587-4">10.1007/s00540-018-2587-4</a></div>
 </div>
 <div id="ref-Wardhana2019" class="csl-entry">
-<div class="csl-left-margin">20. </div><div class="csl-right-inline">Wardhana A, Kurniawaty J, Uyun Y. Optimised reversal without train-of-four monitoring versus reversal using quantitative train-of-four monitoring: An equivalence study. <em>Indian J Anaesth</em>. 2019;63(5):361-367. doi:<a href="https://doi.org/10.4103/ija.IJA{\_}94{\_}19">10.4103/ija.IJA{\_}94{\_}19</a></div>
+<div class="csl-left-margin">20. </div><div
+class="csl-right-inline">Wardhana A, Kurniawaty J, Uyun Y. Optimised
+reversal without train-of-four monitoring versus reversal using
+quantitative train-of-four monitoring: An equivalence study. <em>Indian
+J Anaesth</em>. 2019;63(5):361-367. doi:<a
+href="https://doi.org/10.4103/ija.IJA{\_}94{\_}19">10.4103/ija.IJA{\_}94{\_}19</a></div>
 </div>
 <div id="ref-Markle2020" class="csl-entry">
-<div class="csl-left-margin">21. </div><div class="csl-right-inline">Markle A, Graf N, Horn K, Welter JE, Dullenkopf A. Neuromuscular monitoring using TOF-cuff<span></span>versus TOF-scan<span></span>: An observational study under clinical anesthesia conditions. <em>Minerva Anestesiol</em>. 2020;86(7):704-711. doi:<a href="https://doi.org/10.23736/s0375-9393.20.14272-x">10.23736/s0375-9393.20.14272-x</a></div>
+<div class="csl-left-margin">21. </div><div
+class="csl-right-inline">Markle A, Graf N, Horn K, Welter JE, Dullenkopf
+A. Neuromuscular monitoring using TOF-cuff<span></span>versus
+TOF-scan<span></span>: An observational study under clinical anesthesia
+conditions. <em>Minerva Anestesiol</em>. 2020;86(7):704-711. doi:<a
+href="https://doi.org/10.23736/s0375-9393.20.14272-x">10.23736/s0375-9393.20.14272-x</a></div>
 </div>
 <div id="ref-Sfeir-Machado2020" class="csl-entry">
-<div class="csl-left-margin">22. </div><div class="csl-right-inline">Sfeir Machado E, Keli-Barcelos G, Dupuis-Lozeron E, Tramèr MR, Czarnetzki C. Assessment of spontaneous neuromuscular recovery: A comparison of the TOF-cuff(<span></span>) with the TOF watch SX(<span></span>). <em>Acta Anaesthesiol Scand</em>. 2020;64(2):173-179. doi:<a href="https://doi.org/10.1111/aas.13487">10.1111/aas.13487</a></div>
+<div class="csl-left-margin">22. </div><div
+class="csl-right-inline">Sfeir Machado E, Keli-Barcelos G,
+Dupuis-Lozeron E, Tramèr MR, Czarnetzki C. Assessment of spontaneous
+neuromuscular recovery: A comparison of the TOF-cuff(<span></span>) with
+the TOF watch SX(<span></span>). <em>Acta Anaesthesiol Scand</em>.
+2020;64(2):173-179. doi:<a
+href="https://doi.org/10.1111/aas.13487">10.1111/aas.13487</a></div>
 </div>
 <div id="ref-Motamed2021" class="csl-entry">
-<div class="csl-left-margin">23. </div><div class="csl-right-inline">Motamed C, Demiri M, Colergrave N. Comparison of train of four measurements with kinemyography NMT DATEX and accelerography TOFscan. <em>Med Sci (Basel)</em>. 2021;9(2). doi:<a href="https://doi.org/10.3390/medsci9020021">10.3390/medsci9020021</a></div>
+<div class="csl-left-margin">23. </div><div
+class="csl-right-inline">Motamed C, Demiri M, Colergrave N. Comparison
+of train of four measurements with kinemyography NMT DATEX and
+accelerography TOFscan. <em>Med Sci (Basel)</em>. 2021;9(2). doi:<a
+href="https://doi.org/10.3390/medsci9020021">10.3390/medsci9020021</a></div>
 </div>
 <div id="ref-Renew2021" class="csl-entry">
-<div class="csl-left-margin">24. </div><div class="csl-right-inline">Renew JR, Hernandez-Torres V, Logvinov I, et al. Comparison of the TetraGraph and TOFscan for monitoring recovery from neuromuscular blockade in the post anesthesia care unit. <em>J Clin Anesth</em>. 2021;71:110234. doi:<a href="https://doi.org/10.1016/j.jclinane.2021.110234">10.1016/j.jclinane.2021.110234</a></div>
+<div class="csl-left-margin">24. </div><div
+class="csl-right-inline">Renew JR, Hernandez-Torres V, Logvinov I, et
+al. Comparison of the TetraGraph and TOFscan for monitoring recovery
+from neuromuscular blockade in the post anesthesia care unit. <em>J Clin
+Anesth</em>. 2021;71:110234. doi:<a
+href="https://doi.org/10.1016/j.jclinane.2021.110234">10.1016/j.jclinane.2021.110234</a></div>
 </div>
 <div id="ref-Gaffar2013" class="csl-entry">
-<div class="csl-left-margin">25. </div><div class="csl-right-inline">Gaffar EA, Fattah SA, Atef HM, Omera MA, Abdel-Aziz MA. Kinemyography (KMG) versus electromyography (EMG) neuromuscular monitoring in pediatric patients receiving cisatracurium during general anesthesia. <em>Egyptian Journal of Anaesthesia</em>. 2013;29(3):247-253. doi:<a href="https://doi.org/10.1016/j.egja.2013.02.006">10.1016/j.egja.2013.02.006</a></div>
+<div class="csl-left-margin">25. </div><div
+class="csl-right-inline">Gaffar EA, Fattah SA, Atef HM, Omera MA,
+Abdel-Aziz MA. Kinemyography (KMG) versus electromyography (EMG)
+neuromuscular monitoring in pediatric patients receiving cisatracurium
+during general anesthesia. <em>Egyptian Journal of Anaesthesia</em>.
+2013;29(3):247-253. doi:<a
+href="https://doi.org/10.1016/j.egja.2013.02.006">10.1016/j.egja.2013.02.006</a></div>
 </div>
 </div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
@@ -3638,40 +3911,40 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.1-1        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
- [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_2.1.1      
- [9] tidyr_1.1.4       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
-[13] Cairo_1.5-14      countrycode_1.3.0 janitor_2.1.0     kableExtra_1.3.4 
+ [1] meta_5.2-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [5] stringr_1.4.0     dplyr_1.0.8       purrr_0.3.4       readr_2.1.2      
+ [9] tidyr_1.2.0       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
+[13] Cairo_1.5-14      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
  [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
- [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
+ [7] rprojroot_2.0.2        tools_4.1.3            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
-[13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-2      
-[16] withr_2.4.3            tidyselect_1.1.1       bit_4.0.4             
-[19] compiler_4.1.2         git2r_0.29.0           cli_3.1.0             
+[13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
+[16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
+[19] compiler_4.1.3         git2r_0.29.0           cli_3.2.0             
 [22] rvest_1.0.2            xml2_1.3.3             sass_0.4.0            
-[25] scales_1.1.1           systemfonts_1.0.3      digest_0.6.29         
-[28] minqa_1.2.4            rmarkdown_2.11         svglite_2.0.0         
-[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-27.1         
+[25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
+[28] minqa_1.2.4            rmarkdown_2.13         svglite_2.1.0         
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
 [34] highr_0.9              dbplyr_2.1.1           fastmap_1.1.0         
-[37] htmlwidgets_1.5.4      rlang_0.4.12           readxl_1.3.1          
-[40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.1        
-[43] jsonlite_1.7.2         vroom_1.5.7            magrittr_2.0.1        
-[46] Matrix_1.4-0           Rcpp_1.0.8             munsell_0.5.0         
+[37] htmlwidgets_1.5.4      rlang_1.0.2            readxl_1.3.1          
+[40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.2        
+[43] jsonlite_1.8.0         vroom_1.5.7            magrittr_2.0.2        
+[46] Matrix_1.4-0           Rcpp_1.0.8.2           munsell_0.5.0         
 [49] fansi_1.0.2            lifecycle_1.0.1        visdat_0.5.3          
-[52] stringi_1.7.6          whisker_0.4            yaml_2.2.1            
-[55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.4-0        
-[58] MASS_7.3-55            grid_4.1.2             parallel_4.1.2        
-[61] promises_1.2.0.1       crayon_1.4.2           lattice_0.20-45       
-[64] haven_2.4.3            splines_4.1.2          hms_1.1.1             
-[67] knitr_1.37             pillar_1.6.4           boot_1.3-28           
-[70] reprex_2.0.1           glue_1.6.0             evaluate_0.14         
-[73] modelr_0.1.8           nloptr_1.2.2.3         vctrs_0.3.8           
+[52] stringi_1.7.6          whisker_0.4            yaml_2.3.5            
+[55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.6-0        
+[58] MASS_7.3-55            grid_4.1.3             parallel_4.1.3        
+[61] promises_1.2.0.1       crayon_1.5.0           lattice_0.20-45       
+[64] haven_2.4.3            splines_4.1.3          hms_1.1.1             
+[67] knitr_1.37             pillar_1.7.0           boot_1.3-28           
+[70] reprex_2.0.1           glue_1.6.2             evaluate_0.15         
+[73] modelr_0.1.8           nloptr_2.0.0           vctrs_0.3.8           
 [76] tzdb_0.2.0             httpuv_1.6.5           cellranger_1.1.0      
-[79] gtable_0.3.0           assertthat_0.2.1       xfun_0.29             
-[82] broom_0.7.11           later_1.3.0            viridisLite_0.4.0     
+[79] gtable_0.3.0           assertthat_0.2.1       xfun_0.30             
+[82] broom_0.7.12           later_1.3.0            viridisLite_0.4.0     
 [85] workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
 </div>
 </div>

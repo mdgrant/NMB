@@ -92,6 +92,20 @@ evidence_tables <- study_char.dat %>%
 # **Technical Performance KQ1** 
 
 ```{r evidenceTablesTechPerfComment}
+# evidence_tables %>%
+#   filter(!is.na(tech_perf)) %>%
+#   filter() %>%
+#   arrange(age, design, study) %>%
+#   select(study, refid, age, design) %>%
+#   group_by(age, design) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(
+#     end = cumsum(n),
+#     start = end - n + 1
+#   ) %>%
+#   select(age, design, start, end)
+
 evidence_tables %>%
   filter(!is.na(tech_perf)) %>% 
   arrange(age, design, study) %>% 
@@ -103,10 +117,10 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 24) %>%
-  pack_sub(., "RCT", 1, 5) %>% 
-  pack_sub(., "Fully Paired", 6, 23) %>%
-  pack_top(., "Prospective Cohort", 24, 24) %>%
+  pack_top(., "Adult", 1, 22) %>%
+  pack_sub(., "RCT", 1, 4) %>% 
+  pack_sub(., "Fully Paired", 5, 21) %>%
+  pack_top(., "Prospective Cohort", 22, 22) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "20em") %>%
@@ -173,16 +187,16 @@ evidence_tables %>%
 # **Reversal** 
 
 ```{r evidenceTablesAgt}
-temp <- evidence_tables %>%
-  filter(rev_agt == "rev_agt") %>% 
-  arrange(age, design, study) %>% 
-  select(study, refid, age, design) %>% 
-  group_by(age, design) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  mutate(end = cumsum(n),
-         start = end - n + 1) %>% 
-  select(age, design, start, end)
+ # evidence_tables %>%
+ #  filter(rev_agt == "rev_agt") %>% 
+ #  arrange(age, design, study) %>% 
+ #  select(study, refid, age, design) %>% 
+ #  group_by(age, design) %>% 
+ #  tally() %>% 
+ #  ungroup() %>% 
+ #  mutate(end = cumsum(n),
+ #         start = end - n + 1) %>% 
+ #  select(age, design, start, end)
 
 evidence_tables %>%
   filter(rev_agt == "rev_agt") %>% 

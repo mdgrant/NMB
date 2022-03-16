@@ -166,7 +166,11 @@ study_arm_rev.dat <- study_arm.dat %>%
     arm = factor(arm, levels = c("Sug", "Neo", "Plac", "Spont", "Pyrid", "Other"), ordered = TRUE),
     volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.))
   ) %>%
-  select(refid, arm_id, study, year, design, arm_n, arm, age, study_arm_k, subgroup, depth, starts_with("depth_rev_"), anesth:anes_agent_spec, neo_dose, neo_max_dose, neo_dose_unit, sug_dose, sug_dose_max, nmbagent, gen_type, revtim, revtim_comment, mon_cat, mon_cat_f)
+  select(refid, arm_id, study, year, design, arm_n, arm, age, study_arm_k, subgroup, depth, starts_with("depth_rev_"), anesth:anes_agent_spec, neo_dose, neo_max_dose, neo_dose_unit, sug_dose, sug_dose_max, nmbagent, gen_type, revtim, revtim_comment, mon_cat, mon_cat_f, volatile)
+
+depth_rev.dat <- study_arm_rev.dat %>% 
+  select(refid, arm, arm_n, depth_rev_f, volatile) %>% 
+  rename(arm_dist = arm) # rename to join with spreadsheet that includes subgroup
 
 dichot_rev.dat <- dichot.dat %>%
   mutate(
@@ -1570,7 +1574,7 @@ temp <- time_result_adult %>%
     mean_med = ifelse(refid == 3285, NA, mean_med),
     study_l = ifelse(refid == 3285, str_replace(study_l, "Gunes 2019", "Gunes 2019^d^"), study_l),
     mean_med_bar = NA_character_,
-    mean_med_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(mean_med, mean_med, color_4, 100), mean_med_bar),
+    mean_med_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(mean_med, mean_med, color_4, 100), mean_med_bar),
     mean_med_bar = ifelse(arm %in% c("Sug"), bar_wn1d(mean_med, mean_med, color_1, 100), mean_med_bar),
     mean_med_bar = ifelse(arm %in% c("Neo"), bar_wn1d(mean_med, mean_med, color_2, 100), mean_med_bar),
    arm_c = case_when(
@@ -1922,12 +1926,12 @@ temp <- time_result_adult %>%
     mean_med = coalesce(mean, med),
     # gunes 2019 set to missing as time referent not specified
     mean_med_bar = NA_character_,
-    mean_med_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(mean_med, mean_med, color_4, 30), mean_med_bar),
+    mean_med_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(mean_med, mean_med, color_4, 30), mean_med_bar),
     mean_med_bar = ifelse(str_detect(arm, "Sug"), bar_wn1d(mean_med, mean_med, color_1, 30), mean_med_bar),
     mean_med_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(mean_med, mean_med, color_2, 30), mean_med_bar),
    arm_c = case_when(
      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-     str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+     str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
    )
@@ -1984,7 +1988,6 @@ table_n <- tab_inc()
 
 <br/>
 
-
 ## <u>Adults</u>
 
 ## * Adverse Events*
@@ -2009,6 +2012,8 @@ adverse.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg
     tachy_n = as.numeric(str_extract(tachycardia, "^\\d*")),
     arrhyth_n = as.numeric(str_extract(arrhythmias, "^\\d*")),
     other_n = str_extract(other, "^\\d*"),
+    upper_dose = str_extract(mg_kg, "\\d?\\.?\\d{1,3}$"), # upper dose reversal agent
+    arm_dist = str_extract(arm, "^\\w{3,5}"),
     # age = ifelse(refid %in% c(3280, 7030, 2976, 3628, 2177, 3381, 3384), "peds", "adult")
   ) %>%
   relocate(c(anaph_n, brady_n, tachy_n, arrhyth_n, other_n), .after = n) %>% 
@@ -2037,6 +2042,9 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
     obstruct_n = as.numeric(str_extract(up_obstruct, "^\\d*")),
     resp_fail_n = as.numeric(str_extract(resp_fail, "^\\d*")),
     postop_reint_n = as.numeric(str_extract(postop_reint, "^\\d*")),
+    bronchospasm_n = as.numeric(str_extract(bronchospasm, "^\\d*")),
+    upper_dose = str_extract(mg_kg, "\\d?\\.?\\d{1,3}$"), # upper dose reversal agent
+    arm_dist = str_extract(arm, "^\\w{3,5}"),
   ) %>%
   remove_empty(which = "rows") %>%
   mutate(across(.fns = ~ replace(., str_detect(., "^ {1,2}"), NA))) %>%
@@ -2067,6 +2075,8 @@ ponv.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
     ponv_n = as.numeric(str_extract(ponv, "^\\d*")),
     nausea_n = as.numeric(str_extract(nausea, "^\\d*")),
     vomit_n = as.numeric(str_extract(vomit, "^\\d*")),
+    upper_dose = str_extract(mg_kg, "\\d?\\.?\\d{1,3}$"), # upper dose reversal agent
+    arm_dist = str_extract(arm, "^\\w{3,5}"),
   ) %>%
   relocate(c(ponv_n, nausea_n, vomit_n), .after = arm_n) %>% 
   select(-c(design, ponv, nausea, vomit)) %>% # replace with from study char
@@ -2100,6 +2110,7 @@ adverse_rct %>%
   rename(Agent = arm) %>% 
   group_by(Agent) %>% 
   tabyl(Agent, mg_kg) %>% 
+  select(-NA_) %>% 
   kbl(
     booktabs = T, align = c("lcccccccccccc"), escape = TRUE, # format = "latex",
     # col.names = c("            ID", "Study", "Analyzed (N)", "Centers", "Country^a^", "Surgery")
@@ -2223,42 +2234,58 @@ table_n <- tab_inc()
 #     select(design, start, end)
 
 ## bradycardia ---------------------------------------- (2022-02-13 08:07) @----
+depth_rev_brad.dat <- depth_rev.dat %>% 
+  mutate(arm_n = case_when(
+    refid == 2287 & arm_dist == "Sug" ~ 43,
+    refid == 2287 & arm_dist == "Neo" ~ 51,
+    TRUE ~ arm_n
+  ))
+
 adverse.dat %>%
+  rename(arm_n = n) %>% 
+  left_join(., depth_rev_brad.dat, by = c("refid", "arm_dist", "arm_n")) %>% 
+  # select(refid, study, arm, arm_n, arm_c, depth_rev_f, volatile) %>% 
   filter(age == "Adult") %>%
   mutate(
     year = str_extract(study, "\\d{4}"),
-    brady_p = brady_n / n * 100,
-    brady_np = n_percent_dig(brady_n, brady_n / n * 100, 1),
+    brady_p = brady_n / arm_n * 100,
+    brady_np = n_percent_dig(brady_n, brady_n / arm_n * 100, 1),
     brady_p_bar = NA_character_,
-    brady_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(brady_p, brady_p, color_4, 100), brady_p_bar),
+    brady_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(brady_p, brady_p, color_4, 100), brady_p_bar),
     brady_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(brady_p, brady_p, color_1, 100), brady_p_bar),
     brady_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(brady_p, brady_p, color_2, 100), brady_p_bar),
     brady_p_bar = str_replace(brady_p_bar, ">.*<", ">&nbsp;<"),
+    volatile = ifelse(volatile, "\U000D7", NA), 
+    depth_rev_f = paste0("   ", depth_rev_f),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
     )
   ) %>%
   filter(!is.na(brady_n)) %>%
   arrange(design, year, refid) %>%
-  select(study, n, arm_c, mg_kg, brady_np, brady_p_bar) %>%
-  group_by(study) %>%
-  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  select(study_l, arm_n, arm_c, mg_kg, volatile, depth_rev_f, brady_np, brady_p_bar) %>%
+  group_by(study_l) %>%
+  mutate(study_l = ifelse(row_number() != 1, NA, study_l)) %>%
+  ungroup() %>% 
   kbl(
-    booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "N", "Agent", "mg/kg", "Bradycardia, N (%)", " ")
+    booktabs = T, align = c("llllclll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "Volatile", "  Depth", "N (%)", " ")
   ) %>%
+  add_header_above(c(" " = 3, "Dose              " = 1, " " = 1, "Reversal             " = 1, "Bradycardia" = 2), line = TRUE, border_left = TRUE, bold = TRUE, align = "c") %>%
   row_spec(0, bold = TRUE, align = "l") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
   column_spec(1, width = study_width) %>%
   column_spec(2, width = "6em") %>%
-  column_spec(c(3, 4), width = "8em") %>%
-  column_spec(5, width = "11em") %>%
-  column_spec(6, width = "10em") %>%
+  column_spec(3, width = "8em") %>%
+  column_spec(4, width = "6em") %>%
+  column_spec(5, width = "4em") %>%
+  column_spec(6, width = "6em") %>%
+  column_spec(7, width = "6em") %>%
+  column_spec(8, width = "8em") %>%
   pack_rows(., "RCT", 1, 40, indent = FALSE) %>%
   pack_rows(., "Nonrandomized Trial", 41, 42, indent = FALSE) %>%
   pack_rows(., "Retrospective Cohort", 43, 44, indent = FALSE) %>%
@@ -2298,7 +2325,7 @@ brady_meta.dat <- adverse.dat %>%
   mutate(
     mg_kg_Neo = case_when(
       study == "Schaller 2010"   ~ "0.02", 
-      study == "Brueckmann 2015" ~ "0.03", 
+      study == "Brueckmann 2015" ~ "0.05", 
       study == "Quang 2019"      ~ "0.05", 
       TRUE ~ mg_kg_Neo
     )
@@ -2411,49 +2438,51 @@ figure_n <- fig_inc()
 #             ) %>%
 #     select(age, design, start, end)
 
-adverse.dat %>% 
-  filter(age == "Adult") %>% 
-  mutate(year = str_extract(study, "\\d{4}"),
-         tachy_p = tachy_n/n * 100,
-         tachy_np = n_percent_dig(tachy_n, tachy_n/n * 100, 1),
-         design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
-          tachy_p_bar = NA_character_,
-  tachy_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(tachy_p, tachy_p, color_4, 100), tachy_p_bar),
-  tachy_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(tachy_p, tachy_p, color_1, 100), tachy_p_bar),
-  tachy_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(tachy_p, tachy_p, color_2, 100), tachy_p_bar),
-  tachy_p_bar = str_replace(tachy_p_bar, ">.*<", ">&nbsp;<"),
-  arm_c = case_when(
-    str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-    str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
-  )) %>% 
+adverse.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    tachy_p = tachy_n / n * 100,
+    tachy_np = n_percent_dig(tachy_n, tachy_n / n * 100, 1),
+    design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
+    tachy_p_bar = NA_character_,
+    tachy_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(tachy_p, tachy_p, color_4, 100), tachy_p_bar),
+    tachy_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(tachy_p, tachy_p, color_1, 100), tachy_p_bar),
+    tachy_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(tachy_p, tachy_p, color_2, 100), tachy_p_bar),
+    tachy_p_bar = str_replace(tachy_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    )
+  ) %>%
   filter(!is.na(tachy_n)) %>%
-  arrange(design, year, refid) %>% 
-  select(study, n, arm_c, mg_kg, tachy_np, tachy_p_bar) %>% 
-  group_by(study) %>% 
-  mutate(study = ifelse(row_number() != 1, NA, study)) %>% 
- kbl(
+  arrange(design, year, refid) %>%
+  select(study, n, arm_c, mg_kg, tachy_np, tachy_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
     booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
     col.names = c("Study", "N", "Agent", "mg/kg", "Tachycardia, N (%)", " ")
   ) %>%
   row_spec(0, bold = TRUE, align = "l") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
-  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
   column_spec(1, width = study_width) %>%
-  column_spec(2, width = "6em") %>% 
-  column_spec(c(3,4), width = "8em") %>% 
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 4), width = "8em") %>%
   column_spec(5, width = "11em") %>%
   column_spec(6, width = "10em") %>%
   pack_rows(., "RCT", 1, 10, indent = FALSE)
-  # pack_rows(., "Prospective Cohort", 39, 42, indent = FALSE) %>% 
-  # pack_rows(., "Retrospective Cohort", 43, 44, indent = FALSE) %>% 
-  # pack_rows(., "Case Control", 9, 10) %>% 
-  # footnote(general = "IBW: ideal body weight.",
-  #        number = c(""),
-  #          general_title = "",
-  #          footnote_as_chunk = FALSE)
+# pack_rows(., "Prospective Cohort", 39, 42, indent = FALSE) %>%
+# pack_rows(., "Retrospective Cohort", 43, 44, indent = FALSE) %>%
+# pack_rows(., "Case Control", 9, 10) %>%
+# footnote(general = "IBW: ideal body weight.",
+#        number = c(""),
+#          general_title = "",
+#          footnote_as_chunk = FALSE)
 
 table_n <- tab_inc()  
 ```
@@ -2483,7 +2512,7 @@ tachy_meta.dat <- adverse.dat %>%
   mutate(
     mg_kg_Neo = case_when(
       study == "Schaller 2010"   ~ "0.02", 
-      study == "Brueckmann 2015" ~ "0.03", 
+      study == "Brueckmann 2015" ~ "0.05", 
       study == "Quang 2019"      ~ "0.05", 
       TRUE ~ mg_kg_Neo
     )
@@ -2561,13 +2590,13 @@ adverse.dat %>%
          arrhyth_np = n_percent_dig(arrhyth_n, arrhyth_n/n * 100, 1),
          design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
           arrhyth_p_bar = NA_character_,
-  arrhyth_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(arrhyth_p, arrhyth_p, color_4, 100), arrhyth_p_bar),
+  arrhyth_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(arrhyth_p, arrhyth_p, color_4, 100), arrhyth_p_bar),
   arrhyth_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(arrhyth_p, arrhyth_p, color_1, 100), arrhyth_p_bar),
   arrhyth_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(arrhyth_p, arrhyth_p, color_2, 100), arrhyth_p_bar),
   arrhyth_p_bar = str_replace(arrhyth_p_bar, ">.*<", ">&nbsp;<"),
   arm_c = case_when(
     str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-    str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+    str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
     str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
     str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
   )) %>% 
@@ -2637,13 +2666,13 @@ ponv.dat %>%
     ponv_p = ponv_n / arm_n * 100,
     ponv_np = n_percent_dig(ponv_n, ponv_n / arm_n * 100, 1),
     ponv_p_bar = NA_character_,
-    ponv_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(ponv_p, ponv_p, color_4, 100), ponv_p_bar),
+    ponv_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(ponv_p, ponv_p, color_4, 100), ponv_p_bar),
     ponv_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(ponv_p, ponv_p, color_1, 100), ponv_p_bar),
     ponv_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(ponv_p, ponv_p, color_2, 100), ponv_p_bar),
     ponv_p_bar = str_replace(ponv_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
     )
@@ -2698,7 +2727,7 @@ nma_ponv <- ponv.dat %>%
   mutate(
     arm_n = ifelse(study == "Zhu 2020" & arm == "Neo", 78, arm_n),
     ponv_n = ifelse(study == "Zhu 2020" & arm == "Neo", 7, ponv_n),
-    arm = ifelse(arm %in% c("Spont", "Placebo"), "Spont/Plac", arm),
+    arm = ifelse(arm %in% c("Spont", "Plac"), "Spont/Plac", arm),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Cauc"), "Wu 2014, Caucasian", study),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Chin"), "Wu 2014, Chinese", study),
     arm = str_remove(arm, " Chinese"),
@@ -2869,13 +2898,13 @@ ponv.dat %>%
     nausea_p = nausea_n / arm_n * 100,
     nausea_np = n_percent_dig(nausea_n, nausea_n / arm_n * 100, 1),
     nausea_p_bar = NA_character_,
-    nausea_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(nausea_p, nausea_p, color_4, 100), nausea_p_bar),
+    nausea_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(nausea_p, nausea_p, color_4, 100), nausea_p_bar),
     nausea_p_bar = ifelse(str_detect(arm, "Sug"), bar_wn1d(nausea_p, nausea_p, color_1, 100), nausea_p_bar),
     nausea_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(nausea_p, nausea_p, color_2, 100), nausea_p_bar),
     nausea_p_bar = str_replace(nausea_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
     )
@@ -2933,7 +2962,7 @@ nma_nausea <- ponv.dat %>%
     study = ifelse(study == "Alkenany 2013" & str_detect(arm, "roc"), "Alkenany 2013, Roc", study),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Cauc"), "Wu 2014, Caucasian", study),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Chin"), "Wu 2014, Chinese", study),
-    arm = ifelse(arm %in% c("Spont", "Placebo"), "Spont/Plac", arm),
+    arm = ifelse(arm %in% c("Spont", "Plac"), "Spont/Plac", arm),
     arm = str_remove(arm, " Chinese"),
     arm = str_remove(arm, " Caucasian"),
     arm = str_remove(arm, " vec"),
@@ -3102,13 +3131,13 @@ ponv.dat %>%
     vomit_p = vomit_n / arm_n * 100,
     vomit_np = n_percent_dig(vomit_n, vomit_n / arm_n * 100, 1),
     vomit_p_bar = NA_character_,
-    vomit_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(vomit_p, vomit_p, color_4, 100), vomit_p_bar),
+    vomit_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(vomit_p, vomit_p, color_4, 100), vomit_p_bar),
     vomit_p_bar = ifelse(str_detect(arm, "Sug"), bar_wn1d(vomit_p, vomit_p, color_1, 100), vomit_p_bar),
     vomit_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(vomit_p, vomit_p, color_2, 100), vomit_p_bar),
     vomit_p_bar = str_replace(vomit_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
     )
@@ -3164,7 +3193,7 @@ nma_vomit <- ponv.dat %>%
     study = ifelse(study == "Alkenany 2013" & str_detect(arm, "roc"), "Alkenany 2013, Roc", study),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Cauc"), "Wu 2014, Caucasian", study),
     study = ifelse(study == "Wu 2014" & str_detect(arm, "Chin"), "Wu 2014, Chinese", study),
-    arm = ifelse(arm %in% c("Spont", "Placebo"), "Spont/Plac", arm),
+    arm = ifelse(arm %in% c("Spont", "Plac"), "Spont/Plac", arm),
     arm = str_remove(arm, " Chinese"),
     arm = str_remove(arm, " Caucasian"),
     arm = str_remove(arm, " vec"),
@@ -3369,13 +3398,13 @@ hypox_dat <- popc.dat %>%
 hypox_dat %>%
   mutate(
     hypox_p_bar = NA_character_,
-    hypox_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(hypox_p * 100, hypox_p * 100, color_4, 100), hypox_p_bar),
+    hypox_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(hypox_p * 100, hypox_p * 100, color_4, 100), hypox_p_bar),
     hypox_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(hypox_p * 100, hypox_p * 100, color_1, 100), hypox_p_bar),
     hypox_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(hypox_p * 100, hypox_p * 100, color_2, 100), hypox_p_bar),
     hypox_p_bar = str_replace(hypox_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
     )
@@ -3513,14 +3542,14 @@ composite <- popc.dat %>%
     composite_np = n_percent_dig(composite_n, composite_n / arm_n * 100, 1),
     composite_p_bar = NA_character_,
     composite_p = composite_n / arm_n,
-    composite_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(composite_p, composite_p, color_4, 1), composite_p_bar),
+    composite_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(composite_p, composite_p, color_4, 1), composite_p_bar),
     composite_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(composite_p, composite_p, color_1, 1), composite_p_bar),
     composite_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(composite_p, composite_p, color_2, 1), composite_p_bar),
     composite_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(composite_p, composite_p, color_3, 1), composite_p_bar),
     composite_p_bar = str_replace(composite_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
       str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
@@ -3629,7 +3658,8 @@ comp_meta <- bind_rows(comp_rct, comp_nrsi) %>%
     nsug = ifelse(studlab == "Li 2021", 2691, nsug),
     esug = ifelse(studlab == "Li 2021", 114, esug),
     nneo = ifelse(studlab == "Li 2021", 7800, nneo),
-    eneo = ifelse(studlab == "Li 2021", 461, eneo)
+    eneo = ifelse(studlab == "Li 2021", 461, eneo),
+    design = ifelse(design == "NRSI", "Nonrandomized", design)
   )
 
 all_meta <- metagen(TE, seTE,
@@ -3669,7 +3699,7 @@ forest(all_meta,
 
 grid::grid.text("Sugammadex  Neostigmine", .285, .955, gp = grid::gpar(cex = 1.1, fontface = "bold"))
 
-figure_n <- tab_inc()
+figure_n <- fig_inc()
 ```
 Results from 3 nonrandomized studies adjusted for potential confounding (Kirmeir 2018 multivariable regression with a likely sufficient set of deconfounders, Li 2021 and Yu 2021 propensity scores,  and Kheterpal 2020 matched cohort design).
 
@@ -3709,14 +3739,14 @@ pneumonia <- popc.dat %>%
     pneumonia_np = n_percent_dig(pneumonia_n, pneumonia_n / arm_n * 100, 1),
     pneumonia_p_bar = NA_character_,
     pneumonia_p = pneumonia_n / arm_n,
-    pneumonia_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(pneumonia_p, pneumonia_p, color_4, 1), pneumonia_p_bar),
+    pneumonia_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(pneumonia_p, pneumonia_p, color_4, 1), pneumonia_p_bar),
     pneumonia_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(pneumonia_p, pneumonia_p, color_1, 1), pneumonia_p_bar),
     pneumonia_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(pneumonia_p, pneumonia_p, color_2, 1), pneumonia_p_bar),
     pneumonia_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(pneumonia_p, pneumonia_p, color_3, 1), pneumonia_p_bar),
     pneumonia_p_bar = str_replace(pneumonia_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
       str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
@@ -3810,7 +3840,10 @@ add_cols_n <- pneum_meta_dat %>%
 
 pneum_meta <- bind_rows(pneum_rct, pneum_nrsi) %>%
   left_join(., add_cols_n, by = "studlab") %>%
-  mutate(design = toupper(design)) 
+  mutate(
+    design = toupper(design),
+    design = ifelse(design == "NRSI", "Retrospective Cohort", design)
+  )
 
 # RESUME;
 all_meta <- metagen(TE, seTE,
@@ -3850,7 +3883,7 @@ forest(all_meta,
 
 grid::grid.text("Sugammadex   Neostigmine", .38, .96, gp = grid::gpar(cex = 1.0, fontface = "bold"))
 
-figure_n <- tab_inc()
+figure_n <- fig_inc()
 ```
 Results from 3 nonrandomized studies adjusted for potential confounding (Li 2021 and Yu 2021 propensity scores, Kheterpal 2020 matched cohort design).
 
@@ -3887,14 +3920,14 @@ popc.dat %>%
     resp_fail_np = n_percent_dig(resp_fail_n, resp_fail_n / arm_n * 100, 1),
     resp_fail_p_bar = NA_character_,
     resp_fail_p = resp_fail_n / arm_n,
-    resp_fail_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(resp_fail_p, resp_fail_p, color_4, 1), resp_fail_p_bar),
+    resp_fail_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(resp_fail_p, resp_fail_p, color_4, 1), resp_fail_p_bar),
     resp_fail_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(resp_fail_p, resp_fail_p, color_1, 1), resp_fail_p_bar),
     resp_fail_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(resp_fail_p, resp_fail_p, color_2, 1), resp_fail_p_bar),
     resp_fail_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(resp_fail_p, resp_fail_p, color_3, 1), resp_fail_p_bar),
     resp_fail_p_bar = str_replace(resp_fail_p_bar, ">.*<", ">&nbsp;<"),
     arm_c = case_when(
       str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-      str_detect(arm, "Placebo") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
       str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
       str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
@@ -3931,6 +3964,148 @@ popc.dat %>%
   )
 
 table_n <- tab_inc()
+```
+
+<br/>
+
+###  Bronchospasm (adults)
+
+<br/>
+
+<font size = 4> Table `r table_n`. Bronchospasm (RCTs). </font>
+
+```{r bronchospasm} 
+## groupings ------------------------------------------ (2022-03-02 08:30) @----
+# temp %>%
+#     filter() %>%
+#     arrange(design, study) %>%
+#     select(study, refid, design) %>%
+#     group_by(design) %>%
+#     tally() %>%
+#     ungroup() %>%
+#     mutate(
+#           end = cumsum(n),
+#               start = end - n + 1
+#             ) %>%
+#     select(design, start, end)
+
+## bronchospasm ------------------------------------------ (2022-03-02 14:30) @----
+# temp <- popc.dat %>%
+bronchospasm <- popc.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    bronchospasm_np = n_percent_dig(bronchospasm_n, bronchospasm_n / arm_n * 100, 1),
+    bronchospasm_p_bar = NA_character_,
+    bronchospasm_p = bronchospasm_n / arm_n,
+    bronchospasm_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(bronchospasm_p, bronchospasm_p, color_4, 1), bronchospasm_p_bar),
+    bronchospasm_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(bronchospasm_p, bronchospasm_p, color_1, 1), bronchospasm_p_bar),
+    bronchospasm_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(bronchospasm_p, bronchospasm_p, color_2, 1), bronchospasm_p_bar),
+    bronchospasm_p_bar = ifelse(str_detect(arm, "Pyr"), bar_wn1d(bronchospasm_p, bronchospasm_p, color_3, 1), bronchospasm_p_bar),
+    bronchospasm_p_bar = str_replace(bronchospasm_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+      str_detect(arm, "Pyr") ~ cell_spec(arm, color = color_3),
+    )
+  ) %>%
+  filter(!is.na(bronchospasm_np)) %>%
+  arrange(design, year, refid) %>%
+  select(study, study_l, arm_n, arm_c, mg_kg, depth_rev_f, bronchospasm_np, bronchospasm_p_bar, design, arm)
+
+bronchospasm %>% 
+  select(-c(design, arm, study)) %>% 
+  group_by(study_l) %>%
+  mutate(study_l = ifelse(row_number() != 1, NA, study_l)) %>%
+  kbl(
+    booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Agent", "mg/kg", "Reversal", "bronchospasm, N (%)", " ")
+  ) %>%
+  add_header_above(c(" " = 4, " Depth at" = 1, " " = 2), bold = TRUE, align = "l", line = FALSE) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = study_width) %>%
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 5), width = "8em") %>%
+  column_spec(6, width = "11em") %>%
+  column_spec(7, width = "10em") %>%
+  pack_topnoind(., "RCT", 1, 6) %>%
+  pack_topnoind(., "Nonrandomized Trial", 7, 8) %>%
+  footnote(
+    general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
+    # number = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+<a id="revFig24"></a>
+
+###     *Pooled*
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled incidence of postoperative bronchospasm in randomized and nonrandomized studies. </font>
+
+```{r bronchospasmMeta, fig.width = 10, fig.height = 5}
+## bronchospasmMeta -------------------------------------- (2022-03-10 10:47) @----
+bronch_meta_dat <- bronchospasm %>% 
+  mutate(bronch_n = as.numeric(str_extract(bronchospasm_np, "^\\d{1,4}")),
+         arm = str_extract(arm, "^\\w{1,5}")) %>% 
+  select(study, arm, arm_n, bronch_n, design) %>% 
+  filter(arm %in% c("Sug", "Neo")) %>% 
+  group_by(study) %>% 
+  filter(!all(bronch_n == 0), n() > 1, !all(arm == "Neo"), !all(arm == "Sug")) %>% 
+  ungroup() %>% 
+  pivot_wider(., names_from = "arm", values_from = c("bronch_n", "arm_n"))
+
+# rct effect sizes
+bronch_rct_meta <- metabin(bronch_n_Sug, arm_n_Sug, bronch_n_Neo, arm_n_Neo,
+  data = bronch_meta_dat,
+  studlab = study,
+  sm = "RR",
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  prediction = TRUE,
+)
+
+forest(bronch_rct_meta,
+  fixed = FALSE,
+  label.e = "Sugammadex",
+  label.c = "Neostigmine",
+  rightcols = c("effect", "ci"),
+  rightlabs = c("RR", "(95% CI)"),
+  # leftlabs = c("Study", "Events", "Total", "Events", "Total"),
+  # just.addcols = "left",
+  # just.addcols.left = "right",
+  # colgap.right = "5mm",
+  # colgap.left = "2mm",
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  # prediction = TRUE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  # subgroup = TRUE,
+  # print.subgroup.name = FALSE,
+  # text.subgroup.nohet = TRUE,
+  # colgap.forest.left = "5mm",
+  # xlim = c(0.1, 10),
+  # at = c(.001, 0.01, .1, 1, 2),
+  xlab = "Favors: Sugammadex             Neostigmine")
+
+grid::grid.text("Sugammadex   Neostigmine", .38, .96, gp = grid::gpar(cex = 1.0, fontface = "bold"))
+
+figure_n <- fig_inc()
 ```
 
 <br/><br/>
@@ -4524,7 +4699,7 @@ table_n <- tab_inc()
 
 <br>
 
-<font size = 4> Table `r table_n`. Funding^a^ and reported conflict of interest in studies includingonly pediatric patients. </font>
+<font size = 4> Table `r table_n`. Funding^a^ and reported conflict of interest in studies including only pediatric patients. </font>
 
 <br/>
 
