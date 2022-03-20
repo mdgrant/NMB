@@ -1,5 +1,5 @@
 ---
-title: "TOFR Confirmation"
+title: "TOFR Confirmation (draft/preliminary)"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -118,7 +118,8 @@ subgroup_refids <- study_arm.dat %>%
 # from latest distiller 2022/02/21 08:13 n=26
 rnmb_dist_refids <- dichot.dat %>%
   filter(refid %in% rev_refids) %>%
-  filter(!is.na(rnmb), !refid %in% subgroup_refids) %>% # TODO: check if corrext
+  # filter(!is.na(rnmb), !refid %in% subgroup_refids) %>% # TODO: check if correct
+  filter(!is.na(rnmb), age == "Adult") %>% # TODO: check if correct
   # remove single arm studies; 2022/02/21 08:52 will be Yip 2304, Alenezu 3574
   group_by(refid) %>%
   filter(n() >= 2) %>%
@@ -127,6 +128,12 @@ rnmb_dist_refids <- dichot.dat %>%
   distinct() %>%
   pull()
 
+# temp <- study_arm_rev.dat %>% 
+#   filter(refid %in% rnmb_dist_refids_wsub) %>% 
+#   mutate(subgroup = ifelse(refid %notin% rnmb_dist_refids, "subgroup", NA)) %>% 
+#   relocate(subgroup, .after = refid)
+# 
+# write_csv(temp, "/Users/mgrant/Desktop/temp.csv", na = "")
 
 ## data char, arm, dichot ----------------------------- (2022-02-21 10:32) @----
 study_char_rev.dat <- study_char.dat %>%
@@ -210,18 +217,63 @@ group_by(refid) %>%
 rnmb.dat <- left_join(rnmb.dat, tofr_confirm, by = "refid")
 
 rnmb_meta_distiller.dat <- rnmb.dat %>%
-  filter(!is.na(extbconf), !is.na(rnmb1_9) | !is.na(rnmb2_9)) %>%
-  filter(arm %in% c("Sug", "Neo", "Spont")) %>%
+  filter(!is.na(extbconf), !is.na(rnmb1_9) | !is.na(rnmb2_9) | !is.na(rnmb1_1) | !is.na(rnmb2_1)) %>%
+  filter(arm %in% c("Sug", "Neo", "Spont", "Plac")) %>%
   mutate(rnmb_n = case_when(
     !is.na(rnmb1_9) ~ rnmb1_n,
-    !is.na(rnmb2_9) ~ rnmb2_n)
+    !is.na(rnmb2_9) ~ rnmb2_n,
+    !is.na(rnmb1_1) ~ rnmb1_n,
+    !is.na(rnmb2_1) ~ rnmb2_n,
+    ),
+    extbconf = factor(extbconf, levels = c("TOFR confirmed", "TOFR not confirmed", "Not stated"))
   ) %>% 
-  select(study, design, arm, arm_n, rnmb_n, extbconf, tofr, depth_rev_f) %>% 
-  arrange(tofr, depth_rev_f)
+  select(refid, study, design, arm, arm_n, rnmb_n, extbconf, tofr, depth_rev_f) %>% 
+  arrange(extbconf, depth_rev_f)
 ```
 
+```{r rnmbDataUpate, echo = FALSE}
+## rnmbDataUpate -------------------------------------- (2022-03-19 17:44) @----
+endnote <- read.csv("data/nmb_endnote.csv") %>% 
+  mutate(study = paste(author, year),
+         study = str_replace(study, "^\\s", "")) %>% 
+  select(refid, study, year)
+
+ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q99") %>%
+  clean_names() %>%
+  left_join(., endnote, by = "refid") %>%
+  relocate(c(study, year), .after = refid) %>%
+  mutate(
+    rnmb_n = as.numeric(str_extract(rnmb_np, "^\\d{1,3}")),
+    tofr_conf = factor(tofr_confirm, levels = c("Yes", "No", "NS", "PNS"), labels = c("Yes", "No", "Not stated", "PNS")),
+    tofr_conf_comb = fct_collapse(tofr_conf, No = c("No", "PNS")),
+    volatile = case_when(
+      str_detect(anesth, "Vol") ~ "Volatile",
+      str_detect(anesth, "NS") ~ "NS/Missing",
+      anesth == "TIVA" ~ "TIVA alone",
+      is.na(anesth) ~ "NS/Missing",
+  ), 
+    rnmb_def_comb = case_when(
+      str_detect(rnmb_def, "0.9") ~ "0.9",
+      str_detect(rnmb_def, "0.8") ~ "0.8",
+      str_detect(rnmb_def, "0.7") ~ "0.7",
+      str_detect(rnmb_def, "NS") ~ "NS",
+    )
+  ) %>%
+  select(refid, study, year, rev_agent, rnmb_n, arm_n, volatile, monitor, tofr_conf, tofr_conf_comb, tofr_ext, rnmb_def, rnmb_def_comb, rnmb_monitor, depth) %>%
+  rename(arm = rev_agent)
+
+# ext_confirm_temp %>% tabyl(depth)
+
+# ext_confirm_temp %>%
+#   tabyl(tofr_conf_comb, tofr_ext)
+
+# compare with distiller
+
+```
 
 ## TOFR ≥ 0.9 Before Extubation
+
+### Sugammadex
 
 <a id="kq4Fig1"></a>
 
@@ -229,25 +281,71 @@ rnmb_meta_distiller.dat <- rnmb.dat %>%
 
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given sugammadex according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
 
-```{r rnmbMetaTofrSug, fig.width = 10, fig.height = 7.5}
-## rnmbMetaConfirm (updated 2022/01/21 09:58) -----------------------
+```{r rnmbMetaTofrSug, fig.align = 'left', fig.width = 11, fig.height = 9.5}
+## rnmbMetaConfirm 0.9 -------------------------------- (2022-03-20 09:36) @----
+conf_meta_9 <- ext_confirm_temp %>% 
+  filter(tofr_ext == "0.9" | tofr_conf_comb %in% c("No", "Not stated")) %>% 
+  filter(rnmb_def_comb == 0.9) %>% 
+  mutate(extb_conf_r = case_when(
+    tofr_conf_comb == "Yes" ~ "TOFR ≥0.9 confirmed",
+    tofr_conf_comb == "No" ~ "TOFR not confirmed",
+    tofr_conf_comb == "Not stated" ~ "Not stated"
+  )) %>% 
+  select(refid, study, arm, arm_n, rnmb_n, extb_conf_r, depth, volatile)
+  
+# from distiller 0.9 rnmb defn and confirm level
+temp <- rnmb_meta_distiller.dat %>%
+  filter(refid %notin% ext_confirm_temp$refid) %>%
+  select(-design) %>%
+  mutate(
+    arm_n = case_when(
+      study == "Della Rocca 2013" & arm == "Sug" ~ 207,
+      study == "Della Rocca 2013" & arm == "Neo" ~ 150,
+      TRUE ~ arm_n
+    ),
+    rnmb_n = case_when(
+      study == "Della Rocca 2013" & arm == "Sug" ~ 4,
+      study == "Della Rocca 2013" & arm == "Neo" ~ 47,
+      TRUE ~ rnmb_n
+    ),
+    extb_conf_r = ifelse(extbconf == "TOFR confirmed", "TOFR ≥0.9 confirmed", extbconf),
+    depth = firstup(as.character(depth_rev_f)),
+    volatile = ifelse(study == "Della Rocca 2013", "Volatile", "TIVA alone")
+  ) %>% 
+  group_by(study, arm) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  select(-c(extbconf, tofr, depth_rev_f)) %>% 
+  relocate(extb_conf_r, .before = depth)
+
+conf_meta_9 <- conf_meta_9 %>% 
+  bind_rows(., temp) %>% 
+  mutate(year = as.numeric(str_extract(study, "\\d{4}")),
+         extb_conf_r = factor(extb_conf_r, levels = c("TOFR ≥0.9 confirmed", "TOFR not confirmed", "Not stated")),
+         study = ifelse(study == "Wu 2014" & arm_n > 100, "Wu 2014 (Chinese)", study),
+         study = ifelse(study == "Wu 2014" & arm_n < 100, "Wu 2014 (Caucasian)", study),
+         ) %>% 
+  arrange(depth, year) %>% 
+  distinct()
+  
+# tabyl(tofr_conf_comb, tofr_ext)
+
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
-  data = rnmb_meta_distiller.dat,
+  data = conf_meta_9,
   studlab = study,
   sm = "PAS",
   # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
-  subset = arm == "Sug", # & study != "Alday 2019",
-  subgroup = extbconf)
+  # subset = arm == "Sug",
+  subset = arm == "Sug" & study != "Alday 2019",
+  subgroup = extb_conf_r)
 
 # dmetar::find.outliers(rnmb_meta)
 
 forest(rnmb_meta,
   fixed = FALSE,
-  # label.e = "Sugammadex",
-  # label.c = "Neostigmine",
-  rightcols = c("effect", "ci", "depth_rev_f"),
+  rightcols = c("effect", "ci", "depth"),
   rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
   digits = 2,
   digits.tau2 = 1,
@@ -262,38 +360,39 @@ forest(rnmb_meta,
   colgap.forest.left = "30mm",
   just.addcols.right = "left",
   xlim = c(0, 0.8),
-  # at = c(.001, 0.01, .1, 1, 2),
-  # xlab = "Favors:     Sugammadex          Neostigmine"
+  xlab = "Incidence TOFR <0.9"
   )
 
-grid::grid.text("Sugammadex", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
+# grid::grid.text("Sugammadex", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
 
 figure_n <- fig_inc()
 ```
-mod: moderate; min: minimal; oth: other; ns: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled result of 0.04 (95% CI: 0.1, 0.07)
+Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
+Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.01 (95% CI: 0.00, 0.03)
+
+<br/>
+
+### Neostigmine
 
 <br/>
 
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
 
-```{r rnmbMetaTofrNeo, fig.width = 10, fig.height = 7.5}
-## rnmbMetaRctByVolatile (updated 2022/01/21 09:58) -----------------------
+```{r rnmbMetaTofrNeo, fig.width = 11, fig.height = 11.5}
+## rnmbMetaTofrNeo ------------------------------------- (2022-03-20 12:01) @----
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
-  data = rnmb_meta_distiller.dat,
+  data = conf_meta_9,
   studlab = study,
   sm = "PAS",
-  # method.tau = "PM",
+  # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
-  subset = arm == "Neo",
-  subgroup = extbconf)
+  subset = arm == "Neo", 
+  subgroup = extb_conf_r)
 
 forest(rnmb_meta,
   fixed = FALSE,
-  # label.e = "Sugammadex",
-  # label.c = "Neostigmine",
-  rightcols = c("effect", "ci", "depth_rev_f"),
+  rightcols = c("effect", "ci", "depth"),
   rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
   digits = 2,
   digits.tau2 = 1,
@@ -307,26 +406,110 @@ forest(rnmb_meta,
   text.subgroup.nohet = TRUE,
   colgap.forest.left = "30mm",
   just.addcols.right = "left",
-  # xlim = c(0.001, 5),
-  # at = c(.001, 0.01, .1, 1, 2),
-  # xlab = "Favors:     Sugammadex          Neostigmine"
+  xlim = c(0, 0.8),
+  xlab = "Incidence TOFR <0.9"
   )
-
-grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
+# grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
 
 figure_n <- fig_inc()
 ```
-mod: moderate; min: minimal; oth: other; ns: not stated.
+Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
 
+<br/>
 
+### Neostigmine (volatile anesthetic)
 
+<br/>
 
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine and volatile anesthetic according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
 
+```{r rnmbMetaTofrNeoVolatile, fig.width = 11, fig.height = 8.4, fig.align = 'left'}
+## rnmbMetaTofrNeo ------------------------------------- (2022-03-20 12:01) @----
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  subset = arm == "Neo" & volatile == "Volatile", 
+  subgroup = extb_conf_r)
 
+forest(rnmb_meta,
+  fixed = FALSE,
+  # label.e = "Sugammadex",
+  # label.c = "Neostigmine",
+  rightcols = c("effect", "ci", "depth"),
+  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  text.subgroup.nohet = TRUE,
+  colgap.forest.left = "30mm",
+  just.addcols.right = "left",
+  xlim = c(0, 0.8),
+  xlab = "Incidence TOFR <0.9"
+)
 
+# grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
 
+figure_n <- fig_inc()
+```
+Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
 
+<br/>
 
+### Neostigmine (TIVA, no volatiles)
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine and no volatile anesthetic according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
+
+```{r rnmbMetaTofrNeoNoVolatile, fig.width = 10.5, fig.height = 6.2}
+## rnmbMetaTofrNeo ------------------------------------- (2022-03-20 12:01) @----
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  subset = arm == "Neo" & volatile == "TIVA alone", 
+  subgroup = extb_conf_r)
+
+forest(rnmb_meta,
+  fixed = FALSE,
+  # label.e = "Sugammadex",
+  # label.c = "Neostigmine",
+  rightcols = c("effect", "ci", "depth"),
+  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
+  digits = 2,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  prediction = FALSE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  text.subgroup.nohet = TRUE,
+  colgap.forest.left = "30mm",
+  just.addcols.right = "left",
+  xlim = c(0, 0.8),
+  xlab = "Incidence TOFR <0.9"
+  )
+
+# grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
+
+figure_n <- fig_inc()
+```
+Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
 
 
 

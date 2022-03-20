@@ -80,6 +80,7 @@ $(document).ready(function(){
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
 ```
+
 ```{r data}
 ## data/refids ---------------------------------------- (2022-02-15 10:28) @
 ## refids --------------------------------------------- (2022-02-21 10:31) @----
@@ -250,10 +251,11 @@ study_char_table_rev <- study_char_rev.dat %>%
     fund_ind = funding == "industry",
     fund_pubind = funding == "pub_indus",
     fund_pub = funding == "public",
-    fund_nr = funding == "NR",
+    fund_nr = funding == "NR",     
+    auth_coi = author_coi == "author_coi",
     registered = if_else(registered == "yes", TRUE, FALSE, missing = FALSE),
   ) %>% 
-  select(refid, study, eu, un, country, asia, eu, us, ca, sa, noneu, afr, low_r, non_vh_hdi, pilot, ambulatory, one_center, multi_center, general, regional, sedation, starts_with("fund_"), registered, n_enrolled, arms) 
+  select(refid, study, eu, un, country, asia, eu, us, ca, sa, noneu, afr, low_r, non_vh_hdi, pilot, ambulatory, one_center, multi_center, general, regional, sedation, starts_with("fund_"), registered, n_enrolled, arms, auth_coi) 
   
 ## countries ------------------------------------------ (2022-03-09 07:23) @----
 countries <- study_char_table_rev %>% 
@@ -301,7 +303,7 @@ table_rev <- study_char_table_rev %>%
     "  Single Center" = n_per_tf(one_center),
     "  Multicenter" = n_per_tf(multi_center),
     # "Anesthesia" = " ",
-    "Volatile Anestheic" = n_per_tf(volatile),
+    "Volatile Anesthetic" = n_per_tf(volatile),
     # "  TIVA" = n_per_tf(tiva),
     # "  Sedation" = n_per_tf(sedation),
     "Country" = " ",
@@ -311,7 +313,7 @@ table_rev <- study_char_table_rev %>%
     "  Industry" = n_per_tf(fund_ind),
     "  Public/Industry" = n_per_tf(fund_pubind),
     "  Public" = n_per_tf(fund_pub),
-    "  Not Reported" = n_per_tf(fund_nr),
+    "  Not Reported" = n_per_tf(fund_nr),     "Author COI" = n_per_tf(auth_coi),
     "Registered" = n_per_tf(registered),
   ) %>%
   t() %>% 
@@ -347,7 +349,7 @@ table_rev %>%
     footnote_as_chunk = FALSE
   )
 
-# write_csv(study_char_table_rev, "/Users/mgrant/Desktop/study_char_table_rev.csv", na = "")
+# write_csv(table_rev, "/Users/mgrant/Desktop/study_char_table_rev_rct.csv", na = "")
 table_n <- tab_inc()
 ```
 
@@ -393,7 +395,7 @@ surg <- study_char_rev.dat %>%
   mutate(
     characteristic = str_replace(characteristic, "Gi", "GI"),
     characteristic = str_replace(characteristic, "Cr", "CR"),
-    characteristic = ifelse(characteristic == "Various", "Various (3 or more)", characteristic),
+    characteristic = ifelse(characteristic == "Various", "Various (>3)", characteristic),
     characteristic = paste0("  ", characteristic),
   )
 
@@ -481,10 +483,9 @@ pt_char_table_rev %>%
   #   footnote_as_chunk = FALSE
   # )
 
-# write_csv(pt_char_table_rev, "/Users/mgrant/Desktop/pt_char_table_rev.csv", na = "")
+# write_csv(pt_char_table_rev, "/Users/mgrant/Desktop/pt_char_table_rev_rct.csv", na = "")
 
 table_n <- tab_inc()
-
 ```
 
 <br/><br/>
@@ -533,10 +534,11 @@ study_char_table_rev <- study_char_rev.dat %>%
     fund_ind = funding == "industry",
     fund_pubind = funding == "pub_indus",
     fund_pub = funding == "public",
-    fund_nr = funding == "NR",
+    fund_nr = funding == "NR",     
+    auth_coi = author_coi == "author_coi",
     registered = if_else(registered == "yes", TRUE, FALSE, missing = FALSE),
   ) %>% 
-  select(refid, study, eu, un, country, asia, eu, us, ca, sa, noneu, afr, low_r, non_vh_hdi, pilot, ambulatory, one_center, multi_center, general, regional, sedation, starts_with("fund_"), registered, n_enrolled, arms) 
+  select(refid, study, eu, un, country, asia, eu, us, ca, sa, noneu, afr, low_r, non_vh_hdi, pilot, ambulatory, one_center, multi_center, general, regional, sedation, starts_with("fund_"), registered, n_enrolled, arms, auth_coi) 
   
 ## countries ------------------------------------------ (2022-03-09 07:23) @----
 countries <- study_char_table_rev %>% 
@@ -584,7 +586,7 @@ table_rev <- study_char_table_rev %>%
     "  Single Center" = n_per_tfna(one_center),
     "  Multicenter" = n_per_tfna(multi_center),
     # "Anesthesia" = " ",
-    "Volatile Anestheic" = n_per_tf(volatile),
+    "Volatile Anesthetic" = n_per_tf(volatile),
     # "  TIVA" = n_per_tf(tiva),
     # "  Sedation" = n_per_tf(sedation),
     "Country" = " ",
@@ -594,7 +596,8 @@ table_rev <- study_char_table_rev %>%
     "  Industry" = n_per_tf(fund_ind),
     "  Public/Industry" = n_per_tf(fund_pubind),
     "  Public" = n_per_tf(fund_pub),
-    "  Not Reported" = n_per_tf(fund_nr),
+    "  Not Reported" = n_per_tf(fund_nr),     
+    "Author COI" = n_per_tf(auth_coi),
     "Registered" = n_per_tf(registered),
   ) %>%
   t() %>% 
@@ -630,7 +633,7 @@ table_rev %>%
     footnote_as_chunk = FALSE
   )
 
-# write_csv(study_char_table_rev, "/Users/mgrant/Desktop/study_char_table_rev.csv", na = "")
+# write_csv(study_char_table_rev, "/Users/mgrant/Desktop/study_char_table_rev_nrsi.csv", na = "")
 table_n <- tab_inc()
 ```
 
@@ -676,7 +679,7 @@ surg <- study_char_rev.dat %>%
   mutate(
     characteristic = str_replace(characteristic, "Gi", "GI"),
     characteristic = str_replace(characteristic, "Cr", "CR"),
-    characteristic = ifelse(characteristic == "Various", "Various (3 or more)", characteristic),
+    characteristic = ifelse(characteristic == "Various", "Various (>3)", characteristic),
     characteristic = paste0("  ", characteristic),
   )
 
@@ -763,7 +766,7 @@ pt_char_table_rev %>%
     footnote_as_chunk = FALSE
   )
 
-# write_csv(pt_char_table_rev, "/Users/mgrant/Desktop/pt_char_table_rev.csv", na = "")
+# write_csv(pt_char_table_rev, "/Users/mgrant/Desktop/pt_char_table_rev_nrsi.csv", na = "")
 
 table_n <- tab_inc()
 

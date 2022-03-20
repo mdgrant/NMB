@@ -13,7 +13,7 @@
 
 <title>Study Characteristics</title>
 
-<script src="site_libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -358,14 +358,50 @@ div.tocify {
         <li>
   <a href="soe.html">Strength of Evidence</a>
 </li>
-<li>
-  <a href="kq1.html">NMM Technical</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NMM Technical
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kq1.html">Results</a>
+    </li>
+    <li>
+      <a href="summary_tech.html">Summary Study &amp; Patient Charcteristics</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="kq2.html">NMM Diagnostic</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NMM Diagnostic
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kq2.html">Results</a>
+    </li>
+    <li>
+      <a href="summary_kq2.html">Summary Study &amp; Patient Charcteristics</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="kq3.html">NMM Outcomes</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    NMM Outcomes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="kq3.html">Results</a>
+    </li>
+    <li>
+      <a href="summary_kq3.html">Summary Study &amp; Patient Charcteristics</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -375,7 +411,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reversal.html">Results</a>
+      <a href="reversal.html">Sugammadex vs. Neostigmine</a>
     </li>
     <li>
       <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
@@ -422,7 +458,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Study Characteristics</h1>
-<h4 class="date">11 March, 2022 (10:41)</h4>
+<h4 class="date">19 March, 2022 (11:40)</h4>
 
 </div>
 
@@ -430,7 +466,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -441,8 +477,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -451,13 +487,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-11
+<strong>Last updated:</strong> 2022-03-19
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>nmb/</code> <span
@@ -480,18 +516,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -582,15 +621,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree8d66622673f5cea2992ce083d1e093ea6f63dc38targetblank8d66622a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree91946c19debc748bf2bd27542905550019401022targetblank91946c1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/8d66622673f5cea2992ce083d1e093ea6f63dc38" target="_blank">8d66622</a>
+<a href="https://github.com/mdgrant/NMB/tree/91946c19debc748bf2bd27542905550019401022" target="_blank">91946c1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree8d66622673f5cea2992ce083d1e093ea6f63dc38targetblank8d66622a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree91946c19debc748bf2bd27542905550019401022targetblank91946c1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -600,7 +639,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/8d66622673f5cea2992ce083d1e093ea6f63dc38" target="_blank">8d66622</a>.
+<a href="https://github.com/mdgrant/NMB/tree/91946c19debc748bf2bd27542905550019401022" target="_blank">91946c1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -623,6 +662,7 @@ Ignored files:
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    analysis/reversal (original).Rmd
+    Ignored:    analysis/tofr_confirm (old).Rmd
     Ignored:    analysis/used_files_dates.txt
     Ignored:    code/helpers.R
     Ignored:    code/rob_111921 (original).R
@@ -635,7 +675,7 @@ Ignored files:
 Untracked files:
     Untracked:  .temp.lb
     Untracked:  analysis/.gitignore
-    Untracked:  analysis/tofr_confirm.Rmd
+    Untracked:  analysis/summary_tech.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
@@ -645,7 +685,9 @@ Untracked files:
 Unstaged changes:
     Modified:   analysis/_site.yml
     Modified:   analysis/index.Rmd
-    Modified:   analysis/reversal.Rmd
+    Modified:   analysis/kq1.Rmd
+    Modified:   analysis/summary_rev.Rmd
+    Modified:   analysis/tofr_confirm.Rmd
 
 </code></pre>
 <p>
@@ -691,6 +733,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/6b588b39d81f31d030cc3006524d144a53417250/docs/summary_rev.html" target="_blank">6b588b3</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-11
+</td>
+<td>
+add tofr confirmation
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -838,7 +897,7 @@ Result
 Number of Trials
 </td>
 <td style="text-align:center;width: 8em; ">
-105
+108
 </td>
 </tr>
 <tr>
@@ -853,7 +912,7 @@ Patients Enrolled (N)
   Mean
 </td>
 <td style="text-align:center;width: 8em; ">
-89.5
+91.9
 </td>
 </tr>
 <tr>
@@ -884,7 +943,7 @@ Arms
   Two
 </td>
 <td style="text-align:center;width: 8em; ">
-60
+63
 </td>
 </tr>
 <tr>
@@ -900,7 +959,7 @@ Arms
   Mean
 </td>
 <td style="text-align:center;width: 8em; ">
-3.3
+3.2
 </td>
 </tr>
 <tr>
@@ -932,7 +991,7 @@ Pilot Study
 Ambulatory
 </td>
 <td style="text-align:center;width: 8em; ">
-6 (5.7)
+6 (5.6)
 </td>
 </tr>
 <tr>
@@ -947,7 +1006,7 @@ Centers
   Single Center
 </td>
 <td style="text-align:center;width: 8em; ">
-81 (77.1)
+84 (77.8)
 </td>
 </tr>
 <tr>
@@ -955,15 +1014,15 @@ Centers
   Multicenter
 </td>
 <td style="text-align:center;width: 8em; ">
-24 (22.9)
+24 (22.2)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-Volatile Anestheic
+Volatile Anesthetic
 </td>
 <td style="text-align:center;width: 8em; ">
-60 (57.1)
+62 (57.4)
 </td>
 </tr>
 <tr>
@@ -978,7 +1037,7 @@ Country
   United States
 </td>
 <td style="text-align:center;width: 8em; ">
-16 (15.2)
+17 (15.7)
 </td>
 </tr>
 <tr>
@@ -986,7 +1045,7 @@ Country
   South Korea
 </td>
 <td style="text-align:center;width: 8em; ">
-10 (9.5)
+12 (11.1)
 </td>
 </tr>
 <tr>
@@ -994,7 +1053,7 @@ Country
   Turkey
 </td>
 <td style="text-align:center;width: 8em; ">
-9 (8.6)
+9 (8.3)
 </td>
 </tr>
 <tr>
@@ -1002,7 +1061,7 @@ Country
   Germany
 </td>
 <td style="text-align:center;width: 8em; ">
-8 (7.6)
+8 (7.4)
 </td>
 </tr>
 <tr>
@@ -1010,7 +1069,7 @@ Country
   Netherlands
 </td>
 <td style="text-align:center;width: 8em; ">
-6 (5.7)
+6 (5.6)
 </td>
 </tr>
 <tr>
@@ -1018,7 +1077,7 @@ Country
   Belgium
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1026,7 +1085,7 @@ Country
   China
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1034,7 +1093,7 @@ Country
   Egypt
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1042,7 +1101,7 @@ Country
   France
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1050,7 +1109,7 @@ Country
   Hungary
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1058,7 +1117,7 @@ Country
   Ireland
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (3.8)
+4 (3.7)
 </td>
 </tr>
 <tr>
@@ -1066,7 +1125,7 @@ Country
   Australia
 </td>
 <td style="text-align:center;width: 8em; ">
-3 (2.9)
+3 (2.8)
 </td>
 </tr>
 <tr>
@@ -1074,7 +1133,7 @@ Country
   Finland
 </td>
 <td style="text-align:center;width: 8em; ">
-3 (2.9)
+3 (2.8)
 </td>
 </tr>
 <tr>
@@ -1082,7 +1141,7 @@ Country
   Italy
 </td>
 <td style="text-align:center;width: 8em; ">
-3 (2.9)
+3 (2.8)
 </td>
 </tr>
 <tr>
@@ -1154,7 +1213,7 @@ Country
   Brazil
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1162,7 +1221,7 @@ Country
   Denmark
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1170,7 +1229,7 @@ Country
   Israel
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1178,7 +1237,7 @@ Country
   Malaysia
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1186,7 +1245,7 @@ Country
   Portugal
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1194,7 +1253,7 @@ Country
   Saudi Arabia
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1202,7 +1261,7 @@ Country
   Spain
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1210,7 +1269,7 @@ Country
 Non-very-high HDI Countryª
 </td>
 <td style="text-align:center;width: 8em; ">
-11 (10.5)
+11 (10.2)
 </td>
 </tr>
 <tr>
@@ -1225,7 +1284,7 @@ Funding
   Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-32 (30.5)
+34 (31.5)
 </td>
 </tr>
 <tr>
@@ -1233,7 +1292,7 @@ Funding
   Public/Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.8)
+5 (4.6)
 </td>
 </tr>
 <tr>
@@ -1241,7 +1300,7 @@ Funding
   Public
 </td>
 <td style="text-align:center;width: 8em; ">
-31 (29.5)
+32 (29.6)
 </td>
 </tr>
 <tr>
@@ -1249,7 +1308,15 @@ Funding
   Not Reported
 </td>
 <td style="text-align:center;width: 8em; ">
-24 (22.9)
+24 (22.2)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Author COI
+</td>
+<td style="text-align:center;width: 8em; ">
+34 (31.5)
 </td>
 </tr>
 <tr>
@@ -1257,7 +1324,7 @@ Funding
 Registered
 </td>
 <td style="text-align:center;width: 8em; ">
-57 (54.3)
+60 (55.6)
 </td>
 </tr>
 </tbody>
@@ -1295,7 +1362,7 @@ Result
 Age (average of mean or med, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-46.9 (26-75)
+47.3 (26-75)
 </td>
 </tr>
 <tr>
@@ -1303,7 +1370,7 @@ Age (average of mean or med, range)
 Female (%, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-52.5 (0-100)
+51.9 (0-100)
 </td>
 </tr>
 <tr>
@@ -1318,7 +1385,7 @@ ASA Class (%)
   I-II
 </td>
 <td style="text-align:center;width: 8em; ">
-44.8
+45.4
 </td>
 </tr>
 <tr>
@@ -1326,7 +1393,7 @@ ASA Class (%)
   I-III
 </td>
 <td style="text-align:center;width: 8em; ">
-43.8
+43.5
 </td>
 </tr>
 <tr>
@@ -1334,7 +1401,7 @@ ASA Class (%)
   NR
 </td>
 <td style="text-align:center;width: 8em; ">
-11.4
+11.1
 </td>
 </tr>
 <tr>
@@ -1342,7 +1409,7 @@ ASA Class (%)
 BMI (average of mean or med, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-28.4 (21-48)
+28.2 (21-48)
 </td>
 </tr>
 <tr>
@@ -1350,7 +1417,7 @@ BMI (average of mean or med, range)
 BMI (mean or med ≥ 30), (%)
 </td>
 <td style="text-align:center;width: 8em; ">
-(9.5)
+(9.3)
 </td>
 </tr>
 <tr>
@@ -1362,10 +1429,10 @@ Surgery, N (%)
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-  Various (3 or more)
+  Various (&gt;3)
 </td>
 <td style="text-align:center;width: 8em; ">
-42 (40.0)
+43 (39.8)
 </td>
 </tr>
 <tr>
@@ -1373,7 +1440,7 @@ Surgery, N (%)
   GI
 </td>
 <td style="text-align:center;width: 8em; ">
-12 (11.4)
+13 (12.0)
 </td>
 </tr>
 <tr>
@@ -1381,7 +1448,7 @@ Surgery, N (%)
   ENT
 </td>
 <td style="text-align:center;width: 8em; ">
-7 (6.7)
+7 (6.5)
 </td>
 </tr>
 <tr>
@@ -1389,7 +1456,7 @@ Surgery, N (%)
   Gen
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.8)
+5 (4.6)
 </td>
 </tr>
 <tr>
@@ -1397,7 +1464,7 @@ Surgery, N (%)
   Gyn
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.8)
+5 (4.6)
 </td>
 </tr>
 <tr>
@@ -1405,23 +1472,7 @@ Surgery, N (%)
   Neuro
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Ortho
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (2.9)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Thor
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (2.9)
+5 (4.6)
 </td>
 </tr>
 <tr>
@@ -1429,7 +1480,23 @@ Surgery, N (%)
   Urol
 </td>
 <td style="text-align:center;width: 8em; ">
-3 (2.9)
+4 (3.7)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Ortho
+</td>
+<td style="text-align:center;width: 8em; ">
+3 (2.8)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Thor
+</td>
+<td style="text-align:center;width: 8em; ">
+3 (2.8)
 </td>
 </tr>
 <tr>
@@ -1469,7 +1536,7 @@ Surgery, N (%)
   CR, GI
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1477,7 +1544,7 @@ Surgery, N (%)
   CR, Gyn
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1485,7 +1552,7 @@ Surgery, N (%)
   Gen, Abdominal
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1493,7 +1560,7 @@ Surgery, N (%)
   Gen, Urol
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1501,7 +1568,7 @@ Surgery, N (%)
   GI, Gen, Hep
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1509,7 +1576,7 @@ Surgery, N (%)
   Gyn, Abdominal
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1517,7 +1584,7 @@ Surgery, N (%)
   Gyn, GI
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1525,7 +1592,7 @@ Surgery, N (%)
   Gyn, GI, Urol
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1533,7 +1600,7 @@ Surgery, N (%)
   Gyn, Ortho, Plastic
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1541,7 +1608,7 @@ Surgery, N (%)
   Opth
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1549,7 +1616,7 @@ Surgery, N (%)
   Oralmax
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 <tr>
@@ -1557,7 +1624,7 @@ Surgery, N (%)
   Ortho, ENT
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (1.0)
+1 (0.9)
 </td>
 </tr>
 </tbody>
@@ -1589,7 +1656,7 @@ Result
 Number of Studies
 </td>
 <td style="text-align:center;width: 8em; ">
-31
+33
 </td>
 </tr>
 <tr>
@@ -1604,7 +1671,7 @@ Patients Enrolled (N)
   Mean
 </td>
 <td style="text-align:center;width: 8em; ">
-3856.3
+3654.9
 </td>
 </tr>
 <tr>
@@ -1612,7 +1679,7 @@ Patients Enrolled (N)
   Median
 </td>
 <td style="text-align:center;width: 8em; ">
-146
+171
 </td>
 </tr>
 <tr>
@@ -1635,7 +1702,7 @@ Arms
   Two
 </td>
 <td style="text-align:center;width: 8em; ">
-23
+24
 </td>
 </tr>
 <tr>
@@ -1643,7 +1710,7 @@ Arms
   Multi
 </td>
 <td style="text-align:center;width: 8em; ">
-6
+7
 </td>
 </tr>
 <tr>
@@ -1675,7 +1742,7 @@ Arms
 Pilot Study
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -1683,7 +1750,7 @@ Pilot Study
 Ambulatory
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -1698,7 +1765,7 @@ Centers
   Single Center
 </td>
 <td style="text-align:center;width: 8em; ">
-25 (83.3)
+26 (81.2)
 </td>
 </tr>
 <tr>
@@ -1706,15 +1773,15 @@ Centers
   Multicenter
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (16.7)
+6 (18.8)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-Volatile Anestheic
+Volatile Anesthetic
 </td>
 <td style="text-align:center;width: 8em; ">
-13 (41.9)
+14 (42.4)
 </td>
 </tr>
 <tr>
@@ -1729,7 +1796,7 @@ Country
   United States
 </td>
 <td style="text-align:center;width: 8em; ">
-8 (25.8)
+8 (24.2)
 </td>
 </tr>
 <tr>
@@ -1737,15 +1804,7 @@ Country
   Japan
 </td>
 <td style="text-align:center;width: 8em; ">
-6 (19.4)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  South Korea
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (9.7)
+6 (18.2)
 </td>
 </tr>
 <tr>
@@ -1753,79 +1812,15 @@ Country
   Italy
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+3 (9.1)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-  Turkey
+  South Korea
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Australia
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Belgium
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Brazil
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  France
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Germany
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Greece
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  New Zealand
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Slovenia
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (3.2)
+3 (9.1)
 </td>
 </tr>
 <tr>
@@ -1833,7 +1828,79 @@ Country
   Spain
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+2 (6.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Turkey
+</td>
+<td style="text-align:center;width: 8em; ">
+2 (6.1)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Australia
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Belgium
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Brazil
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  France
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Germany
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Greece
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  New Zealand
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Slovenia
+</td>
+<td style="text-align:center;width: 8em; ">
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -1841,7 +1908,7 @@ Country
   United Kingdom
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -1849,7 +1916,7 @@ Country
 Non-very-high HDI Countryª
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -1864,7 +1931,7 @@ Funding
   Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-3 (9.7)
+3 (9.1)
 </td>
 </tr>
 <tr>
@@ -1872,7 +1939,7 @@ Funding
   Public/Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -1880,7 +1947,7 @@ Funding
   Public
 </td>
 <td style="text-align:center;width: 8em; ">
-14 (45.2)
+14 (42.4)
 </td>
 </tr>
 <tr>
@@ -1888,7 +1955,15 @@ Funding
   Not Reported
 </td>
 <td style="text-align:center;width: 8em; ">
-8 (25.8)
+10 (30.3)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Author COI
+</td>
+<td style="text-align:center;width: 8em; ">
+12 (36.4)
 </td>
 </tr>
 <tr>
@@ -1896,7 +1971,7 @@ Funding
 Registered
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (16.1)
+6 (18.2)
 </td>
 </tr>
 </tbody>
@@ -1934,7 +2009,7 @@ Result
 Age (average of mean or med, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-54.6 (31-73)
+54.9 (31-73)
 </td>
 </tr>
 <tr>
@@ -1942,7 +2017,7 @@ Age (average of mean or med, range)
 Female (%, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-56.1 (30-100)
+56 (30-100)
 </td>
 </tr>
 <tr>
@@ -1957,7 +2032,7 @@ ASA Class (%)
   I-II
 </td>
 <td style="text-align:center;width: 8em; ">
-6.5
+6.1
 </td>
 </tr>
 <tr>
@@ -1965,7 +2040,7 @@ ASA Class (%)
   I-III
 </td>
 <td style="text-align:center;width: 8em; ">
-61.3
+60.6
 </td>
 </tr>
 <tr>
@@ -1973,7 +2048,7 @@ ASA Class (%)
   NR
 </td>
 <td style="text-align:center;width: 8em; ">
-25.8
+27.3
 </td>
 </tr>
 <tr>
@@ -1989,7 +2064,7 @@ BMI (average of mean or med, range)
 BMI (mean or med ≥ 30), (%)
 </td>
 <td style="text-align:center;width: 8em; ">
-(16.1)
+(15.2)
 </td>
 </tr>
 <tr>
@@ -2001,10 +2076,10 @@ Surgery, N (%)
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
-  Various (3 or more)
+  Various (&gt;3)
 </td>
 <td style="text-align:center;width: 8em; ">
-14 (45.2)
+15 (45.5)
 </td>
 </tr>
 <tr>
@@ -2012,7 +2087,7 @@ Surgery, N (%)
   GI
 </td>
 <td style="text-align:center;width: 8em; ">
-4 (12.9)
+5 (15.2)
 </td>
 </tr>
 <tr>
@@ -2020,7 +2095,7 @@ Surgery, N (%)
   Other
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -2028,7 +2103,7 @@ Surgery, N (%)
   Thor
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -2036,7 +2111,7 @@ Surgery, N (%)
   Urol
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (6.5)
+2 (6.1)
 </td>
 </tr>
 <tr>
@@ -2044,7 +2119,7 @@ Surgery, N (%)
   Gen, Hep, Other
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2052,7 +2127,7 @@ Surgery, N (%)
   GI, Gen
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2060,7 +2135,7 @@ Surgery, N (%)
   Gyn
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2068,7 +2143,7 @@ Surgery, N (%)
   Gyn, Gen, ENT
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2076,7 +2151,7 @@ Surgery, N (%)
   Gyn, Ortho, ENT
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2084,7 +2159,7 @@ Surgery, N (%)
   Hep
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 <tr>
@@ -2092,7 +2167,7 @@ Surgery, N (%)
   Opth
 </td>
 <td style="text-align:center;width: 8em; ">
-1 (3.2)
+1 (3.0)
 </td>
 </tr>
 </tbody>
@@ -2115,9 +2190,9 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
@@ -2133,31 +2208,31 @@ other attached packages:
  [1] meta_5.2-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
  [5] stringr_1.4.0     dplyr_1.0.8       purrr_0.3.4       readr_2.1.2      
  [9] tidyr_1.2.0       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
-[13] Cairo_1.5-14      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
+[13] Cairo_1.5-15      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
  [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
- [7] rprojroot_2.0.2        tools_4.1.2            backports_1.4.1       
+ [7] rprojroot_2.0.2        tools_4.1.3            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
 [13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
 [16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
-[19] compiler_4.1.2         git2r_0.29.0           cli_3.2.0             
+[19] compiler_4.1.3         git2r_0.30.1           cli_3.2.0             
 [22] rvest_1.0.2            xml2_1.3.3             sass_0.4.0            
 [25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
-[28] minqa_1.2.4            rmarkdown_2.12         svglite_2.1.0         
+[28] minqa_1.2.4            rmarkdown_2.13         svglite_2.1.0         
 [31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
 [34] dbplyr_2.1.1           fastmap_1.1.0          htmlwidgets_1.5.4     
 [37] rlang_1.0.2            readxl_1.3.1           rstudioapi_0.13.0-9000
 [40] jquerylib_0.1.4        generics_0.1.2         jsonlite_1.8.0        
 [43] vroom_1.5.7            magrittr_2.0.2         Matrix_1.4-0          
-[46] Rcpp_1.0.8             munsell_0.5.0          fansi_1.0.2           
+[46] Rcpp_1.0.8.2           munsell_0.5.0          fansi_1.0.2           
 [49] lifecycle_1.0.1        visdat_0.5.3           stringi_1.7.6         
 [52] whisker_0.4            yaml_2.3.5             CompQuadForm_1.4.3    
 [55] snakecase_0.11.0       mathjaxr_1.6-0         MASS_7.3-55           
-[58] grid_4.1.2             parallel_4.1.2         promises_1.2.0.1      
+[58] grid_4.1.3             parallel_4.1.3         promises_1.2.0.1      
 [61] crayon_1.5.0           lattice_0.20-45        haven_2.4.3           
-[64] splines_4.1.2          hms_1.1.1              knitr_1.37            
+[64] splines_4.1.3          hms_1.1.1              knitr_1.37            
 [67] pillar_1.7.0           boot_1.3-28            reprex_2.0.1          
 [70] glue_1.6.2             evaluate_0.15          modelr_0.1.8          
 [73] nloptr_2.0.0           vctrs_0.3.8            tzdb_0.2.0            

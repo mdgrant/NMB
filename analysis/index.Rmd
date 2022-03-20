@@ -45,9 +45,15 @@ display: none !important;
 
 [<font size = 5> Technical Performance </font>](kq1.html)
 
+[<font size = 4>     Summary Study/Patient Characteristics </font>](summary_tech.html)
+
 [<font size = 5> Diagnostic </font>](kq2.html)
 
+[<font size = 4>     Summary Study/Patient Characteristics </font>](summary_kq2.html)
+
 [<font size = 5> Outcomes </font>](kq3.html)
+
+[<font size = 4>     Summary Study/Patient Characteristics </font>](summary_kq3.html)
 
 <font size = 6> Reversal </font>
 
@@ -55,7 +61,7 @@ display: none !important;
 
 [<font size = 5> TOFR Confirmation Before Extubation </font>](tofr_confirm.html)
 
-[<font size = 5> Summary Study/Patient Characteristics </font>](summary_rev.html)
+[<font size = 4>     Summary Study/Patient Characteristics </font>](summary_rev.html)
 
 <font size = 6> Evidence Tables </font>
 

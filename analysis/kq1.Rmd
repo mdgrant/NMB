@@ -110,6 +110,8 @@ rm(tech_sa_refids, tech_sc_refids)
 ## (updated 2022/01/07 08:55) tech_perf refids verified -------------------
 tech_refids <- study_arm.dat %>% 
   filter(!is.na(arm_tech_perf)) %>% 
+  # TODO: remove line after fixed in distiller
+  filter(refid != 3304) %>% 
   pull(refid) %>%
   unique()
 
@@ -245,10 +247,10 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 23) %>%
+  pack_top(., "Adult", 1, 22) %>%
   pack_sub(., "RCT", 1, 4) %>% 
-  pack_sub(., "Fully Paired", 5, 22) %>% 
-  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  pack_sub(., "Fully Paired", 5, 21) %>% 
+  pack_sub(., "Prospective Cohort", 22, 22) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -258,6 +260,28 @@ included_studies.dat %>%
   )
 
 table_n <- tab_inc()
+```
+
+<br/>
+
+# **Outcomes**
+
+<br/>
+
+## *Comparators*
+
+```{r compareOutcomes}
+## data ----------------------------------------------- (2022-03-18 07:13) @----
+compare_out <- readxl::read_xlsx("data/TechPerf_DraftTables_010322.xlsx", sheet = "Comparators & Outcomes", range = "A2:N41") %>% 
+  clean_names() %>% 
+  remove_empty(which = "rows") %>% 
+  mutate(comparators = ifelse(grepl("^[A-Z]", refid), refid, NA),
+         refid = as.numeric(refid)) %>% 
+  relocate(comparators, .after = refid) %>%
+  fill(comparators) %>% 
+  filter(!is.na(refid)) %>% 
+  View()
+
 ```
 
 <br/><br/>
@@ -347,10 +371,10 @@ study_char_table %>%
   column_spec(8, width = "3em") %>% 
   column_spec(9, width = "15em") %>% 
   column_spec(10, width = "5em") %>% 
-  pack_top(., "Adult", 1, 23) %>%
+  pack_top(., "Adult", 1, 22) %>%
   pack_sub(., "RCT", 1, 4) %>% 
-  pack_sub(., "Fully Paired", 5, 22) %>% 
-  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  pack_sub(., "Fully Paired", 5, 21) %>% 
+  pack_sub(., "Prospective Cohort", 22, 22) %>% 
   footnote(general_title = "",
     general = c("Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial"),
     alphabet = c("Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
@@ -467,10 +491,10 @@ pt_char_table %>%
   column_spec(16, width = "3em", popover = "Hepatic %") %>% 
   column_spec(17, width = "3em", popover = "Diabetes %") %>% 
   column_spec(18, width = "3em", popover = "Nuerological %") %>% 
-  pack_top(., "Adult", 1, 23) %>%
+  pack_top(., "Adult", 1, 22) %>%
   pack_sub(., "RCT", 1, 4) %>% 
-  pack_sub(., "Fully Paired", 5, 22) %>% 
-  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  pack_sub(., "Fully Paired", 5, 21) %>% 
+  pack_sub(., "Prospective Cohort", 22, 22) %>% 
   footnote(general_title = "",
     general = c("M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial."),
     alphabet = c("Empty cells indicate no information in publication."),
@@ -540,10 +564,10 @@ study_fund_table %>%
   column_spec(7, width = "20em") %>% 
   column_spec(8:10, width = "4em") %>% 
   column_spec(11, width = "20em") %>% 
-  pack_top(., "Adult", 1, 23) %>%
+  pack_top(., "Adult", 1, 22) %>%
   pack_sub(., "RCT", 1, 4) %>% 
-  pack_sub(., "Fully Paired", 5, 22) %>% 
-  pack_sub(., "Prospective Cohort", 23, 23) %>% 
+  pack_sub(., "Fully Paired", 5, 21) %>% 
+  pack_sub(., "Prospective Cohort", 22, 22) %>% 
   footnote(general = "Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme.",
           alphabet = c("Not reported meaning no mention in publication of funding source or author conflicts of interest."))
           # general_title = " ",

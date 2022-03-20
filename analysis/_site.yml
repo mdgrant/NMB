@@ -6,14 +6,26 @@ navbar:
   - text: Strength of Evidence
     href: soe.html
   - text: NMM Technical
-    href: kq1.html
-  - text: NMM Diagnostic
-    href: kq2.html
-  - text: NMM Outcomes
-    href: kq3.html
-  - text: Reversal
     menu:
     - text: Results
+      href: kq1.html
+    - text: Summary Study & Patient Charcteristics
+      href: summary_tech.html
+  - text: NMM Diagnostic
+    menu:
+    - text: Results
+      href: kq2.html
+    - text: Summary Study & Patient Charcteristics
+      href: summary_kq2.html
+  - text: NMM Outcomes
+    menu:
+    - text: Results
+      href: kq3.html
+    - text: Summary Study & Patient Charcteristics
+      href: summary_kq3.html
+  - text: Reversal
+    menu:
+    - text: Sugammadex vs. Neostigmine
       href: reversal.html
     - text: TOFR Confirmed Before Extubation
       href: tofr_confirm.html
