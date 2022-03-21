@@ -238,7 +238,7 @@ endnote <- read.csv("data/nmb_endnote.csv") %>%
          study = str_replace(study, "^\\s", "")) %>% 
   select(refid, study, year)
 
-ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q99") %>%
+ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q97") %>%
   clean_names() %>%
   left_join(., endnote, by = "refid") %>%
   relocate(c(study, year), .after = refid) %>%
@@ -328,7 +328,7 @@ conf_meta_9 <- conf_meta_9 %>%
   arrange(depth, year) %>% 
   distinct()
   
-# tabyl(tofr_conf_comb, tofr_ext)
+# conf_meta_9 %>% tabyl(tofr_conf_comb, tofr_ext)
 
 rnmb_meta <- metaprop(rnmb_n, arm_n, 
   data = conf_meta_9,
@@ -337,8 +337,8 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
-  # subset = arm == "Sug",
-  subset = arm == "Sug" & study != "Alday 2019",
+  subset = arm == "Sug",
+  # subset = arm == "Sug" & study != "Alday 2019",
   subgroup = extb_conf_r)
 
 # dmetar::find.outliers(rnmb_meta)
@@ -368,7 +368,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.01 (95% CI: 0.00, 0.03)
+Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03)
 
 <br/>
 
