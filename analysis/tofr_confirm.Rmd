@@ -338,6 +338,7 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   hakn = FALSE,
   prediction = FALSE,
   subset = arm == "Sug",
+  # subset = arm == "Sug" & extb_conf_r != "Not stated",
   # subset = arm == "Sug" & study != "Alday 2019",
   subgroup = extb_conf_r)
 
@@ -368,7 +369,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03)
+Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03). Difference between confirmed and not confirmed p = 0.052.
 
 <br/>
 
@@ -387,7 +388,8 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   # method.tau = "PAS",
   hakn = FALSE,
   prediction = FALSE,
-  subset = arm == "Neo", 
+  subset = arm == "Neo",
+  # subset = arm == "Neo" & extb_conf_r != "Not stated",
   subgroup = extb_conf_r)
 
 forest(rnmb_meta,
@@ -413,7 +415,8 @@ forest(rnmb_meta,
 
 figure_n <- fig_inc()
 ```
-Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
+Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.<br/>
+Difference between confirmed and not confirmed p < 0.0001.
 
 <br/>
 
