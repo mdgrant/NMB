@@ -288,7 +288,7 @@ table_rev <- study_char_table_rev %>%
   summarize(
     "Number of Trials" = n(),
     "Patients Enrolled (N)" = " ",
-    "  Mean" = round(mean(n_enrolled), 1),
+    "  Mean" = round(mean(n_enrolled), 0),
     "  Median" = median(n_enrolled),
     "  Range" = paste0("(", min(n_enrolled), "-", max(n_enrolled), ")"),
     "Arms" = " ",
@@ -571,7 +571,7 @@ table_rev <- study_char_table_rev %>%
   summarize(
     "Number of Studies" = n(),
     "Patients Enrolled (N)" = " ",
-    "  Mean" = round(mean(n_enrolled), 1),
+    "  Mean" = round(mean(n_enrolled), 0),
     "  Median" = median(n_enrolled),
     "  Range" = paste0("(", min(n_enrolled), "-", max(n_enrolled), ")"),
     "Arms" = " ",
@@ -633,7 +633,7 @@ table_rev %>%
     footnote_as_chunk = FALSE
   )
 
-# write_csv(study_char_table_rev, "/Users/mgrant/Desktop/study_char_table_rev_nrsi.csv", na = "")
+# write_csv(table_rev, "/Users/mgrant/Desktop/study_char_table_rev_nrsi.csv", na = "")
 table_n <- tab_inc()
 ```
 
