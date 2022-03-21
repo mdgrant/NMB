@@ -559,6 +559,8 @@ nmm_kable <- nmm_kable %>%
     tofr_bar = str_replace(tofr_bar, ">\\d+\\.?\\d?", ",>&nbsp;")
   ) 
 
+# document_kable <- nmm_kable %>%
+#   select(study, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
 nmm_kable %>%
   select(study_l, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
   mutate(arm_diag_outcome = case_when(
@@ -597,6 +599,8 @@ nmm_kable %>%
     general_title = "",
     footnote_as_chunk = FALSE
   )
+
+# as_image(document_kable, file = "/Users/mgrant/Documents/_projects01/asa/_nmb/figures/nmm_outcome1.png")
 
 rm(temp)
 table_n <- tab_inc()

@@ -238,7 +238,7 @@ endnote <- read.csv("data/nmb_endnote.csv") %>%
          study = str_replace(study, "^\\s", "")) %>% 
   select(refid, study, year)
 
-ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q97") %>%
+ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q99") %>%
   clean_names() %>%
   left_join(., endnote, by = "refid") %>%
   relocate(c(study, year), .after = refid) %>%
@@ -338,7 +338,7 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   hakn = FALSE,
   prediction = FALSE,
   subset = arm == "Sug",
-  # subset = arm == "Sug" & extb_conf_r != "Not stated",
+  # subset = arm == "Sug" & extb_conf_r != "Not stated" & study != "Alday 2019",
   # subset = arm == "Sug" & study != "Alday 2019",
   subgroup = extb_conf_r)
 
@@ -369,7 +369,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled result of for not cofirmed of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03). Difference between confirmed and not confirmed p = 0.052.
+Excluding Alday 2019 (an outlier) yielded a pooled incidence for "not confirmed" of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03). Difference between confirmed and not confirmed p = 0.10 (including Alday 2019; excluding p = 0.19).
 
 <br/>
 
@@ -419,100 +419,4 @@ Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.<br/>
 Difference between confirmed and not confirmed p < 0.0001.
 
 <br/>
-
-### Neostigmine (volatile anesthetic)
-
-<br/>
-
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine and volatile anesthetic according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
-
-```{r rnmbMetaTofrNeoVolatile, fig.width = 11, fig.height = 8.4, fig.align = 'left'}
-## rnmbMetaTofrNeo ------------------------------------- (2022-03-20 12:01) @----
-rnmb_meta <- metaprop(rnmb_n, arm_n, 
-  data = conf_meta_9,
-  studlab = study,
-  sm = "PAS",
-  # method.tau = "PAS",
-  hakn = FALSE,
-  prediction = FALSE,
-  subset = arm == "Neo" & volatile == "Volatile", 
-  subgroup = extb_conf_r)
-
-forest(rnmb_meta,
-  fixed = FALSE,
-  # label.e = "Sugammadex",
-  # label.c = "Neostigmine",
-  rightcols = c("effect", "ci", "depth"),
-  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
-  digits = 2,
-  digits.tau2 = 1,
-  overall.hetstat = TRUE,
-  print.I2.ci = TRUE,
-  prediction = FALSE,
-  fs.xlab = 11,
-  pooled.events = TRUE,
-  subgroup = TRUE,
-  print.subgroup.name = FALSE,
-  text.subgroup.nohet = TRUE,
-  colgap.forest.left = "30mm",
-  just.addcols.right = "left",
-  xlim = c(0, 0.8),
-  xlab = "Incidence TOFR <0.9"
-)
-
-# grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
-
-figure_n <- fig_inc()
-```
-Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
-
-<br/>
-
-### Neostigmine (TIVA, no volatiles)
-
-<br/>
-
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in randomized and nonrandomized studies among patients given neostigmine and no volatile anesthetic according to whether TOFR was reported as confirmed (all ≥ 0.9) prior to extubation.  </font>
-
-```{r rnmbMetaTofrNeoNoVolatile, fig.width = 10.5, fig.height = 6.2}
-## rnmbMetaTofrNeo ------------------------------------- (2022-03-20 12:01) @----
-rnmb_meta <- metaprop(rnmb_n, arm_n, 
-  data = conf_meta_9,
-  studlab = study,
-  sm = "PAS",
-  # method.tau = "PAS",
-  hakn = FALSE,
-  prediction = FALSE,
-  subset = arm == "Neo" & volatile == "TIVA alone", 
-  subgroup = extb_conf_r)
-
-forest(rnmb_meta,
-  fixed = FALSE,
-  # label.e = "Sugammadex",
-  # label.c = "Neostigmine",
-  rightcols = c("effect", "ci", "depth"),
-  rightlabs = c("Incidence", "(95% CI)", "Depth @ Reversal"),
-  digits = 2,
-  digits.tau2 = 1,
-  overall.hetstat = TRUE,
-  print.I2.ci = TRUE,
-  prediction = FALSE,
-  fs.xlab = 11,
-  pooled.events = TRUE,
-  subgroup = TRUE,
-  print.subgroup.name = FALSE,
-  text.subgroup.nohet = TRUE,
-  colgap.forest.left = "30mm",
-  just.addcols.right = "left",
-  xlim = c(0, 0.8),
-  xlab = "Incidence TOFR <0.9"
-  )
-
-# grid::grid.text("Neostigmine", 0.02, .99, just = "left", gp = grid::gpar(cex = 1.2, fontface = "bold"))
-
-figure_n <- fig_inc()
-```
-Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.
-
-
 
