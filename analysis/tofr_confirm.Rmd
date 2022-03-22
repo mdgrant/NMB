@@ -338,6 +338,7 @@ rnmb_meta <- metaprop(rnmb_n, arm_n,
   hakn = FALSE,
   prediction = FALSE,
   subset = arm == "Sug",
+  # backtransf = FALSE, 
   # subset = arm == "Sug" & extb_conf_r != "Not stated" & study != "Alday 2019",
   # subset = arm == "Sug" & study != "Alday 2019",
   subgroup = extb_conf_r)
@@ -369,7 +370,8 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled incidence for "not confirmed" of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03). Difference between confirmed and not confirmed p = 0.10 (including Alday 2019; excluding p = 0.19).
+Excluding Alday 2019 (an outlier) yielded a pooled incidence for "not confirmed" of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00, 0.03). Difference between confirmed and not confirmed p = 0.10 (including Alday 2019; excluding p = 0.19) — Risk Ratio 0.24 (95% CI: 0.02, 1.36).
+
 
 <br/>
 
@@ -416,7 +418,113 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.<br/>
-Difference between confirmed and not confirmed p < 0.0001.
+Difference between confirmed and not confirmed p < 0.0001. Risk Ratio 0.20 (95% CI: 0.06, 0.44)
 
-<br/>
+<br/><br/>
+
+
+```{r, eval=FALSE}
+# use arcsin est and sd; backtransform simulated 
+# sugammadex confirm mean, sd
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  # subset = arm == "Sug",
+  backtransf = FALSE,
+  # subset = arm == "Sug" & (extb_conf_r == "TOFR ≥0.9 confirmed" | extb_conf_r == "TOFR not confirmed"),
+  subset = arm == "Sug" & extb_conf_r == "TOFR ≥0.9 confirmed",
+  # subset = arm == "Sug" & study != "Alday 2019",
+  subgroup = extb_conf_r
+  )
+
+rnmb_meta
+
+te_conf <- rnmb_meta$TE.random
+se_te_conf <- rnmb_meta$seTE.random
+
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  # subset = arm == "Sug",
+  backtransf = FALSE,
+  subset = arm == "Sug" & extb_conf_r == "TOFR not confirmed",
+  # subset = arm == "Sug" & study != "Alday 2019",
+  # subgroup = extb_conf_r
+  )
+
+te_no <- rnmb_meta$TE.random
+se_te_no <- rnmb_meta$seTE.random
+
+rr <- (sin(rnorm(10000, te_conf, se_te_conf)))^2 / (sin(rnorm(10000, te_no, se_te_no)))^2
+
+MASS::truehist(rr, xlim = c(0,2))
+
+(sin(te_conf/te_no))^2
+
+(sin(te_conf))^2/(sin(te_no))^2
+
+quantile(rr, probs = c(0.025, 0.5, 0.975))
+# 0.02441792 0.23873888 0.83220754
+
+# Risk Ratio 0.23 (95% CI: 0.02, 0.83)
+
+# neotigmine confirm mean, sd
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  # subset = arm == "Sug",
+  backtransf = FALSE,
+  subset = arm == "Neo" & extb_conf_r == "TOFR ≥0.9 confirmed",
+  # subset = arm == "Sug" & study != "Alday 2019",
+  # subgroup = extb_conf_r
+  )
+
+te_conf <- rnmb_meta$TE.random
+se_te_conf <- rnmb_meta$seTE.random
+
+rnmb_meta <- metaprop(rnmb_n, arm_n, 
+  data = conf_meta_9,
+  studlab = study,
+  sm = "PAS",
+  # method.tau = "PAS",
+  hakn = FALSE,
+  prediction = FALSE,
+  # subset = arm == "Sug",
+  backtransf = FALSE,
+  subset = arm == "Neo" & extb_conf_r == "TOFR not confirmed",
+  # subset = arm == "Sug" & study != "Alday 2019",
+  # subgroup = extb_conf_r
+  )
+
+te_no <- rnmb_meta$TE.random
+se_te_no <- rnmb_meta$seTE.random
+
+rr <- (sin(rnorm(10000, te_conf, se_te_conf)))^2 / (sin(rnorm(10000, te_no, se_te_no)))^2
+
+MASS::truehist(rr, xlim = c(0,2))
+
+quantile(rr, probs = c(0.025, 0.5, 0.975))
+
+# 0.05839128 0.19901991 0.43700841
+# Risk Ratio 0.20 (95% CI: 0.06, 0.44)
+
+```
+
+
+
+
+
+
 
