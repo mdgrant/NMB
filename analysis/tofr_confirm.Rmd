@@ -418,7 +418,7 @@ forest(rnmb_meta,
 figure_n <- fig_inc()
 ```
 Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not stated.<br/>
-Difference between confirmed and not confirmed p < 0.0001. Risk Ratio 0.20 (95% CI: 0.06, 0.44)
+Difference between confirmed and not confirmed p < 0.0001 — Risk Ratio 0.20 (95% CI: 0.06, 0.44).
 
 <br/><br/>
 
