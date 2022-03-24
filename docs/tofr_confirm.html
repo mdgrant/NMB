@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -434,7 +436,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">TOFR Confirmation (draft/preliminary)</h1>
-<h4 class="date">21 March, 2022 (20:10)</h4>
+<h4 class="date">24 March, 2022 (10:26)</h4>
 
 </div>
 
@@ -463,7 +465,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-21
+<strong>Last updated:</strong> 2022-03-24
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -597,15 +599,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec7e2c1781c046e77570655ce496f2a0f13ff04eetargetblankc7e2c17a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreee2a500483bb5b33bbad49d3e8330e2e13caaa5f1targetblanke2a5004a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/c7e2c1781c046e77570655ce496f2a0f13ff04ee" target="_blank">c7e2c17</a>
+<a href="https://github.com/mdgrant/NMB/tree/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1" target="_blank">e2a5004</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec7e2c1781c046e77570655ce496f2a0f13ff04eetargetblankc7e2c17a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreee2a500483bb5b33bbad49d3e8330e2e13caaa5f1targetblanke2a5004a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -615,7 +617,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/c7e2c1781c046e77570655ce496f2a0f13ff04ee" target="_blank">c7e2c17</a>.
+<a href="https://github.com/mdgrant/NMB/tree/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1" target="_blank">e2a5004</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -651,6 +653,7 @@ Ignored files:
 Untracked files:
     Untracked:  .temp.lb
     Untracked:  analysis/.gitignore
+    Untracked:  analysis/confirm_sug_era/
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
@@ -704,6 +707,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1/analysis/tofr_confirm.Rmd" target="_blank">e2a5004</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-21
+</td>
+<td>
+add risk ratios edit
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1/docs/tofr_confirm.html" target="_blank">e2a5004</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-21
+</td>
+<td>
+add risk ratios edit
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1076,209 +1113,577 @@ $(document).ready(function(){
 });
 </script>
 <div id="tofr-0.9-before-extubation" class="section level2">
-<h2>TOFR ≥ 0.9 Before Extubation</h2>
+<h2>TOFR ≥0.9 Before Extubation</h2>
 <div id="sugammadex" class="section level3">
 <h3>Sugammadex</h3>
 <p><a id="kq4Fig1"></a></p>
 <p><br/></p>
 <p><font size = 4> Figure 1. Incidence of residual neuromuscular block
-(TOFR &lt;0.9) in randomized and nonrandomized studies among patients
-given sugammadex according to whether TOFR was reported as confirmed
-(all ≥ 0.9) prior to extubation. </font></p>
-<p><img src="figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" width="1056" style="display: block; margin: auto auto auto 0;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-rnmbMetaTofrSug-1">
-Past versions of rnmbMetaTofrSug-1.png
-</button>
-</p>
-<div id="fig-rnmbMetaTofrSug-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/668cb81d3851210fbaeb2e8cc46252b206fcd33c/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">668cb81</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/14e199f54b78788533514c85e2445defd8689833/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">14e199f</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/cca893014ea97f849c70bbafdf98f011ddec4d23/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">cca8930</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/67c6be9e6bd58b54d8b63a97849592644f9aff63/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">67c6be9</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-13
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/8fc8cbd7d4da8bd80d64bca70f7ff6b9835d742d/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">8fc8cbd</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/6b588b39d81f31d030cc3006524d144a53417250/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrSug-1.png" target="_blank">6b588b3</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
-Excluding Alday 2019 (an outlier) yielded a pooled incidence for “not
-confirmed” of 0.03 (95% CI: 0.01, 0.06) and overall 0.02 (95% CI: 0.00,
-0.03). Difference between confirmed and not confirmed p = 0.10
-(including Alday 2019; excluding p = 0.19) — Risk Ratio 0.24 (95% CI:
-0.02, 1.36).</p>
-<p><br/></p>
+(TOFR &lt;0.9) in arms of randomized and nonrandomized studies using
+quantitative monitoring among patients reversed with sugammadex
+according to whether TOFR ≥0.9 was reported as confirmed prior to
+extubation. </font></p>
+<p><img src="figure/tofr_confirm.Rmd/metaSug-1.png" width="1056" style="display: block; margin: auto auto auto 0;" />
+Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference
+between confirmed and not confirmed p = 0.11 (removing Alday 2019 p =
+0.19) — risk ratio 0.27 (95% CI: 0.03, 1.43). <br/> Removing Alday 2019,
+risk ratio 0.38 (95% CI: 0.04, 1.72). <br/> Adding arms from studies not
+using quantitative monitoring — risk ratio 0.27 (95% CI: 0.03,
+1.30).<br/> Assuming all not stated were confirmed — risk ratio 0.21
+(95% CI: 0.02, 1.11). <br/> Assuming all not stated were not confirmed —
+risk ratio 0.42 (95% CI: 0.05, 2.16). <br/></p>
+<p><br/><br/></p>
+<p><a id="kq4Fig1"></a></p>
 </div>
 <div id="neostigmine" class="section level3">
 <h3>Neostigmine</h3>
 <p><br/></p>
 <p><font size = 4> Figure 2. Incidence of residual neuromuscular block
-(TOFR &lt;0.9) in randomized and nonrandomized studies among patients
-given neostigmine according to whether TOFR was reported as confirmed
-(all ≥ 0.9) prior to extubation. </font></p>
-<p><img src="figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" width="1056" style="display: block; margin: auto auto auto 0;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-rnmbMetaTofrNeo-1">
-Past versions of rnmbMetaTofrNeo-1.png
-</button>
-</p>
-<div id="fig-rnmbMetaTofrNeo-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
+(TOFR &lt;0.9) in arms of randomized and nonrandomized studies among
+patients reversed with neostigmine according to whether TOFR ≥0.9 was
+reported confirmed prior to extubation. </font></p>
+<p><img src="figure/tofr_confirm.Rmd/metaNeo-1.png" width="1056" style="display: block; margin: auto auto auto 0;" />
+Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference
+between confirmed and not confirmed p &lt; 0.0002 — risk ratio 0.21 (95%
+CI: 0.06, 0.49). <br/> Adding arms from studies not using quantitative
+monitoring — risk ratio 0.20 (95% CI: 0.06, 0.44). <br/> Assuming all
+not stated were confirmed — risk ratio 0.25 (95% CI: 0.09, 0.52). <br/>
+Assuming all not stated were not confirmed — risk ratio 0.30 (95% CI:
+0.09, 0.73). <br/></p>
+<p><br/><br/></p>
+</div>
+<div id="summary-of-included-studies" class="section level3">
+<h3>Summary of included studies</h3>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
+<caption>
+Summary of all sugammadex studies.
+</caption>
 <thead>
 <tr>
-<th>
-Version
+<th style="text-align:left;font-weight: bold;">
+Characteristic
 </th>
-<th>
-Author
+<th style="text-align:right;font-weight: bold;">
+N
 </th>
-<th>
-Date
+<th style="text-align:right;font-weight: bold;">
+%
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/668cb81d3851210fbaeb2e8cc46252b206fcd33c/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" target="_blank">668cb81</a>
+<td style="text-align:left;">
+Monitoring
 </td>
-<td>
-mdgrant
+<td style="text-align:right;">
 </td>
-<td>
-2022-03-21
+<td style="text-align:right;">
 </td>
 </tr>
 <tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/cca893014ea97f849c70bbafdf98f011ddec4d23/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" target="_blank">cca8930</a>
+<td style="text-align:left;">
+Quant
 </td>
-<td>
-mdgrant
+<td style="text-align:right;">
+25
 </td>
-<td>
-2022-03-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/67c6be9e6bd58b54d8b63a97849592644f9aff63/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" target="_blank">67c6be9</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-13
+<td style="text-align:right;">
+93%
 </td>
 </tr>
 <tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/8fc8cbd7d4da8bd80d64bca70f7ff6b9835d742d/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" target="_blank">8fc8cbd</a>
+<td style="text-align:left;">
+Qual
 </td>
-<td>
-mdgrant
+<td style="text-align:right;">
+0
 </td>
-<td>
-2022-03-11
+<td style="text-align:right;">
+0%
 </td>
 </tr>
 <tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/6b588b39d81f31d030cc3006524d144a53417250/docs/figure/tofr_confirm.Rmd/rnmbMetaTofrNeo-1.png" target="_blank">6b588b3</a>
+<td style="text-align:left;">
+Clin
 </td>
-<td>
-mdgrant
+<td style="text-align:right;">
+0
 </td>
-<td>
-2022-03-11
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+None/NS
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Anesthetic
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NS/Missing
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+19%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TIVA alone
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+19%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Volatile
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+63%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Arms
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sug
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+100%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Design
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rct
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+59%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+crossover
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cluster
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fully_paired
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+quasiexp
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nrsi
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prospect_coh
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+22%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+retrospect_coh
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+casecontrol
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+case_series
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
 </td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<p>Mod: moderate; Min: minimal; Shall: shallow; Oth: other; NS: not
-stated.<br/> Difference between confirmed and not confirmed p &lt;
-0.0001 — Risk Ratio 0.20 (95% CI: 0.06, 0.44).</p>
-<p><br/><br/></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
+<caption>
+Summary of all neostigmine studies.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Characteristic
+</th>
+<th style="text-align:right;font-weight: bold;">
+N
+</th>
+<th style="text-align:right;font-weight: bold;">
+%
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Monitoring
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Quant
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+73%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Qual
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+11%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clin
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+None/NS
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+14%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Anesthetic
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NS/Missing
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+14%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TIVA alone
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+27%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Volatile
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+59%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Arms
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neo
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+100%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Design
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rct
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+62%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+crossover
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cluster
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fully_paired
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+quasiexp
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nrsi
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prospect_coh
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+22%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+retrospect_coh
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+casecontrol
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+case_series
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0%
+</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1302,7 +1707,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.2-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
+ [1] meta_5.3-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
  [5] stringr_1.4.0     dplyr_1.0.8       purrr_0.3.4       readr_2.1.2      
  [9] tidyr_1.2.0       tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1  
 [13] Cairo_1.5-15      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
