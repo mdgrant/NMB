@@ -9,6 +9,28 @@ library(formattable)
 suppressMessages(library(meta))
 settings.meta(CIbracket = "(", CIseparator = ", ")
 
+# tally 2 variables
+table_tally_2 <- function(data, var_1, var_2){
+  data %>%
+    arrange({{var_1}}, {{var_2}}) %>%
+    select({{var_1}}, {{var_2}},) %>%
+    group_by({{var_1}}, {{var_2}},) %>%
+    tally() %>%
+    ungroup() %>%
+    mutate(end = cumsum(n),
+           start = end - n + 1
+    ) %>%
+    select({{var_1}}, {{var_2}}, start, end)
+}
+
+# list of tabyls
+tab_lst <- function(data, vars){
+  data %>%
+    select({{vars}}) %>%
+    map(~ tabyl(.))
+}
+
+# count of unique for variable
 qinu <- function(df, var){
   df %>%
     select({{var}}) %>%
@@ -22,7 +44,7 @@ proc_freq <- function(df, a, b){
     group_by({{a}}, {{b}}) %>%
     tally() %>%
     spread({{a}}, n) %>%
-    gt::gt()
+    gt::gt(.)
 }
 
 `%notin%` <- Negate(`%in%`)
@@ -437,27 +459,24 @@ path <- path_csv(study_char_file)
 study_char.dat <- read_csv(path) %>%
   janitor::clean_names() %>%
   select(-ris_code, -level, -study_char_k) %>%
-  rename(author_dist = author, author = author_added) %>% # author distiller, author entered
-  select(refid, year, author:comment, linked_references, labels) %>%
+  rename(author_dist = author, author = author_added, age = patient_pop) %>% # author distiller, author entered
+  select(refid, year, age, author:comment, linked_references, labels) %>%
+  mutate(age = case_when(
+    age == "adult" ~ "Adult",
+    age == "adult_peds" ~ "All ages",
+    age == "peds" ~ "Pediatric",
+    TRUE ~ "MISSING/FIX"),
+  age = if ("MISSING/FIX" %in% age) stop() else age
+  ) %>%
   group_by(refid) %>%
   slice(1) %>%  # use to temporarily remove duplicates from run-in
   ungroup()
+
 
 # number of studies
 (study_char_n <- study_char.dat %>%
     distinct(refid) %>%
     count())
-
-## add age from full-text screening level, study design categories ####
-age.dat <- read_csv(paste0("data/", age_file), col_types = c("ncccnccncccccccccc")) %>%
-  janitor::clean_names() %>%
-  select(refid, age) %>%
-  filter(refid %in% unique(study_char.dat$refid), !is.na(age)) %>%
-  distinct() # duplicate records at full-text screening
-
-study_char.dat <- study_char.dat %>%
-  left_join(age.dat, study_char.dat, by = "refid") %>%
-  select(refid, year, age, everything())
 
 study_char.dat <- study_char.dat %>%
   mutate(
@@ -681,7 +700,6 @@ length(unique(likert.dat$refid)) == dichot_n
 ## (updated 2021/11/05 17:09) cleanup -------------------------------------
 rm(list = ls(pattern = "*.file"))
 rm(list = ls(pattern = "*_n"))
-rm(age.dat)
 rm(path)
 
 table_n <- 1

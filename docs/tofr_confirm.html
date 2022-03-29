@@ -436,7 +436,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">TOFR Confirmation (draft/preliminary)</h1>
-<h4 class="date">24 March, 2022 (10:26)</h4>
+<h4 class="date">29 March, 2022 (15:37)</h4>
 
 </div>
 
@@ -465,7 +465,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-24
+<strong>Last updated:</strong> 2022-03-29
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -599,15 +599,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreee2a500483bb5b33bbad49d3e8330e2e13caaa5f1targetblanke2a5004a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2e927c66388ab339f6d0d1c8d810d32398094c5dtargetblank2e927c6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1" target="_blank">e2a5004</a>
+<a href="https://github.com/mdgrant/NMB/tree/2e927c66388ab339f6d0d1c8d810d32398094c5d" target="_blank">2e927c6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreee2a500483bb5b33bbad49d3e8330e2e13caaa5f1targetblanke2a5004a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2e927c66388ab339f6d0d1c8d810d32398094c5dtargetblank2e927c6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -617,7 +617,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/e2a500483bb5b33bbad49d3e8330e2e13caaa5f1" target="_blank">e2a5004</a>.
+<a href="https://github.com/mdgrant/NMB/tree/2e927c66388ab339f6d0d1c8d810d32398094c5d" target="_blank">2e927c6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -661,7 +661,9 @@ Untracked files:
     Untracked:  data/
 
 Unstaged changes:
+    Modified:   analysis/kq3.Rmd
     Modified:   analysis/tofr_confirm.Rmd
+    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -707,6 +709,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/2e927c66388ab339f6d0d1c8d810d32398094c5d/analysis/tofr_confirm.Rmd" target="_blank">2e927c6</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-24
+</td>
+<td>
+udpate confirm analyses
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/2e927c66388ab339f6d0d1c8d810d32398094c5d/docs/tofr_confirm.html" target="_blank">2e927c6</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-24
+</td>
+<td>
+udpate confirm analyses
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1112,6 +1148,801 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover({html: true, placement: top});
 });
 </script>
+<p><font size = 4> Table 1. Study arms included in analyses of
+extubation confirmation with sugammadex. All studies utilized
+quantitative monitoring.</font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="5">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Reversal
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Residual Neuromuscular Blockade
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Design
+</th>
+<th style="text-align:right;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+Agent
+</th>
+<th style="text-align:center;font-weight: bold;">
+Volatile
+</th>
+<th style="text-align:left;font-weight: bold;">
+Depth
+</th>
+<th style="text-align:left;font-weight: bold;">
+Location<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+N (%)
+</th>
+<th style="text-align:left;font-weight: bold;">
+<span
+style="display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%">
+ 0%  →  100%</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="7">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>≥0.9 confirmed</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Staals 2008
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+29
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Khuenl-Brady 2010
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+48
+</td>
+<td style="text-align:center;width: 4em; ">
+Vec
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Adamus 2011
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+11
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Rahe-Meyer 2015
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+69
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Stourac 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+120
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Yazar 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+59
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (1.7)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  98.31% , #f1948a 98.31% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Boggett 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+175
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+5 (2.9)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.14% , #f1948a 97.14% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr grouplength="11">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Not confirmed</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Sabo 2011
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+51
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+2 (3.9)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.08% , #c39bd3 96.08% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Cammu 2012
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+44
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (2.3)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.73% , #c39bd3 97.73% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Ledowski 2013
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+57
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+End surgery
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+4 (7.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  92.98% , #c39bd3 92.98% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Batistaki 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+306
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+29 (9.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  90.52% , #c39bd3 90.52% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Carron 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Retro Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+128
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #c39bd3 100.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Nemes 2017
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+27
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+End surgery
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (3.7)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.30% , #c39bd3 96.30% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Alday 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+62
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+19 (30.6)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  69.35% , #c39bd3 69.35% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Koo 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+104
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #c39bd3 100.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Lee 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+37
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #c39bd3 100.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Togioka 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+98
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+9 (9.2)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  90.82% , #c39bd3 90.82% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2021
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+97
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Other
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (1.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  98.97% , #c39bd3 98.97% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr grouplength="6">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Not stated</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+White 2009
+</td>
+<td style="text-align:left;width: 8em; ">
+Retro Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+171
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+14 (8.2)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  91.81% , #7fb3d5 91.81% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Della Rocca 2013
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+207
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wu 2014 (Caucasian)
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+29
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wu 2014 (Chinese)
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+120
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Brueckmann 2015
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+74
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Martinez-Ubieto 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+92
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Min
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (1.1)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  98.91% , #7fb3d5 98.91% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; NR Trial: nonrandomized
+trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort;
+ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod:
+moderate; NS: not stated; PACU: post-anesthesia care unit.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Extubation includes designated in OR.; PACU if desginated
+as PACU or recovery.
+</td>
+</tr>
+</tfoot>
+</table>
 <div id="tofr-0.9-before-extubation" class="section level2">
 <h2>TOFR ≥0.9 Before Extubation</h2>
 <div id="sugammadex" class="section level3">
@@ -1123,567 +1954,989 @@ $(document).ready(function(){
 quantitative monitoring among patients reversed with sugammadex
 according to whether TOFR ≥0.9 was reported as confirmed prior to
 extubation. </font></p>
-<p><img src="figure/tofr_confirm.Rmd/metaSug-1.png" width="1056" style="display: block; margin: auto auto auto 0;" />
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference
-between confirmed and not confirmed p = 0.11 (removing Alday 2019 p =
-0.19) — risk ratio 0.27 (95% CI: 0.03, 1.43). <br/> Removing Alday 2019,
-risk ratio 0.38 (95% CI: 0.04, 1.72). <br/> Adding arms from studies not
-using quantitative monitoring — risk ratio 0.27 (95% CI: 0.03,
-1.30).<br/> Assuming all not stated were confirmed — risk ratio 0.21
-(95% CI: 0.02, 1.11). <br/> Assuming all not stated were not confirmed —
-risk ratio 0.42 (95% CI: 0.05, 2.16). <br/></p>
+<p><img src="figure/tofr_confirm.Rmd/metaSug-1.png" width="912" style="display: block; margin: auto auto auto 0;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-metaSug-1">
+Past versions of metaSug-1.png
+</button>
+</p>
+<div id="fig-metaSug-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/2e927c66388ab339f6d0d1c8d810d32398094c5d/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">2e927c6</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
+Difference between confirmed and not confirmed — risk ratio 0.09 (95%
+CI: 0.00, 0.72). <br/> Removing Alday 2019 — Risk Ratio 0.14 (95% CI:
+0.00, 1.03)<br/> Assuming all not stated were confirmed — risk ratio
+0.15 (95% CI: 0.01, 1.09). <br/> Assuming all not stated were not
+confirmed — risk ratio 0.14 (95% CI: 0.00, 1.05).</p>
 <p><br/><br/></p>
 <p><a id="kq4Fig1"></a></p>
 </div>
 <div id="neostigmine" class="section level3">
 <h3>Neostigmine</h3>
 <p><br/></p>
+<p><font size = 4> Table 2. Study arms included in analyses of
+extubation confirmation with neostigmine. All studies utilized
+quantitative monitoring.</font></p>
+<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="5">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Reversal
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Residual Neuromuscular Blockade
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Study
+</th>
+<th style="text-align:left;font-weight: bold;">
+Design
+</th>
+<th style="text-align:right;font-weight: bold;">
+N
+</th>
+<th style="text-align:center;font-weight: bold;">
+Agent
+</th>
+<th style="text-align:center;font-weight: bold;">
+Volatile
+</th>
+<th style="text-align:left;font-weight: bold;">
+Depth
+</th>
+<th style="text-align:left;font-weight: bold;">
+Location<sup>a</sup>
+</th>
+<th style="text-align:left;font-weight: bold;">
+N (%)
+</th>
+<th style="text-align:left;font-weight: bold;">
+<span
+style="display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%">
+ 0%  →  100%</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="7">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>≥0.9 confirmed</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Cammu 2002
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+25
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Min
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (4.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.00% , #f1948a 96.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Khuenl-Brady 2010
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+45
+</td>
+<td style="text-align:center;width: 4em; ">
+Vec
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+8 (17.8)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  82.22% , #f1948a 82.22% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Adamus 2011
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+10
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+El Tahan 2015
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+33
+</td>
+<td style="text-align:center;width: 4em; ">
+Cis
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Shallow
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+2 (6.1)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  93.94% , #f1948a 93.94% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Feltracco 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+120
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Shallow
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+6 (5.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  95.00% , #f1948a 95.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wardhana 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+36
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Recovery
+</td>
+<td style="text-align:left;width: 6em; ">
+1 (2.8)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  97.22% , #f1948a 97.22% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Boggett 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+175
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+6 (3.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  96.57% , #f1948a 96.57% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr grouplength="12">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Not confirmed</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Kopman 1996
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+56
+</td>
+<td style="text-align:center;width: 4em; ">
+Pan
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+52 (92.9)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  7.14% , #c39bd3 7.14% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Sabo 2011
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+49
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+26 (53.1)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  46.94% , #c39bd3 46.94% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Cammu 2012
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+139
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+21 (15.1)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  84.89% , #c39bd3 84.89% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Ledowski 2013
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+33
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+End surgery
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+19 (57.6)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  42.42% , #c39bd3 42.42% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Batistaki 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+212
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+27 (12.7)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  87.26% , #c39bd3 87.26% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Carron 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Retro Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+128
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+41 (32.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  67.97% , #c39bd3 67.97% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Nemes 2017
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+26
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+End surgery
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+4 (15.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  84.62% , #c39bd3 84.62% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2018
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+47
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Min
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #c39bd3 100.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Alday 2019
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+64
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+45 (70.3)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  29.69% , #c39bd3 29.69% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Lee 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+36
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod:Shallow:Min
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+16 (44.4)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  55.56% , #c39bd3 55.56% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Togioka 2020
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+99
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+46 (46.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  53.54% , #c39bd3 53.54% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Murphy 2021
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+100
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Other
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+61 (61.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  39.00% , #c39bd3 39.00% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr grouplength="8">
+<td colspan="9" style="border-top: 1px solid;color: black !important;background-color: #EBEBEB !important;">
+<strong>Not stated</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Kirkegaard 2002
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+64
+</td>
+<td style="text-align:center;width: 4em; ">
+Cis
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod:Shallow
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+8 (12.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  87.50% , #7fb3d5 87.50% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Kopman 2005
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+40
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+End surgery
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+29 (72.5)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  27.50% , #7fb3d5 27.50% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Della Rocca 2013
+</td>
+<td style="text-align:left;width: 8em; ">
+NR Trial
+</td>
+<td style="text-align:right;width: 4em; ">
+150
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Deep:Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+Extubation
+</td>
+<td style="text-align:left;width: 6em; ">
+20 (13.3)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  86.67% , #7fb3d5 86.67% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Todd 2014
+</td>
+<td style="text-align:left;width: 8em; ">
+Before-After
+</td>
+<td style="text-align:right;width: 4em; ">
+96
+</td>
+<td style="text-align:center;width: 4em; ">
+Var
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+15 (15.6)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  84.38% , #7fb3d5 84.38% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wu 2014 (Caucasian)
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+31
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Wu 2014 (Chinese)
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+111
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+</td>
+<td style="text-align:left;width: 7em; ">
+Mod
+</td>
+<td style="text-align:left;width: 6em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+0 (0.0)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #7fb3d5 100.00% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Brueckmann 2015
+</td>
+<td style="text-align:left;width: 8em; ">
+RCT
+</td>
+<td style="text-align:right;width: 4em; ">
+77
+</td>
+<td style="text-align:center;width: 4em; ">
+Roc
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+NS
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+33 (42.9)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  57.14% , #7fb3d5 57.14% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+Martinez-Ubieto 2016
+</td>
+<td style="text-align:left;width: 8em; ">
+Prosp Coh
+</td>
+<td style="text-align:right;width: 4em; ">
+92
+</td>
+<td style="text-align:center;width: 4em; ">
+Cis
+</td>
+<td style="text-align:center;width: 5em; ">
+×
+</td>
+<td style="text-align:left;width: 7em; ">
+Min
+</td>
+<td style="text-align:left;width: 6em; ">
+PACU
+</td>
+<td style="text-align:left;width: 6em; ">
+21 (22.8)
+</td>
+<td style="text-align:left;width: 7em; ">
+<span
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  77.17% , #7fb3d5 77.17% , #7fb3d5 100.00% , transparent 100.00% ); width: 100%"> </span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> RCT: randomized controlled trial; Quasi-exp:
+quasi-experimental; Prosp Coh: prospective cohort; Retro Coh:
+retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various;
+Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care
+unit.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>a</sup> Extubation includes designated in OR.; PACU if desginated
+as PACU or recovery.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><br/><br/></p>
 <p><font size = 4> Figure 2. Incidence of residual neuromuscular block
 (TOFR &lt;0.9) in arms of randomized and nonrandomized studies among
 patients reversed with neostigmine according to whether TOFR ≥0.9 was
 reported confirmed prior to extubation. </font></p>
-<p><img src="figure/tofr_confirm.Rmd/metaNeo-1.png" width="1056" style="display: block; margin: auto auto auto 0;" />
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference
-between confirmed and not confirmed p &lt; 0.0002 — risk ratio 0.21 (95%
-CI: 0.06, 0.49). <br/> Adding arms from studies not using quantitative
-monitoring — risk ratio 0.20 (95% CI: 0.06, 0.44). <br/> Assuming all
-not stated were confirmed — risk ratio 0.25 (95% CI: 0.09, 0.52). <br/>
-Assuming all not stated were not confirmed — risk ratio 0.30 (95% CI:
-0.09, 0.73). <br/></p>
-<p><br/><br/></p>
+<p><img src="figure/tofr_confirm.Rmd/metaNeo-1.png" width="912" style="display: block; margin: auto auto auto 0;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-metaNeo-1">
+Past versions of metaNeo-1.png
+</button>
+</p>
+<div id="fig-metaNeo-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/2e927c66388ab339f6d0d1c8d810d32398094c5d/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">2e927c6</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-03-24
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="summary-of-included-studies" class="section level3">
-<h3>Summary of included studies</h3>
-<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
-<caption>
-Summary of all sugammadex studies.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;font-weight: bold;">
-Characteristic
-</th>
-<th style="text-align:right;font-weight: bold;">
-N
-</th>
-<th style="text-align:right;font-weight: bold;">
-%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Monitoring
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Quant
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-93%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Qual
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clin
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-None/NS
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-7%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Anesthetic
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NS/Missing
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-19%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TIVA alone
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-19%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Volatile
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-63%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Arms
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Sug
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-100%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Design
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rct
-</td>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:right;">
-59%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-crossover
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-cluster
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fully_paired
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-quasiexp
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-nrsi
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-11%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-prospect_coh
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-22%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-retrospect_coh
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-7%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-casecontrol
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-case_series
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-other
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-</tbody>
-</table>
-<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
-<caption>
-Summary of all neostigmine studies.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;font-weight: bold;">
-Characteristic
-</th>
-<th style="text-align:right;font-weight: bold;">
-N
-</th>
-<th style="text-align:right;font-weight: bold;">
-%
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Monitoring
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Quant
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-73%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Qual
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-11%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clin
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-None/NS
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-14%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Anesthetic
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NS/Missing
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-14%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TIVA alone
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-27%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Volatile
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-59%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Arms
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Neo
-</td>
-<td style="text-align:right;">
-37
-</td>
-<td style="text-align:right;">
-100%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Design
-</td>
-<td style="text-align:right;">
-</td>
-<td style="text-align:right;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rct
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:right;">
-62%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-crossover
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-cluster
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fully_paired
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-quasiexp
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-5%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-nrsi
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-5%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-prospect_coh
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-22%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-retrospect_coh
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-casecontrol
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-case_series
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-other
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0%
-</td>
-</tr>
-</tbody>
-</table>
+</div>
+<p>Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
+Difference between confirmed and not confirmed — risk ratio 0.13 (95%
+CI: 0.05, 0.30). <br/> Assuming all not stated were confirmed — risk
+ratio 0.27 (95% CI: 0.08, 0.65). <br/> Assuming all not stated were not
+confirmed — risk ratio 0.17 (95% CI: 0.07, 0.39). <br/></p>
+<p><br/><br/></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1713,35 +2966,35 @@ other attached packages:
 [13] Cairo_1.5-15      countrycode_1.3.1 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-155           fs_1.5.2               bit64_4.0.5           
+ [1] nlme_3.1-157           fs_1.5.2               bit64_4.0.5           
  [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
  [7] rprojroot_2.0.2        tools_4.1.3            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
 [13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
-[16] withr_2.5.0            tidyselect_1.1.2       rematch_1.0.1         
-[19] bit_4.0.4              compiler_4.1.3         git2r_0.30.1          
-[22] cli_3.2.0              rvest_1.0.2            xml2_1.3.3            
-[25] sass_0.4.0             scales_1.1.1           systemfonts_1.0.4     
-[28] digest_0.6.29          minqa_1.2.4            rmarkdown_2.13        
-[31] svglite_2.1.0          pkgconfig_2.0.3        htmltools_0.5.2       
-[34] lme4_1.1-28            highr_0.9              dbplyr_2.1.1          
-[37] fastmap_1.1.0          htmlwidgets_1.5.4      rlang_1.0.2           
-[40] readxl_1.3.1           rstudioapi_0.13.0-9000 jquerylib_0.1.4       
-[43] generics_0.1.2         jsonlite_1.8.0         vroom_1.5.7           
-[46] magrittr_2.0.2         Matrix_1.4-0           Rcpp_1.0.8.3          
-[49] munsell_0.5.0          fansi_1.0.2            lifecycle_1.0.1       
-[52] visdat_0.5.3           stringi_1.7.6          whisker_0.4           
-[55] yaml_2.3.5             CompQuadForm_1.4.3     snakecase_0.11.0      
-[58] mathjaxr_1.6-0         MASS_7.3-55            grid_4.1.3            
-[61] parallel_4.1.3         promises_1.2.0.1       crayon_1.5.0          
-[64] lattice_0.20-45        haven_2.4.3            splines_4.1.3         
-[67] hms_1.1.1              knitr_1.37             pillar_1.7.0          
-[70] boot_1.3-28            reprex_2.0.1           glue_1.6.2            
-[73] evaluate_0.15          modelr_0.1.8           nloptr_2.0.0          
-[76] vctrs_0.3.8            tzdb_0.2.0             httpuv_1.6.5          
-[79] cellranger_1.1.0       gtable_0.3.0           assertthat_0.2.1      
-[82] xfun_0.30              broom_0.7.12           later_1.3.0           
-[85] viridisLite_0.4.0      workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
+[16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
+[19] compiler_4.1.3         git2r_0.30.1           cli_3.2.0             
+[22] rvest_1.0.2            xml2_1.3.3             sass_0.4.1            
+[25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
+[28] minqa_1.2.4            rmarkdown_2.13         svglite_2.1.0         
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
+[34] highr_0.9              dbplyr_2.1.1           fastmap_1.1.0         
+[37] htmlwidgets_1.5.4      rlang_1.0.2            readxl_1.3.1          
+[40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.2        
+[43] jsonlite_1.8.0         vroom_1.5.7            magrittr_2.0.2        
+[46] Matrix_1.4-1           Rcpp_1.0.8.3           munsell_0.5.0         
+[49] fansi_1.0.3            lifecycle_1.0.1        visdat_0.5.3          
+[52] stringi_1.7.6          whisker_0.4            yaml_2.3.5            
+[55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.6-0        
+[58] MASS_7.3-56            grid_4.1.3             parallel_4.1.3        
+[61] promises_1.2.0.1       crayon_1.5.1           lattice_0.20-45       
+[64] haven_2.4.3            splines_4.1.3          hms_1.1.1             
+[67] knitr_1.38             pillar_1.7.0           boot_1.3-28           
+[70] reprex_2.0.1           glue_1.6.2             evaluate_0.15         
+[73] modelr_0.1.8           nloptr_2.0.0           vctrs_0.3.8           
+[76] tzdb_0.2.0             httpuv_1.6.5           cellranger_1.1.0      
+[79] gtable_0.3.0           assertthat_0.2.1       xfun_0.30             
+[82] broom_0.7.12           later_1.3.0            viridisLite_0.4.0     
+[85] workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
 </div>
 </div>
 </div>
