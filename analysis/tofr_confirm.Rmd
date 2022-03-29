@@ -292,6 +292,7 @@ conf_meta <- dichot_conf.dat %>%
       extbconf == "ns" ~ "Not stated"
     ),
   ) %>%
+  # filter(!is.na(rnmb9_n), mon_cat_f == "Quant", arm %in% c("Neo", "Sug")) %>%
   filter(!is.na(rnmb9_n), confirm %notin% "≥0.7,0.8/NS confirmed", mon_cat_f == "Quant", arm %in% c("Neo", "Sug")) %>%
   # NOTE: all studies used quantitive monitoring.
   mutate(confirm = ordered(confirm, levels = c("≥0.9 confirmed", "Not confirmed", "Not stated"))) %>%
@@ -344,6 +345,15 @@ conf_meta <- conf_meta %>%
 
 rm(add, remove, temp_1, temp_2)
 ```
+
+
+## TOFR ≥0.9 Before Extubation
+
+<br/>
+
+### Sugammadex
+
+<br/>
 
 <font size = 4> Table `r table_n`. Study arms included in analyses of extubation confirmation with sugammadex. All studies utilized quantitative monitoring.</font>
 
@@ -415,15 +425,13 @@ kbl(
   pack_topnoind(., "Not stated", 19, 24) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
-    alphabet = c("Extubation includes designated in OR.; PACU if desginated as PACU or recovery."),
+    alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
   )
 
 table_n <- tab_inc()
 ```
-
-## TOFR ≥0.9 Before Extubation
 
 ```{r metaBaseCode}
 ## metaSug -------------------------------------------- (2022-03-23 07:42) @----
@@ -472,7 +480,9 @@ compare_ci <- function(data_meta) {
 }
 ```
 
-### Sugammadex
+<br/>
+
+###   Pooled
 
 <a id="kq4Fig1"></a>
 
@@ -616,7 +626,7 @@ kbl(
   # pack_sub_bold(., "Retrospective Cohort", 24, 24) %>% 
   footnote(
     general = "RCT: randomized controlled trial; Quasi-exp: quasi-experimental; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
-    alphabet = c("Extubation includes designated in OR.; PACU if desginated as PACU or recovery."),
+    alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
   )
@@ -624,7 +634,11 @@ kbl(
 table_n <- tab_inc()
 ```
 
-<br/><br/>
+<br/>
+
+###   Pooled
+
+<br/>
 
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in arms of randomized and nonrandomized studies among patients reversed with neostigmine according to whether TOFR ≥0.9 was reported confirmed prior to extubation. </font>
 
@@ -647,23 +661,23 @@ figure_n <- fig_inc()
 # compare_ci(rnmb_neo)
 
 ## assume all not stated confirmed or not ------------- (2022-03-24 09:57) @----
-conf_meta_sens <- conf_meta %>%
-  mutate(
-    # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-    confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
-  )
+# conf_meta_sens <- conf_meta %>%
+#   mutate(
+#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
+#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+#   )
+# # 
+# rnmb_meta <- metaprop(rnmb9_n, arm_n,
+#   data = conf_meta_sens,
+#   studlab = study,
+#   sm = "PAS",
+#   hakn = TRUE,
+#   subset = arm == "Neo",
+#   subgroup = confirm,
+#   backtransf = FALSE
+# )
 # 
-rnmb_meta <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta_sens,
-  studlab = study,
-  sm = "PAS",
-  hakn = TRUE,
-  subset = arm == "Neo",
-  subgroup = confirm,
-  backtransf = FALSE
-)
-
-compare_ci(rnmb_meta)
+# compare_ci(rnmb_meta)
 ```
 
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference between confirmed and not confirmed --- risk ratio 0.13 (95% CI: 0.05, 0.30). <br/> 
