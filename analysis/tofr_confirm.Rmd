@@ -355,7 +355,7 @@ rm(add, remove, temp_1, temp_2)
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of extubation confirmation with sugammadex. All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 prior to extubation (sugammadex used for reversal). All studies utilized quantitative monitoring.</font>
 
 ```{r sugammadexKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
@@ -542,7 +542,7 @@ figure_n <- fig_inc()
 
 ```
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
-Difference between confirmed and not confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.72). <br/>
+Confirmed vs. not confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.72). <br/>
 Removing Alday 2019 — Risk Ratio 0.14 (95% CI: 0.00, 1.03)<br/>
 Assuming all not stated were confirmed --- risk ratio 0.15 (95% CI: 0.01, 1.09). <br/>
 Assuming all not stated were not confirmed --- risk ratio 0.14 (95% CI: 0.00, 1.05).
@@ -555,7 +555,7 @@ Assuming all not stated were not confirmed --- risk ratio 0.14 (95% CI: 0.00, 1.
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of extubation confirmation with neostigmine. All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 prior to extubation (neostigmine  used for reversal). All studies utilized quantitative monitoring.</font>
 
 ```{r neostigmineKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
@@ -625,7 +625,7 @@ kbl(
   # pack_sub_bold(., "Prospective Cohort", 23, 23) %>% 
   # pack_sub_bold(., "Retrospective Cohort", 24, 24) %>% 
   footnote(
-    general = "RCT: randomized controlled trial; Quasi-exp: quasi-experimental; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
+    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
@@ -680,7 +680,8 @@ figure_n <- fig_inc()
 # compare_ci(rnmb_meta)
 ```
 
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> Difference between confirmed and not confirmed --- risk ratio 0.13 (95% CI: 0.05, 0.30). <br/> 
+Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
+Confirmed vs. not confirmed --- risk ratio 0.13 (95% CI: 0.05, 0.30). <br/> 
 Assuming all not stated were confirmed --- risk ratio 0.27 (95% CI: 0.08, 0.65). <br/> 
 Assuming all not stated were not confirmed --- risk ratio 0.17 (95% CI: 0.07, 0.39). <br/>
 
