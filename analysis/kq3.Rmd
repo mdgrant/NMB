@@ -1137,6 +1137,8 @@ dichot_pulm_kbl <- dichot_pulm %>%
          )) %>% 
   arrange(outcome, design, refid, arm_nmm)
 
+# TODO: fix indices
+
 dichot_pulm_kbl %>% 
   mutate(arm_nmm = case_when(
     str_detect(arm_nmm, "Clinical|None") ~ cell_spec(arm_nmm, color = color_4),
