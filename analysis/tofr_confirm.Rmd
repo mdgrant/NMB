@@ -347,15 +347,15 @@ rm(add, remove, temp_1, temp_2)
 ```
 
 
-## TOFR ≥0.9 Before Extubation
+<!-- ## TOFR ≥0.9 Before Extubation -->
 
 <br/>
 
-### Sugammadex
+## Sugammadex
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 prior to extubation (sugammadex used for reversal). All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (sugammadex used for reversal). All studies utilized quantitative monitoring.</font>
 
 ```{r sugammadexKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
@@ -482,7 +482,7 @@ compare_ci <- function(data_meta) {
 
 <br/>
 
-###   Pooled
+##   Pooled
 
 <a id="kq4Fig1"></a>
 
@@ -551,11 +551,11 @@ Assuming all not stated were not confirmed --- risk ratio 0.14 (95% CI: 0.00, 1.
 
 <a id="kq4Fig1"></a>
 
-### Neostigmine
+## Neostigmine
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 prior to extubation (neostigmine  used for reversal). All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (neostigmine  used for reversal). All studies utilized quantitative monitoring.</font>
 
 ```{r neostigmineKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
@@ -636,7 +636,7 @@ table_n <- tab_inc()
 
 <br/>
 
-###   Pooled
+##   Pooled
 
 <br/>
 
