@@ -94,44 +94,44 @@ source("code/readfiles_nmb_102721.R")
 ```{r rnmbDataExternal, eval = FALSE, echo = FALSE}
 ## rnmb extubation external data not included --------- (2022-03-19 17:44) @----
 # study & design to add
-study_add <- study_char.dat %>% 
-  select(refid, study, year, design) 
-
-# read excel file
-ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q104") %>%
-  clean_names() %>%
-  left_join(., study_add, by = "refid") %>%
-  mutate(
-    study = ifelse(is.na(study), str_extract(authors, "^\\w*"), study), # TODO: delete when distiller complete
-    rnmb_n = as.numeric(str_extract(rnmb_np, "^\\d{1,3}")),
-    tofr_conf = factor(tofr_confirm, levels = c("Yes", "No", "NS", "PNS"), labels = c("Yes", "No", "Not stated", "PNS")),
-    tofr_conf_comb = fct_collapse(tofr_conf, No = c("No", "PNS")),
-    volatile = case_when(
-      str_detect(anesth, "Vol") ~ "Volatile",
-      str_detect(anesth, "NS") ~ "NS/Missing",
-      anesth == "TIVA" ~ "TIVA alone",
-      is.na(anesth) ~ "NS/Missing",
-    ),
-    rnmb_def_comb = case_when(
-      str_detect(rnmb_def, "0.9") ~ "0.9",
-      str_detect(rnmb_def, "0.8") ~ "0.8",
-      str_detect(rnmb_def, "0.7") ~ "0.7",
-      str_detect(rnmb_def, "NS") ~ "NS",
-    )
-  ) %>%
-  group_by(refid) %>%
-  fill(study) %>%
-  ungroup() %>% # TODO: delete when distiller complete
-  select(refid, design_f, study, year, rev_agent, rnmb_n, arm_n, volatile, monitor, tofr_conf, tofr_conf_comb, tofr_ext, rnmb_def, rnmb_def_comb, rnmb_monitor, depth) %>%
-  rename(arm = rev_agent)
-
-# unique refids # NOTE: 65 studies in excel file
-ext_conf_refid <- sort(unique(ext_confirm_temp$refid))
-
-temp <- ext_confirm_temp %>% 
-  select(refid, study) %>% 
-  arrange(refid) %>% 
-  distinct()
+# study_add <- study_char.dat %>% 
+#   select(refid, study, year, design) 
+# 
+# # read excel file
+# ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q104") %>%
+#   clean_names() %>%
+#   left_join(., study_add, by = "refid") %>%
+#   mutate(
+#     study = ifelse(is.na(study), str_extract(authors, "^\\w*"), study), # TODO: delete when distiller complete
+#     rnmb_n = as.numeric(str_extract(rnmb_np, "^\\d{1,3}")),
+#     tofr_conf = factor(tofr_confirm, levels = c("Yes", "No", "NS", "PNS"), labels = c("Yes", "No", "Not stated", "PNS")),
+#     tofr_conf_comb = fct_collapse(tofr_conf, No = c("No", "PNS")),
+#     volatile = case_when(
+#       str_detect(anesth, "Vol") ~ "Volatile",
+#       str_detect(anesth, "NS") ~ "NS/Missing",
+#       anesth == "TIVA" ~ "TIVA alone",
+#       is.na(anesth) ~ "NS/Missing",
+#     ),
+#     rnmb_def_comb = case_when(
+#       str_detect(rnmb_def, "0.9") ~ "0.9",
+#       str_detect(rnmb_def, "0.8") ~ "0.8",
+#       str_detect(rnmb_def, "0.7") ~ "0.7",
+#       str_detect(rnmb_def, "NS") ~ "NS",
+#     )
+#   ) %>%
+#   group_by(refid) %>%
+#   fill(study) %>%
+#   ungroup() %>% # TODO: delete when distiller complete
+#   select(refid, design_f, study, year, rev_agent, rnmb_n, arm_n, volatile, monitor, tofr_conf, tofr_conf_comb, tofr_ext, rnmb_def, rnmb_def_comb, rnmb_monitor, depth) %>%
+#   rename(arm = rev_agent)
+# 
+# # unique refids # NOTE: 65 studies in excel file
+# ext_conf_refid <- sort(unique(ext_confirm_temp$refid))
+# 
+# temp <- ext_confirm_temp %>% 
+#   select(refid, study) %>% 
+#   arrange(refid) %>% 
+#   distinct()
 
 # write_csv(temp, "/Users/mgrant/Desktop/excel_refid_study.csv", na = "")
 
@@ -232,6 +232,7 @@ study_char_conf.dat <- study_char.dat %>%
 
 study_arm_conf.dat <- study_arm.dat %>%
   filter(refid %in% extb_rnmb_refids) %>%
+  filter(!is.na(extbconf)) %>% # verify for each arm
   remove_empty(which = "cols") %>%
   mutate(
     study = case_when(
@@ -344,10 +345,17 @@ conf_meta <- conf_meta %>%
   )
 
 rm(add, remove, temp_1, temp_2)
+
+# add Domenech 2019; entered as comparison of monitoring vs none in kq3
+domenech2019 <- tribble(
+~mon_cat_f,~refid,~study,~year,~age,~arm,~arm_n,~rnmb9_n,~rnmb_where,~rnmb_location,~extbconf,~tofrext,~confirm,~nmbagent,~volatile,~depth_rev_f,~depth,~study_l,~design_f,
+"Quant",3270,"Domenech 2019",2019,"Adult","Sug",42,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh",
+"Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh"
+)
+
+conf_meta <- bind_rows(conf_meta, domenech2019)
 ```
 
-
-<!-- ## TOFR ≥0.9 Before Extubation -->
 
 <br/>
 
@@ -378,7 +386,7 @@ conf_kbl <- conf_meta %>%
 #  7 Not stated     rct               19    21
 #  8 Not stated     nrsi              22    22
 #  9 Not stated     prospect_coh      23    23
-# 10 Not stated     retrospect_coh    24    24
+# 10 Not stated     retrospect_coh    24    25
 
 dichot_format <- function(x) (x/100)
 
@@ -422,7 +430,7 @@ kbl(
   column_spec(9, width = bar_width) %>% 
   pack_topnoind(., "≥0.9 confirmed", 1, 7) %>%
   pack_topnoind(., "Not confirmed", 8, 18) %>%
-  pack_topnoind(., "Not stated", 19, 24) %>%
+  pack_topnoind(., "Not stated", 19, 25) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -524,8 +532,8 @@ figure_n <- fig_inc()
 # # ## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
 # conf_meta_sens <- conf_meta %>%
 #   mutate(
-#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+#     confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
+#     # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
 #   )
 # 
 # rnmb_meta <- metaprop(rnmb9_n, arm_n,
@@ -544,8 +552,8 @@ figure_n <- fig_inc()
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
 Confirmed vs. not confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.72). <br/>
 Removing Alday 2019 — Risk Ratio 0.14 (95% CI: 0.00, 1.03)<br/>
-Assuming all not stated were confirmed --- risk ratio 0.15 (95% CI: 0.01, 1.09). <br/>
-Assuming all not stated were not confirmed --- risk ratio 0.14 (95% CI: 0.00, 1.05).
+Assuming all not stated were confirmed --- risk ratio 0.10 (95% CI: 0.00, 0.69). <br/>
+Assuming all not stated were not confirmed --- risk ratio 0.16 (95% CI: 0.00, 1.36).
 
 <br/><br/>
 
@@ -612,18 +620,8 @@ kbl(
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
   pack_topnoind(., "≥0.9 confirmed", 1, 7) %>%
-  # pack_sub_bold(., "RCT", 1, 6) %>% 
-  # pack_sub_bold(., "Nonrandomized Trial", 7, 7) %>% 
   pack_topnoind(., "Not confirmed", 8, 19) %>%
-  # pack_sub_bold(., "RCT", 8, 13) %>% 
-  # pack_sub_bold(., "Nonrandomized Trial", 14, 14) %>%
-  # pack_sub_bold(., "Prospective Cohort", 15, 17) %>% 
-  # pack_sub_bold(., "Retrospective Cohort", 18, 18) %>% 
-  pack_topnoind(., "Not stated", 20, 27) %>%
-  # pack_sub_bold(., "RCT", 19, 21) %>% 
-  # pack_sub_bold(., "Nonrandomized Trial", 22, 22) %>%
-  # pack_sub_bold(., "Prospective Cohort", 23, 23) %>% 
-  # pack_sub_bold(., "Retrospective Cohort", 24, 24) %>% 
+  pack_topnoind(., "Not stated", 20, 28) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -663,10 +661,10 @@ figure_n <- fig_inc()
 ## assume all not stated confirmed or not ------------- (2022-03-24 09:57) @----
 # conf_meta_sens <- conf_meta %>%
 #   mutate(
-#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+#     confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
+#     # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
 #   )
-# # 
+# #
 # rnmb_meta <- metaprop(rnmb9_n, arm_n,
 #   data = conf_meta_sens,
 #   studlab = study,
@@ -682,7 +680,7 @@ figure_n <- fig_inc()
 
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
 Confirmed vs. not confirmed --- risk ratio 0.13 (95% CI: 0.05, 0.30). <br/> 
-Assuming all not stated were confirmed --- risk ratio 0.27 (95% CI: 0.08, 0.65). <br/> 
-Assuming all not stated were not confirmed --- risk ratio 0.17 (95% CI: 0.07, 0.39). <br/>
+Assuming all not stated were confirmed --- risk ratio 0.24 (95% CI: 0.07, 0.60). <br/> 
+Assuming all not stated were not confirmed --- risk ratio 0.19 (95% CI: 0.07, 0.44). <br/>
 
 <br/><br/>
