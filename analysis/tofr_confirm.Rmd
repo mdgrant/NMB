@@ -360,6 +360,8 @@ conf_meta <- bind_rows(conf_meta, domenech2019) %>%
 
 ## Sugammadex
 
+<a id="confTab1"></a>
+
 <br/>
 
 <font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (sugammadex used for reversal). All studies utilized quantitative monitoring.</font>
@@ -480,7 +482,7 @@ compare_ci <- function(data_meta) {
 
 ##   Pooled
 
-<a id="kq4Fig1"></a>
+<a id="confFig1"></a>
 
 <br/>
 
@@ -550,9 +552,10 @@ Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> <!-- Confirmed vs.
 
 <br/><br/>
 
-<a id="kq4Fig1"></a>
 
 ## Neostigmine
+
+<a id="confTab2"></a>
 
 <br/>
 
@@ -619,6 +622,8 @@ table_n <- tab_inc()
 
 ##   Pooled
 
+<a id="confFig2"></a>
+
 <br/>
 
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR \<0.9) in arms of randomized and nonrandomized studies among patients reversed with neostigmine according to whether TOFR ≥0.9 was reported confirmed prior to extubation. </font>
@@ -671,3 +676,17 @@ Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/>
 | Assuming all not stated were not confirmed | 0.22 (0.08, 0.51) |
 
 : Risk Ratios
+
+```{r, eval = FALSE}
+# numbers for SOE
+conf_meta %>% 
+  filter(arm == "Neo") %>% 
+  # select(refid) %>% 
+  # pull(refid)
+  summarise(pts = sum(arm_n))
+
+
+
+
+```
+
