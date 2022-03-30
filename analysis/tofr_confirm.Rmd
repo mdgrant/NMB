@@ -68,12 +68,12 @@ display: none !important;
 <!--   border-right-color: red !important; -->
 <!-- } -->
 
-<!-- :target {  /* fix target location so caption appears */ -->
-<!--     display: block;     -->
-<!--     position: relative;      -->
-<!--     top: 10px; -->
-<!--     visibility: hidden; -->
-<!-- } -->
+:target {  /* fix target location so caption appears */
+    display: block;
+    position: relative;
+    top: -25px;
+    visibility: hidden;
+}
 
 </style>
 
