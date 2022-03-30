@@ -83,7 +83,6 @@ $(document).ready(function(){
 });
 </script>
 ```
-
 ```{r setup, include = FALSE}
 ## setup ---------------------------------------------- (2022-02-14 16:17) @----
 knitr::opts_chunk$set(echo = TRUE)
@@ -217,7 +216,7 @@ extb_refids <- study_arm.dat %>%
 extb_rnmb_refids <- dichot.dat %>%
   filter(age == "Adult") %>% 
   filter(refid %in% extb_refids) %>% # comment out if checking refids below
-  filter(if_any(c(rnmb1_n, rnmb2_n), ~ !is.na(.))) %>% 
+  filter(if_any(c(rnmb1_n, rnmb2_n), ~ !is.na(.))) %>%
   select(refid) %>%
   distinct() %>%
   pull()
@@ -252,10 +251,10 @@ study_arm_conf.dat <- study_arm.dat %>%
     arm = factor(arm, levels = c("Sug", "Neo", "Plac", "Spont", "Pyrid", "Other"), ordered = TRUE),
     volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.))
   ) %>%
-  select(refid, extbconf, tofrext, arm_id, year, design, arm_n, arm, age, depth_rev_f, nmbagent, volatile, mon_type, mon_cat, mon_cat_f)
+  select(refid, extbconf, tofrext, arm_id, year, design, arm_n, arm, age, depth_rev_f, nmbagent, volatile, mon_type, mon_cat, mon_cat_f, sug_dose)
 
 # describe
-# tab_lst(study_arm_conf.dat, c(tofrext, volatile, depth_rev_f:mon_cat_f))
+# tab_lst(study_arm_conf.dat, c(tofrext, sug_dose, volatile, depth_rev_f:mon_cat_f))
 
 dichot_conf.dat <- dichot.dat %>%
 filter(refid %in% extb_rnmb_refids) %>%
@@ -287,7 +286,7 @@ conf_meta <- dichot_conf.dat %>%
     rnmb_where = ifelse(is.na(rnmb_where), rnmb_location, rnmb_where),
     rnmb_where = ifelse(rnmb_where == "post_ext", "post_extub", rnmb_where),
     confirm = case_when(
-      extbconf == "yes" & tofrext == "tofrext9" ~ "≥0.9 confirmed",
+      extbconf == "yes" & tofrext %in%  c("tofrext9", "tofrext1") ~ "≥0.9 confirmed",
       extbconf == "yes" & str_detect(tofrext, "tofrext") ~ "≥0.7,0.8/NS confirmed",
       extbconf == "no" ~ "Not confirmed",
       extbconf == "ns" ~ "Not stated"
@@ -353,9 +352,9 @@ domenech2019 <- tribble(
 "Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh"
 )
 
-conf_meta <- bind_rows(conf_meta, domenech2019)
+conf_meta <- bind_rows(conf_meta, domenech2019) %>% 
+  arrange(confirm, year)
 ```
-
 
 <br/>
 
@@ -375,18 +374,7 @@ conf_kbl <- conf_meta %>%
   # select only to go in meta
   filter(arm %in% c("Neo", "Sug"))
 
-# table_tally_2(temp, confirm, design)
-
-#  1 ≥0.9 confirmed rct                1     6
-#  2 ≥0.9 confirmed nrsi               7     7
-#  3 Not confirmed  rct                8    13
-#  4 Not confirmed  nrsi              14    14
-#  5 Not confirmed  prospect_coh      15    17
-#  6 Not confirmed  retrospect_coh    18    18
-#  7 Not stated     rct               19    21
-#  8 Not stated     nrsi              22    22
-#  9 Not stated     prospect_coh      23    23
-# 10 Not stated     retrospect_coh    24    25
+# table_tally_2(temp, confirm, design_f)
 
 dichot_format <- function(x) (x/100)
 
@@ -428,9 +416,9 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 7) %>%
-  pack_topnoind(., "Not confirmed", 8, 18) %>%
-  pack_topnoind(., "Not stated", 19, 25) %>%
+  pack_topnoind(., "≥0.9 confirmed", 1, 8) %>%
+  pack_topnoind(., "Not confirmed", 9, 19) %>%
+  pack_topnoind(., "Not stated", 20, 6) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -449,7 +437,7 @@ forest_conf <- function(meta_result) {
     fixed = FALSE,
     rightcols = c("effect", "ci"),
     rightlabs = c("Incidence", "(95% CI)"),
-    digits = 2,
+    digits = 3,
     digits.tau2 = 1,
     overall.hetstat = TRUE,
     print.I2.ci = TRUE,
@@ -511,7 +499,6 @@ rnmb_sug <- update(rnmb_meta,
 )
 
 forest_conf(rnmb_sug)
-
 figure_n <- fig_inc()
 
 ## risk ratio ----------------------------------------- (2022-03-23 17:08) @----
@@ -532,8 +519,8 @@ figure_n <- fig_inc()
 # # ## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
 # conf_meta_sens <- conf_meta %>%
 #   mutate(
-#     confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
+#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
 #   )
 # 
 # rnmb_meta <- metaprop(rnmb9_n, arm_n,
@@ -549,11 +536,17 @@ figure_n <- fig_inc()
 # compare_ci(rnmb_meta)
 
 ```
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
-Confirmed vs. not confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.72). <br/>
-Removing Alday 2019 — Risk Ratio 0.14 (95% CI: 0.00, 1.03)<br/>
-Assuming all not stated were confirmed --- risk ratio 0.10 (95% CI: 0.00, 0.69). <br/>
-Assuming all not stated were not confirmed --- risk ratio 0.16 (95% CI: 0.00, 1.36).
+
+Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> <!-- Confirmed vs. not confirmed --- risk ratio 0.08 (95% CI: 0.00, 0.64). <br/> --> <!-- Removing Alday 2019 --- risk ratio 0.12 (95% CI: 0.00, 0.92)<br/>  --> <!-- Assuming all not stated were confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.65). <br/>  --> <!-- Assuming all not stated were not confirmed --- risk ratio 0.15 (95% CI: 0.00, 1.21). -->
+
+| Confirmed vs. Not confirmed                | RR (95% CI)       |
+|:-------------------------------------------|:------------------|
+| All studies                                | 0.08 (0.00, 0.64) |
+| Removing Alday 2019                        | 0.12 (0.00, 0.92) |
+| Assuming all not stated were confirmed     | 0.09 (0.00, 0.65) |
+| Assuming all not stated were not confirmed | 0.15 (0.00, 1.21) |
+
+: Risk Ratios
 
 <br/><br/>
 
@@ -563,21 +556,11 @@ Assuming all not stated were not confirmed --- risk ratio 0.16 (95% CI: 0.00, 1.
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (neostigmine  used for reversal). All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (neostigmine used for reversal). All studies utilized quantitative monitoring.</font>
 
 ```{r neostigmineKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
-# table_tally_2(temp, confirm, design)
-
-# 1 ≥0.9 confirmed rct                1     7
-# 2 Not confirmed  rct                8    13
-# 3 Not confirmed  nrsi              14    15
-# 4 Not confirmed  prospect_coh      16    18
-# 5 Not confirmed  retrospect_coh    19    19
-# 6 Not stated     rct               20    24
-# 7 Not stated     quasiexp          25    25
-# 8 Not stated     nrsi              26    26
-# 9 Not stated     prospect_coh      27    27
+# table_tally_2(temp, confirm, design_f)
 
 dichot_format <- function(x) (x/100)
 
@@ -619,9 +602,9 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 7) %>%
-  pack_topnoind(., "Not confirmed", 8, 19) %>%
-  pack_topnoind(., "Not stated", 20, 28) %>%
+  pack_topnoind(., "≥0.9 confirmed", 1, 8) %>%
+  pack_topnoind(., "Not confirmed", 9, 20) %>%
+  pack_topnoind(., "Not stated", 21, 29) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -661,10 +644,10 @@ figure_n <- fig_inc()
 ## assume all not stated confirmed or not ------------- (2022-03-24 09:57) @----
 # conf_meta_sens <- conf_meta %>%
 #   mutate(
-#     confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
+#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
 #   )
-# #
+# 
 # rnmb_meta <- metaprop(rnmb9_n, arm_n,
 #   data = conf_meta_sens,
 #   studlab = study,
@@ -674,13 +657,17 @@ figure_n <- fig_inc()
 #   subgroup = confirm,
 #   backtransf = FALSE
 # )
-# 
+
 # compare_ci(rnmb_meta)
 ```
 
 Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
-Confirmed vs. not confirmed --- risk ratio 0.13 (95% CI: 0.05, 0.30). <br/> 
-Assuming all not stated were confirmed --- risk ratio 0.24 (95% CI: 0.07, 0.60). <br/> 
-Assuming all not stated were not confirmed --- risk ratio 0.19 (95% CI: 0.07, 0.44). <br/>
+<!-- Confirmed vs. not confirmed --- risk ratio 0.15 (95% CI: 0.06, 0.35). <br/> Assuming all not stated were confirmed --- risk ratio 0.26 (95% CI: 0.09, 0.62). <br/> Assuming all not stated were not confirmed --- risk ratio 0.22 (95% CI: 0.08, 0.51). <br/> -->
 
-<br/><br/>
+| Confirmed vs. Not confirmed                | RR (95% CI)       |
+|:-------------------------------------------|:------------------|
+| All studies                                | 0.15 (0.06, 0.35) |
+| Assuming all not stated were confirmed     | 0.26 (0.09, 0.62) |
+| Assuming all not stated were not confirmed | 0.22 (0.08, 0.51) |
+
+: Risk Ratios
