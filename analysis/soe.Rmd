@@ -244,7 +244,7 @@ soe_summary %>%
   pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
   pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
-  footnote(general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+  footnote(general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; OR: odds ratio.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -430,7 +430,7 @@ soe_summary %>%
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
-    general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+footnote(general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; RR: risk ratio.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)

@@ -68,12 +68,12 @@ display: none !important;
 <!--   border-right-color: red !important; -->
 <!-- } -->
 
-<!-- :target {  /* fix target location so caption appears */ -->
-<!--     display: block;     -->
-<!--     position: relative;      -->
-<!--     top: 10px; -->
-<!--     visibility: hidden; -->
-<!-- } -->
+:target {  /* fix target location so caption appears */
+    display: block;
+    position: relative;
+    top: -25px;
+    visibility: hidden;
+}
 
 </style>
 ```
@@ -88,16 +88,13 @@ $(document).ready(function(){
 ## • (updated 2021/11/10 21:46) setup -------------------------------------
 knitr::opts_chunk$set(echo = FALSE, include = TRUE)
 source("code/readfiles_nmb_102721.R")
-study_width <- "10em"
-bar_width <- "7em"
-# bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%  →  100%</span>"
-bar_ref <- "<span style='display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent 43.00% , #e0e0de 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 163%'>&nbsp;</span>"
-# <span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.00% , #f1948a 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 100%",>&nbsp;</span>
-
-
-
-or_width <- "8em"
-note_width <- "12em"
+# study_width <- "10em"
+# bar_width <- "7em"
+# # bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%  →  100%</span>"
+# bar_ref <- "<span style='display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent 43.00% , #e0e0de 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 163%'>&nbsp;</span>"
+# # <span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.00% , #f1948a 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 100%",>&nbsp;</span>
+# or_width <- "8em"
+# note_width <- "12em"
 
 ```
 
@@ -105,8 +102,7 @@ note_width <- "12em"
 ## (updated 2021/12/14 11:36) refids --------------------------------------
 ptout_refids <- study_char.dat %>% 
   filter(!is.na(diag_pt_out)) %>% 
-  # delete Thilen 2018
-  filter(refid != 3209) %>% 
+  filter(refid != 3209) %>% # exclude Thilen 2018
   pull(refid) %>% 
   unique()
 
@@ -346,7 +342,7 @@ table_n <- tab_inc()
 ```{r studiesDescribeKable}
 ## (updated 2021/12/29 09:26) study_arm_ptout.dat -------------------------
 # none of rcts used sugammadex
-## -----------------------------------------------------------------------@----
+## study_arm_ptout.dat -------------------------------- (2022-03-31 11:23) @----
 study_arm_ptout.dat %>% 
   mutate(
     volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.)),
@@ -636,13 +632,14 @@ pairs_temp.dat <- pairwise(
 
 ```
 
-<a id="kq3Fig1"></a>
-
 ### Qualitative vs. Clinical RCTs 
+
+<a id="kq3Fig1"></a>
 
 <font size = 4> Figure `r figure_n`. Pooled comparison of qualitative and clinical monitoring for RNMB (TOFR <0.7). </font>
 
 ```{r qualClinical, fig.width = 10, fig.height = 3}
+## qualClinical --------------------------------------- (2022-03-31 11:23) @----
 temp.meta.dat <- pairs_temp.dat %>% 
   filter(treat1 == "Clinical", treat2 == "Qualitative")
 
@@ -682,13 +679,14 @@ figure_n <- fig_inc()
 ```
 Manual TOF and manual TOF/DBS arms combined from Ueda 1991.
 
-<a id="kq3Fig2"></a>
-
 ### Quantitive vs. Clinical RCTs 
+
+<a id="kq3Fig2"></a>
 
 <font size = 4> Figure `r figure_n`. Pooled comparison of quantitative and clinical monitoring for RNMB (TOFR <0.7. 0.8, or 0.9). </font>
 
-```{r quanttClinical, fig.width = 10, fig.height = 3}
+```{r quantClinical, fig.width = 10, fig.height = 3}
+## quantClinical -------------------------------------- (2022-03-31 11:24) @----
 temp.meta.dat <- pairs_temp.dat %>% 
   filter(treat1 == "Clinical", treat2 == "Quantitative")
 
@@ -727,13 +725,16 @@ forest(temp.meta,
 figure_n <- fig_inc()
 ```
 
+### Quantitative vs. Qualitative RCTs 
+
 <a id="kq3Fig3"></a>
 
-### Quantitative vs. Qualitative RCTs 
+<br/>
 
 <font size = 4> Figure `r figure_n`. Pooled comparison of quantitative and clinical monitoring for RNMB (TOFR <0.9).</font>
 
 ```{r quantQual, fig.width = 10, fig.height = 3}
+## quantQual ----------------------------------------- (2022-03-31 11:25) @----
 temp.meta.dat <- pairs_temp.dat %>% 
   filter(treat1 == "Qualitative", treat2 == "Quantitative")
 
@@ -1047,9 +1048,9 @@ table_n <- tab_inc()
 
 <br/>
 
-<a id="kq3Tab7"></a>
-
 ## *Pulmonary complications*
+
+<a id="kq3Tab7"></a>
 
 <br/>
 
@@ -1172,8 +1173,8 @@ dichot_pulm_kbl %>%
   pack_sub_bold(., "RCT", 1, 2) %>%
   pack_sub_bold(., "Prospective Cohort", 3, 4) %>%
   # upper airway obstruction
-  pack_topnoind(., "Upper Airway Obstruction", 7, 8) %>%
-  pack_sub_bold(., "RCT", 7, 8) %>%
+  pack_topnoind(., "Upper Airway Obstruction", 5, 6) %>%
+  pack_sub_bold(., "RCT", 5, 6) %>%
   # hypoxia
   pack_topnoind(., "Hypoxia", 7, 12) %>%
   pack_sub_bold(., "RCT", 7, 12) %>%
