@@ -427,19 +427,19 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "25em") %>%
-  pack_top(., "Adult", 1, 164) %>%
-  pack_sub(., "RCT", 1, 120) %>% 
-  pack_sub(., "Before-After/Time Series", 121, 122) %>% 
-  pack_sub(., "Nonrandomized Trial", 123, 133) %>% 
-  pack_sub(., "Prospective Cohort", 134, 155) %>% 
-  pack_sub(., "Retrospective Cohort", 156, 164) %>% 
-  pack_top(., "All ages", 165, 171) %>% 
-  pack_sub(., "RCT", 165, 168) %>% 
-  pack_sub(., "Retrospective Cohort", 169, 171) %>% 
-  pack_top(., "Pediatric", 172, 187) %>%
-  pack_sub(., "RCT", 172, 183) %>% 
-  pack_sub(., "Prospective Cohort", 184, 186) %>% 
-  pack_sub(., "Case-control", 187, 187) %>% 
+  pack_top(., "Adult",                      1, 165) %>%
+  pack_sub(., "RCT",                        1, 121) %>% 
+  pack_sub(., "Before-After/Time Series", 122, 123) %>% 
+  pack_sub(., "Nonrandomized Trial",      124, 134) %>% 
+  pack_sub(., "Prospective Cohort",       135, 156) %>% 
+  pack_sub(., "Retrospective Cohort",     157, 165) %>% 
+  pack_top(., "All ages",                 166, 172) %>% 
+  pack_sub(., "RCT",                      166, 169) %>% 
+  pack_sub(., "Retrospective Cohort",     170, 172) %>% 
+  pack_top(., "Pediatric",                173, 188) %>%
+  pack_sub(., "RCT",                      173, 184) %>% 
+  pack_sub(., "Prospective Cohort",       185, 187) %>% 
+  pack_sub(., "Case-control",             188, 188) %>% 
   footnote(
     general = "RCT: randomized controlled trial; Car: cardiac; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial.",
     alphabet = c(
@@ -2004,7 +2004,7 @@ popc.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xl
   select(-c(le_90:resp_fail))
 
 ponv.dat <- suppressWarnings(readxl::read_xlsx("data/RevAgentSummary011122_mg.xlsx",
-  sheet = "PONV", range = "A5:K111",
+  sheet = "PONV", range = "A5:K113",
   col_types = c("numeric", rep("text", 5), "numeric", rep("text", 4))
 )) %>%
   rename_with(., ~ tolower(.x)) %>%
@@ -2603,8 +2603,9 @@ table_n <- tab_inc()
 
 ```{r PONV}
 ## tally ---------------------------------------------- (2022/03/04 08:22) @----
-# temp %>%
-#     filter() %>%
+# ponv.dat %>%
+#     filter(age == "Adult") %>%
+#     filter(!is.na(ponv_n)) %>%
 #     arrange(design, study) %>%
 #     select(study, refid, design) %>%
 #     group_by(design) %>%
@@ -2653,9 +2654,9 @@ ponv.dat %>%
   column_spec(c(3, 4), width = "8em") %>%
   column_spec(5, width = "11em") %>%
   column_spec(6, width = bar_width) %>%
-  pack_rows(., "RCT", 1, 30, indent = FALSE) %>%
-  pack_rows(., "Nonrandomized Trial", 31, 32, indent = FALSE) %>%
-  pack_rows(., "Retrospective Cohort", 33, 34, indent = FALSE) %>%
+  pack_rows(., "RCT", 1, 32, indent = FALSE) %>%
+  pack_rows(., "Nonrandomized Trial", 33, 34, indent = FALSE) %>%
+  pack_rows(., "Retrospective Cohort", 35, 38, indent = FALSE) %>%
   footnote(
     # general = "IBW: ideal body weight.",
     #        number = c("● Limited, ●● Important, ●●● Critical."),
@@ -2731,7 +2732,8 @@ pairs.dat <- pairwise(
   n = arm_n,
   studlab = study,
   data = nma_ponv,
-  sm = "RR"
+  sm = "RR",
+  warn = FALSE
 )
 
 trts <- c("Sug", "Neo", "Spont/Plac")
@@ -2743,7 +2745,8 @@ ponv_netmeta_nma <- netmeta(
   prediction = TRUE,
   seq = trts,
   sm = "RR",
-  reference.group = "Sug"
+  reference.group = "Sug",
+  warn = FALSE
 )
 
 forest(ponv_netmeta_nma,
@@ -4164,11 +4167,11 @@ study_char_table %>%
   column_spec(8, width = "3em") %>% 
   column_spec(9, width = "15em") %>% 
   column_spec(10, width = "5em") %>% 
-  pack_topnoind(., "RCT", 1, 120) %>% 
-  pack_topnoind(., "Quasi-Experimental", 121, 122) %>% 
-  pack_topnoind(., "Nonrandomized Studies of Interventions", 123, 133) %>% 
-  pack_topnoind(., "Prospective Cohort", 134, 155) %>%
-  pack_topnoind(., "Retrospective Cohort", 156, 164) %>% 
+  pack_topnoind(., "RCT",                        1, 121) %>% 
+  pack_topnoind(., "Before-After/Time Series", 122, 123) %>% 
+  pack_topnoind(., "Nonrandomized Trial",      124, 134) %>% 
+  pack_topnoind(., "Prospective Cohort",       135, 156) %>%
+  pack_topnoind(., "Retrospective Cohort",     157, 165) %>% 
   footnote(general_title = "",
     general = c("Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial"),
     alphabet = c("Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
@@ -4390,11 +4393,11 @@ pt_char_table %>%
   column_spec(16, width = "3em", popover = "Hepatic %") %>% 
   column_spec(17, width = "3em", popover = "Diabetes %") %>% 
   column_spec(18, width = "3em", popover = "Nuerological %") %>% 
-  pack_topnoind(., "RCT", 1, 120) %>% 
-  pack_topnoind(., "Quasi-Experimental", 120, 122) %>% 
-  pack_topnoind(., "Nonrandomized Studies of Interventions", 123, 133) %>% 
-  pack_topnoind(., "Prospective Cohort", 134, 155) %>%
-  pack_topnoind(., "Retrospective Cohort", 156, 164) %>% 
+  pack_topnoind(., "RCT",                        1, 121) %>%
+  pack_topnoind(., "Before-After/Time Series", 122, 123) %>%
+  pack_topnoind(., "Nonrandomized Trial",      124, 134) %>%
+  pack_topnoind(., "Prospective Cohort",       135, 156) %>%
+  pack_topnoind(., "Retrospective Cohort",     157, 165) %>%
   footnote(general_title = "",
     general = c("M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial."),
     alphabet = c("Empty cells indicate no information in publication."),
@@ -4581,11 +4584,11 @@ study_fund_table %>%
   column_spec(7, width = "20em") %>% 
   column_spec(8:10, width = "4em") %>% 
   column_spec(11, width = "20em") %>% 
-  pack_topnoind(., "RCT", 1, 120) %>% 
-  pack_topnoind(., "Quasi-Experimental", 121, 122) %>% 
-  pack_topnoind(., "Nonrandomized Studies of Interventions", 123, 133) %>% 
-  pack_topnoind(., "Prospective Cohort", 134, 155) %>%
-  pack_topnoind(., "Retrospective Cohort", 156, 164) %>% 
+  pack_topnoind(., "RCT",                        1, 121) %>%
+  pack_topnoind(., "Before-After/Time Series", 122, 123) %>%
+  pack_topnoind(., "Nonrandomized Trial",      124, 134) %>%
+  pack_topnoind(., "Prospective Cohort",       135, 156) %>%
+  pack_topnoind(., "Retrospective Cohort",     157, 165) %>%
   footnote(general = "Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme (funded 23 (22%) of RCTs and 26 (19%) of studies listed).",
           alphabet = c("Not reported meaning no mention in publication of funding source or author conflicts of interest."))
           # general_title = " ",
