@@ -599,7 +599,7 @@ rm(temp)
 
 <br/>
 
-<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in studies reporting residual neuromuscular block in adults. </font>
+<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in studies reporting residual neuromuscular blockade in adults. </font>
 
 ```{r rnmbDescrKbl}
 ## groupings ------------------------------------------ (2022-03-02 11:24) @----
@@ -698,7 +698,7 @@ length(unique(rnmb_prim.dat$refid))
 
 <br/>
 
-<font size = 4> Table `r table_n`. Incidence of residual neuromuscular block and depth of anesthesia according to reversal in adults.</font>
+<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of anesthesia according to reversal in adults.</font>
 
 ```{r rnmbKbl}
 ## ## rnmbKbl ----------------------------------------- (2022-04-02 14:57) @----
@@ -795,7 +795,6 @@ ns_rnmb <- str_replace(mod, ">.*<", paste0(">", "      ns_rnmb", "<"))
 #     start = end - n + 1
 #   ) %>%
 #   select(age, design, start, end)
-
 
 temp %>%
   select(study_l, n, arm_c, deep:ns_depth, volatiles, lt_1_bar:clin_bar, ns_rnmb, rr_ci_calc) %>%
@@ -895,7 +894,7 @@ rm(temp, temp1)
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular block (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine by depth of block. </font>
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine by depth of block. </font>
 
 ```{r rnmbMetaRctByDepth, fig.width = 10, fig.height = 7.5}
 # TODO: fig.height
@@ -934,13 +933,26 @@ forest(rnmb_meta,
   xlab = "Favors:     Sugammadex          Neostigmine")
 
 figure_n <- fig_inc()
+
+
 ```
+Too few studies to examine small study effects. 
+
+```{r smallStudyEffectsRnmb, eval = FALSE}
+## smallStudyEffects ---------------------------------- (2022-04-04 09:58) @----
+temp_meta <- rnmb_meta
+temp_meta <- update(temp_meta, subgroup = NULL, sm = "RR")
+metabias(temp_meta, method.bias = "Harbord", k.min = 8)
+metabias(temp_meta, method.bias = "Egger", k.min = 8)
+funnel(temp_meta)
+```
+
 
 <a id="kq4Fig3"></a>
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular block (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine according to volatile anesthetic. </font>
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine according to volatile anesthetic. </font>
 
 ```{r rnmbMetaRctByVolatile, fig.width = 10, fig.height = 6.5}
 ## rnmbMetaRctByVolatile -----------------------------+ (2022-04-03 10:09) @----
@@ -987,7 +999,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in studies reporting residual neuromuscular block in pediatric patients. </font>
+<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in studies reporting residual neuromuscular blockade in pediatric patients. </font>
 
 ```{r rnmbDescrPedsKbl}
 ## groupings -----------------------------------------+ (2022-03-02 11:24) @----
@@ -1051,7 +1063,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Incidence of residual neuromuscular block and depth of anesthesia according to reversal in pediatric patients.</font>
+<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of anesthesia according to reversal in pediatric patients.</font>
 
 ```{r rnmbPedsKbl}
 ## rnmbPedsKbl ---------------------------------------+ (2022-04-03 10:55) @----
@@ -1286,7 +1298,7 @@ time.dat <- left_join(time.dat, temp, by = c("refid", "arm")) %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. By depth of block, reversal and neuromuscular blocking agents, anesthetic, and monitor in RCTs reporting time to recovery from neuromuscular block in adults. </font>
+<font size = 4> Table `r table_n`. By depth of block, reversal and neuromuscular blocking agents, anesthetic, and monitor in RCTs reporting time to recovery from neuromuscular blockade in adults. </font>
 
 ```{r timeDescrKblRct}
 ## timeDescrKblRct -----------------------------------+ (2022-02-10 10:45) @----
@@ -1479,7 +1491,7 @@ time_result_adult <- time.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Time to recovery of neuromuscular block (TOFR >0.9) according to depth of block at reversal in RCTs enrolling adults. </font>
+<font size = 4> Table `r table_n`. Time to recovery of neuromuscular blockade (TOFR >0.9) according to depth of block at reversal in RCTs enrolling adults. </font>
 
 ```{r timeResultsRctAdult}
 ## timeResultsRctAdult -------------------------------+ (2022-02-10 10:47) @----
@@ -1713,6 +1725,7 @@ forest_time(deep)
 grid::grid.text("Deep Block", .1, .9, gp = grid::gpar(cex = 1.3))
 figure_n <- fig_inc()
 ```
+Too few studies to examine small study effects.
 
 <a id="revFig5"></a>
 
@@ -1725,8 +1738,15 @@ forest_time(moderate)
 grid::grid.text("Moderate Block", .1, .95, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
+Hartung-Knapp adjustment not applied to allow comparability with other levels of block; overall result yielded the same confidence interval with or without. No indication of potential small-study effects in funnel plot or regression test. 
 
-Hartung-Knapp adjustment not applied to allow comparability with other levels of block; overall result yielded the same confidence interval with or without.
+```{r smallStudyEffectsModerate, eval = FALSE}
+## smallStudyEffects ---------------------------------- (2022-04-04 09:58) @----
+temp_meta <- moderate
+temp_meta <- update(temp_meta, subgroup = NULL)
+metabias(temp_meta, method.bias = "Egger")
+funnel(temp_meta)
+```
 
 <a id="revFig6"></a>
 
@@ -1739,6 +1759,7 @@ forest_time(shallow)
 grid::grid.text("Shallow Block", .1, .9, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
+Too few studies to examine small study effects.
 
 <a id="revFig7"></a>
 
@@ -1751,6 +1772,7 @@ forest_time(minimal)
 grid::grid.text("Minimal Block", .1, .9, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
+Too few studies to examine small study effects.
 
 <a id="revFig8"></a>
 
@@ -1770,7 +1792,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in observational studies reporting time to recovery from neuromuscular block in adults. </font>
+<font size = 4> Table `r table_n`. Reversal and neuromuscular blocking agents, anesthetic, and monitor in observational studies reporting time to recovery from neuromuscular blockade in adults. </font>
 
 ```{r timeDescrKblObs}
 
@@ -1837,7 +1859,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Time to recovery of neuromuscular block (TOFR \>0.9) according to depth of block at reversal in observational studies enrolling adults.</font>
+<font size = 4> Table `r table_n`. Time to recovery of neuromuscular blockade (TOFR \>0.9) according to depth of block at reversal in observational studies enrolling adults.</font>
 
 ```{r timeResultsObsAdults}
 ## timeResultsRctAdults ------------------------------ (2022-04-03 14:31) @----
@@ -2297,6 +2319,17 @@ forest(brady_meta,
 
 figure_n <- fig_inc()
 ```
+No indication for small study effects (potential publication bias) for risk ratio or odds ratio in regression tests or funnel plot. 
+
+```{r smallStudyEffectsBrady, eval = FALSE}
+## smallStudyEffects ---------------------------------- (2022-04-04 09:58) @----
+temp_meta <- brady_meta
+temp_meta <- update(temp_meta, subgroup = NULL, sm = "OR")
+metabias(temp_meta, method.bias = "Egger")
+metabias(temp_meta, method.bias = "Harbord")
+funnel(temp_meta)
+```
+
 
 <br/>
 
@@ -2635,7 +2668,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### *Pooled*
+###     *Pooled*
 
 <a id="revFig12"></a>
 
@@ -2868,7 +2901,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### *Pooled*
+###     *Pooled*
 
 <font size = 4> Figure `r figure_n`. Network of comparators in RCTs. </font>
 
@@ -3101,7 +3134,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### *Pooled*
+###     *Pooled*
 
 <font size = 4> Figure `r figure_n`. Network of comparators in RCTs. </font>
 
@@ -3440,7 +3473,7 @@ figure_n <- fig_inc()
 # metabias(hypox_meta, method.bias = "Egger")
 # funnel(hypox_meta)
 ```
-No indication of potential small-study effects in funnel plot or regression tests.
+No indication for small study effects (potential publication bias) for risk ratio or odds ratio in regression tests or funnel plot.  
 
 <br/>
 
