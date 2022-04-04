@@ -395,45 +395,48 @@ domain_summary <- soe_kq3.dat %>%
 
 ```{r Kq3SOE, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
-soe_summary %>% 
-  filter(!str_detect(n, ".99")) %>% 
-  select(!c(comparison, n)) %>% 
-  # slice(1,2,11) %>% 
-    kbl(booktabs = T, align = c("lclccll"), escape = FALSE,
-  col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")) %>% 
-  row_spec(0, bold = TRUE) %>% 
+soe_summary %>%
+  filter(!str_detect(n, ".99")) %>%
+  select(!c(comparison, n)) %>%
+  # slice(1,2,11) %>%
+  kbl(
+    booktabs = T, align = c("lclccll"), escape = FALSE,
+    col.names = c("Outcome", "(pts)", " GRADE", "ACC/AHA", "Importance^1^", "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Summary", "Result Detail")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
   add_header_above(c(" " = 1, "Studies" = 1, "Strength of Evidence" = 2, " " = 1, " " = 2), line = FALSE, bold = TRUE) %>%
-  kable_styling(bootstrap_options = opt_boot, position = "left") %>% 
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = TRUE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = "9em") %>%  
-  column_spec(2, width = "5em") %>%  
-  column_spec(c(3:4), width = "6em") %>% 
-  column_spec(5, width = "5em") %>% 
-  column_spec(6, width = "24em") %>% 
-  column_spec(7, width = "7em") %>% 
-  pack_topnoind(., "Qualitative vs. Clinical", 1, 2) %>% 
-  pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>% 
-  pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>% 
-  pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>% 
-  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>% 
-  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>% 
-  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>% 
-  # pack_topnoind(., "Fully Paired", 1, 6) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
-  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
-  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
-  # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  column_spec(1, width = "9em") %>%
+  column_spec(2, width = "5em") %>%
+  column_spec(c(3:4), width = "6em") %>%
+  column_spec(5, width = "5em") %>%
+  column_spec(6, width = "24em") %>%
+  column_spec(7, width = "7em") %>%
+  pack_topnoind(., "Qualitative vs. Clinical", 1, 2) %>%
+  pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>%
+  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>%
+  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>%
+  # pack_topnoind(., "Fully Paired", 1, 6) %>%
+  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>%
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>%
+  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>%
+  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>%
+  # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>%
+  # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>%
+  # pack_topnoind(., "Prospective Cohort", 7, 7) %>%
+  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>%
   footnote(
-footnote(general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; RR: risk ratio.",
-           number = c("● Limited, ●● Important, ●●● Critical."),
-           general_title = "",  
-           footnote_as_chunk = FALSE)
+    general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; RR: risk ratio.",
+    number = c("● Limited, ●● Important, ●●● Critical."),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
 
 table_n <- tab_inc()
 
@@ -707,9 +710,9 @@ table_n <- tab_inc()
 
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
+<a id="soeConfirm"></a>
+
 <br/>
-
-
 
 # **TOFR Confirm Prior Extubation** 
 
