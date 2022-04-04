@@ -458,7 +458,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Study Characteristics</h1>
-<h4 class="date">04 April, 2022 (08:45)</h4>
+<h4 class="date">04 April, 2022 (12:21)</h4>
 
 </div>
 
@@ -466,7 +466,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -477,8 +477,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -491,9 +491,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>nmb/</code> <span
@@ -516,21 +516,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -621,15 +618,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree50b7ce084130ed3cc2f212c6d2e0bcb2e8d57156targetblank50b7ce0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree46be719b98d7d6dbadda5dfe063170ad2f86ceb4targetblank46be719a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/50b7ce084130ed3cc2f212c6d2e0bcb2e8d57156" target="_blank">50b7ce0</a>
+<a href="https://github.com/mdgrant/NMB/tree/46be719b98d7d6dbadda5dfe063170ad2f86ceb4" target="_blank">46be719</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree50b7ce084130ed3cc2f212c6d2e0bcb2e8d57156targetblank50b7ce0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree46be719b98d7d6dbadda5dfe063170ad2f86ceb4targetblank46be719a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -639,7 +636,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/50b7ce084130ed3cc2f212c6d2e0bcb2e8d57156" target="_blank">50b7ce0</a>.
+<a href="https://github.com/mdgrant/NMB/tree/46be719b98d7d6dbadda5dfe063170ad2f86ceb4" target="_blank">46be719</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -660,6 +657,7 @@ Ignored files:
     Ignored:    NMB-main_032922/
     Ignored:    _@@/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/figure/
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    analysis/reversal (original).Rmd
@@ -670,7 +668,6 @@ Ignored files:
     Ignored:    code/rob_summary.R
     Ignored:    code/rob_traffic_light.R
     Ignored:    code/rob_traffic_light_mg.R
-    Ignored:    data/.DS_Store
     Ignored:    used_files_dates.txt
     Ignored:    used_rob_files_dates.txt
 
@@ -683,49 +680,12 @@ Untracked files:
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
     Untracked:  code/rob_summary_mg.R
-    Untracked:  data/.gitignore
-    Untracked:  data/clarity_2022-04-02-19-08-37.csv
-    Untracked:  data/contOutcomes_2022-04-02-19-06-56.csv
-    Untracked:  data/dichotOutcomes_2022-04-02-19-07-23.csv
-    Untracked:  data/likertOutcomes_2022-04-02-19-07-46.csv
-    Untracked:  data/nmb_endnote.csv
-    Untracked:  data/ptout_refids.csv
-    Untracked:  data/quadas_2022-04-02-19-08-26.csv
-    Untracked:  data/recoveryTime_012122.csv
-    Untracked:  data/recoveryTime_012122_old.csv
-    Untracked:  data/reversal_rnmb_refids.csv
-    Untracked:  data/reversal_rnmb_refids_old.csv
-    Untracked:  data/rnmb_011322.csv
-    Untracked:  data/rnmb_read_011322.csv
-    Untracked:  data/rnmb_read_011322_copy.csv
-    Untracked:  data/rob_2022-04-02-19-07-59.csv
-    Untracked:  data/robins_2022-04-02-19-08-16.csv
-    Untracked:  data/soe_111721_mac.xlsx
-    Untracked:  data/soe_111721_mac_copy.xlsx
-    Untracked:  data/studyArm_2022-04-02-19-06-39.csv
-    Untracked:  data/studyChar_2022-04-02-19-06-29.csv
-    Untracked:  data/studyRefs_2022-04-02-19-08-50.csv
+    Untracked:  data/
     Untracked:  nmb_040322.RData
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitignore
-    Modified:   analysis/kq3.Rmd
-    Modified:   analysis/reversal.Rmd
-    Modified:   analysis/summary_rev.Rmd
-    Modified:   analysis/tofr_confirm.Rmd
-    Modified:   code/readfiles_nmb_102721.R
-
-Staged changes:
-    New:        data/Extubationconfirm_031722_mg.xlsx
-    New:        data/POPCRevAgent_030922.xlsx
-    New:        data/RevAgentSummary010722_mg.xlsx
-    New:        data/RevAgentSummary011122_mg.xlsx
-    New:        data/TechPerf_DraftTables_010322.xlsx
-    New:        data/TechPerf_DraftTables_010322_mg.xlsx
-    New:        data/hdi_072021.csv
-    New:        data/tech_refids.csv
-    New:        data/~$soe_111721_mac.xlsx
 
 </code></pre>
 <p>
@@ -771,6 +731,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/2362811e65db77675d6008836a398a4a96744d57/analysis/summary_rev.Rmd" target="_blank">2362811</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-04
+</td>
+<td>
+updates reversal tables meta summaries
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/2362811e65db77675d6008836a398a4a96744d57/docs/summary_rev.html" target="_blank">2362811</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-04
+</td>
+<td>
+updates reversal tables meta summaries
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1003,7 +997,7 @@ N (%) or Value
 Number of Trials
 </td>
 <td style="text-align:center;width: 8em; ">
-120
+121
 </td>
 </tr>
 <tr>
@@ -1049,7 +1043,7 @@ Arms
   Two
 </td>
 <td style="text-align:center;width: 8em; ">
-72
+73
 </td>
 </tr>
 <tr>
@@ -1065,7 +1059,7 @@ Arms
   Mean
 </td>
 <td style="text-align:center;width: 8em; ">
-3.2
+3.1
 </td>
 </tr>
 <tr>
@@ -1112,7 +1106,7 @@ Centers
   Single Center
 </td>
 <td style="text-align:center;width: 8em; ">
-94 (78.3)
+95 (78.5)
 </td>
 </tr>
 <tr>
@@ -1120,7 +1114,7 @@ Centers
   Multicenter
 </td>
 <td style="text-align:center;width: 8em; ">
-26 (21.7)
+26 (21.5)
 </td>
 </tr>
 <tr>
@@ -1128,7 +1122,7 @@ Centers
 Volatile Anesthetic
 </td>
 <td style="text-align:center;width: 8em; ">
-71 (59.2)
+72 (59.5)
 </td>
 </tr>
 <tr>
@@ -1143,7 +1137,7 @@ Country
   United States
 </td>
 <td style="text-align:center;width: 8em; ">
-20 (16.7)
+20 (16.5)
 </td>
 </tr>
 <tr>
@@ -1151,15 +1145,7 @@ Country
   South Korea
 </td>
 <td style="text-align:center;width: 8em; ">
-12 (10.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Germany
-</td>
-<td style="text-align:center;width: 8em; ">
-9 (7.5)
+12 (9.9)
 </td>
 </tr>
 <tr>
@@ -1167,7 +1153,15 @@ Country
   Turkey
 </td>
 <td style="text-align:center;width: 8em; ">
-9 (7.5)
+10 (8.3)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+  Germany
+</td>
+<td style="text-align:center;width: 8em; ">
+9 (7.4)
 </td>
 </tr>
 <tr>
@@ -1183,7 +1177,7 @@ Country
   Belgium
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.2)
+5 (4.1)
 </td>
 </tr>
 <tr>
@@ -1383,7 +1377,7 @@ Country
 Non-very-high HDI Countryª
 </td>
 <td style="text-align:center;width: 8em; ">
-13 (10.8)
+13 (10.7)
 </td>
 </tr>
 <tr>
@@ -1398,7 +1392,7 @@ Funding
   Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-36 (30.0)
+36 (29.8)
 </td>
 </tr>
 <tr>
@@ -1406,7 +1400,7 @@ Funding
   Public/Industry
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.2)
+5 (4.1)
 </td>
 </tr>
 <tr>
@@ -1414,7 +1408,7 @@ Funding
   Public
 </td>
 <td style="text-align:center;width: 8em; ">
-36 (30.0)
+36 (29.8)
 </td>
 </tr>
 <tr>
@@ -1422,7 +1416,7 @@ Funding
   Not Reported
 </td>
 <td style="text-align:center;width: 8em; ">
-28 (23.3)
+28 (23.1)
 </td>
 </tr>
 <tr>
@@ -1430,7 +1424,7 @@ Funding
 Author COI
 </td>
 <td style="text-align:center;width: 8em; ">
-34 (28.3)
+34 (28.1)
 </td>
 </tr>
 <tr>
@@ -1438,7 +1432,7 @@ Author COI
 Registered
 </td>
 <td style="text-align:center;width: 8em; ">
-64 (53.3)
+64 (52.9)
 </td>
 </tr>
 </tbody>
@@ -1476,7 +1470,7 @@ N (%) or Value
 Age (average of mean or med, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-47 (26-75)
+47.1 (26-75)
 </td>
 </tr>
 <tr>
@@ -1484,7 +1478,7 @@ Age (average of mean or med, range)
 Female (%, range)
 </td>
 <td style="text-align:center;width: 8em; ">
-53 (0-100)
+53.3 (0-100)
 </td>
 </tr>
 <tr>
@@ -1499,7 +1493,7 @@ ASA Class (%)
   I-II
 </td>
 <td style="text-align:center;width: 8em; ">
-43.3
+43.8
 </td>
 </tr>
 <tr>
@@ -1507,7 +1501,7 @@ ASA Class (%)
   I-III
 </td>
 <td style="text-align:center;width: 8em; ">
-44.2
+43.8
 </td>
 </tr>
 <tr>
@@ -1515,7 +1509,7 @@ ASA Class (%)
   NR
 </td>
 <td style="text-align:center;width: 8em; ">
-12.5
+12.4
 </td>
 </tr>
 <tr>
@@ -1531,7 +1525,7 @@ BMI (average of mean or med, range)
 BMI (mean or med ≥ 30), (%)
 </td>
 <td style="text-align:center;width: 8em; ">
-(9.2)
+(9.1)
 </td>
 </tr>
 <tr>
@@ -1546,7 +1540,7 @@ Surgery, N (%)
   Various (&gt;3)
 </td>
 <td style="text-align:center;width: 8em; ">
-48 (40.0)
+48 (39.7)
 </td>
 </tr>
 <tr>
@@ -1554,7 +1548,7 @@ Surgery, N (%)
   GI
 </td>
 <td style="text-align:center;width: 8em; ">
-15 (12.5)
+15 (12.4)
 </td>
 </tr>
 <tr>
@@ -1562,7 +1556,7 @@ Surgery, N (%)
   ENT
 </td>
 <td style="text-align:center;width: 8em; ">
-7 (5.8)
+8 (6.6)
 </td>
 </tr>
 <tr>
@@ -1578,7 +1572,7 @@ Surgery, N (%)
   Gen
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.2)
+5 (4.1)
 </td>
 </tr>
 <tr>
@@ -1586,7 +1580,7 @@ Surgery, N (%)
   Neuro
 </td>
 <td style="text-align:center;width: 8em; ">
-5 (4.2)
+5 (4.1)
 </td>
 </tr>
 <tr>
