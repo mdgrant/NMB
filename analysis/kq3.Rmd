@@ -452,8 +452,6 @@ table_n <- tab_inc()
 
 ## *Residual Neuromuscular Block (TOFR)*
 
-<a id="kq3Tab4"></a>
-
 ### Incidence
 
 ```{r dichot_ptout.dat, include = FALSE}
@@ -505,6 +503,8 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
 
 ```
 
+<a id="kq3Tab4"></a>
+
 <br/>
 
 <font size = 4> Table `r table_n`. Results from studies reporting residual neuromuscular blockade for the highest TOFR threshold reported for TOFR. (Time-related outcomes—time from extubation to TOFR 0.9—reported in only 2 studies and not summarized). </font>
@@ -518,10 +518,10 @@ nmm_kable <- dichot_ptout_tofr.dat %>%
   ungroup() %>%
     mutate(
     rnmb_location = case_when(
-      rnmb_location == "or" ~ "<i>OR</i>",
-      rnmb_location == "post_extub" ~ "<i>OR</i>",
-      rnmb_location == "pacu" ~ "<i>PACU</i>",
-      rnmb_location == "recover" ~ "<i>PACU</i>",
+      rnmb_location == "or" ~ "OR",
+      rnmb_location == "post_extub" ~ "OR",
+      rnmb_location == "pacu" ~ "PACU",
+      rnmb_location == "recover" ~ "PACU",
     ),
     arm_diag_outcome = as.character(arm_diag_outcome),
     arm_diag_outcome = ifelse(study == "Ueda 1991" & arm == 1, "Manual TOF/DBS", arm_diag_outcome),
@@ -557,6 +557,8 @@ nmm_kable <- nmm_kable %>%
 
 # document_kable <- nmm_kable %>%
 #   select(study, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
+bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%    →    100%</span>"
+
 nmm_kable %>%
   select(study_l, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
   mutate(arm_diag_outcome = case_when(
@@ -581,13 +583,11 @@ nmm_kable %>%
   column_spec(6, width = "4em") %>%
   column_spec(7, width = "4em") %>%
   column_spec(8, width = or_width) %>%
-  # pack_top(., "Adult", 1, 14) %>%
   pack_topnoind(., "RCT", 1, 17) %>%
   pack_topnoind(., "Quasi-Experimental", 18, 19) %>%
-  # pack_top(., "Prospective Cohort", 13, 13) %>%
   pack_topnoind(., "Retrospective Cohort", 20, 21) %>%
   footnote(
-    general = "RNMB: residual neuromuscular block; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; *OR*: operating room; nl: normalized.",
+    general = "RNMB: residual neuromuscular block; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
     alphabet = c(
       "PACU if desginated as PACU or recovery, *OR* if designated as such or as post-extubation.",
       "Odds ratio comparing the last monitoring arm (lowest incidence) to the prior. For studies reporting results for >1 threshold, only those for the highest are shown."

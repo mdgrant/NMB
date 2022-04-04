@@ -273,7 +273,7 @@ filter(refid %in% extb_rnmb_refids) %>%
 # qinu(dichot_conf.dat, refid) n = 86 correct 2022/03/26 11:35
 
 # select confirmed 0.9 and rnmb 0.9
-conf_meta <- dichot_conf.dat %>%
+conf_meta_temp <- dichot_conf.dat %>%
   mutate(
     rnmb9_n = case_when(
       rnmb1_9 == "rnmb1_9" ~ rnmb1_n,
@@ -300,14 +300,14 @@ conf_meta <- dichot_conf.dat %>%
 
 # collapse multiarm
 remove <- c(1511, 2088, 3305, 2523, 2961, 2197)
-temp_1 <- conf_meta %>%
+temp_1 <- conf_meta_temp %>%
   filter(refid %in% remove) %>%
   group_by(study, arm) %>%
   summarise(arm_n = sum(arm_n), rnmb9_n = sum(rnmb9_n), depth_rev_f = str_c(depth_rev_f, collapse = ":")) %>% 
   ungroup %>% 
   select(-arm)
 
-temp_2 <- conf_meta %>% 
+temp_2 <- conf_meta_temp %>% 
   filter(refid %in% remove) %>%
   group_by(study, arm) %>% 
   slice(1) %>% 
@@ -315,9 +315,9 @@ temp_2 <- conf_meta %>%
   select(-c(study, arm_n, rnmb9_n, depth_rev_f)) 
 
 add <- bind_cols(temp_2, temp_1) %>% 
-  select(names(conf_meta))
+  select(names(conf_meta_temp))
 
-conf_meta <- conf_meta %>%
+conf_meta_temp <- conf_meta_temp %>%
   filter(!refid %in% remove) %>%
   bind_rows(., add) %>%
   mutate(
@@ -343,8 +343,6 @@ conf_meta <- conf_meta %>%
     )
   )
 
-rm(add, remove, temp_1, temp_2)
-
 # add Domenech 2019; entered as comparison of monitoring vs none in kq3
 domenech2019 <- tribble(
 ~mon_cat_f,~refid,~study,~year,~age,~arm,~arm_n,~rnmb9_n,~rnmb_where,~rnmb_location,~extbconf,~tofrext,~confirm,~nmbagent,~volatile,~depth_rev_f,~depth,~study_l,~design_f,
@@ -352,8 +350,19 @@ domenech2019 <- tribble(
 "Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh"
 )
 
-conf_meta <- bind_rows(conf_meta, domenech2019) %>% 
-  arrange(confirm, year)
+## conf_meta ------------------------------------------ (2022-04-01 08:37) @----
+conf_meta <- bind_rows(conf_meta_temp, domenech2019) %>% 
+  mutate(
+    rnmb_where = case_when(
+    rnmb_where == "ns" ~ "NS",
+    rnmb_where %in% c("post_extub", "or") ~ "Extubation",
+    rnmb_where == "pacu" ~ "PACU",
+    rnmb_where == "recover" ~ "Recovery"
+  ),
+  rnmb_where = factor(rnmb_where, levels = c("Extubation", "PACU", "Recovery", "NS"))) %>% 
+  arrange(confirm, rnmb_where, year)
+
+rm(add, remove, temp_1, temp_2, conf_meta_temp)
 ```
 
 <br/>
@@ -369,7 +378,7 @@ conf_meta <- bind_rows(conf_meta, domenech2019) %>%
 ```{r sugammadexKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
 conf_kbl <- conf_meta %>%
-  arrange(confirm, year, study, arm) %>%
+  # arrange(confirm, year, study, arm) %>%
   mutate(rnmb9_np = n_percent1(rnmb9_n, rnmb9_n/arm_n * 100),
          rnmb9_per = rnmb9_n/arm_n) %>% 
   select(refid, year, design_f, study, arm, arm_n, rnmb9_n, nmbagent, volatile, mon_cat_f, depth, rnmb_where, rnmb9_np, extbconf, confirm, rnmb9_per) %>% 
@@ -392,12 +401,6 @@ conf_kbl %>%
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
   rnmb_bar = str_replace(rnmb_bar, ">0\\.?\\d*", ",>&nbsp;"),
   nmbagent = firstup(str_extract(nmbagent, "^\\w{3}")),
-  rnmb_where = case_when(
-    rnmb_where == "ns" ~ "NS",
-    rnmb_where %in% c("post_extub", "or") ~ "Extubation",
-    rnmb_where == "pacu" ~ "PACU",
-    rnmb_where == "recover" ~ "Recovery",
-  ),
   volatile = ifelse(volatile, "\U00D7", " "),
   ) %>% 
   select(-c(confirm, rnmb9_per)) %>% 
@@ -419,8 +422,8 @@ kbl(
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
   pack_topnoind(., "≥0.9 confirmed", 1, 8) %>%
-  pack_topnoind(., "Not confirmed", 9, 19) %>%
-  pack_topnoind(., "Not stated", 20, 6) %>%
+  pack_topnoind(., "Not confirmed", 9, 20) %>%
+  pack_topnoind(., "Not stated", 21, 6) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -579,12 +582,6 @@ conf_kbl %>%
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
   rnmb_bar = str_replace(rnmb_bar, ">0\\.?\\d*", ",>&nbsp;"),
   nmbagent = firstup(str_extract(nmbagent, "^\\w{3}")),
-  rnmb_where = case_when(
-    rnmb_where == "ns" ~ "NS",
-    rnmb_where %in% c("post_extub", "or") ~ "Extubation",
-    rnmb_where == "pacu" ~ "PACU",
-    rnmb_where == "recover" ~ "Recovery",
-  ),
   volatile = ifelse(volatile, "\U00D7", " "),
   ) %>% 
   select(-c(confirm, rnmb9_per)) %>% 

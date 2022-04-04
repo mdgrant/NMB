@@ -96,7 +96,7 @@ bar_wn1d = function(var_nper_or_per, percent, color, div_by){
 # spacing
 study_width <- "10em"
 bar_width <- "7em"
-bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%  →  100%</span>"
+bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 0px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>   0%  →  100%</span>"
 or_width <- "8em"
 note_width <- "12em"
 
@@ -270,6 +270,18 @@ odds_ratio_y <- function(event1, n1, event2, n2, digits = 2) {
     sprintf(paste0("%.", digits, "f"), round(exp(upper), digits)), ")"))
   # rename(or_ci = a)
 }
+
+# calculate relative risk, ci, and format no refid
+risk_ratio_y <- function(event1, n1, event2, n2, digits = 2) {
+  a <- meta::metabin(event1, n1, event2, n2, sm = "RR")
+  with(a, paste0(
+    sprintf(paste0("%.", digits, "f"), round(exp(TE), digits)), " (",
+    sprintf(paste0("%.", digits, "f"), round(exp(lower), digits)), "-",
+    sprintf(paste0("%.", digits, "f"), round(exp(upper), digits)), ")"))
+  # rename(or_ci = a)
+}
+
+
 
 # calculate odds ratio, ci, and format
 odds_ratio <- function(event1, n1, event2, n2, refid, digits = 2) {
