@@ -76,55 +76,61 @@ display: none !important;
 }
 
 </style>
-```
 
 <script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover({html: true, placement: top});
 });
 </script>
+```
 
 ```{r setup, include = FALSE} 
-## • (updated 2021/11/10 21:46) setup -------------------------------------
+## setup ---------------------------------------------- (2022-04-05 07:31) @----
 knitr::opts_chunk$set(echo = FALSE, include = TRUE)
 source("code/readfiles_nmb_102721.R")
-# study_width <- "10em"
-# bar_width <- "7em"
-# # bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%  →  100%</span>"
-# bar_ref <- "<span style='display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent 43.00% , #e0e0de 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 163%'>&nbsp;</span>"
-# # <span style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  43.00% , #f1948a 43.00% , #e0e0de 100.00% , transparent 100.00% ); width: 100%",>&nbsp;</span>
-# or_width <- "8em"
-# note_width <- "12em"
-
 ```
 
 ```{r data, include = FALSE, eval = TRUE}
-## (updated 2021/12/14 11:36) refids --------------------------------------
+## data ----------------------------------------------- (2022-04-05 07:31) @----
 ptout_refids <- study_char.dat %>% 
   filter(!is.na(diag_pt_out)) %>% 
   filter(refid != 3209) %>% # exclude Thilen 2018
   pull(refid) %>% 
   unique()
 
-# write_csv(as_tibble(ptout_refids), "data/ptout_refids.csv", na = "")
+temp <- study_arm.dat %>% 
+  filter(refid == 3574) %>% 
+  mutate(arm_id = 2)
+
+study_arm.dat <- bind_rows(study_arm.dat, temp) %>%
+  mutate(
+    arm_diag_outcome = ifelse(refid == 3574 & arm_id == 2, "amg_uni", arm_diag_outcome),
+    arm_diag_outcome = ifelse(refid == 3574 & arm_id == 1, "clinical", arm_diag_outcome),
+    mon_cat = ifelse(refid == 3574 & arm_id == 2, "quant", mon_cat),
+    mon_cat = ifelse(refid == 3574 & arm_id == 1, "clin", mon_cat)
+  )
 
 # study_l, design and monitor type
 study_arm_ptout.dat <- study_arm.dat %>%
-  filter(refid %in% ptout_refids) %>%
+  filter(refid %in% ptout_refids) %>% 
   mutate(
     design = fct_drop(design),
     design_f = fct_recode(design,
       RCT = "rct",
-      "Quasi-Experimental" = "quasiexp",
+      "Before-After/Time Series" = "quasiexp",
       "Prospective Cohort" = "prospect_coh",
-      "Retrospective Cohort" = "retrospect_coh"),
+      "Retrospective Cohort" = "retrospect_coh"
+    ),
     arm_diag_outcome = factor(arm_diag_outcome,
-      levels = c("no_monitor", "clinical", "pns_clin",     "pns", "amg_uni", "amg_ns", "emg", "quant_all"),
-      labels = c("Clinical",   "Clinical", "PNS/Clinical", "PNS", "AMG",     "AMG",    "EMG", "Quantitative"))) %>% 
-  relocate(design_f, .after = design)
-  # nb to change later in tables
-  # arm_diag_outcome = ifelse(study == "Ueda 1991" & arm_id == 1, "Manual TOF/DBS", arm_diag_outcome),
-  # arm_diag_outcome = ifelse(study == "Ueda 1991" & arm_id == 2, "Manual TOF", arm_diag_outcome))
+      levels = c("no_monitor", "clinical", "pns_clin", "pns", "amg_uni", "amg_ns", "emg", "quant_all"),
+      labels = c("Clinical", "Clinical", "PNS/Clinical", "PNS", "AMG", "AMG", "EMG", "Quantitative")
+    )
+  ) %>%
+  relocate(design_f, .after = design) 
+
+# nb to change later in tables
+# arm_diag_outcome = ifelse(study == "Ueda 1991" & arm_id == 1, "Manual TOF/DBS", arm_diag_outcome),
+# arm_diag_outcome = ifelse(study == "Ueda 1991" & arm_id == 2, "Manual TOF", arm_diag_outcome))
 
 dichot_ptout.dat <- dichot.dat %>%
   filter(refid %in% ptout_refids) %>%
@@ -132,13 +138,27 @@ dichot_ptout.dat <- dichot.dat %>%
     design = fct_drop(design),
     design_f = fct_recode(design,
       RCT = "rct",
-      "Quasi-Experimental" = "quasiexp",
+      "Before-After/Time Series" = "quasiexp",
       "Prospective Cohort" = "prospect_coh",
       "Retrospective Cohort" = "retrospect_coh"
-    )
-  ) %>%
+    )) %>% 
   relocate(design_f, .after = design)
 
+temp <- dichot_ptout.dat %>% 
+  filter(refid == 3574) %>% 
+  mutate(arm_id = 2)
+
+dichot_ptout.dat <- bind_rows(dichot_ptout.dat, temp) %>% 
+  mutate(
+    rnmb1_n = ifelse(refid == 3574 & arm_id == 2, 2, rnmb1_n),
+    rnmb1_n = ifelse(refid == 3574 & arm_id == 1, 14, rnmb1_n),
+    rnmb1_per = ifelse(refid == 3574 & arm_id == 2, 22.2, rnmb1_per),
+    rnmb1_per = ifelse(refid == 3574 & arm_id == 1, 66.7, rnmb1_per),
+    arm_n = ifelse(refid == 3574 & arm_id == 2, 9, arm_n),
+    arm_n = ifelse(refid == 3574 & arm_id == 1, 21, arm_n)
+  )
+
+rm(temp)
 ```
 
 # **Included Studies** 
@@ -148,7 +168,7 @@ dichot_ptout.dat <- dichot.dat %>%
 <font size = 4> Table `r table_n`. Number of included studies according to age and design. </font>
 
 ```{r tablesIncluded, include = TRUE, echo = FALSE} 
-## • (updated 2021/12/14 11:37) study_char_ptout.dat ----------------------
+## tablesIncluded ------------------------------------- (2022-04-05 07:35) @----
 # list of studies, age, surgical/non surgical, design 
 study_char.dat %>% 
   filter(refid %in% ptout_refids) %>% 
@@ -165,9 +185,9 @@ study_char.dat %>%
     design = case_when(
       design == "rct" ~ "RCT",
       design == "crossover" ~ "Crossover",
-      design == "quasiexp" ~ "Quasi-experimental",
+      design == "quasiexp" ~ "Before-After",
       design == "cluster" ~ "Cluster",
-      design == "nrsi" ~ "Nonrandomized",
+      design == "nrsi" ~ "Nonrandomized Trial",
       design == "prospect_coh" ~ "Prospective Cohort",
       design == "retrospect_coh" ~ "Retrospective Cohort",
       design == "casecontrol" ~ "Case-Control",
@@ -203,7 +223,7 @@ table_n <- tab_inc()
 <br/>
 
 ```{r studiesTables, echo = FALSE, include = TRUE}
-## • (updated 2021/12/14 11:38) included_studies.dat ----------------------
+## included_studies.dat ------------------------------- (2022-04-05 07:36) @----
 included_studies.dat <- study_char.dat %>%
   filter(refid %in% ptout_refids) %>%
   mutate(
@@ -226,7 +246,7 @@ included_studies.dat <- study_char.dat %>%
   select(refid, study_l, year, age, design, design_l, n_analyze, country, centers, non_vh_hdi, surgs) %>%
   arrange(age, design_l, year) 
 
-## (updated 2021/12/18 20:18) study_arm_incl.dat --------------------------
+## study_arm_incl.dat --------------------------------- (2022-04-05 07:36) @----
 # comparators; nb prior to adding study_arm factoring initial
 study_arm_incl.dat <- study_arm.dat %>%
   filter(refid %in% ptout_refids) %>%
@@ -288,7 +308,7 @@ rm(temp)
 <font size = 4> Table `r table_n`. Studies, design, size, centers, country, and surgery (see [References](#references) for citations). </font>
 
 ```{r studiesTablesKable, echo = FALSE, include = TRUE}
-## • (updated 2021/12/14 11:42) kable -------------------------------------
+## studiesTablesKable --------------------------------- (2022-04-05 07:37) @----
 temp <- included_studies.dat %>%
   arrange(age, design_l, study_l) %>% 
   select(study_l, refid, age, design_l) %>% 
@@ -316,9 +336,9 @@ included_studies.dat %>%
   column_spec(6, width = "25em") %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
-  pack_top(., "Quasi-Experimental", 11, 11) %>% 
-  pack_top(., "Prospective Cohort", 12, 13) %>% 
-  pack_top(., "Retrospective Cohort", 14, 14) %>% 
+  pack_top(., "Before-After", 11, 11) %>% 
+  pack_top(., "Prospective Cohort", 12, 14) %>% 
+  pack_top(., "Retrospective Cohort", 15, 15) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -339,9 +359,8 @@ table_n <- tab_inc()
 
 <font size = 4> Table `r table_n`. Anesthetics and reversal in included studies.</font>
 
-```{r studiesDescribeKable}
-## (updated 2021/12/29 09:26) study_arm_ptout.dat -------------------------
-# none of rcts used sugammadex
+```{r }
+## studiesDescribeKable ------------------------------- (2022-04-05 07:38) @----
 ## study_arm_ptout.dat -------------------------------- (2022-03-31 11:23) @----
 study_arm_ptout.dat %>% 
   mutate(
@@ -390,9 +409,9 @@ study_arm_ptout.dat %>%
   # column_spec(6, width = "12em") %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
-  pack_top(., "Quasi-Experimental", 11, 11) %>% 
-  pack_top(., "Prospective Cohort", 12, 13) %>% 
-  pack_top(., "Retrospective Cohort", 14, 14) %>% 
+  pack_top(., "Before-After", 11, 11) %>% 
+  pack_top(., "Prospective Cohort", 12, 14) %>% 
+  pack_top(., "Retrospective Cohort", 15, 15) %>% 
   footnote(
     general = "RCT: randomized controlled trial; Panc: pancuronium; Vecu: vecuronium; Roc: rocuronium, Cis: cisatracurium; TIVA: total intravenous anesthesia; Intub: intubation; Maint: maintenance; Neo: neostigmine; Sug: sugammadex.",
     # alphabet = c(" "),
@@ -404,7 +423,7 @@ table_n <- tab_inc()
 ```
 
 ```{r study_arm_inclKable, include = FALSE, eval = FALSE, echo = FALSE}
-## (updated 2021/12/18 20:25) study_arm_incl.dat --------------------------
+## study_arm_incl.dat --------------------------------- (2022-04-05 07:41) @----
 temp <- study_arm_incl.dat %>%
   arrange(design_f, study_l) %>% 
   select(study_l, refid, design_f) %>% 
@@ -431,9 +450,9 @@ study_arm_incl.dat %>%
   # column_spec(5, width = "10em") %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
-  pack_top(., "Quasi-Experimental", 11, 12) %>% 
-  pack_top(., "Prospective Cohort", 13, 13) %>% 
-  pack_top(., "Retrospective Cohort", 14, 14) %>% 
+  pack_top(., "Before-After", 11, 12) %>% 
+  pack_top(., "Prospective Cohort", 13, 14) %>% 
+  pack_top(., "Retrospective Cohort", 15, 15) %>% 
   footnote(
     general = c("RCT: randomized controlled trial TOFR: train of four ratio; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography."),
     # alphabet = c(),
@@ -450,12 +469,13 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Residual Neuromuscular Block (TOFR)*
+## *Residual Neuromuscular Blockade (TOFR)*
 
 ### Incidence
 
 ```{r dichot_ptout.dat, include = FALSE}
-## (updated 2021/12/14 11:49) dichot_ptout.dat ----------------------------
+## dichot_ptout.dat ----------------------------------- (2022-04-05 07:42) @----
+# TODO: here
 temp1 <- dichot_ptout.dat %>% 
     filter(refid %in% ptout_refids) %>% 
   # filter(refid == 2071) %>% 
@@ -499,8 +519,7 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
     names_from = "arm_temp",
     values_from = c("arm_n", "rnmb1_n"),
   ) %>% 
-  mutate(or_ci = odds_ratio_y(rnmb1_n_2, arm_n_2, rnmb1_n_1, arm_n_1))
-
+  mutate(rr_ci = risk_ratio_y(rnmb1_n_2, arm_n_2, rnmb1_n_1, arm_n_1))
 ```
 
 <a id="kq3Tab4"></a>
@@ -512,9 +531,9 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
 ```{r nmmKable}
 ## (updated 2021/12/26 11:09) nmmKable ------------------------------------
 nmm_kable <- dichot_ptout_tofr.dat %>%
-  left_join(., tofr_meta.dat[, c("refid", "or_ci")], by = "refid") %>%
+  left_join(., tofr_meta.dat[, c("refid", "rr_ci")], by = "refid") %>%
   group_by(refid) %>%
-  mutate(or_ci = ifelse(row_number() == 1, or_ci, NA)) %>%
+  mutate(rr_ci = ifelse(row_number() == 1, rr_ci, NA)) %>%
   ungroup() %>%
     mutate(
     rnmb_location = case_when(
@@ -526,8 +545,8 @@ nmm_kable <- dichot_ptout_tofr.dat %>%
     arm_diag_outcome = as.character(arm_diag_outcome),
     arm_diag_outcome = ifelse(study == "Ueda 1991" & arm == 1, "Manual TOF/DBS", arm_diag_outcome),
     arm_diag_outcome = ifelse(study == "Ueda 1991" & arm == 2, "Manual TOF", arm_diag_outcome),
-    or_ci = ifelse(study == "Ueda 1991" & arm == 3, odds_ratio_y(2, 30, 25, 30), or_ci),
-    or_ci = ifelse(study == "Ueda 1991" & arm == 2, odds_ratio_y(2, 30, 17, 30), or_ci),
+    rr_ci = ifelse(study == "Ueda 1991" & arm == 3, risk_ratio_y(2, 30, 25, 30), rr_ci),
+    rr_ci = ifelse(study == "Ueda 1991" & arm == 2, risk_ratio_y(2, 30, 17, 30), rr_ci),
     rnmb_np = n_percent(rnmb1_n, rnmb1_per)
   ) %>%
   # mutate(
@@ -556,11 +575,11 @@ nmm_kable <- nmm_kable %>%
   ) 
 
 # document_kable <- nmm_kable %>%
-#   select(study, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
-bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%    →    100%</span>"
+#   select(study, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, rr_ci) %>%
+# bar_ref <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 4px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0%    →    100%</span>"
 
 nmm_kable %>%
-  select(study_l, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, or_ci) %>%
+  select(study_l, arm_diag_outcome, arm_n, rnmb_np, tofr_bar, tofr_outcome, rnmb_location, rr_ci) %>%
   mutate(arm_diag_outcome = case_when(
     str_detect(arm_diag_outcome, "PNS") ~cell_spec(arm_diag_outcome, color = color_2), 
     str_detect(arm_diag_outcome, "Clinical") ~ cell_spec(arm_diag_outcome, color = color_4),
@@ -569,7 +588,7 @@ nmm_kable %>%
   )) %>%
   kbl(
     booktabs = T, align = c("lllllcll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Monitoring", "N", "N (%)", bar_ref, "TOFR", "Place^a^", "OR (95% CI)^b^")
+    col.names = c("Study", "Monitoring", "N", "N (%)", bar_ref, "TOFR", "Place^a^", "RR (95% CI)^b^")
   ) %>%
   add_header_above(c(" " = 3, "RNMB" = 5), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -584,10 +603,11 @@ nmm_kable %>%
   column_spec(7, width = "4em") %>%
   column_spec(8, width = or_width) %>%
   pack_topnoind(., "RCT", 1, 17) %>%
-  pack_topnoind(., "Quasi-Experimental", 18, 19) %>%
-  pack_topnoind(., "Retrospective Cohort", 20, 21) %>%
+  pack_topnoind(., "Before-After", 18, 19) %>%
+  pack_topnoind(., "Prospective Cohort", 20, 21) %>%
+  pack_topnoind(., "Retrospective Cohort", 22, 23) %>%
   footnote(
-    general = "RNMB: residual neuromuscular block; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
+    general = "RNMB: residual neuromuscular blockade; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
     alphabet = c(
       "PACU if desginated as PACU or recovery, *OR* if designated as such or as post-extubation.",
       "Odds ratio comparing the last monitoring arm (lowest incidence) to the prior. For studies reporting results for >1 threshold, only those for the highest are shown."
@@ -818,7 +838,7 @@ nmm_netmeta_nma <- netmeta(
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Network plot of 10 studies (8 RCTs, 2 non-randomized) eporting residual neuromuscular block (TOFR <0.9 to <0.7). </font>
+<font size = 4> Figure `r figure_n`. Network plot of 10 studies (8 RCTs, 2 non-randomized) eporting residual neuromuscular blockade (TOFR <0.9 to <0.7). </font>
 
 ```{r nmmNetplot, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 10, fig.asp = .5}
 # fig.height = 4.5}
@@ -871,7 +891,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular block (TOFR <0.9 to <0.7) from 8 randomized trials, 1 quasi-experimental, and 1 non-randomized study comparing quantitative, qualitative, and clinical monitoring (network meta-analysis). </font>
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9 to <0.7) from 8 randomized trials, 1 quasi-experimental, and 1 non-randomized study comparing quantitative, qualitative, and clinical monitoring (network meta-analysis). </font>
 
 ```{r nmmForest, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 2.5}
 forest(nmm_netmeta_nma,
@@ -1098,12 +1118,12 @@ dichot_pulm_kbl <- dichot_pulm %>%
     outcome = factor(outcome, levels = Hmisc::Cs(reintub, upairobs, respfail, hypox, bronch, pneum, pulcong, pulm)),
     n_com = lag(n),
     arm_n_com = lag(arm_n),
-    or_ci = odds_ratio_y(n, arm_n, n_com, arm_n_com),
-    or_ci = ifelse(or_ci == "NA (NA-NA)", NA, or_ci),
-    or_ci = ifelse(row_number() %% 2 == 0 & is.na(or_ci), "—", or_ci),
+    rr_ci = risk_ratio_y(n, arm_n, n_com, arm_n_com),
+    rr_ci = ifelse(rr_ci == "NA (NA-NA)", NA, rr_ci),
+    rr_ci = ifelse(row_number() %% 2 == 0 & is.na(rr_ci), "—", rr_ci),
     # Kirmeier 2019 adjusted
-    or_ci = ifelse(arm_id == 2 & refid == 3303, "1.07 (0.90-1.29)^b^", or_ci),
-    or_ci = ifelse(arm_id == 2 & refid == 3304, "1.31 (1.15-1.49)^b^", or_ci),
+    rr_ci = ifelse(arm_id == 2 & refid == 3303, "1.07 (0.90-1.29)^b^", rr_ci),
+    rr_ci = ifelse(arm_id == 2 & refid == 3304, "1.31 (1.15-1.49)^b^", rr_ci),
     n_per = n_percent1(n, n / arm_n * 100),
     per = n / arm_n * 100,
     per_bar = 0,
@@ -1152,7 +1172,7 @@ dichot_pulm_kbl %>%
     study_l = ifelse(row_number() == 1, study_l, NA),
   ) %>%
   ungroup() %>% 
-  select(study_l, arm_nmm, arm_n, n_per, per_bar, or_ci, note) %>% 
+  select(study_l, arm_nmm, arm_n, n_per, per_bar, rr_ci, note) %>% 
   kbl(
     booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
     col.names = c("Study", "Monitoring", "N", "N (%)", bar_ref,  "OR (95% CI)^a^", "Note")
@@ -1306,24 +1326,11 @@ study_char_table %>%
   column_spec(8, width = "3em") %>% 
   column_spec(9, width = "15em") %>% 
   column_spec(10, width = "5em") %>% 
-  # column_spec(2, width = "2em") %>% 
   pack_topnoind(., "RCT", 1, 10) %>% 
   pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
   pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Retrospective Cohort", 14, 15) %>% 
-  # pack_sub(., "Case-control", 98, 98) %>% 
-  # pack_sub(., "Before-after", 99, 99) %>% 
-  # pack_sub(., "RCT", 100, 100) %>%
-  # pack_sub(., "Crossover", 101, 109) %>%
-  # pack_sub(., "Nonrandomized Studies of Interventions", 110, 111) %>% 
-  # pack_top(., "Pediatric, Surgical", 112, 120) %>% 
-  # pack_sub(., "RCT", 112, 119) %>% 
-  # # pack_sub(., "Nonrandomized Studies of Interventions", 119, 119) %>% 
-  # pack_sub(., "Prospective Cohort", 120, 120) %>% 
-  # pack_top(., "Pediatric, Non-surgical", 121, 123) %>% 
-  # pack_sub(., "RCT", 121, 121) %>%
-  # pack_sub(., "Crossover", 122, 122) %>%
-  # pack_sub(., "Prospective Cohort", 123, 123) %>% 
+  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
+  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
   footnote(general_title = "",
     general = c("Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial"),
     alphabet = c("Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
@@ -1442,7 +1449,8 @@ pt_char_table %>%
   pack_topnoind(., "RCT", 1, 10) %>% 
   pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
   pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Retrospective Cohort", 14, 15) %>% 
+  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
+  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
   footnote(general_title = "",
     general = c("M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial."),
     alphabet = c("Empty cells indicate no information in publication."),
@@ -1515,7 +1523,8 @@ study_fund_table %>%
   pack_topnoind(., "RCT", 1, 10) %>% 
   pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
   pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Retrospective Cohort", 14, 15) %>% 
+  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
+  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
   footnote(
           # general = "Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme (funded 23 (22%) of RCTs and 26 (19%) of studies listed).",
           alphabet = c("Not reported meaning no mention in publication of funding source or author conflicts of interest."))

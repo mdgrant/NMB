@@ -394,8 +394,8 @@ conf_kbl %>%
   select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
-    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
-    confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
+    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
+    confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
@@ -575,8 +575,8 @@ conf_kbl %>%
   select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
-    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
-    confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
+    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
+    confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
