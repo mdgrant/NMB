@@ -959,7 +959,12 @@ table_n <- tab_inc()
 <font size = 4> Figure `r figure_n`. Comparison of direct and indirect evidence (network meta-analysis). </font>
 
 ```{r nmmNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5}
-netsplit(nmm_netmeta_nma) %>% forest()
+netsplit(nmm_netmeta_nma,
+  order = trts
+) %>%
+  forest(., xlab = "Risk Ratio")
+
+
 
 figure_n <- fig_inc()
 ```
@@ -1084,6 +1089,7 @@ dichot_format <- function(x) (x/100)
 
 dichot_pulm <- dichot.dat %>%
   filter(refid %in% ptout_refids) %>%
+  filter(refid != 3574) %>% # delete Alenezi as not reported
   filter(if_any(c(reintub_n:pc_upairobs_p), ~ !is.na(.))) %>%
   remove_empty(which = "cols") %>%
   # select(refid:design, arm_n, reintub_n:pc_upairobs_p, notes_d, linked_references) %>%
