@@ -89,7 +89,7 @@ evidence_tables <- study_char.dat %>%
 
 ```
   
-# **Technical Performance** 
+# **NMM Technical Performance** 
 
 ```{r evidenceTablesTechPerfComment}
 # evidence_tables %>%
@@ -130,7 +130,7 @@ evidence_tables %>%
 
 <br/>
 
-# **Diagnostic Accuracy** 
+# **NMM Diagnostic Accuracy** 
 
 ```{r evidenceTablesDiagAccComment}
 # evidence_tables %>%
@@ -171,7 +171,7 @@ evidence_tables %>%
 
 <br/>
 
-# **Monitoring Patient Outcomes** 
+# **NMM Outcomes** 
 
 ```{r evidenceTablesDiagOutComment}
 # evidence_tables %>%
