@@ -263,7 +263,7 @@ table_diag %>%
     footnote_as_chunk = FALSE
   )
 
-write_csv(study_char_table_diag, "/Users/mgrant/Desktop/study_char_table_diag.csv", na = "")
+# write_csv(study_char_table_diag, "/Users/mgrant/Desktop/study_char_table_diag.csv", na = "")
 table_n <- tab_inc()
 ```
 
@@ -405,6 +405,6 @@ pt_char_table_diag %>%
   #   footnote_as_chunk = FALSE
   # )
 
-write_csv(pt_char_table_diag, "/Users/mgrant/Desktop/pt_char_table_diag.csv", na = "")
+# write_csv(pt_char_table_diag, "/Users/mgrant/Desktop/pt_char_table_diag.csv", na = "")
 table_n <- tab_inc()
 ```
