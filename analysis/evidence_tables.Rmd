@@ -60,8 +60,8 @@ display: none !important;
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readFiles_nmb_102721.R")
-
 ```
+
 ```{r evidenceTables}
 evidence_tables <- study_char.dat %>%
   select(refid, study, n_enrolled, include, exclude, results, tech_perf:rev_agt, design, age, year, author, comment) %>%
@@ -133,6 +133,20 @@ evidence_tables %>%
 # **Diagnostic Accuracy KQ2** 
 
 ```{r evidenceTablesDiagAccComment}
+# evidence_tables %>%
+#   filter(!is.na(diag_acc)) %>%
+#   filter() %>%
+#   arrange(age, design, study) %>%
+#   select(study, refid, age, design) %>%
+#   group_by(age, design) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(
+#     end = cumsum(n),
+#     start = end - n + 1
+#   ) %>%
+#   select(age, design, start, end)
+
 evidence_tables %>%
   filter(diag_acc == "diag_acc") %>% 
   arrange(age, design, study) %>% 
@@ -144,9 +158,10 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_sub(., "Fully Paired", 1, 23) %>%
-  pack_top(., "Pediatric", 24, 24) %>%
-  pack_sub(., "Fully Paired", 24, 24) %>%
+  pack_top(., "Adult", 1, 24) %>%
+  pack_sub(., "Fully Paired", 1, 24) %>%
+  pack_top(., "Pediatric", 25, 25) %>%
+  pack_sub(., "Fully Paired", 25, 25) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "20em") %>%
@@ -159,6 +174,20 @@ evidence_tables %>%
 # **Monitoring Patient Outcomes KQ3** 
 
 ```{r evidenceTablesDiagOutComment}
+# evidence_tables %>%
+#   filter(!is.na(diag_pt_out)) %>%
+#   filter() %>%
+#   arrange(age, design, study) %>%
+#   select(study, refid, age, design) %>%
+#   group_by(age, design) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(
+#     end = cumsum(n),
+#     start = end - n + 1
+#   ) %>%
+#   select(age, design, start, end)
+
 evidence_tables %>%
   filter(diag_pt_out == "diag_pt_out") %>% 
   arrange(age, design, study) %>% 
@@ -170,11 +199,11 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 15) %>%
+  pack_top(., "Adult", 1, 16) %>%
   pack_sub(., "RCT", 1, 10) %>%
-  pack_sub(., "Quasi-Experimental", 11, 12) %>%
-  pack_sub(., "Prospective Cohort", 13, 14) %>%
-  pack_sub(., "Retrospective Cohort", 15, 15) %>%
+  pack_sub(., "Before-After/Time Series", 11, 12) %>%
+  pack_sub(., "Prospective Cohort", 13, 15) %>%
+  pack_sub(., "Retrospective Cohort", 16, 16) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "20em") %>%
@@ -188,14 +217,14 @@ evidence_tables %>%
 
 ```{r evidenceTablesAgt}
  # evidence_tables %>%
- #  filter(rev_agt == "rev_agt") %>% 
- #  arrange(age, design, study) %>% 
- #  select(study, refid, age, design) %>% 
- #  group_by(age, design) %>% 
- #  tally() %>% 
- #  ungroup() %>% 
+ #  filter(rev_agt == "rev_agt") %>%
+ #  arrange(age, design, study) %>%
+ #  select(study, refid, age, design) %>%
+ #  group_by(age, design) %>%
+ #  tally() %>%
+ #  ungroup() %>%
  #  mutate(end = cumsum(n),
- #         start = end - n + 1) %>% 
+ #         start = end - n + 1) %>%
  #  select(age, design, start, end)
 
 evidence_tables %>%
@@ -210,19 +239,19 @@ evidence_tables %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  pack_top(., "Adult", 1, 135) %>%
-  pack_sub(., "RCT", 1, 104) %>%
-  pack_sub(., "Quasi-Experimental", 105, 105) %>%
-  pack_sub(., "Nonrandomized Studies of Interventions", 106, 113) %>%
-  pack_sub(., "Prospective Cohort", 114, 125) %>%
-  pack_sub(., "Retrospective Cohort", 126, 135) %>%
-  pack_top(., "All Ages", 136, 140) %>%
-  pack_sub(., "RCT", 136, 139) %>%
-  pack_sub(., "Retrospective Cohort", 140, 140) %>%
-  pack_top(., "Pediatric", 141, 157) %>%
-  pack_sub(., "RCT", 141, 152) %>%
-  pack_sub(., "Prospective Cohort", 153, 156) %>%
-  pack_sub(., "Case Control", 157, 157) %>%
+  pack_top(., "Adult", 1, 165) %>%
+  pack_sub(., "RCT", 1, 121) %>%
+  pack_sub(., "Before-After/Time Series", 122, 123) %>%
+  pack_sub(., "Nonrandomized Trials", 124, 134) %>%
+  pack_sub(., "Prospective Cohort", 135, 156) %>%
+  pack_sub(., "Retrospective Cohort", 157, 165) %>%
+  pack_top(., "All Ages", 166, 172) %>%
+  pack_sub(., "RCT", 166, 169) %>%
+  pack_sub(., "Retrospective Cohort", 170, 172) %>%
+  pack_top(., "Pediatric", 173, 188) %>%
+  pack_sub(., "RCT", 173, 184) %>%
+  pack_sub(., "Prospective Cohort", 185, 187) %>%
+  pack_sub(., "Case Control", 188, 188) %>%
   column_spec(1, width = "8em") %>%
   column_spec(2, width = "4em") %>%
   column_spec(3, width = "20em") %>%
