@@ -607,9 +607,9 @@ nmm_kable %>%
   pack_topnoind(., "Prospective Cohort", 20, 21) %>%
   pack_topnoind(., "Retrospective Cohort", 22, 23) %>%
   footnote(
-    general = "RNMB: residual neuromuscular blockade; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
+    general = "RCT: randomized controlled trial; RNMB: residual neuromuscular blockade; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
     alphabet = c(
-      "PACU if desginated as PACU or recovery, *OR* if designated as such or as post-extubation.",
+      "PACU if desginated as PACU or recovery, OR if designated as such or as post-extubation.",
       "Odds ratio comparing the last monitoring arm (lowest incidence) to the prior. For studies reporting results for >1 threshold, only those for the highest are shown."
     ),
     general_title = "",
