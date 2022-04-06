@@ -2281,8 +2281,17 @@ brady_meta.dat <- adverse.dat %>%
   # add reversal depth; need to use only selected arm
   # left_join(., study_arm_rev.dat %>% select(refid, depth_rev_f), by = "refid")
 
+# get upper dose data
+# temp_upper_dose <- adverse.dat %>% 
+#   filter(arm == "Neo") %>% 
+#   select(refid, upper_dose)
+# brady_meta_upper.dat <- left_join(brady_meta.dat, temp_upper_dose, by = "refid") %>% 
+#   filter(upper_dose < 0.05)
+# rm(temp_upper_dose)
+
 brady_meta <- metabin(brady_n_Neo, n_Neo, brady_n_Sug, n_Sug, 
   data = brady_meta.dat,
+  # data = brady_meta_upper.dat,
   studlab = study,
   sm = "RD",
   method = "MH",
@@ -2299,7 +2308,7 @@ forest(brady_meta,
   label.c = "Sugammadex",
   label.e = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("RD%", "(95% CI)"),
+  rightlabs = c(" ", "(95% CI)"),
   digits = 1,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
@@ -2318,6 +2327,9 @@ forest(brady_meta,
   xlab = "Sugammadex                         Neostigmine \n Worse                                   Worse")
 
 figure_n <- fig_inc()
+
+# pdf("/Users/mgrant/Desktop/bradyUpperLTE0.4.pdf", width = 10.5, height = 7.5)
+# dev.off()
 ```
 No indication for small study effects (potential publication bias) for risk ratio or odds ratio in regression tests or funnel plot. 
 
@@ -2354,7 +2366,7 @@ neo_brady_meta$neo_dose <- temp$mg_kg_Neo
 
 forest(neo_brady_meta,
   rightcols = c("effect", "ci", "neo_dose"),
-  rightlabs = c("Rate (%)", "95% CI    " , "Mean Dose (mg/kg)"),
+  rightlabs = c(" ", "95% CI    " , "Mean Dose (mg/kg)"),
   studlab = TRUE,
   comb.fixed = FALSE,
   digits = 1,
@@ -2499,9 +2511,9 @@ forest(tachy_meta,
   label.c = "Sugammadex",
   label.e = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("RD%", "(95% CI)"),
+  rightlabs = c(" ", "(95% CI)"),
   pscale = 100,
-  digits = 2,
+  digits = 1,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
@@ -3452,7 +3464,7 @@ forest(hypox_meta,
   label.e = "Sugammadex",
   label.c = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("RD%", "(95% CI)"),
+  rightlabs = c(" ", "(95% CI)"),
   pscale = 100,
   digits = 1,
   digits.tau2 = 1,
@@ -4049,7 +4061,7 @@ forest(bronch_rct_meta,
   label.e = "Sugammadex",
   label.c = "Neostigmine",
   rightcols = c("effect", "ci"),
-  rightlabs = c("RD%", "(95% CI)"),
+  rightlabs = c(" ", "(95% CI)"),
   pscale = 100,
   # leftlabs = c("Study", "Events", "Total", "Events", "Total"),
   # just.addcols = "left",
