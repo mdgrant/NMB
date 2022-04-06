@@ -338,16 +338,16 @@ conf_meta_temp <- conf_meta_temp %>%
     design_f = fct_recode(design_f,
       "Before-After" = "Before-After/Time Series",
       "NR Trial" = "Nonrandomized Trial",
-      "Prosp Coh" = "Prospective Cohort",
-      "Retro Coh" = "Retrospective Cohort",
+      "Prosp Cohort" = "Prospective Cohort",
+      "Retro Cohort" = "Retrospective Cohort",
     )
   )
 
 # add Domenech 2019; entered as comparison of monitoring vs none in kq3
 domenech2019 <- tribble(
 ~mon_cat_f,~refid,~study,~year,~age,~arm,~arm_n,~rnmb9_n,~rnmb_where,~rnmb_location,~extbconf,~tofrext,~confirm,~nmbagent,~volatile,~depth_rev_f,~depth,~study_l,~design_f,
-"Quant",3270,"Domenech 2019",2019,"Adult","Sug",42,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh",
-"Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Coh"
+"Quant",3270,"Domenech 2019",2019,"Adult","Sug",42,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Cohort",
+"Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Cohort"
 )
 
 ## conf_meta ------------------------------------------ (2022-04-01 08:37) @----
@@ -425,7 +425,7 @@ kbl(
   pack_topnoind(., "Not confirmed", 9, 20) %>%
   pack_topnoind(., "Not stated", 21, 6) %>%
   footnote(
-    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
+    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
@@ -441,8 +441,10 @@ forest_conf <- function(meta_result) {
   forest(meta_result,
     fixed = FALSE,
     rightcols = c("effect", "ci"),
-    rightlabs = c("Incidence", "(95% CI)"),
-    digits = 3,
+    rightlabs = c(" ", "(95% CI)"),
+    smlab = "Residual Neuromuscular Blockade\n per 100 patients",
+    digits = 1,
+    pscale = 100,
     digits.tau2 = 1,
     overall.hetstat = TRUE,
     print.I2.ci = TRUE,
@@ -455,8 +457,8 @@ forest_conf <- function(meta_result) {
     text.subgroup.nohet = TRUE,
     colgap.forest.left = "30mm",
     just.addcols.right = "left",
-    xlim = c(0, 0.8),
-    xlab = "Incidence TOFR <0.9"
+    xlim = c(0, 100),
+    # xlab = "Incidence/100 TOFR <0.9"
   )
 }
 
@@ -489,9 +491,9 @@ compare_ci <- function(data_meta) {
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular block (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font>
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font>
 
-```{r metaSug, fig.align = "left", fig.width = 9.5, fig.height = 9}
+```{r metaSug, fig.align = "left", fig.width = 9.5, fig.height = 10}
 ## metaSug -------------------------------------------- (2022-03-24 10:18) @----
 rnmb_sug <- update(rnmb_meta, 
   subset = arm == "Sug"
@@ -542,17 +544,16 @@ figure_n <- fig_inc()
 
 ```
 
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> <!-- Confirmed vs. not confirmed --- risk ratio 0.08 (95% CI: 0.00, 0.64). <br/> --> <!-- Removing Alday 2019 --- risk ratio 0.12 (95% CI: 0.00, 0.92)<br/>  --> <!-- Assuming all not stated were confirmed --- risk ratio 0.09 (95% CI: 0.00, 0.65). <br/>  --> <!-- Assuming all not stated were not confirmed --- risk ratio 0.15 (95% CI: 0.00, 1.21). -->
+<font size = 4> Risk Ratios 
 
-| Confirmed vs. Not confirmed                | RR (95% CI)       |
-|:-------------------------------------------|:------------------|
-| All studies                                | 0.08 (0.00, 0.64) |
-| Removing Alday 2019                        | 0.12 (0.00, 0.92) |
-| Assuming all not stated were confirmed     | 0.09 (0.00, 0.65) |
-| Assuming all not stated were not confirmed | 0.15 (0.00, 1.21) |
+| Confirmed vs. Not Confirmed                 | RR (95% CI)       |
+|:--------------------------------------------|:------------------|
+| All studies                                 | 0.08 (0.00, 0.64) |
+|  Removing Alday 2019                        | 0.12 (0.00, 0.92) |
+|  Assuming all not stated were confirmed     | 0.09 (0.00, 0.65) |
+|  Assuming all not stated were not confirmed | 0.15 (0.00, 1.21) |
 
-: Risk Ratios
-
+</font>
 <br/><br/>
 
 
@@ -606,7 +607,7 @@ kbl(
   pack_topnoind(., "Not confirmed", 9, 20) %>%
   pack_topnoind(., "Not stated", 21, 29) %>%
   footnote(
-    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Coh: prospective cohort; Retro Coh: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
+    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
@@ -623,8 +624,8 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`.  Incidence of residual neuromuscular block (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with neostigmine). </font>
-```{r metaNeo, fig.align = "left", fig.width = 9.5, fig.height = 9.2}
+<font size = 4> Figure `r figure_n`.  Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with neostigmine). </font>
+```{r metaNeo, fig.align = "left", fig.width = 9.5, fig.height = 10.2}
 ## metaNeo -------------------------------------------- (2022-03-24 10:18) @----
 rnmb_neo <- update(rnmb_meta,
   subset = arm == "Neo"
@@ -661,17 +662,15 @@ figure_n <- fig_inc()
 
 # compare_ci(rnmb_meta)
 ```
+<font size = 4> Risk Ratios  
 
-Mod: moderate; Min: minimal; Oth: other; NS: not stated.<br/> 
-<!-- Confirmed vs. not confirmed --- risk ratio 0.15 (95% CI: 0.06, 0.35). <br/> Assuming all not stated were confirmed --- risk ratio 0.26 (95% CI: 0.09, 0.62). <br/> Assuming all not stated were not confirmed --- risk ratio 0.22 (95% CI: 0.08, 0.51). <br/> -->
+|Confirmed vs. Not Confirmed                  | RR (95% CI)       |
+|:--------------------------------------------|:------------------|
+| All studies                                 | 0.15 (0.06, 0.35) |
+|  Assuming all not stated were confirmed     | 0.26 (0.09, 0.62) |
+|  Assuming all not stated were not confirmed | 0.22 (0.08, 0.51) |
 
-| Confirmed vs. Not confirmed                | RR (95% CI)       |
-|:-------------------------------------------|:------------------|
-| All studies                                | 0.15 (0.06, 0.35) |
-| Assuming all not stated were confirmed     | 0.26 (0.09, 0.62) |
-| Assuming all not stated were not confirmed | 0.22 (0.08, 0.51) |
-
-: Risk Ratios
+</font>
 
 ```{r, eval = FALSE}
 # numbers for SOE
