@@ -1,0 +1,410 @@
+---
+title: "Study Characteristics"
+date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  latex_engine: xelatex
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    font: Source Sans Pro
+    theme: cosmo
+    anchor_sections: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+    toc_depth: 3
+    linkcolor: blue
+# bibliography: bib/kq4.bib
+# csl: jama.csl
+link-citations: yes
+workflowr:
+  suppress_report: no
+---
+
+```{=html}
+<style type="text/css">
+  body{
+  font-size: 9.5pt;
+  font-family: Source Sans Pro;
+}
+
+.caption {
+  font-size: 15px;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  color: #090909;
+  background-color: #0909093d;
+}
+
+.lightable-classic.lightable-hover tbody tr:hover {
+    background-color: #c5d4e4;
+}
+.btn-xs, .btn-group-xs>.btn { 
+display: none; 
+}
+
+.btn-default {
+display: none !important; 
+}
+
+.popover-title {
+      font-size: 12px;
+  }
+
+.popover-content {
+      font-size: 12px;
+  }
+  
+.popover-content {
+    background-color: white;
+    <!-- color: #FFFFFF; -->
+    padding: 2px;
+  }
+
+</style>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html: true, placement: top});
+});
+</script>
+```
+
+```{r setup, include = FALSE}
+## setup ---------------------------------------------- (2022-02-14 16:17) @----
+knitr::opts_chunk$set(echo = TRUE)
+source("code/readfiles_nmb_102721.R")
+```
+
+```{r data}
+## data/refids ---------------------------------------- (2022-02-15 10:28) @
+ptout_refids <- study_char.dat %>% 
+  filter(!is.na(diag_pt_out)) %>% 
+  filter(refid != 3209) %>% # exclude Thilen 2018
+  pull(refid) %>% 
+  unique()
+```
+
+\newpage 
+
+## All Studies (Adult)
+
+### Study Characteristics 
+
+<br/>
+
+<font size = 4> Table `r table_n`. Study characteristics. </font>
+
+```{r studyCharRev}
+## studyCharRev --------------------------------------- (2022-03-07 20:32) @----
+study_char_tech.dat <- study_char.dat %>% 
+  filter(refid %in% ptout_refids) %>% 
+  relocate(design, .before = study) %>% 
+  arrange(design)
+
+study_char_table_tech <- study_char_tech.dat %>%
+  filter(
+    # design %in% c("rct", "crossover"),
+    age == "Adult",
+    refid %in% ptout_refids,
+  ) %>%
+  mutate(
+    dates = str_c(date_start, "-", date_end),
+    country = countrycode::countryname(country, destination = "un.name.en"),
+    country = ifelse(grepl("United States", country), "United States", country),
+    country = ifelse(grepl("United Kingdom", country), "United Kingdom", country),
+    country = ifelse(grepl("Republic of Korea", country), "South Korea", country),
+    country = ifelse(grepl("Iran", country), "Iran", country),
+    eu = countrycode::countryname(country, destination = "eu28"),
+    un = countrycode::countryname(country, destination = "un.region.name"),
+    asia = un == "Asia",
+    eu = eu == "EU",
+    afr = un == "Africa",
+    us = grepl("United States", country),
+    ca = grepl("Canada", country),
+    sa = grepl("Brazil", country),
+    noneu = grepl("Bosnia|Kosovo", country),
+    low_r = if_else(non_vh_hdi == "yes", 1, 0, missing = 0),
+    pilot = if_else(pilot == "yes", 1, 0, missing = 0),
+    ambulatory = !is.na(ambulatory),
+    one_center = centers == 1,
+    multi_center = centers > 1,
+    general = !is.na(general),
+    regional = !is.na(regional),
+    sedation = !is.na(sedation),
+    non_vh_hdi = ifelse(is.na(non_vh_hdi), 0, 1),
+    fund_ind = funding == "industry",
+    fund_pubind = funding == "pub_indus",
+    fund_pub = funding == "public",
+    fund_nr = funding == "NR",
+    auth_coi = author_coi == "author_coi",
+    registered = if_else(registered == "yes", TRUE, FALSE, missing = FALSE),
+  ) %>% 
+  select(refid, design, study, eu, un, country, asia, eu, us, ca, sa, noneu, afr, low_r, non_vh_hdi, pilot, ambulatory, one_center, multi_center, general, regional, sedation, starts_with("fund_"), registered, n_enrolled, arms, auth_coi) 
+  
+## countries ------------------------------------------ (2022-03-09 07:23) @----
+countries <- study_char_table_tech %>% 
+  tabyl(country) %>% 
+  arrange(desc(n)) %>% 
+  mutate(
+  n_per = n_percent1(n, percent * 100),
+  characteristic = paste0("  ", country)
+  ) %>% 
+  select(characteristic, n_per)
+
+## countries ------------------------------------------ (2022-03-09 07:23) @----
+design <- study_char_table_tech %>% 
+  tabyl(design) %>% 
+  arrange(desc(n)) %>% 
+  filter(n != 0) %>% 
+  mutate(
+  n_per = n_percent1(n, percent * 100),
+  characteristic = case_when(
+    design == "fully_paired" ~ "Fully Paired",
+    design == "rct" ~ "RCT",
+    design == "prospect_coh" ~ "Prospective Cohort",
+    design == "retrospect_coh" ~ "Retrospective Cohort",
+    design == "quasiexp" ~ "Before-After/Time Series",
+  ),
+  characteristic = paste0("  ", characteristic)
+  ) %>% 
+  select(characteristic, n_per)
+
+
+## anesthetic ----------------------------------------- (2022-03-09 07:23) @----
+anesthetic <- study_arm.dat %>% 
+    filter(
+    # design %in% c("rct", "crossover"),
+    age == "Adult",
+    refid %in% ptout_refids) %>% 
+  group_by(refid) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  mutate(
+    volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.x)),
+    tiva = ifelse(str_detect(gen_type, "tiva"), TRUE, FALSE)
+  ) %>% 
+  select(refid, volatile, tiva)
+
+## table_tech ------------------------------------------ (2022-03-09 07:23) @----
+table_tech <- study_char_table_tech %>% 
+  left_join(., anesthetic, by = "refid") %>% 
+  summarize(
+    "Number of Studies" = n(),
+    "Design" = " ",
+    "Patients Enrolled (N)" = " ",
+    "  Mean" = round(mean(n_enrolled), 0),
+    "  Median" = round(median(n_enrolled, 0)),
+    "  Range" = paste0("(", min(n_enrolled), "-", max(n_enrolled), ")"),
+    "Arms" = " ",
+    "  Two" = sum(arms == 2, na.rm = TRUE),
+    "  Multi" = sum(arms > 2, na.rm = TRUE),
+    "  Mean " = round(mean(arms, na.rm = TRUE), 1),
+    "  Median " = round(median(arms, na.rm = TRUE), 1),
+    "  Range " = paste0("(", min(arms, na.rm = TRUE), "-", max(arms, na.rm = TRUE), ")"),
+    "Pilot Study" = n_per_tf(pilot),
+    "Ambulatory" = n_per_tf(ambulatory),
+    "Centers" = " ",
+    "  Single Center" = n_per_tf(one_center),
+    "  Multicenter" = n_per_tf(multi_center),
+    # "Anesthesia" = " ",
+    "Volatile Anesthetic" = n_per_tf(volatile),
+    # "  TIVA" = n_per_tf(tiva),
+    # "  Sedation" = n_per_tf(sedation),
+    "Country" = " ",
+    "Non-very-high HDI Countryª" = n_per_tf(low_r),
+    # expression(paste("Non-very-high HDI"^"a")) = n_per_tf(low_r),
+    "Funding" = " ",
+    "  Industry" = n_per_tf(fund_ind),
+    "  Public/Industry" = n_per_tf(fund_pubind),
+    "  Public" = n_per_tf(fund_pub),
+    "  Not Reported" = n_per_tf(fund_nr),
+    "Author COI" = n_per_tf(auth_coi),
+    "Registered" = n_per_tf(registered),
+  ) %>%
+  t() %>% 
+  data.frame() %>% 
+  rename(n_per = ".") %>% 
+  mutate(
+  n = str_extract(n_per, "^\\d{1,2}"),
+  per = str_extract(n_per, "\\(\\d{1,2}\\.\\d\\)")) %>% 
+  rownames_to_column(var = "characteristic") %>% 
+  select(characteristic, n_per) %>% 
+  remove_rownames()
+
+table_tech <- table_tech %>% 
+  add_row(., countries, .after = 19) %>% 
+  add_row(., design, .after = 2)
+
+# write_csv(table_tech, "/Users/mgrant/Desktop/table_ptout.csv", na = "")
+
+table_tech %>%
+  kbl(
+    booktabs = T, align = c("lc"), escape = FALSE, # format = "latex",
+    col.names = c("Characteristic", "N or N (%)")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "20em") %>%
+  column_spec(2, width = "8em") %>%
+  # row_spec(., 46, italic = TRUE) %>% 
+  footnote(
+    general = "RCT: randomized controlled trial; COI: conflict of interest.",
+    alphabet = c(
+      "Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."
+    ),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+# write_csv(study_char_table_tech, "/Users/mgrant/Desktop/study_char_table_ptout.csv", na = "")
+table_n <- tab_inc()
+```
+
+<br/>
+
+### Patient Charcteristics
+
+<br/>
+
+<font size = 4> Table `r table_n`. Patient characteristics. </font>
+
+```{r ptCharRev}
+## (updated 2021/07/21 08:26) surgery type --------------------------------
+surg <- study_char_tech.dat %>%
+  filter(
+    # design %in% c("rct", "crossover"),
+    age == "Adult",
+    refid %in% ptout_refids,
+  ) %>%
+  mutate(
+    across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
+    across(surg_various:surg_other, ~ str_c(.x, ", ")),
+    across(surg_various:surg_other, ~ firstup(.x)),
+    across(surg_various:surg_other, ~ replace_na(.x, "")),
+    surg_list = ifelse(grepl("abdom", surg_list), "Abdominal, ", ""),
+    surgs = str_c(surg_various, surg_car, surg_cr, surg_gyn, surg_gi, surg_gen, surg_headneck, surg_hep, surg_neuro, surg_opth, surg_oralmax, surg_ortho, surg_otolar, surg_plastic, surg_thor, surg_urol, surg_other, surg_list),
+    surgs = str_replace(surgs, "Otolar", "ENT"),
+    surgs = str_replace(surgs, "Headneck", "ENT"),
+    surgs = str_sub(surgs, 1, nchar(surgs) - 2),
+    surgs = ifelse(str_count(surgs, ",") > 2, "Various", surgs)
+    ) %>%
+  select(refid, surgs) %>% 
+  tabyl(surgs) %>% 
+  arrange(desc(percent)) %>% 
+  rename(per = percent) %>% 
+  mutate(per = paste0( "(", format(round(100*per, 1), nsmall = 1), ")"),
+         per = str_replace(per, " ", ""),
+         n = as.character(n),
+         n_per = paste(n, per)) %>% 
+  select(surgs, n_per) %>% 
+  rename(result = n_per, characteristic = surgs) %>% 
+  remove_rownames() %>% 
+  mutate(
+    characteristic = str_replace(characteristic, "Gi", "GI"),
+    characteristic = str_replace(characteristic, "Cr", "CR"),
+    characteristic = ifelse(characteristic == "Various", "Various (3 or more)", characteristic),
+    characteristic = paste0("  ", characteristic),
+  )
+
+## (updated 2021/07/21 16:25) patients ------------------------------------
+pt_char_table_tech <- study_arm.dat %>%
+  filter(
+    # design %in% c("rct", "crossover"),
+    age == "Adult",
+    refid %in% ptout_refids
+  ) %>%
+  group_by(refid) %>%
+  summarize(
+    N = sum(arm_n),
+    wgt = arm_n / N,
+    asa_1_all = round(sum(asa_1 * wgt, na.rm = FALSE)),
+    asa_2_all = round(sum(asa_2 * wgt, na.rm = FALSE)),
+    asa_3_all = round(sum(asa_3 * wgt, na.rm = FALSE)),
+    asa_12_all = round(sum(asa_12 * wgt, na.rm = FALSE)),
+    asa_123_all = round(sum(asa_123 * wgt, na.rm = FALSE)),
+    asa_23_all = round(sum(asa_23 * wgt, na.rm = FALSE)),
+    asa_34_all = round(sum(asa_34 * wgt, na.rm = FALSE)),
+    age_mn_all = round(sum(age_mean * wgt, na.rm = FALSE)),
+    age_md_all = round(sum(age_med * wgt, na.rm = FALSE)),
+    sex_all = round(sum(female * wgt, na.rm = FALSE)),
+    white_all = round(sum(white * wgt, na.rm = FALSE)),
+    black_all = round(sum(black * wgt, na.rm = FALSE)),
+    asian_all = round(sum(asian * wgt, na.rm = FALSE)),
+    bmi_mn_all = round(sum(bmi_mean * wgt, na.rm = FALSE)),
+    bmi_md_all = round(sum(bmi_med * wgt, na.rm = FALSE)),
+    dm_mn_all = round(sum(dm * wgt, na.rm = FALSE)),
+    neuro_all = round(sum(neuro * wgt, na.rm = FALSE))
+  ) %>%
+  filter(row_number() == 1) %>%
+  ungroup() %>%
+  rename_with(~ str_replace(., "_all", "")) %>%
+  mutate(
+    across(asa_1:asa_34, ~ replace(., !is.na(.), "Y")),
+    across(asa_1:asa_34, ~ replace(., is.na(.),  "-")),
+  ) %>%
+  unite(., col = "asa", asa_1:asa_34, sep = "", remove = FALSE) %>%
+  mutate(
+    age = case_when(
+      !is.na(age_mn) ~ age_mn,
+      !is.na(age_md) ~ age_md,
+    ),
+    bmi = case_when(
+      !is.na(bmi_mn) ~ bmi_mn,
+      !is.na(bmi_md) ~ bmi_md,
+    ),
+  ) %>%
+  summarise(
+    "Age (average of mean or med, range)" = paste0(round(sum(age / (n() - sum(is.na(age_mn) & is.na(age_md))), na.rm = TRUE), 1), " (", min(age, na.rm = TRUE), "-", max(age, na.rm = TRUE), ")"),
+    "Female (%, range)" = paste0(round(sum(sex, na.rm = TRUE) / (n() - sum(is.na(sex))), 1), " (", min(sex, na.rm = TRUE), "-", max(sex, na.rm = TRUE), ")"),
+    "ASA Class (%)" = " ",
+    # "  I-II" = sum(!is.na(asa_1)) + sum(!is.na(asa_2)) + sum(!is.na(asa_12)),
+    # "  I-III" = round(100 * mean(sum(!is.na(asa_123)) + sum(!is.na(asa_23)) + sum(!is.na(asa_12))), 1),
+    # "  III-IV" = round(100 * mean(sum(!is.na(asa_34))), 1),
+    # "  NR" = round(100 * mean(if_all(asa_1:asa_34, ~ is.na(.x))), 1),
+    "  I-II" =   paste0(sum(str_count(asa, "Y------|YY-----|---Y---")), " (", round(100 * mean(str_count(asa, "Y------|YY-----|---Y---")), 1), ")"),
+    "  I-III" =  paste0(sum(str_count(asa, "----Y--|YYY----")), " (", round(100 * mean(str_count(asa, "----Y--|YYY----")), 1), ")"),
+    "  I-IV" =  paste0(sum(str_count(asa, "---Y--Y")), " (", round(100 * mean(str_count(asa, "---Y--Y")), 1), ")"),
+    "  NR"     = paste0(sum(str_count(asa, "-------")), " (", round(100 * mean(str_count(asa, "-------")), 1), ")"),
+    "BMI (average of mean or med, range)" = paste0(round(sum(bmi / (n() - sum(is.na(bmi_mn) & is.na(bmi_md))), na.rm = TRUE), 1), " (", min(bmi, na.rm = TRUE), "-", max(bmi, na.rm = TRUE), ")"),
+    # "BMI (mean or med ≥ 30), (%)" = paste0("(", round(sum(bmi >= 30, na.rm = TRUE) / n() * 100, 1), ")"),
+    # "DM" = " ",
+    # "  Any (studies)" = sum(dm_mn > 0, na.rm = TRUE),
+    # "    % pts, (range)" = paste0("(", min(dm_mn[dm_mn != 0], na.rm = TRUE), "-", max(dm_mn, na.rm = TRUE), ")")
+  ) %>%
+  t() %>%
+  data.frame() %>%
+  rownames_to_column(var = "characteristic") %>%
+  rename(result = ".") %>%
+  remove_rownames() %>%
+  add_row(characteristic = "Surgery, N (%)", result = "") %>%
+  # add surgery type
+  bind_rows(surg)
+
+pt_char_table_tech %>% 
+  kbl(
+    booktabs = T, align = c("lc"), escape = FALSE, # format = "latex",
+    col.names = c("Characteristic", "Result")
+  ) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = "20em") %>%
+  column_spec(2, width = "8em") 
+  # row_spec(., 46, italic = TRUE) %>% 
+  # footnote(
+  #   general = "RCT: randomized controlled trial.",
+  #   alphabet = c(" "),
+  #   general_title = "",
+  #   footnote_as_chunk = FALSE
+  # )
+
+# write_csv(pt_char_table_tech, "/Users/mgrant/Desktop/pt_char_table_ptout.csv", na = "")
+table_n <- tab_inc()
+```
