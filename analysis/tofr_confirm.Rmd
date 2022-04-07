@@ -554,8 +554,37 @@ figure_n <- fig_inc()
 | Assuming all not stated were not confirmed  | 0.15 (0.00, 1.21) |
 
 </font>
-<br/><br/>
+<br/>
 
+##   Visual Representation    
+
+```{r, include=FALSE}
+library(personograph)
+
+colorlist1 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
+colorlist2 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
+# colorlist2 <- list("No RNMB" = "#a4d9a7", "Not confirmed" = "#ee4c6c", "Confirmed" = "#f5b7b1")
+data1 <- list("No RNMB" = 0.99, "RNMB" = .01)
+data2 <- list("No RNMB" = 0.96, "RNMB" = .04)
+
+svg("docs/assets/sugnoconfirm.svg",  width = 5, height = 5)
+personograph(data1, color = colorlist1, n.icons = 100, fig.title = "TOFR ≥0.9 Confirmed")
+dev.off()
+
+svg("docs/assets/sugconfirm.svg", width = 5, height = 5)
+personograph(data2, color = colorlist2, n.icons = 100, fig.title = "TOFR ≥0.9 Not Confirmed")
+dev.off()
+```
+
+
+```{r personographSug, figures-side, fig.show="hold", out.width="100%", fig.width=10}
+library(cowplot)
+ggdraw() + 
+  draw_image("docs/assets/sugnoconfirm.svg", width = 0.5) + 
+  draw_image("docs/assets/sugconfirm.svg", width = 0.5, x = 0.5)
+```
+
+<br/>
 
 ## Neostigmine
 
@@ -672,6 +701,40 @@ figure_n <- fig_inc()
 
 </font>
 
+<br/>
+
+##   Visual Representation    
+
+```{r, include = FALSE}
+library(personograph)
+
+colorlist1 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
+colorlist2 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
+# colorlist2 <- list("No RNMB" = "#a4d9a7", "Not confirmed" = "#ee4c6c", "Confirmed" = "#f5b7b1")
+data1 <- list("No RNMB" = 0.94, "RNMB" = .06)
+data2 <- list("No RNMB" = 0.67, "RNMB" = .33)
+
+svg("docs/assets/neonoconfirm.svg",  width = 5, height = 5)
+personograph(data1, color = colorlist1, n.icons = 100, fig.title = "TOFR ≥0.9 Confirmed")
+dev.off()
+
+svg("docs/assets/neoconfirm.svg", width = 5, height = 5)
+personograph(data2, color = colorlist2, n.icons = 100, fig.title = "TOFR ≥0.9 Not Confirmed")
+dev.off()
+```
+
+
+```{r personographNeo, figures-side, fig.show="hold", out.width="100%", fig.width=10}
+library(cowplot)
+ggdraw() + 
+  draw_image("docs/assets/neonoconfirm.svg", width = 0.5) + 
+  draw_image("docs/assets/neoconfirm.svg", width = 0.5, x = 0.5)
+```
+
+
+
+<br/>
+
 ```{r, eval = FALSE}
 # numbers for SOE
 conf_meta %>% 
@@ -679,9 +742,5 @@ conf_meta %>%
   # select(refid) %>% 
   # pull(refid)
   summarise(pts = sum(arm_n))
-
-
-
-
 ```
 
