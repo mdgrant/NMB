@@ -546,12 +546,12 @@ figure_n <- fig_inc()
 
 <font size = 4> Risk Ratios 
 
-| Confirmed vs. Not Confirmed                 | RR (95% CI)       |
+| Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| All studies                                 | 0.08 (0.00, 0.64) |
-|  Removing Alday 2019                        | 0.12 (0.00, 0.92) |
-|  Assuming all not stated were confirmed     | 0.09 (0.00, 0.65) |
-|  Assuming all not stated were not confirmed | 0.15 (0.00, 1.21) |
+| Confirmed vs. not confirmed                 | 0.08 (0.00, 0.64) |
+| Removing Alday 2019                         | 0.12 (0.00, 0.92) |
+| Assuming all not stated were confirmed      | 0.09 (0.00, 0.65) |
+| Assuming all not stated were not confirmed  | 0.15 (0.00, 1.21) |
 
 </font>
 <br/><br/>
@@ -664,11 +664,11 @@ figure_n <- fig_inc()
 ```
 <font size = 4> Risk Ratios  
 
-|Confirmed vs. Not Confirmed                  | RR (95% CI)       |
+| Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| All studies                                 | 0.15 (0.06, 0.35) |
-|  Assuming all not stated were confirmed     | 0.26 (0.09, 0.62) |
-|  Assuming all not stated were not confirmed | 0.22 (0.08, 0.51) |
+| Confirmed vs. not confirmed                 | 0.15 (0.06, 0.35) |
+| Assuming all not stated were confirmed      | 0.26 (0.09, 0.62) |
+| Assuming all not stated were not confirmed  | 0.22 (0.08, 0.51) |
 
 </font>
 
