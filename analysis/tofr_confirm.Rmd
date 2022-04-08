@@ -299,7 +299,7 @@ conf_meta_temp <- dichot_conf.dat %>%
   select(mon_cat_f, refid, study, year, design, age, arm, arm_n, rnmb9_n, rnmb_where, rnmb_location, extbconf, tofrext, confirm, nmbagent, volatile, mon_cat_f, depth_rev_f)
 
 # collapse multiarm
-remove <- c(1511, 2088, 3305, 2523, 2961, 2197)
+remove <- c(1511, 2088, 3305, 2523, 2961, 2197, 2234)
 temp_1 <- conf_meta_temp %>%
   filter(refid %in% remove) %>%
   group_by(study, arm) %>%
@@ -389,6 +389,7 @@ conf_kbl <- conf_meta %>%
 
 dichot_format <- function(x) (x/100)
 
+# temp <- conf_kbl %>% 
 conf_kbl %>% 
   filter(arm == "Sug") %>% 
   select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
@@ -421,9 +422,9 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 8) %>%
-  pack_topnoind(., "Not confirmed", 9, 20) %>%
-  pack_topnoind(., "Not stated", 21, 6) %>%
+  pack_topnoind(., "≥0.9 confirmed", 1, 9) %>%
+  pack_topnoind(., "Not confirmed", 10, 20) %>%
+  pack_topnoind(., "Not stated", 21, 27) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -480,6 +481,7 @@ compare_ci <- function(data_meta) {
   rr <- (sin(rnorm(1000000, rnmb_pas[1], rnmb_pas[3])))^2 / (sin(rnorm(1000000, rnmb_pas[2], rnmb_pas[4])))^2
   rr <- quantile(rr, probs = c(0.025, 0.5, 0.975))
   paste0(round_2(rr[2]), " (95% CI: ", round_2(rr[1]), ", ", round_2(rr[3]), ")")
+  # paste0(round_2(rr[2]), " (95% CI: ", rr[1], ", ", rr[3], ")")
 }
 ```
 
@@ -523,13 +525,13 @@ figure_n <- fig_inc()
 # )
 # compare_ci(rnmb_sug)
 
-# # ## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
+## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
 # conf_meta_sens <- conf_meta %>%
 #   mutate(
 #     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
 #     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
 #   )
-# 
+
 # rnmb_meta <- metaprop(rnmb9_n, arm_n,
 #   data = conf_meta_sens,
 #   studlab = study,
@@ -548,41 +550,12 @@ figure_n <- fig_inc()
 
 | Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| Confirmed vs. not confirmed                 | 0.08 (0.00, 0.64) |
-| Removing Alday 2019                         | 0.12 (0.00, 0.92) |
-| Assuming all not stated were confirmed      | 0.09 (0.00, 0.65) |
-| Assuming all not stated were not confirmed  | 0.15 (0.00, 1.21) |
+| Confirmed vs. not confirmed                 | 0.07 (0.00, 0.56) |
+|    Removing Alday 2019                      | 0.11 (0.00, 0.81) |
+| Assuming all not stated were confirmed      | 0.09 (0.00, 0.60) |
+| Assuming all not stated were not confirmed  | 0.13 (0.00, 1.07) |
 
 </font>
-<br/>
-
-##   Visual Representation    
-
-```{r, include=FALSE}
-library(personograph)
-
-colorlist1 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
-colorlist2 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
-# colorlist2 <- list("No RNMB" = "#a4d9a7", "Not confirmed" = "#ee4c6c", "Confirmed" = "#f5b7b1")
-data1 <- list("No RNMB" = 0.99, "RNMB" = .01)
-data2 <- list("No RNMB" = 0.96, "RNMB" = .04)
-
-svg("docs/assets/sugnoconfirm.svg",  width = 5, height = 5)
-personograph(data1, color = colorlist1, n.icons = 100, fig.title = "TOFR ≥0.9 Confirmed")
-dev.off()
-
-svg("docs/assets/sugconfirm.svg", width = 5, height = 5)
-personograph(data2, color = colorlist2, n.icons = 100, fig.title = "TOFR ≥0.9 Not Confirmed")
-dev.off()
-```
-
-
-```{r personographSug, figures-side, fig.show="hold", out.width="100%", fig.width=10}
-library(cowplot)
-ggdraw() + 
-  draw_image("docs/assets/sugnoconfirm.svg", width = 0.5) + 
-  draw_image("docs/assets/sugconfirm.svg", width = 0.5, x = 0.5)
-```
 
 <br/>
 
@@ -597,9 +570,9 @@ ggdraw() +
 ```{r neostigmineKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
 # table_tally_2(temp, confirm, design_f)
-
 dichot_format <- function(x) (x/100)
 
+# temp <- conf_kbl %>% 
 conf_kbl %>% 
   filter(arm == "Neo") %>% 
   select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
@@ -632,9 +605,9 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 8) %>%
-  pack_topnoind(., "Not confirmed", 9, 20) %>%
-  pack_topnoind(., "Not stated", 21, 29) %>%
+  pack_topnoind(., "≥0.9 confirmed", 1, 9) %>%
+  pack_topnoind(., "Not confirmed", 10, 21) %>%
+  pack_topnoind(., "Not stated", 22, 31) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
     alphabet = c("Extubation includes designated in OR."),
@@ -688,49 +661,18 @@ figure_n <- fig_inc()
 #   subgroup = confirm,
 #   backtransf = FALSE
 # )
-
+# 
 # compare_ci(rnmb_meta)
 ```
 <font size = 4> Risk Ratios  
 
 | Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| Confirmed vs. not confirmed                 | 0.15 (0.06, 0.35) |
-| Assuming all not stated were confirmed      | 0.26 (0.09, 0.62) |
-| Assuming all not stated were not confirmed  | 0.22 (0.08, 0.51) |
+| Confirmed vs. not confirmed                 | 0.13 (0.04, 0.32) |
+| Assuming all not stated were confirmed      | 0.21 (0.06, 0.52) |
+| Assuming all not stated were not confirmed  | 0.20 (0.06, 0.51) |
 
 </font>
-
-<br/>
-
-##   Visual Representation    
-
-```{r, include = FALSE}
-library(personograph)
-
-colorlist1 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
-colorlist2 <- list("No RNMB" = "#a4d9a7", "RNMB" = "#ee4c6c")
-# colorlist2 <- list("No RNMB" = "#a4d9a7", "Not confirmed" = "#ee4c6c", "Confirmed" = "#f5b7b1")
-data1 <- list("No RNMB" = 0.94, "RNMB" = .06)
-data2 <- list("No RNMB" = 0.67, "RNMB" = .33)
-
-svg("docs/assets/neonoconfirm.svg",  width = 5, height = 5)
-personograph(data1, color = colorlist1, n.icons = 100, fig.title = "TOFR ≥0.9 Confirmed")
-dev.off()
-
-svg("docs/assets/neoconfirm.svg", width = 5, height = 5)
-personograph(data2, color = colorlist2, n.icons = 100, fig.title = "TOFR ≥0.9 Not Confirmed")
-dev.off()
-```
-
-
-```{r personographNeo, figures-side, fig.show="hold", out.width="100%", fig.width=10}
-library(cowplot)
-ggdraw() + 
-  draw_image("docs/assets/neonoconfirm.svg", width = 0.5) + 
-  draw_image("docs/assets/neoconfirm.svg", width = 0.5, x = 0.5)
-```
-
 
 
 <br/>
