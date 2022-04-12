@@ -3671,7 +3671,7 @@ table_n <- tab_inc()
 
 ###     *Pooled*
 
-<a id="revFig21"></a>
+<a id="revFig22"></a>
 
 <br/>
 
