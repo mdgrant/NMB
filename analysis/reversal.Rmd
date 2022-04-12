@@ -694,7 +694,7 @@ length(unique(rnmb_prim.dat$refid))
 
 ###  Incidence
 
-<a id="kq4Tab4"></a>
+<a id="revTab4"></a>
 
 <br/>
 
@@ -739,15 +739,15 @@ temp <- rnmb_ma.dat %>%
     lt_9_per = lt_9_n / n,
     lt_7_per = lt_7_n / n,
     clin_per = clin_n / n,
-    lt_1 = ifelse(!is.na(lt_1_per), paste0(lt_1_n, " (", round_1(lt_1_per * 100), ")"), lt_1),
-    lt_9 = ifelse(!is.na(lt_9_per), paste0(lt_9_n, " (", round_1(lt_9_per * 100), ")"), lt_9),
-    lt_7 = ifelse(!is.na(lt_7_per), paste0(lt_7_n, " (", round_1(lt_7_per * 100), ")"), lt_7),
-    clin = ifelse(!is.na(clin_per), paste0(clin_n, " (", round_1(clin_per * 100), ")"), clin),
+    lt_1 = ifelse(!is.na(lt_1_per), paste0(lt_1_n, " (", round_0(lt_1_per * 100), ")"), lt_1),
+    lt_9 = ifelse(!is.na(lt_9_per), paste0(lt_9_n, " (", round_0(lt_9_per * 100), ")"), lt_9),
+    lt_7 = ifelse(!is.na(lt_7_per), paste0(lt_7_n, " (", round_0(lt_7_per * 100), ")"), lt_7),
+    clin = ifelse(!is.na(clin_per), paste0(clin_n, " (", round_0(clin_per * 100), ")"), clin),
   ) %>%
   group_by(study_l) %>% 
   mutate(
     rr_ci_calc = lead(rr_ci_calc),
-    ns_rnmb = ifelse(ns_rnmb %in% "0 (0)", "0 (0.0)", ns_rnmb)
+    # ns_rnmb = ifelse(ns_rnmb %in% "0 (0)", "0 (0.0)", ns_rnmb)
   ) %>% 
   ungroup() %>% 
   select(refid, study_l, arm, n, lt_1, lt_9, lt_7, clin, rx_n:rr_ci_calc, lt_1_n:clin_per, ns_rnmb, deep:ns_depth, rr_ci_calc, design, age, study_orig, year, volatiles) %>%
@@ -887,16 +887,15 @@ rnmb_meta.dat <- left_join(rnmb_meta.dat, temp1, by = c("refid", "study_orig")) 
   select(-c(Neo, Sug)) %>% 
   arrange(depth, year)
 
-rm(temp, temp1)
 ```
 
-<a id="kq4Fig2"></a>
+<a id="revFig2"></a>
 
 <br/>
 
 <font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine by depth of block. </font>
 
-```{r rnmbMetaRctByDepth, fig.width = 10, fig.height = 7.5}
+```{r rnmbMetaRctByDepth, fig.width = 10, fig.height = 7}
 # TODO: fig.height
 ## rnmbMetaRctByVolatile -----------------------------+ (2022-04-03 10:08) @----
 rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
@@ -933,10 +932,9 @@ forest(rnmb_meta,
   xlab = "Favors:     Sugammadex          Neostigmine")
 
 figure_n <- fig_inc()
-
-
 ```
-Too few studies to examine small study effects. 
+Risk difference -23.5% (95% CI, -36.2% to -10.8%). Too few studies to examine small study effects. <br/>
+TOFR <0.7 (4 RCTs, n = 574) — RR 0.17 (95% CI, 0.08–0.39; I^2^ = 14%; 95% prediction interval, 0.02–1.48), RD -16.0% (95% CI, -23.8% to -8.2%).
 
 ```{r smallStudyEffectsRnmb, eval = FALSE}
 ## smallStudyEffects ---------------------------------- (2022-04-04 09:58) @----
@@ -947,17 +945,62 @@ metabias(temp_meta, method.bias = "Egger", k.min = 8)
 funnel(temp_meta)
 ```
 
+<br/>
 
-<a id="kq4Fig3"></a>
+###  Pooled TOFR <0.7 (RCTs)
+
+<a id="revFig3"></a>
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9) from randomized trials comparing sugammadex and neostigmine according to volatile anesthetic. </font>
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.7) from randomized trials comparing sugammadex and neostigmine by depth of block. </font>
 
-```{r rnmbMetaRctByVolatile, fig.width = 10, fig.height = 6.5}
-## rnmbMetaRctByVolatile -----------------------------+ (2022-04-03 10:09) @----
-# NOTE: no HK adjustment owing to subgroup size
-rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
+```{r rnmbMetaRct0.7, fig.width = 10, fig.height = 4.5}
+# TODO: fig.height
+
+## rnmbMetaData0.7 ------------------------------------ (2022-04-02 19:43) @----
+rnmb_meta.dat <- temp %>%
+  filter(design == "rct", arm %in% c("Neo", "Sug"), age == "Adult") %>%
+  mutate(
+    depth = case_when(
+      !is.na(deep) ~ "Deep",
+      !is.na(mod) ~ "Moderate",
+      !is.na(shallow) ~ "Shallow",
+      !is.na(min) ~ "Minimal",
+      TRUE ~ "Not specified",
+    )
+  ) %>%
+  select(refid, depth, volatiles, study_orig, lt_7_n, n, arm, year) %>%
+  pivot_wider(id_cols = c("refid", "study_orig", "year", "volatiles"), names_from = "arm", values_from = c("lt_7_n", "n")) %>%
+  filter(if_all(c(lt_7_n_Neo:n_Sug), ~ !is.na(.))) %>% 
+  mutate(volatiles = ifelse(volatiles %in% "x", "Volatile Anesthetic", "No Volatiles")) %>% 
+  arrange(year)
+
+# add depth of block
+temp1 <- temp %>% 
+  filter(design == "rct", arm %in% c("Neo", "Sug"), age == "Adult") %>%
+  mutate(
+    depth = case_when(
+      !is.na(deep) ~ "Deep",
+      !is.na(mod) ~ "Moderate",
+      !is.na(shallow) ~ "Shallow",
+      !is.na(min) ~ "Minimal",
+      TRUE ~ "Not specified",
+    )
+  ) %>%
+  select(refid, study_orig, arm, depth) %>% 
+  pivot_wider(id_cols = c("refid", "study_orig"), names_from = "arm", values_from = "depth") %>% 
+  mutate(
+    depth = ifelse(Neo == Sug, Neo, paste0(Neo, ":", Sug))
+  )
+
+rnmb_meta.dat <- left_join(rnmb_meta.dat, temp1, by = c("refid", "study_orig")) %>% 
+  select(-c(Neo, Sug)) %>% 
+  arrange(depth, year)
+
+rm(temp, temp1)
+## rnmbMeta0.7 -----------------------------+ (2022-04-03 10:08) @----
+rnmb_meta <- metabin(lt_7_n_Sug, n_Sug, lt_7_n_Neo, n_Neo, 
   data = rnmb_meta.dat,
   studlab = study_orig,
   sm = "RR",
@@ -965,7 +1008,8 @@ rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo,
   method.tau = "PM",
   hakn = FALSE,
   prediction = TRUE,
-  subgroup = volatiles)
+  # subset = !study_orig %in% c("Wu 2014 (Chinese)", "Wu 2014 (Caucasian)"),
+  subgroup = depth)
 
 forest(rnmb_meta,
   fixed = FALSE,
@@ -976,20 +1020,22 @@ forest(rnmb_meta,
   digits = 2,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
-  print.I2.ci = FALSE,
-  prediction = FALSE,
+  print.I2.ci = TRUE,
+  prediction = TRUE,
   fs.xlab = 11,
   pooled.events = TRUE,
   subgroup = TRUE,
   print.subgroup.name = FALSE,
-  # text.subgroup.nohet = TRUE,
+  text.subgroup.nohet = TRUE,
   colgap.forest.left = "10mm",
+  colgap.forest.right = "10mm",
   xlim = c(0.001, 5),
   at = c(.001, 0.01, .1, 1, 5),
-  xlab = "Favors:     Sugammadex                   Neostigmine")
+  xlab = "Favors:     Sugammadex          Neostigmine")
 
-figure_n <- fig_inc()
+ figure_n <- fig_inc()
 ```
+Risk difference -16.0% (95% CI, -23.8% to -8.2%). Too few studies to examine small study effects. 
 
 <br/>
 
@@ -1487,7 +1533,7 @@ time_result_adult <- time.dat %>%
 
 ###  Minutes to Recovery
 
-<a id="kq4Tab8"></a>
+<a id="revTab8"></a>
 
 <br/>
 
@@ -1506,7 +1552,7 @@ temp <- time_result_adult %>%
     mean_med_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(mean_med, mean_med, color_4, 100), mean_med_bar),
     mean_med_bar = ifelse(arm %in% c("Sug"), bar_wn1d(mean_med, mean_med, color_1, 100), mean_med_bar),
     mean_med_bar = ifelse(arm %in% c("Neo"), bar_wn1d(mean_med, mean_med, color_2, 100), mean_med_bar),
-    # mean_med_bar = str_replace(mean_med_bar, ">\\d{1,2}\\.\\d{1}<", ">&nbsp;<"),
+    mean_med_bar = str_replace(mean_med_bar, ">\\d{1,2}\\.\\d{1}<", ">&nbsp;<"),
    arm_c = case_when(
      arm == "Sug" ~ cell_spec(arm, color = color_1),
      arm == "Placebo" ~ cell_spec(arm, color = color_4),
@@ -1529,7 +1575,7 @@ temp <- time_result_adult %>%
 #   ) %>%
 #   select(depth_f, start, end)
 
-bar_ref_min <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 0px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0   →   100 min</span>"
+bar_ref_min <- "<span style='display: inline-block; direction: auto; unicode-bidi: plaintext; border-radius: 0px; padding-right: 0px; background-color: #e0e0de ; width: 100.00%'>  0 → 100 min</span>"
 
 temp %>%
   filter(tofr == 0.9) %>% 
@@ -1562,7 +1608,7 @@ temp %>%
   pack_top(., "Minimal^a^", 57, 67, indent_tf = FALSE) %>% 
   pack_top(., "End of Surgery^a^", 68, 77, indent_tf = FALSE) %>% 
   footnote(
-    general = "Neo: neostigmine; Sug: sugammadex; Spont: spontaneous; M: mean; Med: median; CI: confidence interval",
+    general = "Neo: neostigmine; Sug: sugammadex; Spont: spontaneous; M: mean; Med: median; CI: confidence interval; min: minutes.",
     alphabet = c(
       "Depth of block categorized according to Naguib et al., Consensus Statement on Perioperative Use of Neuromuscular Monitoring. Anesth Analg 2018;127:71-80.",
       "Included studies with moderate depth in neostigmine arm but deep for sugammadex.",
@@ -1665,7 +1711,7 @@ forest_time <- function(time_meta){
 deep <- update.meta(temp, subset = depth_f == "Deep", prediction = FALSE, subgroup = NULL)
 moderate <- update.meta(temp, subset = depth_f == "Moderate")
 shallow <- update.meta(temp, subset = depth_f == "Shallow", prediction = FALSE)
-minimal <- update.meta(temp, subset = depth_f == "Minimal", prediction = FALSE)
+minimal <- update.meta(temp, subset = depth_f == "Minimal", prediction = TRUE)
 end_surg <- update.meta(temp, subset = depth_f == "End of Surgery", prediction = FALSE)
 # forest_time(temp)
 
@@ -1731,7 +1777,7 @@ Too few studies to examine small study effects.
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Difference in time to recovery in minutes (TOFR \>0.9) from moderate block to reversal in RCTs enrolling adults. </font>
+<font size = 4> Figure `r figure_n`. Difference in time to recovery in minutes (TOFR >0.9) from moderate block to reversal in RCTs enrolling adults. </font>
 
 ```{r metaTimeModerate, fig.width = 10, fig.height = 6.9}
 forest_time(moderate)
@@ -1855,7 +1901,7 @@ table_n <- tab_inc()
 
 ###  Minutes to Recovery
 
-<a id="kq4Tab8"></a>
+<a id="revTab8"></a>
 
 <br/>
 
@@ -2153,6 +2199,30 @@ adverse.dat %>%
 
 table_n <- tab_inc()
 ```
+Anaphylaxis was unreported with neostigmine (3 studies, 26051 patients); in patients receiving sugammadex (5 studies, 88192 patients) the pooled incidence was 1.6 per 10,000 (95% CI, 0.9, 2.7), 𝜏 = 0.8 (identical to the exact confidence interval for 8 events in a sample of 88192).
+
+
+```{r anaphylaxisPooled, eval = FALSE}
+anaphylaxis <- adverse.dat %>% 
+  filter(age %in% c("Adult", "All ages")) %>% 
+  mutate(year = str_extract(study, "\\d{4}"),
+         # anaph_np = n_percent_dig(anaph_n, anaph_n/n * 100, 2),
+         # design = factor(design, levels = c("prospective", "retro", "case control"))
+         ) %>% 
+  filter(!is.na(anaph_n)) %>%
+  # arrange(age, design, year, refid) %>% 
+  select(study, arm, n, anaph_n)
+
+metaprop(anaph_n,
+  n,
+  pscale = 10000,
+  subset = str_detect(arm, "Sug"),
+  data = anaphylaxis
+)
+
+```
+
+
 
 <br/>
 
@@ -2233,8 +2303,8 @@ adverse.dat %>%
   column_spec(7, width = "6em") %>%
   column_spec(8, width = bar_width) %>%
   pack_rows(., "RCT", 1, 44, indent = FALSE) %>%
-  pack_rows(., "Nonrandomized Trial", 45, 46, indent = FALSE) %>%
-  pack_rows(., "Retrospective Cohort", 47, 48, indent = FALSE) %>%
+  pack_rows(., "Nonrandomized Trial", 45, 47, indent = FALSE) %>%
+  pack_rows(., "Retrospective Cohort", 48, 48, indent = FALSE) %>%
   # pack_rows(., "Case Control", 9, 10) %>%
   footnote(
     general = "IBW: ideal body weight.",
@@ -2289,7 +2359,7 @@ brady_meta.dat <- adverse.dat %>%
 #   filter(upper_dose < 0.05)
 # rm(temp_upper_dose)
 
-brady_meta <- metabin(brady_n_Neo, n_Neo, brady_n_Sug, n_Sug, 
+brady_meta <- metabin(brady_n_Sug, n_Sug, brady_n_Neo, n_Neo,  
   data = brady_meta.dat,
   # data = brady_meta_upper.dat,
   studlab = study,
@@ -2322,9 +2392,9 @@ forest(brady_meta,
   # print.subgroup.name = FALSE,
   # text.subgroup.nohet = TRUE,
   colgap.forest.left = "5mm",
-  xlim = c(-10, 40),
+  xlim = c(-40, 10),
   # at = c(0.1, 1, 10, 100),
-  xlab = "Sugammadex                         Neostigmine \n Worse                                   Worse")
+  xlab = "Neostigmine                         Sugammadex \n Worse                                   Worse")
 
 figure_n <- fig_inc()
 
@@ -2530,7 +2600,7 @@ forest(tachy_meta,
   # at = c(0.1, 1, 10, 100),
   xlab = "Sugammadex                      Neostigmine\n Worse                           Worse")
 
-ffigure_n <- fig_inc()
+figure_n <- fig_inc()
 ```
 
 <br/>
@@ -2558,39 +2628,41 @@ ffigure_n <- fig_inc()
 #             ) %>%
 #     select(age, design, start, end)
 
-adverse.dat %>% 
-  filter(age == "Adult") %>% 
-  mutate(year = str_extract(study, "\\d{4}"),
-         arrhyth_p = arrhyth_n/n * 100,
-         arrhyth_np = n_percent_dig(arrhyth_n, arrhyth_n/n * 100, 1),
-         design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
-          arrhyth_p_bar = NA_character_,
-  arrhyth_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(arrhyth_p, arrhyth_p, color_4, 100), arrhyth_p_bar),
-  arrhyth_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(arrhyth_p, arrhyth_p, color_1, 100), arrhyth_p_bar),
-  arrhyth_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(arrhyth_p, arrhyth_p, color_2, 100), arrhyth_p_bar),
-  arrhyth_p_bar = str_replace(arrhyth_p_bar, ">.*<", ">&nbsp;<"),
-  arm_c = case_when(
-    str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
-    str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
-    str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
-  )) %>% 
+adverse.dat %>%
+  filter(age == "Adult") %>%
+  mutate(
+    year = str_extract(study, "\\d{4}"),
+    arrhyth_p = arrhyth_n / n * 100,
+    arrhyth_np = n_percent_dig(arrhyth_n, arrhyth_n / n * 100, 1),
+    design = factor(design, levels = c("rct", "prospective", "retro", "case control")),
+    arrhyth_p_bar = NA_character_,
+    arrhyth_p_bar = ifelse(arm %in% c("Spont", "Plac"), bar_wn1d(arrhyth_p, arrhyth_p, color_4, 100), arrhyth_p_bar),
+    arrhyth_p_bar = ifelse(arm %in% c("Sug"), bar_wn1d(arrhyth_p, arrhyth_p, color_1, 100), arrhyth_p_bar),
+    arrhyth_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(arrhyth_p, arrhyth_p, color_2, 100), arrhyth_p_bar),
+    arrhyth_p_bar = str_replace(arrhyth_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    )
+  ) %>%
   filter(!is.na(arrhyth_n)) %>%
-  arrange(design, year, refid) %>% 
-  select(study, n, arm_c, mg_kg, arrhyth_np, arrhyth_p_bar) %>% 
-  group_by(study) %>% 
-  mutate(study = ifelse(row_number() != 1, NA, study)) %>% 
- kbl(
+  arrange(design, year, refid) %>%
+  select(study, n, arm_c, mg_kg, arrhyth_np, arrhyth_p_bar) %>%
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
     booktabs = T, align = c("llllll"), escape = FALSE, # format = "latex",
     col.names = c("Study", "N", "Agent", "mg/kg", "Arrhythmia, N (%)", bar_ref)
   ) %>%
   row_spec(0, bold = TRUE, align = "l") %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
-  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>% 
-  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>% 
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  # add_header_above(c(" " = 1, "Dose (mg/kg)" = 6), line = TRUE, bold = TRUE, align = "c") %>%
   column_spec(1, width = study_width) %>%
-  column_spec(2, width = "6em") %>% 
-  column_spec(c(3,4), width = "8em") %>% 
+  column_spec(2, width = "6em") %>%
+  column_spec(c(3, 4), width = "8em") %>%
   column_spec(5, width = "11em") %>%
   column_spec(6, width = bar_width)
   # footnote(general = "",
@@ -2600,6 +2672,27 @@ adverse.dat %>%
 
 table_n <- tab_inc()  
 ```
+Risk differnce for sugammadex vs. neostigmine -1.2% (95% CI, -5.3% to 3.0%).
+
+```{r arrhythmiaMeta, eval = FALSE}
+arrhyth <- adverse.dat %>% 
+  filter(age %in% c("Adult", "All ages")) %>% 
+  mutate(year = str_extract(study, "\\d{4}")) %>% 
+  filter(!is.na(arrhyth_n)) %>%
+  # arrange(age, design, year, refid) %>% 
+  select(study, arm, n, arrhyth_n) %>% 
+  pivot_wider(names_from = arm, values_from = c(arrhyth_n, n))
+
+metabin(
+  arrhyth_n_Sug, n_Sug,
+  arrhyth_n_Neo, n_Neo,
+  pscale = 100,
+  sm = "RD",
+  data = arrhyth
+)
+  
+```
+
 
 <br/>
 
@@ -3457,6 +3550,7 @@ hypox_meta <- metabin(hypox_n_Sug, arm_n_Sug, hypox_n_Neo, arm_n_Neo,
   hakn = TRUE,
   prediction = TRUE,
   # subset = hypox_defn == "SaO2 ≤90%",
+  # subset = hypox_defn == "SaO2 90% to 95%",
   subgroup = hypox_defn)
 
 forest(hypox_meta,
@@ -3498,7 +3592,7 @@ No indication for small study effects (potential publication bias) for risk rati
 
 <br/>
 
-<font size = 4> Table `r table_n`. Composite definitions of pulmonary complications. </font>
+<font size = 4> Table `r table_n`. Studies reporting a composite pulmonary complication outcome. </font>
 
 ```{r composite} 
 ## groupings ------------------------------------------ (2022-03-02 08:30) @----
@@ -3577,7 +3671,7 @@ table_n <- tab_inc()
 
 ###     *Pooled*
 
-<a id="revFig22"></a>
+<a id="revFig21"></a>
 
 <br/>
 
@@ -3646,8 +3740,10 @@ comp_meta <- bind_rows(comp_rct, comp_nrsi) %>%
 all_meta <- metagen(TE, seTE,
   studlab = studlab,
   subgroup = design,
+  hakn = TRUE,
   sm = "OR",
   backtransf = TRUE,
+  prediction = TRUE,
   data = comp_meta
 )
 
@@ -3864,7 +3960,8 @@ grid::grid.text("Sugammadex   Neostigmine", .38, .96, gp = grid::gpar(cex = 1.0,
 
 figure_n <- fig_inc()
 ```
-Results from 3 nonrandomized studies adjusted for potential confounding (Li 2021 and Yu 2021 propensity scores, Kheterpal 2020 matched cohort design).
+Results from 3 nonrandomized studies adjusted for potential confounding (Li 2021 and Yu 2021 propensity scores, Kheterpal 2020 matched cohort design).<br/>
+Pooled risk difference comparing sugammadex with neostigmine in for RCTs -1.6% (95% CI, -4.3 to 1.1; I^2^ = 20%, 𝜏= 1.4%.
 
 <br/>
 
@@ -4757,7 +4854,5 @@ figure_n <- fig_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
-
-# References {#references}
 
 <a id="references"></a>

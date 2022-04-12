@@ -160,7 +160,7 @@ grade_foot <- c("Very low:", vlow, "Low:", low, "Moderate:", mod, "High:", high)
 
 <font size = 4> Ratings for important outcomes according to study design.</font>
 
-# **Monitoring Technical Performance** 
+# **NMM Technical Performance** 
 
 ```{r soeKq1Data, include = TRUE}
 ## soeKq1Data (updated 2022/01/20 09:18) ----------------------------------
@@ -338,7 +338,7 @@ table_n <- tab_inc()
 
 <br/>
 
-# **Monitoring Outcomes** 
+# **NMM Outcomes** 
 
 ```{r soeKq3Data, include = TRUE}
 ## soeKq3 Data (updated 2022/01/20 09:18) ----------------------------------
@@ -391,7 +391,7 @@ domain_summary <- soe_kq3.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring.  </font>
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring (evidence obtained from RCTs unless noted).  </font>
 
 ```{r Kq3SOE, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -538,7 +538,7 @@ kq1_domain %>%
 ```{r soekq4Data, include = TRUE}
 ## soekq4 Data (updated 2022/01/20 09:18) ----------------------------------
 col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
-soe_kq4.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z22", sheet = "soe_kq4", col_types = col_types_nmb) %>%
+soe_kq4.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z23", sheet = "soe_kq4", col_types = col_types_nmb) %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -567,16 +567,17 @@ soe_summary <- soe_kq4.dat %>%
   )
 
 ## (updated 2021/11/17 11:44) domain_summary ------------------------------
-domain_summary <- soe_kq4.dat %>% 
-  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>% 
-  mutate(design = str_to_sentence(design),
-         consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
-         direct_foot  = ifelse(!grepl("\\.$", direct_foot ) & !is.na(direct_foot ), paste0(direct_foot , "."), direct_foot ),
-         prec_foot    = ifelse(!grepl("\\.$", prec_foot   ) & !is.na(prec_foot   ), paste0(prec_foot   , "."), prec_foot   ),
-         rob_foot     = ifelse(!grepl("\\.$", rob_foot    ) & !is.na(rob_foot    ), paste0(rob_foot    , "."), rob_foot    ),
-         other_foot   = ifelse(!grepl("\\.$", other_foot  ) & !is.na(other_foot  ), paste0(other_foot  , "."), other_foot  ),
-         across(ends_with("foot"), firstup)
-         ) 
+domain_summary <- soe_kq4.dat %>%
+  select(n, comparison, outcome, design, n_studies, n_pts, rob, consist, direct, prec, other, summary, ends_with("foot")) %>%
+  mutate(
+    # design = str_to_sentence(design),
+    consist_foot = ifelse(!grepl("\\.$", consist_foot) & !is.na(consist_foot), paste0(consist_foot, "."), consist_foot),
+    direct_foot = ifelse(!grepl("\\.$", direct_foot) & !is.na(direct_foot), paste0(direct_foot, "."), direct_foot),
+    prec_foot = ifelse(!grepl("\\.$", prec_foot) & !is.na(prec_foot), paste0(prec_foot, "."), prec_foot),
+    rob_foot = ifelse(!grepl("\\.$", rob_foot) & !is.na(rob_foot), paste0(rob_foot, "."), rob_foot),
+    other_foot = ifelse(!grepl("\\.$", other_foot) & !is.na(other_foot), paste0(other_foot, "."), other_foot),
+    across(ends_with("foot"), firstup)
+  )
 
 ```
 
@@ -618,7 +619,7 @@ soe_summary %>%
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
-    general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+    general = "RNMB: residual neuromuscular blockade; RR: risk ratio; RD: risk difference; OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -637,16 +638,18 @@ table_n <- tab_inc()
 
 ```{r kq4Domain, include = TRUE, eval = TRUE}
 ## (updated 2021/05/14 08:02) sug_neo_domain_summary --------------------------
-kq1_domain_summary <- domain_summary %>%
+kq4_domain_summary <- domain_summary %>%
+  filter(!str_detect(n, "99")) %>% 
   # filter(comparison == "sug_neo") %>%
   select(-summary) %>%
   mutate(
     design = str_replace(design, "fully_paired", "Fully Paired"),
     design = str_replace(design, "pro_cohort", "Cohort"),
+    design = str_replace(design, "rct", "RCT"),
   )
          
 # (updated 2021/05/14 07:42) get list of unique footnotes ----------------
-foot_unique <- kq1_domain_summary %>% 
+foot_unique <- kq4_domain_summary %>% 
   select(ends_with("foot")) 
 
 foot_unique <- c(t(foot_unique)) %>% 
@@ -656,7 +659,7 @@ foot_unique <- c(t(foot_unique)) %>%
 foot_unique <- unique(foot_unique)
 
 numbers <- c(1:100)
-kq1_domain <- kq1_domain_summary %>% 
+kq4_domain <- kq4_domain_summary %>% 
   mutate(rob_let     = numbers[match(rob_foot, foot_unique)],
          consist_let = numbers[match(consist_foot, foot_unique)],
          direct_let  = numbers[match(direct_foot, foot_unique)],
@@ -665,15 +668,15 @@ kq1_domain <- kq1_domain_summary %>%
          )
 
 ## (updated 2021/05/14 08:04) add footnotes -------------------------------
-for (i in 1:nrow(kq1_domain)) {
+for (i in 1:nrow(kq4_domain)) {
   for (j in 7:11) {
-    kq1_domain[i, j] <- ifelse(!is.na(kq1_domain[i, j + 10]), paste0(kq1_domain[i, j], "^", kq1_domain[i, j + 10], "^"), kq1_domain[i, j])
+    kq4_domain[i, j] <- ifelse(!is.na(kq4_domain[i, j + 10]), paste0(kq4_domain[i, j], "^", kq4_domain[i, j + 10], "^"), kq4_domain[i, j])
   }
 }
 
 ## (updated 2021/05/14 08:27) domain summary table ------------------------
-kq1_domain %>% 
-    filter(!str_detect(n, "99")) %>% 
+kq4_domain %>% 
+  filter(!str_detect(n, "99")) %>% 
   mutate(n_s = paste0(n_studies, " (", n_pts, ")")) %>% 
   select(outcome, design, n_s, rob, consist, direct, prec, other) %>% 
     kbl(booktabs = T, align = c("llllllll"), escape = FALSE, padding = 10, 
@@ -698,7 +701,7 @@ kq1_domain %>%
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
-    # general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
+    general = "RCT: randomized controlled trial; Obs: observational (nonrandomized).",
            number = foot_unique,
            general_title = "",  
            footnote_as_chunk = FALSE)
@@ -714,7 +717,7 @@ table_n <- tab_inc()
 
 <br/>
 
-# **TOFR Confirm Prior Extubation** 
+# **TOFR Confirmed Before Extubation** 
 
 ```{r soeConfirmData, include = TRUE}
 ## soeConfirm Data (updated 2022/01/20 09:18) ----------------------------------
@@ -791,8 +794,8 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   # pack_topnoind(., "Fully Paired", 1, 6) %>% 
-  pack_sub_bold(., "Sugammadex", 1, 1) %>% 
-  pack_sub_bold(., "Neostigmine", 2, 2) %>% 
+  pack_sub_bold(., "      Sugammadex", 1, 1) %>% 
+  pack_sub_bold(., "      Neostigmine", 2, 2) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
