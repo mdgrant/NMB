@@ -535,6 +535,8 @@ kq1_domain %>%
 
 # **Reversal** 
 
+<a id="soeReversal"></a>
+
 ```{r soekq4Data, include = TRUE}
 ## soekq4 Data (updated 2022/01/20 09:18) ----------------------------------
 col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
