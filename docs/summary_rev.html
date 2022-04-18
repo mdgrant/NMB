@@ -399,6 +399,9 @@ div.tocify {
       <a href="kq3.html">Results</a>
     </li>
     <li>
+      <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
+    </li>
+    <li>
       <a href="summary_kq3.html">Summary Study &amp; Patient Charcteristics</a>
     </li>
   </ul>
@@ -412,9 +415,6 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="reversal.html">Sugammadex vs. Neostigmine</a>
-    </li>
-    <li>
-      <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
     </li>
     <li>
       <a href="summary_rev.html">Summary Study &amp; Patient Charcteristics</a>
@@ -458,7 +458,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Study Characteristics</h1>
-<h4 class="date">04 April, 2022 (12:21)</h4>
+<h4 class="date">18 April, 2022 (14:48)</h4>
 
 </div>
 
@@ -487,7 +487,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-04
+<strong>Last updated:</strong> 2022-04-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -618,15 +618,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree46be719b98d7d6dbadda5dfe063170ad2f86ceb4targetblank46be719a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeddba92b59515ae0114b75733a42678bf6ed6a592targetblankddba92ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/46be719b98d7d6dbadda5dfe063170ad2f86ceb4" target="_blank">46be719</a>
+<a href="https://github.com/mdgrant/NMB/tree/ddba92b59515ae0114b75733a42678bf6ed6a592" target="_blank">ddba92b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree46be719b98d7d6dbadda5dfe063170ad2f86ceb4targetblank46be719a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeddba92b59515ae0114b75733a42678bf6ed6a592targetblankddba92ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -636,7 +636,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/46be719b98d7d6dbadda5dfe063170ad2f86ceb4" target="_blank">46be719</a>.
+<a href="https://github.com/mdgrant/NMB/tree/ddba92b59515ae0114b75733a42678bf6ed6a592" target="_blank">ddba92b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -657,10 +657,12 @@ Ignored files:
     Ignored:    NMB-main_032922/
     Ignored:    _@@/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/figure/
+    Ignored:    analysis/confirm_sug_era/
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    analysis/reversal (original).Rmd
+    Ignored:    analysis/scratch.Rmd
+    Ignored:    analysis/tofr_confirm (modified).Rmd
     Ignored:    analysis/tofr_confirm (old).Rmd
     Ignored:    analysis/used_files_dates.txt
     Ignored:    code/helpers.R
@@ -668,24 +670,22 @@ Ignored files:
     Ignored:    code/rob_summary.R
     Ignored:    code/rob_traffic_light.R
     Ignored:    code/rob_traffic_light_mg.R
+    Ignored:    nmb_040322.RData
     Ignored:    used_files_dates.txt
     Ignored:    used_rob_files_dates.txt
 
 Untracked files:
     Untracked:  .temp.lb
-    Untracked:  analysis/.gitignore
-    Untracked:  analysis/confirm_sug_era/
-    Untracked:  analysis/tofr_confirm (modified).Rmd
+    Untracked:  analysis/riskofbias.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
-    Untracked:  code/rob_summary_mg.R
+    Untracked:  code/rob_by_compare_040922.R
+    Untracked:  code/rob_summary_dmetar_mg.R
     Untracked:  data/
-    Untracked:  nmb_040322.RData
 
 Unstaged changes:
     Modified:   .Rprofile
-    Modified:   .gitignore
 
 </code></pre>
 <p>
@@ -731,6 +731,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/cad640182b4eb09e30cf7458ee872344b82f8ba2/docs/summary_rev.html" target="_blank">cad6401</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-04
+</td>
+<td>
+add Sen
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1866,7 +1883,7 @@ Arms
 Pilot Study
 </td>
 <td style="text-align:center;width: 8em; ">
-2 (4.5)
+3 (6.8)
 </td>
 </tr>
 <tr>
@@ -3168,16 +3185,16 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-157           fs_1.5.2               bit64_4.0.5           
- [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
- [7] rprojroot_2.0.2        tools_4.1.3            backports_1.4.1       
+ [4] lubridate_1.8.0        webshot_0.5.3          httr_1.4.2            
+ [7] rprojroot_2.0.3        tools_4.1.3            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
 [13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
 [16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
 [19] compiler_4.1.3         git2r_0.30.1           cli_3.2.0             
 [22] rvest_1.0.2            xml2_1.3.3             sass_0.4.1            
-[25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
+[25] scales_1.2.0           systemfonts_1.0.4      digest_0.6.29         
 [28] minqa_1.2.4            rmarkdown_2.13         svglite_2.1.0         
-[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-29           
 [34] dbplyr_2.1.1           fastmap_1.1.0          htmlwidgets_1.5.4     
 [37] rlang_1.0.2            readxl_1.4.0           rstudioapi_0.13.0-9000
 [40] jquerylib_0.1.4        generics_0.1.2         jsonlite_1.8.0        
@@ -3187,13 +3204,13 @@ loaded via a namespace (and not attached):
 [52] whisker_0.4            yaml_2.3.5             CompQuadForm_1.4.3    
 [55] snakecase_0.11.0       mathjaxr_1.6-0         MASS_7.3-56           
 [58] grid_4.1.3             parallel_4.1.3         promises_1.2.0.1      
-[61] crayon_1.5.1           lattice_0.20-45        haven_2.4.3           
+[61] crayon_1.5.1           lattice_0.20-45        haven_2.5.0           
 [64] splines_4.1.3          hms_1.1.1              knitr_1.38            
 [67] pillar_1.7.0           boot_1.3-28            reprex_2.0.1          
 [70] glue_1.6.2             evaluate_0.15          modelr_0.1.8          
-[73] nloptr_2.0.0           vctrs_0.4.0            tzdb_0.3.0            
+[73] nloptr_2.0.0           vctrs_0.4.1            tzdb_0.3.0            
 [76] httpuv_1.6.5           cellranger_1.1.0       gtable_0.3.0          
-[79] assertthat_0.2.1       xfun_0.30              broom_0.7.12          
+[79] assertthat_0.2.1       xfun_0.30              broom_0.8.0           
 [82] later_1.3.0            viridisLite_0.4.0      workflowr_1.7.0       
 [85] ellipsis_0.3.2        </code></pre>
 </div>
