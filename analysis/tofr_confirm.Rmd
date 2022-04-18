@@ -1,5 +1,5 @@
 ---
-title: "TOFR Confirmation (draft/preliminary)"
+title: "TOFR Confirmation Before Extubation"
 date: "`r format(Sys.time(), '%d %B, %Y (%H:%M)')`"
 output:
   html_document:
@@ -15,9 +15,9 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-# bibliography: "bib/kq4.bib"
-# csl: jama.csl
-# link-citations: yes
+bibliography: "bib/kq3_confirm.bib"
+csl: jama.csl
+link-citations: yes
 workflowr:
   suppress_report: false
 nocite: '@*'
@@ -367,7 +367,7 @@ rm(add, remove, temp_1, temp_2, conf_meta_temp)
 
 <br/>
 
-## Sugammadex
+# **Sugammadex**
 
 <a id="confTab1"></a>
 
@@ -487,7 +487,7 @@ compare_ci <- function(data_meta) {
 
 <br/>
 
-##   Pooled
+#   Pooled
 
 <a id="confFig1"></a>
 
@@ -557,9 +557,12 @@ figure_n <- fig_inc()
 
 </font>
 
+<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples).</font>
+
+
 <br/>
 
-## Neostigmine
+# **Neostigmine**
 
 <a id="confTab2"></a>
 
@@ -620,7 +623,7 @@ table_n <- tab_inc()
 
 <br/>
 
-##   Pooled
+#   Pooled
 
 <a id="confFig2"></a>
 
@@ -674,6 +677,7 @@ figure_n <- fig_inc()
 
 </font>
 
+<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples).</font>
 
 <br/>
 
@@ -686,3 +690,16 @@ conf_meta %>%
   summarise(pts = sum(arm_n))
 ```
 
+
+
+<br clear="all" />
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+<br>
+
+# **References**
+
+<br/>
+
+<a id="references"></a>

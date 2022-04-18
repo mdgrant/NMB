@@ -17,7 +17,7 @@ output:
     toc_depth: '3'
 bibliography: "bib/kq2.bib"
 csl: jama.csl
-link-citations: yes
+link-citations: no
 workflowr:
   suppress_report: false
 nocite: '@*'
@@ -811,7 +811,7 @@ figure_n <- fig_inc()
 
 <br>
 
-# References 
+# **References**
 <a id="references"></a>
 
 <br/>

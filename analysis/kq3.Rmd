@@ -15,9 +15,9 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-# bibliography: "bib/kq3.bib"
-# csl: jama.csl
-# link-citations: yes
+bibliography: "bib/kq3.bib"
+csl: jama.csl
+link-citations: yes
 workflowr:
   suppress_report: false
 nocite: '@*'
@@ -520,6 +520,7 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
     values_from = c("arm_n", "rnmb1_n"),
   ) %>% 
   mutate(rr_ci = risk_ratio_y(rnmb1_n_2, arm_n_2, rnmb1_n_1, arm_n_1))
+
 ```
 
 <a id="kq3Tab4"></a>
@@ -529,7 +530,7 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
 <font size = 4> Table `r table_n`. Results from studies reporting residual neuromuscular blockade for the highest TOFR threshold reported for TOFR. (Time-related outcomes—time from extubation to TOFR 0.9—reported in only 2 studies and not summarized). </font>
 
 ```{r nmmKable}
-## (updated 2021/12/26 11:09) nmmKable ------------------------------------
+## nmmKable -------------------------------------------- (2022-04-18 10:50) @----
 nmm_kable <- dichot_ptout_tofr.dat %>%
   left_join(., tofr_meta.dat[, c("refid", "rr_ci")], by = "refid") %>%
   group_by(refid) %>%
@@ -616,16 +617,14 @@ nmm_kable %>%
     footnote_as_chunk = FALSE
   )
 
-# as_image(document_kable, file = "/Users/mgrant/Documents/_projects01/asa/_nmb/figures/nmm_outcome1.png")
-
-rm(temp)
 table_n <- tab_inc()
+
 ```
 
 <br/>
 
 ```{r forSOE, echo = FALSE}
-## forSOE (updated 2022/01/21 19:13) --------------------------------------
+## forSOE --------------------------------------------- (2022-04-18 10:52) @----
 # data
 library(netmeta)
 nma_nmm_temp.dat <- nmm_kable %>% 
@@ -670,7 +669,7 @@ temp.meta <- metabin(event.e = event2,
   sm = "RR",
   method = "MH",
   method.tau = "PM",
-  prediction = TRUE,
+  prediction = FALSE,
   studlab = studlab,
   data = temp.meta.dat)
 
@@ -684,7 +683,7 @@ forest(temp.meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  prediction = TRUE,
+  prediction = FALSE,
   fs.xlab = 11,
   pooled.events = TRUE,
   # subgroup = TRUE,
@@ -717,7 +716,7 @@ temp.meta <- metabin(event.e = event2,
   sm = "RR",
   method = "MH",
   method.tau = "PM",
-  prediction = TRUE,
+  prediction = FALSE,
   studlab = studlab,
   data = temp.meta.dat)
 
@@ -731,7 +730,7 @@ forest(temp.meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  prediction = TRUE,
+  prediction = FALSE,
   fs.xlab = 11,
   pooled.events = TRUE,
   # subgroup = TRUE,
@@ -765,7 +764,7 @@ temp.meta <- metabin(event.e = event2,
   sm = "RR",
   method = "MH",
   method.tau = "PM",
-  prediction = TRUE,
+  prediction = FALSE,
   studlab = studlab,
   data = temp.meta.dat)
 
@@ -779,7 +778,7 @@ forest(temp.meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  prediction = TRUE,
+  prediction = FALSE,
   fs.xlab = 11,
   pooled.events = TRUE,
   # subgroup = TRUE,
@@ -884,6 +883,27 @@ BUGSnet::net.plot(nmm.data,
 
 figure_n <- fig_inc()
 ```
+
+```{r nmaDescript, eval = FALSE}
+BUGSnet::net.tab(nmm.data,
+  outcome = "rnmb1_n",
+  N = "arm_n",
+  type.outcome = "binomial"
+) 
+
+net_table$network %>%
+  mutate(Characteristic = ifelse(Characteristic == "Average Outcome", "Average Residual Gastric Volume (mL)", Characteristic),
+         Value = ifelse(Value == 21.89, 21.9, Value)) %>% 
+  kbl(booktabs = T, align =  c("lr"), escape = FALSE, col.names = c("Characteristic", "Value")) %>% 
+  row_spec(0, bold = TRUE) %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
+  column_spec(1, width = "30em") %>%
+  column_spec(2, width = "6em")
+
+
+```
+
 
 <a id="kq3Fig5"></a>
 
@@ -1181,7 +1201,7 @@ dichot_pulm_kbl %>%
   select(study_l, arm_nmm, arm_n, n_per, per_bar, rr_ci, note) %>% 
   kbl(
     booktabs = T, align = c("lllllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Monitoring", "N", "N (%)", bar_ref,  "OR (95% CI)^a^", "Note")
+    col.names = c("Study", "Monitoring", "N", "N (%)", bar_ref,  "RR (95% CI)^a^", "Note")
   ) %>%
   add_header_above(c(" " = 3, "Complication" = 2, " " = 2), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -1202,7 +1222,7 @@ dichot_pulm_kbl %>%
   pack_topnoind(., "Upper Airway Obstruction", 5, 6) %>%
   pack_sub_bold(., "RCT", 5, 6) %>%
   # hypoxia
-  pack_topnoind(., "Hypoxia", 7, 12) %>%
+  pack_topnoind(., "Hypoxia^d^", 7, 12) %>%
   pack_sub_bold(., "RCT", 7, 12) %>%
   # bronchospasm
   pack_topnoind(., "Brochospasm", 13, 14) %>%
@@ -1212,13 +1232,15 @@ dichot_pulm_kbl %>%
   pack_sub_bold(., "Prospective Cohort", 15, 16) %>%
   # pulmonary
   pack_topnoind(., "Pulmonary", 17, 20) %>%
-  pack_sub_bold(., "Prospective Cohort", 17, 20) %>%
+  # result_pack(., "OR (95% CI)", 17, padding = 65) %>% 
+  pack_sub_bold(., "Prospective Cohort                                                                                                                                 OR (95% CI)", 17, 20) %>%
   footnote(
-    general = "OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; PNS: peripheral nerve stimulator; AMG: acceleromyography; NMM: neuromuscular monitoring.",
+    general = "RR: Risk ratio; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; PNS: peripheral nerve stimulator; AMG: acceleromyography; NMM: neuromuscular monitoring.",
     alphabet = c(
-      "OR comparing the last arm to the prior one. Where 0 events in an arm, continuity correction used to estimate OR.",
+      "RR comparing the last arm to the prior one. Where 0 events in an arm, continuity correction used to estimate RR.",
       "Adjusted for potential confounders.",
-      "Respiratory failure (includes hypoxia), suspected pulmonary infection or infiltrates, atelectasis, aspiration pneumonitis, bronchospasm, or pulmonary edema."),
+      "Respiratory failure (includes hypoxia), suspected pulmonary infection or infiltrates, atelectasis, aspiration pneumonitis, bronchospasm, or pulmonary edema.",
+      "Pooled Murphy and Adembesa RR 0.22 (95% CI, 0.05–0.88), I^2^ = 26%"),
     general_title = "",
     footnote_as_chunk = FALSE
   )
@@ -1226,6 +1248,24 @@ dichot_pulm_kbl %>%
 rm(temp, dichot_pulm_kbl, dichot_pulm.dat)
 table_n <- tab_inc()
 ```
+
+```{r metaHypox, eval = FALSE}
+temp.meta.dat <- tribble(
+  ~study, ~event_nmm, ~n_nmm, ~event_qualclin, ~n_qualclin,
+  "Murphy 2008", 0, 89, 9, 90,
+  "Adembese", 5, 84, 16, 84
+)
+
+metabin(event_nmm, n_nmm, event_qualclin, n_qualclin,
+  sm = "RR",
+  method = "MH",
+  method.tau = "PM",
+  prediction = FALSE,
+  studlab = study,
+  data = temp.meta.dat)
+)
+```
+
 
 <br/>
 
@@ -1607,8 +1647,7 @@ figure_n <- fig_inc()
 
 <br>
 
-
-# References 
+# **References**
 <a id="references"></a>
 
 <br/>

@@ -17,7 +17,7 @@ output:
     toc_depth: '3'
 bibliography: "bib/kq4.bib"
 csl: jama.csl
-link-citations: yes
+link-citations: no
 workflowr:
   suppress_report: false
 nocite: '@*'
@@ -999,7 +999,7 @@ rnmb_meta.dat <- left_join(rnmb_meta.dat, temp1, by = c("refid", "study_orig")) 
   arrange(depth, year)
 
 rm(temp, temp1)
-## rnmbMeta0.7 -----------------------------+ (2022-04-03 10:08) @----
+## rnmbMeta0.7 ---------------------------------------+ (2022-04-03 10:08) @----
 rnmb_meta <- metabin(lt_7_n_Sug, n_Sug, lt_7_n_Neo, n_Neo, 
   data = rnmb_meta.dat,
   studlab = study_orig,
@@ -4854,5 +4854,9 @@ figure_n <- fig_inc()
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <br>
+
+# **References**
+
+<br/>
 
 <a id="references"></a>

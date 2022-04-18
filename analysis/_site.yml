@@ -21,14 +21,14 @@ navbar:
     menu:
     - text: Results
       href: kq3.html
+    - text: TOFR Confirmed Before Extubation
+      href: tofr_confirm.html
     - text: Summary Study & Patient Charcteristics
       href: summary_kq3.html
   - text: Reversal
     menu:
     - text: Sugammadex vs. Neostigmine
       href: reversal.html
-    - text: TOFR Confirmed Before Extubation
-      href: tofr_confirm.html
     - text: Summary Study & Patient Charcteristics
       href: summary_rev.html
   - text: Evidence Tables

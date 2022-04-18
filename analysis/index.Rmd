@@ -35,7 +35,11 @@ display: none !important;
 </style>
 ```
 
-<br/><br/>
+<br/>
+
+<font size = 5> All results are in draft form and not to be cited (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail). </font>
+
+<br/>
 
 <font size = 6> Strength of Evidence Ratings </font>
 
@@ -55,11 +59,11 @@ display: none !important;
 
 [<font size = 4>     Summary Study/Patient Characteristics </font>](summary_kq3.html)
 
+[<font size = 5> TOFR Confirmation Before Extubation </font>](tofr_confirm.html)
+
 <font size = 6> Reversal </font>
 
 [<font size = 5> Sugammadex vs. Neostigmine </font>](reversal.html)
-
-[<font size = 5> TOFR Confirmation Before Extubation </font>](tofr_confirm.html)
 
 [<font size = 4>     Summary Study/Patient Characteristics </font>](summary_rev.html)
 
@@ -77,4 +81,4 @@ display: none !important;
 
 <br/><br/>
 
-<font size = 3> All results are in draft form and not for citation (contact <a href="mailto:mgrantmd@gmail.com">Mark Grant</a> for further detail). </font>
+

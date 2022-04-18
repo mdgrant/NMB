@@ -11,7 +11,7 @@
 
 
 
-<title>TOFR Confirmation (draft/preliminary)</title>
+<title>TOFR Confirmation Before Extubation</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -72,6 +72,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -377,6 +399,9 @@ div.tocify {
       <a href="kq3.html">Results</a>
     </li>
     <li>
+      <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
+    </li>
+    <li>
       <a href="summary_kq3.html">Summary Study &amp; Patient Charcteristics</a>
     </li>
   </ul>
@@ -390,9 +415,6 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="reversal.html">Sugammadex vs. Neostigmine</a>
-    </li>
-    <li>
-      <a href="tofr_confirm.html">TOFR Confirmed Before Extubation</a>
     </li>
     <li>
       <a href="summary_rev.html">Summary Study &amp; Patient Charcteristics</a>
@@ -435,8 +457,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">TOFR Confirmation (draft/preliminary)</h1>
-<h4 class="date">08 April, 2022 (17:51)</h4>
+<h1 class="title toc-ignore">TOFR Confirmation Before Extubation</h1>
+<h4 class="date">18 April, 2022 (14:24)</h4>
 
 </div>
 
@@ -465,7 +487,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-08
+<strong>Last updated:</strong> 2022-04-18
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -599,15 +621,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3f6b2ef79a3a51365994ff1fb636d5d9245c7930targetblank3f6b2efa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2c55f18b5afd1da1daa350ae9e22b0ac520ce360targetblank2c55f18a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/3f6b2ef79a3a51365994ff1fb636d5d9245c7930" target="_blank">3f6b2ef</a>
+<a href="https://github.com/mdgrant/NMB/tree/2c55f18b5afd1da1daa350ae9e22b0ac520ce360" target="_blank">2c55f18</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3f6b2ef79a3a51365994ff1fb636d5d9245c7930targetblank3f6b2efa"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2c55f18b5afd1da1daa350ae9e22b0ac520ce360targetblank2c55f18a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -617,7 +639,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/3f6b2ef79a3a51365994ff1fb636d5d9245c7930" target="_blank">3f6b2ef</a>.
+<a href="https://github.com/mdgrant/NMB/tree/2c55f18b5afd1da1daa350ae9e22b0ac520ce360" target="_blank">2c55f18</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -642,6 +664,7 @@ Ignored files:
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    analysis/reversal (original).Rmd
+    Ignored:    analysis/scratch.Rmd
     Ignored:    analysis/tofr_confirm (modified).Rmd
     Ignored:    analysis/tofr_confirm (old).Rmd
     Ignored:    analysis/used_files_dates.txt
@@ -657,13 +680,27 @@ Ignored files:
 Untracked files:
     Untracked:  .temp.lb
     Untracked:  analysis/.gitignore
+    Untracked:  analysis/bib/kq1.bib
+    Untracked:  analysis/bib/kq3.bib
+    Untracked:  analysis/bib/kq3_confirm.bib
+    Untracked:  analysis/riskofbias.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
+    Untracked:  code/rob_by_compare_040922.R
+    Untracked:  code/rob_summary_dmetar_mg.R
     Untracked:  data/
 
 Unstaged changes:
     Modified:   .Rprofile
+    Modified:   analysis/_site.yml
+    Modified:   analysis/bib/kq2.bib
+    Modified:   analysis/bib/kq4.bib
+    Modified:   analysis/bib/nmb_all.bib
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/kq1.Rmd
+    Modified:   analysis/kq2.Rmd
+    Modified:   analysis/kq3.Rmd
     Modified:   analysis/reversal.Rmd
     Modified:   analysis/soe.Rmd
     Modified:   analysis/tofr_confirm.Rmd
@@ -712,6 +749,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/dce5f58c6ec3a359155baa32a77c38e8f900a333/analysis/tofr_confirm.Rmd" target="_blank">dce5f58</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-08
+</td>
+<td>
+update confirm
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/dce5f58c6ec3a359155baa32a77c38e8f900a333/docs/tofr_confirm.html" target="_blank">dce5f58</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-08
+</td>
+<td>
+update confirm
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1645,8 +1716,8 @@ $(document).ready(function(){
 });
 </script>
 <p><br/></p>
-<div id="sugammadex" class="section level2">
-<h2>Sugammadex</h2>
+<div id="sugammadex" class="section level1">
+<h1><strong>Sugammadex</strong></h1>
 <p><a id="confTab1"></a></p>
 <p><br/></p>
 <p><font size = 4> Table 1. Study arms included in analyses of TOFR ≥0.9
@@ -2533,8 +2604,8 @@ Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.
 </table>
 <p><br/></p>
 </div>
-<div id="pooled" class="section level2">
-<h2>  Pooled</h2>
+<div id="pooled" class="section level1">
+<h1>  Pooled</h1>
 <p><a id="confFig1"></a></p>
 <p><br/></p>
 <p><font size = 4> Figure 1. Incidence of residual neuromuscular
@@ -2565,6 +2636,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/dce5f58c6ec3a359155baa32a77c38e8f900a333/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">dce5f58</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/mdgrant/NMB/blob/00c5c96b09031d7d1cb04cbc11a2348f4598490e/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">00c5c96</a>
@@ -2674,10 +2756,14 @@ mdgrant
 </tbody>
 </table>
 <p></font></p>
+<p><font size = 3> Risk ratios obtained as the ratio (median, lower and
+upper 0.025 quantiles) sampled from the means and standard deviations of
+the respective comparator incidence proportions (1E<sup>6</sup>
+samples).</font></p>
 <p><br/></p>
 </div>
-<div id="neostigmine" class="section level2">
-<h2>Neostigmine</h2>
+<div id="neostigmine" class="section level1">
+<h1><strong>Neostigmine</strong></h1>
 <p><a id="confTab2"></a></p>
 <p><br/></p>
 <p><font size = 4> Table 2. Study arms included in analyses of TOFR ≥0.9
@@ -3681,8 +3767,8 @@ Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.
 </table>
 <p><br/></p>
 </div>
-<div id="pooled-1" class="section level2">
-<h2>  Pooled</h2>
+<div id="pooled-1" class="section level1">
+<h1>  Pooled</h1>
 <p><a id="confFig2"></a></p>
 <p><br/></p>
 <p><font size = 4> Figure 2. Incidence of residual neuromuscular
@@ -3713,6 +3799,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/dce5f58c6ec3a359155baa32a77c38e8f900a333/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">dce5f58</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-04-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/mdgrant/NMB/blob/00c5c96b09031d7d1cb04cbc11a2348f4598490e/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">00c5c96</a>
@@ -3818,7 +3915,267 @@ mdgrant
 </tbody>
 </table>
 <p></font></p>
+<p><font size = 3> Risk ratios obtained as the ratio (median, lower and
+upper 0.025 quantiles) sampled from the means and standard deviations of
+the respective comparator incidence proportions (1E<sup>6</sup>
+samples).</font></p>
 <p><br/></p>
+<p><br clear="all" /></p>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<p><br></p>
+</div>
+<div id="references" class="section level1">
+<h1><strong>References</strong></h1>
+<p><br/></p>
+<p><a id="references"></a></p>
+<div id="refs" class="references csl-bib-body">
+<div id="ref-Adamus:2011ts" class="csl-entry">
+<div class="csl-left-margin">1. </div><div
+class="csl-right-inline">Adamus M, Hrabalek L, Wanek T, Gabrhelik T,
+Zapletalova J. Intraoperative reversal of neuromuscular block with
+sugammadex or neostigmine during extreme lateral interbody fusion, a
+novel technique for spine surgery. <em>J Anesth</em>.
+2011;25(5):716-720. doi:<a
+href="https://doi.org/10.1007/s00540-011-1209-1">10.1007/s00540-011-1209-1</a></div>
+</div>
+<div id="ref-Alday:2019vi" class="csl-entry">
+<div class="csl-left-margin">2. </div><div
+class="csl-right-inline">Alday E, Muñoz M, Planas A, Mata E, Alvarez C.
+Effects of neuromuscular block reversal with sugammadex versus
+neostigmine on postoperative respiratory outcomes after major abdominal
+surgery: A randomized-controlled trial. <em>Can J Anaesth</em>.
+2019;66(11):1328-1337. doi:<a
+href="https://doi.org/10.1007/s12630-019-01419-3">10.1007/s12630-019-01419-3</a></div>
+</div>
+<div id="ref-Batistaki:2016us" class="csl-entry">
+<div class="csl-left-margin">3. </div><div
+class="csl-right-inline">Batistaki C, Tentes P, Deligiannidi P,
+Karakosta A, Florou P, Kostopanagiotou G. Residual neuromuscular
+blockade in a real life clinical setting: Correlation with sugammadex or
+neostigmine administration. <em>Minerva Anestesiol</em>.
+2016;82(5):550-558.</div>
+</div>
+<div id="ref-Baykara:2010vz" class="csl-entry">
+<div class="csl-left-margin">4. </div><div
+class="csl-right-inline">Baykara N. High incidence of residual
+curarization after rocuronium despite administration of neostigmine.
+<em>Turk Klinik J Med Sci</em>. 2010;30(4):1325-1331.</div>
+</div>
+<div id="ref-Boggett:2020vs" class="csl-entry">
+<div class="csl-left-margin">5. </div><div
+class="csl-right-inline">Boggett S, Chahal R, Griffiths J, et al. A
+randomised controlled trial comparing deep neuromuscular blockade
+reversed with sugammadex with moderate neuromuscular block reversed with
+neostigmine. <em>Anaesthesia</em>. 2020;75(9):1153-1163. doi:<a
+href="https://doi.org/10.1111/anae.15094">10.1111/anae.15094</a></div>
+</div>
+<div id="ref-Brueckmann:2015wb" class="csl-entry">
+<div class="csl-left-margin">6. </div><div
+class="csl-right-inline">Brueckmann B, Sasaki N, Grobara P, et al.
+Effects of sugammadex on incidence of postoperative residual
+neuromuscular blockade: A randomized, controlled study. <em>Br J
+Anaesth</em>. 2015;115(5):743-751. doi:<a
+href="https://doi.org/10.1093/bja/aev104">10.1093/bja/aev104</a></div>
+</div>
+<div id="ref-Cammu:2002ue" class="csl-entry">
+<div class="csl-left-margin">7. </div><div
+class="csl-right-inline">Cammu G, Baerdemaeker L de, Blauwen N den, Mey
+JC de, Struys M, Mortier E. Postoperative residual curarization with
+cisatracurium and rocuronium infusions. <em>Eur J Anaesthesiol</em>.
+2002;19(2):129-134. doi:<a
+href="https://doi.org/10.1017/s0265021502000236">10.1017/s0265021502000236</a></div>
+</div>
+<div id="ref-Cammu:2012uu" class="csl-entry">
+<div class="csl-left-margin">8. </div><div
+class="csl-right-inline">Cammu GV, Smet V, De Jongh K, Vandeput D. A
+prospective, observational study comparing postoperative residual
+curarisation and early adverse respiratory events in patients reversed
+with neostigmine or sugammadex or after apparent spontaneous recovery.
+<em>Anaesth Intensive Care</em>. 2012;40(6):999-1006. doi:<a
+href="https://doi.org/10.1177/0310057x1204000611">10.1177/0310057x1204000611</a></div>
+</div>
+<div id="ref-Della-Rocca:2013tn" class="csl-entry">
+<div class="csl-left-margin">9. </div><div
+class="csl-right-inline">Della Rocca G, Pompei L, Pagan DEPC, et al.
+Reversal of rocuronium induced neuromuscular block with sugammadex or
+neostigmine: A large observational study. <em>Acta Anaesthesiol
+Scand</em>. 2013;57(9):1138-1145. doi:<a
+href="https://doi.org/10.1111/aas.12155">10.1111/aas.12155</a></div>
+</div>
+<div id="ref-Duranteau:2021un" class="csl-entry">
+<div class="csl-left-margin">10. </div><div
+class="csl-right-inline">Duranteau O, Fernandez W, Tuna T, Engelman E,
+Van Obbergh L, Tabolcea I. Earlier and lower dose administration of
+sugammadex: A randomised placebo-controlled trial. <em>European Journal
+of Anaesthesiology <span><span class="math inline">\(|\)</span></span>
+EJA</em>. 2021;38(8):865-871. doi:<a
+href="https://doi.org/10.1097/eja.0000000000001502">10.1097/eja.0000000000001502</a></div>
+</div>
+<div id="ref-El-Tahan:2015ua" class="csl-entry">
+<div class="csl-left-margin">11. </div><div
+class="csl-right-inline">El-Tahan MR, Regal M. Target-controlled
+infusion of remifentanil without muscle relaxants allows acceptable
+surgical conditions during thoracotomy performed under sevoflurane
+anesthesia. <em>J Cardiothorac Vasc Anesth</em>. 2015;29(6):1557-1566.
+doi:<a
+href="https://doi.org/10.1053/j.jvca.2015.02.014">10.1053/j.jvca.2015.02.014</a></div>
+</div>
+<div id="ref-Feltracco:2016vz" class="csl-entry">
+<div class="csl-left-margin">12. </div><div
+class="csl-right-inline">Feltracco P, Tonetti T, Barbieri S, Frigo AC,
+Ori C. Cisatracurium- and rocuronium-associated residual neuromuscular
+dysfunction under intraoperative neuromuscular monitoring and
+postoperative neostigmine reversal: A single-blind randomized trial.
+<em>J Clin Anesth</em>. 2016;35:198-204. doi:<a
+href="https://doi.org/10.1016/j.jclinane.2016.07.031">10.1016/j.jclinane.2016.07.031</a></div>
+</div>
+<div id="ref-Khuenl-Brady:2010vx" class="csl-entry">
+<div class="csl-left-margin">13. </div><div
+class="csl-right-inline">Khuenl-Brady KS, Wattwil M, Vanacker BF,
+Lora-Tamayo JI, Rietbergen H, Alvarez-Gómez JA. Sugammadex provides
+faster reversal of vecuronium-induced neuromuscular blockade compared
+with neostigmine: A multicenter, randomized, controlled trial.
+<em>Anesth Analg</em>. 2010;110(1):64-73. doi:<a
+href="https://doi.org/10.1213/ane.0b013e3181ac53c3">10.1213/ane.0b013e3181ac53c3</a></div>
+</div>
+<div id="ref-Kirkegaard:2002tj" class="csl-entry">
+<div class="csl-left-margin">14. </div><div
+class="csl-right-inline">Kirkegaard H, Heier T, Caldwell JE. Efficacy of
+tactile-guided reversal from cisatracurium-induced neuromuscular block.
+<em>Anesthesiology</em>. 2002;96(1):45-50. doi:<a
+href="https://doi.org/10.1097/00000542-200201000-00013">10.1097/00000542-200201000-00013</a></div>
+</div>
+<div id="ref-Koo:2019vo" class="csl-entry">
+<div class="csl-left-margin">15. </div><div class="csl-right-inline">Koo
+CH, Chung SH, Kim BG, et al. Comparison between the effects of deep and
+moderate neuromuscular blockade during transurethral resection of
+bladder tumor on endoscopic surgical condition and recovery profile: A
+prospective, randomized, and controlled trial. <em>World J Urol</em>.
+2019;37(2):359-365. doi:<a
+href="https://doi.org/10.1007/s00345-018-2398-0">10.1007/s00345-018-2398-0</a></div>
+</div>
+<div id="ref-Kotake:2013ug" class="csl-entry">
+<div class="csl-left-margin">16. </div><div
+class="csl-right-inline">Kotake Y, Ochiai R, Suzuki T, et al. Reversal
+with sugammadex in the absence of monitoring did not preclude residual
+neuromuscular block. <em>Anesth Analg</em>. 2013;117(2):345-351. doi:<a
+href="https://doi.org/10.1213/ANE.0b013e3182999672">10.1213/ANE.0b013e3182999672</a></div>
+</div>
+<div id="ref-Ledowski:2013uk" class="csl-entry">
+<div class="csl-left-margin">17. </div><div
+class="csl-right-inline">Ledowski T, Hillyard S, O’Dea B, Archer R,
+Vilas-Boas F, Kyle B. Introduction of sugammadex as standard reversal
+agent: Impact on the incidence of residual neuromuscular blockade and
+postoperative patient outcome. <em>Indian J Anaesth</em>.
+2013;57(1):46-51. doi:<a
+href="https://doi.org/10.4103/0019-5049.108562">10.4103/0019-5049.108562</a></div>
+</div>
+<div id="ref-Lee:2020uv" class="csl-entry">
+<div class="csl-left-margin">18. </div><div class="csl-right-inline">Lee
+YJ, Oh AY, Koo BW, et al. Postoperative residual neuromuscular blockade
+after reversal based on a qualitative peripheral nerve stimulator
+response: A randomised controlled trial. <em>Eur J Anaesthesiol</em>.
+2020;37(3):196-202. doi:<a
+href="https://doi.org/10.1097/eja.0000000000001157">10.1097/eja.0000000000001157</a></div>
+</div>
+<div id="ref-Martinez-Ubieto:2016wt" class="csl-entry">
+<div class="csl-left-margin">19. </div><div
+class="csl-right-inline">Martinez-Ubieto J, Ortega-Lucea S,
+Pascual-Bellosta A, et al. Prospective study of residual neuromuscular
+block and postoperative respiratory complications in patients reversed
+with neostigmine versus sugammadex. <em>Minerva Anestesiol</em>.
+2016;82(7):735-742.</div>
+</div>
+<div id="ref-Murphy:2020um" class="csl-entry">
+<div class="csl-left-margin">20. </div><div
+class="csl-right-inline">Murphy GS, Avram MJ, Greenberg SB, et al.
+Neuromuscular and clinical recovery in thoracic surgical patients
+reversed with neostigmine or sugammadex. <em>Anesth Analg</em>.
+Published online 2020. doi:<a
+href="https://doi.org/10.1213/ane.0000000000005294">10.1213/ane.0000000000005294</a></div>
+</div>
+<div id="ref-Nemes:2017vb" class="csl-entry">
+<div class="csl-left-margin">21. </div><div
+class="csl-right-inline">Nemes R, Fülesdi B, Pongrácz A, et al. Impact
+of reversal strategies on the incidence of postoperative residual
+paralysis after rocuronium relaxation without neuromuscular monitoring:
+A partially randomised placebo controlled trial. <em>Eur J
+Anaesthesiol</em>. 2017;34(9):609-616. doi:<a
+href="https://doi.org/10.1097/eja.0000000000000585">10.1097/eja.0000000000000585</a></div>
+</div>
+<div id="ref-Omar:2012wf" class="csl-entry">
+<div class="csl-left-margin">22. </div><div
+class="csl-right-inline">Omar AM. Effect of systemic lidocaine infusion
+on train-of-four ratios during recovery from general anesthesia.
+<em>Egyptian Journal of Anaesthesia</em>. 2012;28(4):281-286. doi:<a
+href="https://doi.org/10.1016/j.egja.2012.07.002">10.1016/j.egja.2012.07.002</a></div>
+</div>
+<div id="ref-Rahe-Meyer:2015tk" class="csl-entry">
+<div class="csl-left-margin">23. </div><div
+class="csl-right-inline">Rahe-Meyer N, Berger C, Wittmann M, et al.
+Recovery from prolonged deep rocuronium-induced neuromuscular blockade:
+A randomized comparison of sugammadex reversal with spontaneous
+recovery. <em>Anaesthesist</em>. 2015;64(7):506-512. doi:<a
+href="https://doi.org/10.1007/s00101-015-0048-0">10.1007/s00101-015-0048-0</a></div>
+</div>
+<div id="ref-Sabo:2011vg" class="csl-entry">
+<div class="csl-left-margin">24. </div><div
+class="csl-right-inline">Sabo D, Jones RK, Berry J, et al. Residual
+neuromuscular blockade at extubation: A randomized comparison of
+sugammadex and neostigmine reversal of rocuronium-induced blockade in
+patients undergoing abdominal surgery. <em>Journal of Anesthesia and
+Clinical Research</em>. 2011;2(6). doi:<a
+href="https://doi.org/10.4172/2155-6148.1000140">10.4172/2155-6148.1000140</a></div>
+</div>
+<div id="ref-Staals:2008wb" class="csl-entry">
+<div class="csl-left-margin">25. </div><div
+class="csl-right-inline">Staals LM, Snoeck MM, Driessen JJ, Flockton EA,
+Heeringa M, Hunter JM. Multicentre, parallel-group, comparative trial
+evaluating the efficacy and safety of sugammadex in patients with
+end-stage renal failure or normal renal function. <em>Br J Anaesth</em>.
+2008;101(4):492-497. doi:<a
+href="https://doi.org/10.1093/bja/aen216">10.1093/bja/aen216</a></div>
+</div>
+<div id="ref-Togioka:2020ud" class="csl-entry">
+<div class="csl-left-margin">26. </div><div
+class="csl-right-inline">Togioka BM, Yanez D, Aziz MF, Higgins JR,
+Tekkali P, Treggiari MM. Randomised controlled trial of sugammadex or
+neostigmine for reversal of neuromuscular block on the incidence of
+pulmonary complications in older adults undergoing prolonged surgery.
+<em>Br J Anaesth</em>. 2020;124(5):553-561. doi:<a
+href="https://doi.org/10.1016/j.bja.2020.01.016">10.1016/j.bja.2020.01.016</a></div>
+</div>
+<div id="ref-Wardhana:2019up" class="csl-entry">
+<div class="csl-left-margin">27. </div><div
+class="csl-right-inline">Wardhana A, Kurniawaty J, Uyun Y. Optimised
+reversal without train-of-four monitoring versus reversal using
+quantitative train-of-four monitoring: An equivalence study. <em>Indian
+J Anaesth</em>. 2019;63(5):361-367. doi:<a
+href="https://doi.org/10.4103/ija.IJA{\_}94{\_}19">10.4103/ija.IJA{\_}94{\_}19</a></div>
+</div>
+<div id="ref-White:2009wg" class="csl-entry">
+<div class="csl-left-margin">28. </div><div
+class="csl-right-inline">White PF, Tufanogullari B, Sacan O, et al. The
+effect of residual neuromuscular blockade on the speed of reversal with
+sugammadex. <em>Anesth Analg</em>. 2009;108(3):846-851. doi:<a
+href="https://doi.org/10.1213/ane.0b013e31818a9932">10.1213/ane.0b013e31818a9932</a></div>
+</div>
+<div id="ref-Wu:2014wi" class="csl-entry">
+<div class="csl-left-margin">29. </div><div class="csl-right-inline">Wu
+X, Oerding H, Liu J, et al. Rocuronium blockade reversal with sugammadex
+vs. Neostigmine: Randomized study in chinese and caucasian subjects.
+<em>BMC Anesthesiol</em>. 2014;14:53. doi:<a
+href="https://doi.org/10.1186/1471-2253-14-53">10.1186/1471-2253-14-53</a></div>
+</div>
+<div id="ref-Yazar:2016tn" class="csl-entry">
+<div class="csl-left-margin">30. </div><div
+class="csl-right-inline">Yazar E, Yılmaz C, Bilgin H, et al. A
+comparision of the effect of sugammadex on the recovery period and
+postoperative residual block in young elderly and middle-aged elderly
+patients. <em>Balkan Med J</em>. 2016;33(2):181-187. doi:<a
+href="https://doi.org/10.5152/balkanmedj.2016.16383">10.5152/balkanmedj.2016.16383</a></div>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3849,16 +4206,16 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-157           fs_1.5.2               bit64_4.0.5           
- [4] lubridate_1.8.0        webshot_0.5.2          httr_1.4.2            
+ [4] lubridate_1.8.0        webshot_0.5.3          httr_1.4.2            
  [7] rprojroot_2.0.3        tools_4.1.3            backports_1.4.1       
 [10] bslib_0.3.1            metafor_3.0-2          utf8_1.2.2            
 [13] R6_2.5.1               DBI_1.1.2              colorspace_2.0-3      
 [16] withr_2.5.0            tidyselect_1.1.2       bit_4.0.4             
 [19] compiler_4.1.3         git2r_0.30.1           cli_3.2.0             
 [22] rvest_1.0.2            xml2_1.3.3             sass_0.4.1            
-[25] scales_1.1.1           systemfonts_1.0.4      digest_0.6.29         
+[25] scales_1.2.0           systemfonts_1.0.4      digest_0.6.29         
 [28] minqa_1.2.4            rmarkdown_2.13         svglite_2.1.0         
-[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-28           
+[31] pkgconfig_2.0.3        htmltools_0.5.2        lme4_1.1-29           
 [34] highr_0.9              dbplyr_2.1.1           fastmap_1.1.0         
 [37] htmlwidgets_1.5.4      rlang_1.0.2            readxl_1.4.0          
 [40] rstudioapi_0.13.0-9000 jquerylib_0.1.4        generics_0.1.2        
@@ -3869,13 +4226,13 @@ loaded via a namespace (and not attached):
 [55] CompQuadForm_1.4.3     snakecase_0.11.0       mathjaxr_1.6-0        
 [58] MASS_7.3-56            grid_4.1.3             parallel_4.1.3        
 [61] promises_1.2.0.1       crayon_1.5.1           lattice_0.20-45       
-[64] haven_2.4.3            splines_4.1.3          hms_1.1.1             
+[64] haven_2.5.0            splines_4.1.3          hms_1.1.1             
 [67] knitr_1.38             pillar_1.7.0           boot_1.3-28           
 [70] reprex_2.0.1           glue_1.6.2             evaluate_0.15         
-[73] modelr_0.1.8           nloptr_2.0.0           vctrs_0.4.0           
+[73] modelr_0.1.8           nloptr_2.0.0           vctrs_0.4.1           
 [76] tzdb_0.3.0             httpuv_1.6.5           cellranger_1.1.0      
 [79] gtable_0.3.0           assertthat_0.2.1       xfun_0.30             
-[82] broom_0.7.12           later_1.3.0            viridisLite_0.4.0     
+[82] broom_0.8.0            later_1.3.0            viridisLite_0.4.0     
 [85] workflowr_1.7.0        ellipsis_0.3.2        </code></pre>
 </div>
 </div>
