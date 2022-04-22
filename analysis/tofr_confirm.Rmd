@@ -383,7 +383,8 @@ conf_kbl <- conf_meta %>%
          rnmb9_per = rnmb9_n/arm_n) %>% 
   select(refid, year, design_f, study, arm, arm_n, rnmb9_n, nmbagent, volatile, mon_cat_f, depth, rnmb_where, rnmb9_np, extbconf, confirm, rnmb9_per) %>% 
   # select only to go in meta
-  filter(arm %in% c("Neo", "Sug"))
+  filter(arm %in% c("Neo", "Sug")) %>% 
+  left_join(., study_char.dat[ , c("refid", "study_l")], by = "refid") 
 
 # table_tally_2(temp, confirm, design_f)
 
@@ -392,7 +393,7 @@ dichot_format <- function(x) (x/100)
 # temp <- conf_kbl %>% 
 conf_kbl %>% 
   filter(arm == "Sug") %>% 
-  select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
+  select(confirm, study_l, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
     confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
@@ -559,7 +560,6 @@ figure_n <- fig_inc()
 
 <font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples).</font>
 
-
 <br/>
 
 # **Neostigmine**
@@ -578,7 +578,7 @@ dichot_format <- function(x) (x/100)
 # temp <- conf_kbl %>% 
 conf_kbl %>% 
   filter(arm == "Neo") %>% 
-  select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
+  select(confirm, study_l, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
     confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),

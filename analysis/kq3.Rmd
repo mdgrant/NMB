@@ -475,7 +475,6 @@ table_n <- tab_inc()
 
 ```{r dichot_ptout.dat, include = FALSE}
 ## dichot_ptout.dat ----------------------------------- (2022-04-05 07:42) @----
-# TODO: here
 temp1 <- dichot_ptout.dat %>% 
     filter(refid %in% ptout_refids) %>% 
   # filter(refid == 2071) %>% 
@@ -548,7 +547,7 @@ nmm_kable <- dichot_ptout_tofr.dat %>%
     arm_diag_outcome = ifelse(study == "Ueda 1991" & arm == 2, "Manual TOF", arm_diag_outcome),
     rr_ci = ifelse(study == "Ueda 1991" & arm == 3, risk_ratio_y(2, 30, 25, 30), rr_ci),
     rr_ci = ifelse(study == "Ueda 1991" & arm == 2, risk_ratio_y(2, 30, 17, 30), rr_ci),
-    rnmb_np = n_percent(rnmb1_n, rnmb1_per)
+    rnmb_np = n_percent1(rnmb1_n, rnmb1_per)
   ) %>%
   # mutate(
   #   # add footnotes OR tofr
@@ -608,10 +607,10 @@ nmm_kable %>%
   pack_topnoind(., "Prospective Cohort", 20, 21) %>%
   pack_topnoind(., "Retrospective Cohort", 22, 23) %>%
   footnote(
-    general = "RCT: randomized controlled trial; RNMB: residual neuromuscular blockade; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; TOFR: train of four ratio; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; OR: operating room.",
+    general = "RCT: randomized controlled trial; RNMB: residual neuromuscular blockade; RR: risk ratio; CI: confidence interval; DBS: double burst stimulation; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography; PACU: post-anesthesia care unit; OR: operating room.",
     alphabet = c(
-      "PACU if desginated as PACU or recovery, OR if designated as such or as post-extubation.",
-      "Odds ratio comparing the last monitoring arm (lowest incidence) to the prior. For studies reporting results for >1 threshold, only those for the highest are shown."
+      "PACU if designated as PACU or recovery, OR if designated as such or as post-extubation.",
+      "Risk ratio comparing the last monitoring arm (lowest incidence) to the prior. For studies reporting results for >1 threshold, only those for the highest are shown."
     ),
     general_title = "",
     footnote_as_chunk = FALSE
@@ -915,7 +914,7 @@ net_table$network %>%
 
 ```{r nmmForest, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 2.5}
 forest(nmm_netmeta_nma,
-       xlab = "Relative Risk",
+       xlab = "        Risk Ratio",
        xlim = c(.001, 2),
        at = c(0.01, .1, 0.5, 1, 2))
 
@@ -931,7 +930,7 @@ figure_n <- fig_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. League table for relative risks comparing upper left to lower right. Network comparisons in lower left triangle and direct comparisons in upper right. </font>
+<font size = 4> Table `r table_n`. League table for risk ratios comparing upper left to lower right. Network comparisons in lower left triangle and direct comparisons in upper right. </font>
 
 ```{r leagueTable}
 ## leagueTable (updated 2022/01/19 06:34) ---------------------------------
@@ -960,7 +959,7 @@ temp %>%
   # kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   row_spec(1:3, extra_css = "vertical-align: middle !important; border-top: 1px solid LightGray; border-bottom: 1px solid LightGray;") %>% 
   column_spec(1:3, width = "10em")
-  # footnote(
+  # footnote( 
   #   general = "I^2^ = 30 (95% CI: 0%, 66%)",
   #   # alphabet = c("Footnote a", "Footnote b", ...),
   #   general_title = "",
@@ -978,13 +977,12 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Comparison of direct and indirect evidence (network meta-analysis). </font>
 
-```{r nmmNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5}
+```{r nmmNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5.5}
 netsplit(nmm_netmeta_nma,
-  order = trts
-) %>%
-  forest(., xlab = "Risk Ratio")
-
-
+  order = trts) %>%
+  forest(., 
+         xlab = "Risk Ratio",
+        rightlabs = c("RR", "(95% CI)"))
 
 figure_n <- fig_inc()
 ```
