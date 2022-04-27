@@ -57,7 +57,6 @@ display: none !important;
 
 </style>
 ```
-
 ```{r, include = FALSE}
 ## (updated 2021/05/13 11:47) preliminaries -------------------------------
 knitr::opts_chunk$set(
@@ -81,4 +80,4 @@ figure_n <- 1
 
 # **PRISMA Diagram**
 
-<img src="assets/nmb_prisma_111121.png" style="width:600px;" align="left"/>
+<img src="assets/nmb_prisma_040822.png" style="width:600px;" align="left"/>

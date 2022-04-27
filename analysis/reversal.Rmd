@@ -698,7 +698,7 @@ length(unique(rnmb_prim.dat$refid))
 
 <br/>
 
-<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of anesthesia according to reversal in adults.</font>
+<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of block according to reversal in adults.</font>
 
 ```{r rnmbKbl}
 ## ## rnmbKbl ----------------------------------------- (2022-04-02 14:57) @----
@@ -934,7 +934,7 @@ forest(rnmb_meta,
 
 figure_n <- fig_inc()
 ```
-Risk difference -23.5% (95% CI, -36.2% to -10.8%). Too few studies to examine small study effects. 
+Risk difference -23.5% (95% CI, -36.2% to -10.8%); n.b., includes 9 studies (n = 1434), while RR estimate 8 studies (n = 1143). Too few studies to examine small study effects. 
 
 <br/>
 
@@ -1111,7 +1111,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of anesthesia according to reversal in pediatric patients.</font>
+<font size = 4> Table `r table_n`. Incidence of residual neuromuscular blockade and depth of block according to reversal in pediatric patients.</font>
 
 ```{r rnmbPedsKbl}
 ## rnmbPedsKbl ---------------------------------------+ (2022-04-03 10:55) @----

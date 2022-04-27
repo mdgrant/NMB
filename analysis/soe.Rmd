@@ -16,13 +16,14 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '4'
+  # footnotes-hover: TRUE
 workflowr:
   suppress_report: TRUE
 editor_options:
   chunk_output_type: console     
 ---
 
-```{=html} 
+```{=html}
 <style type="text/css">
   body{
   font-size: 9.5pt;
@@ -72,7 +73,6 @@ span b { font-size: 60%; font-weight: normal }
 
 </style>
 ```
-
 ```{r, include = FALSE}
 ## (updated 2021/11/17 11:29) preliminaries -------------------------------
 knitr::opts_chunk$set(
@@ -158,7 +158,7 @@ grade_foot <- c("Very low:", vlow, "Low:", low, "Moderate:", mod, "High:", high)
 
 <font size = 4> Ratings for important outcomes according to study design.</font>
 
-# **NMM Technical Performance** 
+# **NMM Technical Performance**
 
 ```{r soeKq1Data, include = TRUE}
 ## soeKq1Data (updated 2022/01/20 09:18) ----------------------------------
@@ -211,7 +211,7 @@ domain_summary <- soe_kq1.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to neuromuscular monitor technical performance.  </font>
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to neuromuscular monitor technical performance. </font>
 
 ```{r kq1SOE, include = TRUE}
 ## kq1SOE (updated 2022/01/20 15:00) --------------------------------------
@@ -253,7 +253,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### GRADE Domains
 
 <br>
 
@@ -336,7 +336,7 @@ table_n <- tab_inc()
 
 <br/>
 
-# **NMM Outcomes** 
+# **NMM Outcomes**
 
 ```{r soeKq3Data, include = TRUE}
 ## soeKq3 Data (updated 2022/01/20 09:18) ----------------------------------
@@ -389,7 +389,7 @@ domain_summary <- soe_kq3.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring (evidence obtained from RCTs unless noted).  </font>
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring (evidence obtained from RCTs unless noted). </font>
 
 ```{r Kq3SOE, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -433,7 +433,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### GRADE Domains
 
 <br>
 
@@ -522,8 +522,7 @@ kq1_domain %>%
 
 <br/>
 
-
-# **NMM Confirm TOFR Before Extubation** 
+# **NMM Confirm TOFR Before Extubation**
 
 ```{r soeConfirmData, include = TRUE}
 ## soeConfirm Data (updated 2022/01/20 09:18) ----------------------------------
@@ -621,11 +620,12 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### GRADE Domains
 
 <br>
 
 <font size = 4> Table `r table_n`. GRADE domains for strength of evidence ratings for TOFR confirmation prior to extubation.</font>
+
 ```{r confirmDomain, include = TRUE, eval = TRUE}
 ## (updated 2021/05/14 08:02) sug_neo_domain_summary --------------------------
 confirm_domain_summary <- domain_summary %>%
@@ -703,11 +703,7 @@ table_n <- tab_inc()
 
 <br/>
 
-
-
-
-
-# **Reversal** 
+# **Reversal**
 
 <a id="soeReversal"></a>
 
@@ -806,7 +802,7 @@ table_n <- tab_inc()
 
 <br/>
 
-### GRADE Domains 
+### GRADE Domains
 
 <br>
 
@@ -893,24 +889,22 @@ table_n <- tab_inc()
 
 <br/>
 
-
 # **Rating Systems Reference**
 
 #   GRADE
 
-<br>
-<font size = 4> 
-**High** --- We are very confident that the true effect lies close to that of the estimate of the effect.
+<br> <font size = 4> **High** --- We are very confident that the true effect lies close to that of the estimate of the effect.
 
-**Moderate** ---  We are moderately confident in the effect estimate: The true effect is likely to be close to the estimate of the effect, but there is a possibility that it is substantially different.
+**Moderate** --- We are moderately confident in the effect estimate: The true effect is likely to be close to the estimate of the effect, but there is a possibility that it is substantially different.
 
 **Low** --- Our confidence in the effect estimate is limited: The true effect may be substantially different from the estimate of the effect.
 
-**Very Low** ---  We have very little confidence in the effect estimate: The true effect is likely to be substantially different from the estimate of effect. 
+**Very Low** --- We have very little confidence in the effect estimate: The true effect is likely to be substantially different from the estimate of effect.
 
 </font>
 
 ## Domains (downgrading)
+
 <font size = 4>
 
 *Bias* --- Systematic error (eg, selection bias, confounding bias, measurement bias).
@@ -947,26 +941,10 @@ table_n <- tab_inc()
 
 **Level C-LD** --- Randomized or nonrandomized observational or registry studies with limitations of design or execution. Meta-analyses of such studies. Physiological or mechanistic studies in human subjects.
 
-**Level C-EO** --- Consensus of expert opinion based on clinical experience when evidence is insufficient, vague, or conflicting. 
+**Level C-EO** --- Consensus of expert opinion based on clinical experience when evidence is insufficient, vague, or conflicting.
 
 </font>
 
 <font size = 3> RCT: randomized controlled trial; NR: nonrandomized; LD: limited data; EO: expert opinion </font>
 
-&nbsp; <br/>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-
+  <br/>
