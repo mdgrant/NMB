@@ -541,7 +541,7 @@ soe_confirm.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z28
       out_import == "Critical" ~ "●●●"
     )
   ) %>% 
-  slice_tail(n = 2)
+  filter(str_detect(comparison, "conf_noconf"))
 
 ## (updated 2021/11/17 11:44) soe_summary ---------------------------------
 soe_summary <- soe_confirm.dat %>%
@@ -723,7 +723,8 @@ soe_kq4.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z28", s
       out_import == "Important" ~ "●●",
       out_import == "Critical" ~ "●●●"
     )
-  )
+  ) %>% 
+  filter(!str_detect(comparison, "conf_noconf"))
 
 ## (updated 2021/11/17 11:44) soe_summary ---------------------------------
 soe_summary <- soe_kq4.dat %>%

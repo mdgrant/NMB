@@ -408,7 +408,7 @@ conf_kbl %>%
   select(-c(confirm, rnmb9_per)) %>% 
 kbl(
     booktabs = T, align = c("llrccllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Location^a^", "N (%)", bar_ref),
+    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
   ) %>%
   add_header_above(c(" " = 5, "Reversal" = 1, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
@@ -593,7 +593,7 @@ conf_kbl %>%
   select(-c(confirm, rnmb9_per)) %>% 
 kbl(
     booktabs = T, align = c("llrccllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Location^a^", "N (%)", bar_ref),
+    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
   ) %>%
   add_header_above(c(" " = 5, "Reversal" = 1, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
