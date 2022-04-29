@@ -341,7 +341,7 @@ table_n <- tab_inc()
 ```{r soeKq3Data, include = TRUE}
 ## soeKq3 Data (updated 2022/01/20 09:18) ----------------------------------
 col_types_nmb <- c("numeric", rep("text", 5), "numeric", rep("text", 19))
-soe_kq3.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z13", sheet = "soe_kq3", col_types = col_types_nmb) %>%
+soe_kq3.dat <- readxl::read_xlsx("data/soe_111721_mac.xlsx", range = "A1:Z12", sheet = "soe_kq3", col_types = col_types_nmb) %>%
   clean_names() %>%
   mutate(
     n_s = paste0(n_studies, " <br/>(", n_pts, ")"),
@@ -389,7 +389,7 @@ domain_summary <- soe_kq3.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Strength of evidence for outcomes relevant to outcomes with neuromuscular monitoring (evidence obtained from RCTs unless noted). </font>
+<font size = 4> Table `r table_n`. Strength of evidence for outcomes following neuromuscular monitoring (evidence obtained from RCTs unless noted). </font>
 
 ```{r Kq3SOE, include = TRUE}
 ## (updated 2021/05/14 08:53) cho vs. fasting kable -----------------------
@@ -417,9 +417,9 @@ soe_summary %>%
   pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>%
   pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>%
   pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>%
-  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>%
-  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>%
-  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative or Clinical", 6, 7) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative", 8, 8) %>%
+  pack_topnoind(., "Any monitoring vs. none", 9, 9) %>%
   footnote(
     general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; RR: risk ratio.",
     number = c("● Limited, ●● Important, ●●● Critical.", "Not rated as obtained from network meta-analysis agnostic of study design. However, consistency of effects with that from the randomized designs alone could argue for rating up the strength of evidence."),
@@ -496,9 +496,9 @@ kq1_domain %>%
   pack_topnoind(., "Quantitative vs. Clinical", 3, 3) %>% 
   pack_topnoind(., "Quantitative vs. Qualitative", 4, 4) %>% 
   pack_topnoind(., "Quantitative vs. Qualitative vs. Clinical", 5, 5) %>% 
-  pack_topnoind(., "Qualitative or Clinical vs. Quantitative", 6, 8) %>% 
-  pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>% 
-  pack_topnoind(., "Any monitoring vs. none", 10, 10) %>% 
+  pack_topnoind(., "Quantitative vs. Qualitative or Clinical", 6, 7) %>%
+  pack_topnoind(., "Quantitative vs. Qualitative", 8, 8) %>%
+  pack_topnoind(., "Any monitoring vs. none", 9, 9) %>%
   # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
   # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
