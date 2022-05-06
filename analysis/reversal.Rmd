@@ -4339,7 +4339,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Pooled relative odds of postoperative reintub in randomized and nonrandomized studies. </font>
 
-```{r reintubMeta, fig.width = 10, fig.height = 5}
+```{r reintubMeta, fig.width = 10, fig.height = 6}
 ## reintubMeta ---------------------------------------- (2022-03-10 10:47) @----
 reintub_meta_dat <- reintub %>% 
   mutate(reintub_n = as.numeric(str_extract(reintub_np, "^\\d{1,4}")),
@@ -4363,7 +4363,7 @@ reintub_rct_meta <- metabin(reintub_n_Sug, arm_n_Sug, reintub_n_Neo, arm_n_Neo,
   prediction = TRUE,
   pscale = 100,
   subgroup = design,
-  # subset = design !== "RCT"
+  # subset = design !== "RCT" & study != "Martinez-Ubieto 2016",
 )
 
 forest(reintub_rct_meta,
