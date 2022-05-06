@@ -308,8 +308,8 @@ kq1_domain %>%
   # row_spec(c(1, 2, 11), color = "red") %>%
   # row_spec(c(1, 2, 3), color = "red") %>%
   column_spec(1, width = "13em") %>%  
-  column_spec(2, width = "4em") %>% 
-  column_spec(3, width = "10em") %>% 
+  column_spec(2, width = "8em") %>% 
+  column_spec(3, width = "8em") %>% 
   column_spec(4:8, width = "8em") %>% 
     pack_topnoind(., "Fully Paired", 1, 6) %>% 
   pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 

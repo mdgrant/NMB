@@ -919,7 +919,7 @@ rnmb_meta.dat <- left_join(rnmb_meta.dat, temp1, by = c("refid", "study_orig")) 
 
 <font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR < 0.9) from randomized trials comparing sugammadex and neostigmine by depth of block. </font>
 
-```{r rnmbMetaRctByDepth, fig.width = 10, fig.height = 7}
+```{r rnmbMetaRctByDepth, fig.width = 10, fig.height = 8}
 # TODO: fig.height
 ## rnmbMetaRctByVolatile -----------------------------+ (2022-04-03 10:08) @----
 rnmb_meta <- metabin(lt_9_n_Sug, n_Sug, lt_9_n_Neo, n_Neo, 
@@ -4337,7 +4337,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled relative odds of postoperative reintub in randomized and nonrandomized studies. </font>
+<font size = 4> Figure `r figure_n`. Pooled difference in risk of postoperative reintubation in randomized and nonrandomized studies. </font>
 
 ```{r reintubMeta, fig.width = 10, fig.height = 6}
 ## reintubMeta ---------------------------------------- (2022-03-10 10:47) @----
