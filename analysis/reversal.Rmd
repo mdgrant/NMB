@@ -1862,6 +1862,7 @@ forest_time(minimal)
 grid::grid.text("Minimal Block", .1, .9, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
+Note estimate from imputed means and standard deviations using median and range.
 
 <a id="revFig8"></a>
 
@@ -4396,6 +4397,200 @@ figure_n <- fig_inc()
 
 <br/>
 
+
+## Recurarization
+
+<a id="revTabXX"></a>
+
+<br/>
+
+<font size = 4> Table `r table_n`. Rates of recurarization. </font>
+
+```{r recurar} 
+## recurar -------------------------------------------- (2022-05-05 14:04) @----
+recur.dat <- suppressMessages(read_csv("data/weakness.csv")) |> 
+  clean_names() %>%
+  remove_empty(which = "cols") %>%
+  fill(refid:study) %>%
+  mutate(refid = suppressWarnings(as.numeric(refid)),
+         year = str_extract(study, "\\d{4}")) %>%
+  remove_empty(which = "rows") %>%
+  mutate(
+   recur_n = as.numeric(str_extract(recurarization, "^\\d*")),
+  ) %>%
+  filter(!is.na(recur_n)) |> 
+  select(refid, study, year, arm:volatiles, deep:min, recur_n) |> 
+  left_join(study_ident[, c("refid", "study_l", "age", "design")], by = "refid") %>% 
+  relocate(study_l:design, .before = study)
+
+# studies including neostigmine sugammadex comparison
+compare_refids <- recur.dat |> 
+  mutate(arm_sort = str_extract(arm, "\\(.*\\)"),
+         neo_sug = str_extract(arm, "\\w*")) |> 
+  arrange(study, arm_sort, arm) |> 
+  group_by(study, arm_sort) |> 
+  mutate(compare_arm = lead(neo_sug)) |> 
+  slice(1) |> 
+  ungroup() |> 
+  filter(neo_sug != compare_arm) |> 
+  pull(refid)
+  
+recur.dat <- recur.dat |> 
+  mutate(arm_sort = str_extract(arm, "\\(.*\\)")) |> 
+  filter(refid %in% compare_refids) |> 
+  rename(arm_n = n) |> 
+  arrange(age, design, year, study, arm_sort)
+
+## reintub ------------------------------------------ (2022-03-02 14:30) @----
+# recurarization %>% 
+#   select(-c(arm)) %>% 
+#   group_by(study) |> 
+#   arrange(age, design, study) %>%
+#   select(study, refid, age, design) %>%
+#   group_by(age, design) %>%
+#   tally() %>%
+#   ungroup() %>%
+#   mutate(
+#     end = cumsum(n),
+#     start = end - n + 1
+#   ) %>%
+#   select(age, design, start, end)
+
+recurarization <- recur.dat %>%
+  mutate(
+    recur_np = n_percent_dig(recur_n, recur_n / arm_n * 100, 1),
+    recur_p_bar = NA_character_,
+    recur_p = recur_n / arm_n,
+    arm = str_extract(arm, "\\w*"),
+    recur_p_bar = ifelse(arm %in% c("Spont", "Placebo"), bar_wn1d(recur_p, recur_p, color_4, 1), recur_p_bar),
+    recur_p_bar = ifelse(str_detect(arm, "Sug"), bar_wn1d(recur_p, recur_p, color_1, 1), recur_p_bar),
+    recur_p_bar = ifelse(str_detect(arm, "Neo"), bar_wn1d(recur_p, recur_p, color_2, 1), recur_p_bar),
+    recur_p_bar = str_replace(recur_p_bar, ">.*<", ">&nbsp;<"),
+    arm_c = case_when(
+      str_detect(arm, "Sug") ~ cell_spec(arm, color = color_1),
+      str_detect(arm, "Plac") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Spont") ~ cell_spec(arm, color = color_4),
+      str_detect(arm, "Neo") ~ cell_spec(arm, color = color_2),
+    ),
+    study = ifelse(!is.na(arm_sort), paste(study, arm_sort), study),
+  ) %>%
+  # filter(age == "Adult") %>%
+  filter(!is.na(recur_np)) %>%
+  arrange(age, design, year, study, arm_sort) |> 
+  select(study, arm_n, arm_c, mg_kg, deep:min, recur_np, recur_p_bar)
+
+recurarization %>% 
+  # select(-c(design, arm)) %>% 
+  group_by(study) %>%
+  mutate(study = ifelse(row_number() != 1, NA, study)) %>%
+  kbl(
+    booktabs = T, align = c("llllllllll"), escape = FALSE, # format = "latex",
+    col.names = c("Study", "N", "Drug", "mg/kg", "Deep", "Moderate", "Shallow", "Minimal", "N (%)", bar_ref)
+  ) %>%
+  add_header_above(c(" " = 4, " Depth at Reversal" = 4, " " = 2), bold = TRUE, align = "c", line = TRUE) %>%
+  row_spec(0, bold = TRUE, align = "l") %>%
+  kable_styling(bootstrap_options = opt_boot, position = "left") %>%
+  kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
+  column_spec(1, width = 15) %>%
+  column_spec(2, width = "4em") %>%
+  column_spec(c(3, 4), width = "7em") %>%
+  column_spec(5:8, width = "6em") %>%
+  column_spec(9, width = "5em") %>%
+  column_spec(10, width = bar_width) %>%
+  pack_topnoind(., "Adult RCT", 1, 45) %>%
+  pack_topnoind(., "Pediatric RCT", 46, 49) %>%
+  footnote(
+    # general = "NS: not specified; mod: moderate; endsurg: end of surgery; shall: shallow; min: minimal; oth: other ",
+    # number = c(""),
+    general_title = "",
+    footnote_as_chunk = FALSE
+  )
+
+table_n <- tab_inc()
+```
+
+<br/>
+
+###    *Pooled*
+
+<a id="revFigXX"></a>
+
+<br/>
+
+<font size = 4> Figure `r figure_n`. Pooled risk difference for recurarization randomized in RCTs comparing sugammadex with neostigmine. </font>
+
+```{r recurarizationPooled, fig.width = 10, fig.height = 5}
+## reintubMeta -------------------------------------- (2022-03-10 10:47) @----
+# studies including neostigmine sugammadex comparison
+compare_refids <- recur.dat |> 
+  mutate(arm_sort = str_extract(arm, "\\(.*\\)"),
+         neo_sug = str_extract(arm, "\\w*")) |> 
+  arrange(study, arm_sort, arm) |> 
+  group_by(study, arm_sort) |> 
+  mutate(compare_arm = lead(neo_sug)) |> 
+  slice(1) |> 
+  ungroup() |> 
+  filter(neo_sug == "Neo" & compare_arm == "Sug") |> 
+  pull(refid)
+
+recur_meta <- recur.dat %>%
+  filter(refid %in% compare_refids) |> 
+  mutate(
+    recur_np = n_percent_dig(recur_n, recur_n / arm_n * 100, 1),
+    recur_p_bar = NA_character_,
+    recur_p = recur_n / arm_n,
+    arm = str_extract(arm, "\\w*"),
+    study = ifelse(!is.na(arm_sort), paste(study, arm_sort), study),
+  ) %>%
+  filter(age == "Adult") %>%
+  filter(!is.na(recur_np)) %>%
+  arrange(age, design, year, study, arm_sort) |> 
+  select(study, arm_n, arm, recur_n) |> 
+  pivot_wider(id_cols = "study", names_from = "arm", values_from = c("recur_n", "arm_n"))
+
+# rct effect sizes
+recur_rct_meta <- metabin(recur_n_Sug, arm_n_Sug, recur_n_Neo, arm_n_Neo,
+  data = recur_meta,
+  studlab = study,
+  sm = "RD",
+  pscale = 100,
+  method = "MH",
+  method.tau = "PM",
+  hakn = FALSE,
+  prediction = TRUE,
+  # subset = design == "RCT"
+)
+
+forest(recur_rct_meta,
+  fixed = FALSE,
+  label.e = "Sugammadex",
+  label.c = "Neostigmine",
+  rightcols = c("effect", "ci"),
+  rightlabs = c("RD", "(95% CI)"),
+  # leftlabs = c("Study", "Events", "Total", "Events", "Total"),
+  # just.addcols = "left",
+  # just.addcols.left = "right",
+  colgap.right = "5mm",
+  colgap.left = "2mm",
+  digits = 1,
+  digits.tau2 = 1,
+  overall.hetstat = TRUE,
+  print.I2.ci = TRUE,
+  # prediction = TRUE,
+  fs.xlab = 11,
+  pooled.events = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  # text.subgroup.nohet = TRUE,
+  colgap.forest.left = "5mm",
+  # xlim = c(0.1, 10),
+  # at = c(.001, 0.01, .1, 1, 2),
+  xlab = "Favors: Sugammadex             Neostigmine")
+
+# figure_n <- fig_inc()
+```
+
+<br/>
 
 <br/><br/>
 
