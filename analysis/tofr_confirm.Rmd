@@ -87,94 +87,22 @@ $(document).ready(function(){
 ## setup ---------------------------------------------- (2022-02-14 16:17) @----
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
-# index of tibbles
-```
-
-```{r rnmbDataExternal, eval = FALSE, echo = FALSE}
-## rnmb extubation external data not included --------- (2022-03-19 17:44) @----
-# study & design to add
-# study_add <- study_char.dat %>% 
-#   select(refid, study, year, design) 
-# 
-# # read excel file
-# ext_confirm_temp <- readxl::read_xlsx("data/Extubationconfirm_031722_mg.xlsx", sheet = "TOFR Confirm", range = "A1:Q104") %>%
-#   clean_names() %>%
-#   left_join(., study_add, by = "refid") %>%
-#   mutate(
-#     study = ifelse(is.na(study), str_extract(authors, "^\\w*"), study), # TODO: delete when distiller complete
-#     rnmb_n = as.numeric(str_extract(rnmb_np, "^\\d{1,3}")),
-#     tofr_conf = factor(tofr_confirm, levels = c("Yes", "No", "NS", "PNS"), labels = c("Yes", "No", "Not stated", "PNS")),
-#     tofr_conf_comb = fct_collapse(tofr_conf, No = c("No", "PNS")),
-#     volatile = case_when(
-#       str_detect(anesth, "Vol") ~ "Volatile",
-#       str_detect(anesth, "NS") ~ "NS/Missing",
-#       anesth == "TIVA" ~ "TIVA alone",
-#       is.na(anesth) ~ "NS/Missing",
-#     ),
-#     rnmb_def_comb = case_when(
-#       str_detect(rnmb_def, "0.9") ~ "0.9",
-#       str_detect(rnmb_def, "0.8") ~ "0.8",
-#       str_detect(rnmb_def, "0.7") ~ "0.7",
-#       str_detect(rnmb_def, "NS") ~ "NS",
-#     )
-#   ) %>%
-#   group_by(refid) %>%
-#   fill(study) %>%
-#   ungroup() %>% # TODO: delete when distiller complete
-#   select(refid, design_f, study, year, rev_agent, rnmb_n, arm_n, volatile, monitor, tofr_conf, tofr_conf_comb, tofr_ext, rnmb_def, rnmb_def_comb, rnmb_monitor, depth) %>%
-#   rename(arm = rev_agent)
-# 
-# # unique refids # NOTE: 65 studies in excel file
-# ext_conf_refid <- sort(unique(ext_confirm_temp$refid))
-# 
-# temp <- ext_confirm_temp %>% 
-#   select(refid, study) %>% 
-#   arrange(refid) %>% 
-#   distinct()
-
-# write_csv(temp, "/Users/mgrant/Desktop/excel_refid_study.csv", na = "")
-
-# in excel file not distiller non missing extbconf
-# study_char.dat %>% 
-#   filter(refid %in% ext_conf_refid[!ext_conf_refid %in% extb_refids]) %>% 
-#   select(refid, study, age)
-
-# in distiller not in excel
-# temp <- study_char.dat %>%
-#   filter(refid %in% extb_refids[extb_refids %notin% ext_conf_refid]) %>% 
-#   select(refid, study, age)
-# 
-# write_csv(temp, "/Users/mgrant/Desktop/distiller_not_excel.csv", na = "")
-
+library(gtsummary, quietly = TRUE)
 ```
 
 ```{r dataBaseRev}
-## data/refids ---------------------------------------- (2022-02-15 10:28) @----
-# NOTE analysis flow
-# - studies with confirmation data (yes/no/not stated) extb_refids
-# - studies with rnmb data
-# - studies rnmb + confirmation
-# - study_char_conf.dat, study_arm_conf.dat, dichot_conf.dat
-# - studies 0.9 confirm and 0.9 rnmb
-# - combine arms, 6 studies (avoid dependencies/hlm); limitations 
-# - conf_meta data set
-# - descriptive table
-# - pooled
-# - sensitivity
-# - forest plots
-# - risk of bias
-
-## confirm extubation refids [extb_refids] ------------ (2022-03-25 12:42) @----
-# TEXT: confirmation 
-extb_refids <- study_arm.dat %>% 
-  filter(!is.na(extbconf), age == "Adult") %>%
-  pull(refid) %>% 
+## confirm extubation refids [extb_refids] ------------ (2022-06-27 12:42) @----
+# confirmation; n = 134 2022-06-27; 283 arms
+extb_refids <- study_arm.dat |> 
+  filter(!is.na(extbconf), age == "Adult") |> 
+  pull(refid) |> 
   unique()
 
 ## studies/arms tables (not run) ---------------------- (2022-03-25 19:00) @----
 # study_arm.dat %>%
 #   filter(refid %in% extb_refids) %>%
-#   filter(age == "Adult") %>%
+#   filter(age == "Adult", !is.na(extbconf)) %>% # !is.na(extbconf) because arms not relevant fully paired or historical controls
+#   # select(refid, study, extbconf) # debug
 #   group_by(refid) %>%
 #   slice(1) %>%
 #   # tabyl(extbconf) %>%
@@ -183,35 +111,7 @@ extb_refids <- study_arm.dat %>%
 #   tabyl(design) %>%
 #   adorn_totals()
 
-# # number of studies
-#        extbconf  n   percent
-#              no 38 0.3838384
-#              ns 26 0.2626263
-#             yes 35 0.3535354
-#           Total 99 1.0000000
-
-# number of arms
-#        extbconf  n   percent
-#             no  78 0.3750000
-#             ns  62 0.2980769
-#            yes  68 0.3269231
-#          Total 208 1.0000000
-
-#         design  n    percent
-#            rct 60 0.60606061
-#      crossover  0 0.00000000
-#        cluster  0 0.00000000
-#   fully_paired  4 0.04040404
-#       quasiexp  3 0.03030303
-#           nrsi  9 0.09090909
-#   prospect_coh 18 0.18181818
-# retrospect_coh  5 0.05050505
-#    casecontrol  0 0.00000000
-#    case_series  0 0.00000000
-#          other  0 0.00000000
-#          Total 99 1.00000000
-
-## rnmb extubation refids [extb_rnmb_refids] ---------- (2022-03-25 19:01) @----
+## rnmb extubation refids extb_rnmb_refids ------------ (2022-06-27 19:01) @----
 # confirmation and rnmb data at any tofr
 extb_rnmb_refids <- dichot.dat %>%
   filter(age == "Adult") %>% 
@@ -221,11 +121,12 @@ extb_rnmb_refids <- dichot.dat %>%
   distinct() %>%
   pull()
 
-# check refids confirmation w/wo extubation data; 99 with extubation confirm; 81 with rnmb 
-# extb_refids %>% tibble(refid = .) %>% filter(refid %in% extb_rnmb_refids) %>% tally() # n = 86
-# extb_refids %>% tibble(refid = .) %>% filter(refid %notin% extb_rnmb_refids) %>% tally() #  no rnmb data n = 13
+# check refids confirmation w/wo extubation data; 98 with extubation confirm; 81 with rnmb 
+# length(unique(extb_rnmb_refids))
+# extb_refids |> tibble(refid = _) |> filter(refid %in% extb_rnmb_refids) |> tally()    # n = 98 2022-06-27
+# extb_refids |> tibble(refid = _) |> filter(refid %notin% extb_rnmb_refids) |> tally() # no rnmb data n = 36 2022-06-27
 
-## study char arm dichot ------------------------------ (2022-03-25 19:14) @----
+## study char arm dichot ------------------------------ (2022-06-27 19:14) @----
 study_char_conf.dat <- study_char.dat %>%
   filter(refid %in% extb_rnmb_refids) 
 
@@ -251,10 +152,7 @@ study_arm_conf.dat <- study_arm.dat %>%
     arm = factor(arm, levels = c("Sug", "Neo", "Plac", "Spont", "Pyrid", "Other"), ordered = TRUE),
     volatile = if_any(c(an_isoflurane, an_sevoflurane, an_desf, an_hal), ~ !is.na(.))
   ) %>%
-  select(refid, extbconf, tofrext, arm_id, year, design, arm_n, arm, age, depth_rev_f, nmbagent, volatile, mon_type, mon_cat, mon_cat_f, sug_dose)
-
-# describe
-# tab_lst(study_arm_conf.dat, c(tofrext, sug_dose, volatile, depth_rev_f:mon_cat_f))
+  select(refid, extbconf, tofrext, arm_id, year, design, arm_n, arm, age, depth_rev_f, nmbagent, volatile, mon_type, mon_cat, mon_cat_f, sug_dose, neo_dose)
 
 dichot_conf.dat <- dichot.dat %>%
 filter(refid %in% extb_rnmb_refids) %>%
@@ -263,18 +161,19 @@ filter(refid %in% extb_rnmb_refids) %>%
       study == "Wu 2014" & arm_n < 50 ~ "Wu 2014 (Caucasian)",
       study == "Wu 2014" & arm_n >= 50 ~ "Wu 2014 (Chinese)",
       TRUE ~ study
-    )
+    ),
   ) %>%
-  select(refid, arm_id, study, study_l, rnmb_location, rnmb1_where, rnmb2_where, matches("rnmb[1-2]_n"), matches("[rnmb][1-2]_9")) %>% 
+  select(refid, arm_id, study, study_l, rnmb_location, rnmb1_where, rnmb2_where, matches("rnmb[1-2]_n"), matches("[rnmb][1-2]_9"), tofr_normalized) %>% 
   select(-contains("pval"), -contains("clin"), -contains("per")) %>% 
   left_join(., study_arm_conf.dat, by = c("refid", "arm_id")) %>% 
   relocate(c(year, design, arm, arm_n, age, extbconf, tofrext), .after = study_l)
 
-# qinu(dichot_conf.dat, refid) n = 86 correct 2022/03/26 11:35
-
-# select confirmed 0.9 and rnmb 0.9
-conf_meta_temp <- dichot_conf.dat %>%
+## create meta-analysis data -------------------------- (2022-07-05 10:42) @----
+conf_meta_temp <- dichot_conf.dat |> 
+  filter(!is.na(mon_cat_f)) |> 
   mutate(
+    # to have 3 categories of monitoring: Quant, Qual, Clin/None/NS (not stated)
+    mon_cat_f = fct_collapse(mon_cat_f, "Clin/None/NS" = c("Clin", "None/NS")), 
     rnmb9_n = case_when(
       rnmb1_9 == "rnmb1_9" ~ rnmb1_n,
       rnmb2_9 == "rnmb2_9" ~ rnmb2_n,
@@ -286,39 +185,50 @@ conf_meta_temp <- dichot_conf.dat %>%
     rnmb_where = ifelse(is.na(rnmb_where), rnmb_location, rnmb_where),
     rnmb_where = ifelse(rnmb_where == "post_ext", "post_extub", rnmb_where),
     confirm = case_when(
-      extbconf == "yes" & tofrext %in%  c("tofrext9", "tofrext1") ~ "≥0.9 confirmed",
-      extbconf == "yes" & str_detect(tofrext, "tofrext") ~ "≥0.7,0.8/NS confirmed",
+      extbconf == "yes" & tofrext %in%  c("tofrext9", "tofrext1") ~ "Confirmed ≥0.9",
+      extbconf == "yes" & grepl("7|8|ns", tofrext) ~ "Confirmed ≥0.8/NS", # confirmed at 0.7, 0.8, or level not stated
       extbconf == "no" ~ "Not confirmed",
       extbconf == "ns" ~ "Not stated"
     ),
+    # if No quantitative monitoring, set to unconfirmed 
+    confirm = ifelse(mon_cat_f == "Qual", "Qualitative monitoring", confirm), 
+    confirm = ifelse(str_detect(mon_cat_f, "Clin"), "Clinical/None/NS", confirm), 
   ) %>%
-  # filter(!is.na(rnmb9_n), mon_cat_f == "Quant", arm %in% c("Neo", "Sug")) %>%
-  filter(!is.na(rnmb9_n), confirm %notin% "≥0.7,0.8/NS confirmed", mon_cat_f == "Quant", arm %in% c("Neo", "Sug")) %>%
-  # NOTE: all studies used quantitive monitoring.
-  mutate(confirm = ordered(confirm, levels = c("≥0.9 confirmed", "Not confirmed", "Not stated"))) %>%
-  select(mon_cat_f, refid, study, year, design, age, arm, arm_n, rnmb9_n, rnmb_where, rnmb_location, extbconf, tofrext, confirm, nmbagent, volatile, mon_cat_f, depth_rev_f)
+  # only neostigmine and sugammadex arms
+  filter(!is.na(rnmb9_n), arm %in% c("Neo", "Sug")) %>% 
+  select(refid, study, year, design, age, arm, arm_n, rnmb9_n, rnmb_where, rnmb_location, extbconf, tofrext, confirm, nmbagent, volatile, mon_cat_f, depth_rev_f)
 
-# collapse multiarm
-remove <- c(1511, 2088, 3305, 2523, 2961, 2197, 2234)
+## multiarm using same agent -------------------------- (2022-07-05 20:27) @----
+multiarm_refid <- conf_meta_temp |> 
+  group_by(study, arm, confirm) |> 
+  filter(n() > 1) |> 
+  ungroup() |> 
+  select(refid) |> 
+  distinct() |> 
+  pull(refid)
+
+# get combined depths for arms, 2022-06-30 8 arms from 7 studies
 temp_1 <- conf_meta_temp %>%
-  filter(refid %in% remove) %>%
+  filter(refid %in% multiarm_refid) %>%
   group_by(study, arm) %>%
-  summarise(arm_n = sum(arm_n), rnmb9_n = sum(rnmb9_n), depth_rev_f = str_c(depth_rev_f, collapse = ":")) %>% 
-  ungroup %>% 
+  summarise(arm_n = sum(arm_n), rnmb9_n = sum(rnmb9_n), depth_rev_f = str_c(depth_rev_f, collapse = ":")) %>%
+  ungroup %>%
   select(-arm)
 
-temp_2 <- conf_meta_temp %>% 
-  filter(refid %in% remove) %>%
-  group_by(study, arm) %>% 
-  slice(1) %>% 
-  ungroup() %>% 
-  select(-c(study, arm_n, rnmb9_n, depth_rev_f)) 
+# get characteristics for combined arms
+temp_2 <- conf_meta_temp %>%
+  filter(refid %in% multiarm_refid) %>%
+  group_by(study, arm) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(-c(study, arm_n, rnmb9_n, depth_rev_f))
 
-add <- bind_cols(temp_2, temp_1) %>% 
+# new data from multiarm
+add <- bind_cols(temp_2, temp_1) %>%
   select(names(conf_meta_temp))
 
 conf_meta_temp <- conf_meta_temp %>%
-  filter(!refid %in% remove) %>%
+  filter(!refid %in% multiarm_refid) %>%
   bind_rows(., add) %>%
   mutate(
     depth = as.character(depth_rev_f),
@@ -331,28 +241,23 @@ conf_meta_temp <- conf_meta_temp %>%
     depth = str_replace(depth, "endsurg", "End surgery"),
     depth = str_replace(depth, "min", "Min"),
     depth = str_replace(depth, "Mod:Deep", "Deep:Mod")
-  ) %>%
-  left_join(., study_ident[, c("refid", "study_l", "design_f")], by = "refid") %>%
-  select(-design) %>%
-  mutate(
-    design_f = fct_recode(design_f,
-      "Before-After" = "Before-After/Time Series",
-      "NR Trial" = "Nonrandomized Trial",
-      "Prosp Cohort" = "Prospective Cohort",
-      "Retro Cohort" = "Retrospective Cohort",
-    )
-  )
+  ) |> 
+  select(-design) # add after adding domenech
 
 # add Domenech 2019; entered as comparison of monitoring vs none in kq3
 domenech2019 <- tribble(
-~mon_cat_f,~refid,~study,~year,~age,~arm,~arm_n,~rnmb9_n,~rnmb_where,~rnmb_location,~extbconf,~tofrext,~confirm,~nmbagent,~volatile,~depth_rev_f,~depth,~study_l,~design_f,
-"Quant",3270,"Domenech 2019",2019,"Adult","Sug",42,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Cohort",
-"Quant",3270,"Domenech 2019",2019,"Adult","Neo",9, 0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,"Retro Cohort"
-)
+  ~mon_cat_f, ~refid, ~study, ~year, ~age, ~arm, ~arm_n, ~rnmb9_n, ~rnmb_where, ~rnmb_location, ~extbconf, ~tofrext, ~confirm, ~nmbagent, ~volatile, ~depth_rev_f, ~depth, ~study_l, 
+  "Quant",3270,"Domenech 2019",2019,"Adult","Sug",42,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA,
+  "Quant",3270,"Domenech 2019",2019,"Adult","Neo",9,0,"pacu","pacu","ns",NA,"Not stated","various",NA,"ns","NS",NA, 
+  "Clin",3270,"Domenech 2019",2019,"Adult","Sug",19,3,"pacu","pacu","ns",NA,"Clinical/None/NS","various",NA,"ns","NS",NA, 
+  "Clin",3270,"Domenech 2019",2019,"Adult","Neo",5,2,"pacu","pacu","ns",NA,"Clinical/None/NS","various",NA,"ns","NS",NA,  
+) |> 
+  select(names(conf_meta_temp)) # will be the same for binding rows
 
 ## conf_meta ------------------------------------------ (2022-04-01 08:37) @----
 conf_meta <- bind_rows(conf_meta_temp, domenech2019) %>% 
   mutate(
+    confirm = factor(confirm, levels = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS", "Not confirmed", "Not stated", "Qualitative monitoring", "Clinical/None/NS")),
     rnmb_where = case_when(
     rnmb_where == "ns" ~ "NS",
     rnmb_where %in% c("post_extub", "or") ~ "Extubation",
@@ -360,10 +265,78 @@ conf_meta <- bind_rows(conf_meta_temp, domenech2019) %>%
     rnmb_where == "recover" ~ "Recovery"
   ),
   rnmb_where = factor(rnmb_where, levels = c("Extubation", "PACU", "Recovery", "NS"))) %>% 
-  arrange(confirm, rnmb_where, year)
+  arrange(confirm, rnmb_where, year) %>%
+  left_join(., study_ident[, c("refid", "study_l", "design_f")], by = "refid") |> 
+  # rename(design_f = design) %>%
+  mutate(
+    design_f = fct_recode(design_f,
+      "Before-After" = "Before-After/Time Series",
+      "NR Trial" = "Nonrandomized Trial",
+      "Prosp Cohort" = "Prospective Cohort",
+      "Retro Cohort" = "Retrospective Cohort",
+    ),
+    design_f = fct_drop(design_f)
+  )
 
-rm(add, remove, temp_1, temp_2, conf_meta_temp)
+rm(add, multiarm_refid, temp_1, temp_2, conf_meta_temp)
+
+## descriptive for results (not run) ------------------ (2022-07-05 12:24) @----
+# conf_meta |> 
+#   tabyl(confirm) |> 
+#   adorn_totals()
+# 
+# conf_meta |> 
+#   group_by(refid) |> 
+#   slice(1) |> 
+#   tabyl(design_f, show_missing_levels = FALSE) |> 
+#   adorn_totals()
+# 
+# tbl_temp <- conf_meta |> 
+#   tbl_cross(row = mon_cat_f, col = confirm, percent = "row")
+# 
+# tbl_temp <- as_tibble(tbl_temp)
+# 
+# write_csv(tbl_temp, "/Users/mgrant/Desktop/tbl_temp.csv", na = "")
+# can save a prn to add to text file
+
 ```
+
+## **Summary**
+
+<font size = 4> Figure `r figure_n`. Residual neuromuscular blockade (TOFR < 0.9, pooled incidence proportion) in arms of randomized and nonrandomized studies according to type of monitoring and confirmation of TOFR prior to extubation.</font>
+
+`r figure_n <- fig_inc()`
+
+<br/>
+
+```{r, fig.align = "left", fig.width = 9.5, fig.height = 4, eval = FALSE}
+library(forester)
+library(extrafont)
+loadfonts(device = "pdf")
+
+table <- readxl::read_excel(
+  "data/confirm_data.xlsx",
+  sheet = "data",
+  range = "A1:G18"
+)
+
+forester(left_side_data = table[,1:4],
+         estimate = table$`per 100`,
+         estimate_col_name = "RNMB per 100",
+         ci_low = table$`CI low`,
+         ci_high = table$`CI high`,
+         display = TRUE,
+         nudge_y = -.3, 
+         justify = 0,
+         file_path = "docs/assets/confirm_summary.png",
+         font_family = "Fira Sans")
+```
+
+<img src = "assets/confirm_summary.png" style="width:600px;" align = "left"/>
+
+RNMB: residual neuromuscular blockade (TOFR < 0.9)
+
+<br clear="all" />
 
 <br/>
 
@@ -373,32 +346,36 @@ rm(add, remove, temp_1, temp_2, conf_meta_temp)
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (sugammadex used for reversal). All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Residual neuromuscular blockade in study arms according to TOFR confirmation prior to extubation when quantitative monitoring was used and in studies where quantitative monitoring was not used. Sugammadex given for reversal.</font>
 
 ```{r sugammadexKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
-conf_kbl <- conf_meta %>%
+conf_kbl <- conf_meta |>
   # arrange(confirm, year, study, arm) %>%
-  mutate(rnmb9_np = n_percent1(rnmb9_n, rnmb9_n/arm_n * 100),
-         rnmb9_per = rnmb9_n/arm_n) %>% 
-  select(refid, year, design_f, study, arm, arm_n, rnmb9_n, nmbagent, volatile, mon_cat_f, depth, rnmb_where, rnmb9_np, extbconf, confirm, rnmb9_per) %>% 
+  mutate(
+    rnmb9_np = n_percent1(rnmb9_n, rnmb9_n / arm_n * 100),
+    rnmb9_per = rnmb9_n / arm_n,
+  ) |>
+  select(refid, year, design_f, study, study_l, arm, arm_n, rnmb9_n, nmbagent, volatile, mon_cat_f, depth, rnmb_where, rnmb9_np, extbconf, confirm, rnmb9_per) |>
   # select only to go in meta
-  filter(arm %in% c("Neo", "Sug")) %>% 
-  left_join(., study_char.dat[ , c("refid", "study_l")], by = "refid") 
-
-# table_tally_2(temp, confirm, design_f)
+  filter(arm %in% c("Neo", "Sug"))
 
 dichot_format <- function(x) (x/100)
 
-# temp <- conf_kbl %>% 
-conf_kbl %>% 
+conf_kbl %>%
+  # temp <- conf_kbl %>%
+  # table_tally_2(temp, confirm, design_f)
+  # filter(mon_cat_f == "Quant") |> 
   filter(arm == "Sug") %>% 
-  select(confirm, study_l, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
+  select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
-    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
+    confirm == "Confirmed ≥0.9" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
     confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
+    confirm == "Confirmed ≥0.8/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
+    confirm == "Qualitative monitoring"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
+    confirm == "Clinical/None/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, "#dc0c22", 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
   rnmb_bar = str_replace(rnmb_bar, ">0\\.?\\d*", ",>&nbsp;"),
@@ -414,8 +391,8 @@ kbl(
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = study_width) %>%
-  column_spec(2, width = "8em") %>%
+  column_spec(1, width = "12em") %>%
+  column_spec(2, width = "10em") %>%
   column_spec(3, width = "4em") %>%
   column_spec(4, width = "4em") %>%
   column_spec(5, width = "5em") %>%
@@ -423,11 +400,16 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 9) %>%
-  pack_topnoind(., "Not confirmed", 10, 20) %>%
-  pack_topnoind(., "Not stated", 21, 27) %>%
+  pack_topnoind(., "Quantitative monitoring", 1, 30) %>% 
+  pack_sub_bold_ind(., "Confirmed ≥ 0.9", 1, 10) %>%
+  pack_sub_bold_ind(., "Confirmed ≥ 0.8/NS", 11, 12) %>%
+  pack_sub_bold_ind(., "Not confirmed", 13, 23) %>%
+  pack_sub_bold_ind(., "Not stated", 24, 30) %>%
+  pack_top(., "No quantitative monitoring", 31, 35) %>%
+  pack_sub_bold_ind(., "Qualitative monitoring", 31, 31) %>%
+  pack_sub_bold_ind(., "Clinical/None/NS", 32, 35) %>%
   footnote(
-    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
+    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit; NS: not stated.",
     alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
@@ -437,18 +419,30 @@ table_n <- tab_inc()
 ```
 
 ```{r metaBaseCode}
+## meta data ------------------------------------------ (2022-07-06 11:25) @----
+# consider only confirmed vs not 
+conf_meta_collapsed <- conf_meta |> 
+  mutate(
+    confirm = fct_collapse(confirm, Confirmed = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS")),
+  )
+
+# only quantitative monitoring
+conf_meta_quant <- conf_meta_collapsed |>
+  filter(!confirm %in% c("Qualitative monitoring", "Clinical/None/NS"))
+
 ## metaSug -------------------------------------------- (2022-03-23 07:42) @----
 ## forest function and base meta ---------------------- (2022-03-23 14:30) @----
 forest_conf <- function(meta_result) {
   forest(meta_result,
+    overall = FALSE,
     fixed = FALSE,
     rightcols = c("effect", "ci"),
     rightlabs = c(" ", "(95% CI)"),
     smlab = "Residual Neuromuscular Blockade\n per 100 patients",
-    digits = 1,
+    digits = ,
     pscale = 100,
     digits.tau2 = 1,
-    overall.hetstat = TRUE,
+    overall.hetstat = FALSE,
     print.I2.ci = TRUE,
     prediction = FALSE,
     prediction.subroup = TRUE,
@@ -460,14 +454,16 @@ forest_conf <- function(meta_result) {
     colgap.forest.left = "30mm",
     just.addcols.right = "left",
     xlim = c(0, 100),
+    ref = 0
     # xlab = "Incidence/100 TOFR <0.9"
   )
 }
 
 rnmb_meta <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta,
+  data = conf_meta_collapsed,
   studlab = study,
   sm = "PAS",
+  method.tau = "PM",
   hakn = TRUE,
   prediction.subgroup = FALSE,
   prediction = FALSE,
@@ -496,7 +492,8 @@ compare_ci <- function(data_meta) {
 
 <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font>
 
-```{r metaSug, fig.align = "left", fig.width = 9.5, fig.height = 10}
+```{r metaSug, fig.align = "left", fig.width = 9.5, fig.height = 12}
+
 ## metaSug -------------------------------------------- (2022-03-24 10:18) @----
 rnmb_sug <- update(rnmb_meta, 
   subset = arm == "Sug"
@@ -510,40 +507,57 @@ rnmb_sug <- update(rnmb_meta,
 
 forest_conf(rnmb_sug)
 figure_n <- fig_inc()
+```
+
+```{r riskratios, eval = FALSE}
+## quant monitoring all categories confirmed ---------- (2022-07-06 08:47) @----
+rnmb_meta_any <- metaprop(
+  rnmb9_n, 
+  arm_n,
+  data = conf_meta_quant,
+  studlab = study,
+  sm = "PAS",
+  hakn = TRUE,
+  prediction.subgroup = FALSE,
+  prediction = FALSE,
+  subgroup = confirm
+)
 
 ## risk ratio ----------------------------------------- (2022-03-23 17:08) @----
-# rnmb_sug <- update(rnmb_meta,
-#   # subset = arm == "Sug" & mon_cat_f == "Quant" & str_detect(confirm, "confirm"),
-#   subset = arm == "Sug" & str_detect(confirm, "confirm"),
-#   backtransf = FALSE,
-# )
-# compare_ci(rnmb_sug)
+rnmb_sug_meta_any <- update(rnmb_meta_any,
+  # subset = arm == "Sug" & mon_cat_f == "Quant" & str_detect(confirm, "confirm"),
+  subset = arm == "Sug" & str_detect(confirm, "onfirmed"),
+  backtransf = FALSE,
+)
+
+compare_ci(rnmb_sug_meta_any)
 
 ## exclude Alday 2019 --------------------------------- (2022-03-24 08:23) @----
-# rnmb_sug <- update(rnmb_meta,
-#   subset = arm == "Sug" & study != "Alday 2019" & str_detect(confirm, "confirm"),
-#   backtransf = FALSE,
-# )
-# compare_ci(rnmb_sug)
+rnmb_sug <- update(rnmb_sug_meta_any,
+  subset = study != "Alday 2019",
+  backtransf = FALSE,
+)
+
+compare_ci(rnmb_sug)
 
 ## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
-# conf_meta_sens <- conf_meta %>%
-#   mutate(
-#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
-#   )
+conf_meta_sens <- conf_meta_quant %>%
+  mutate(
+    # confirm = fct_recode(confirm, "Confirmed" = "Not stated")
+    confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+  )
 
-# rnmb_meta <- metaprop(rnmb9_n, arm_n,
-#   data = conf_meta_sens,
-#   studlab = study,
-#   sm = "PAS",
-#   hakn = TRUE,
-#   subset = arm == "Sug",
-#   subgroup = confirm,
-#   backtransf = FALSE
-# )
-# 
-# compare_ci(rnmb_meta)
+rnmb_meta <- metaprop(rnmb9_n, arm_n,
+  data = conf_meta_sens,
+  studlab = study,
+  sm = "PAS",
+  hakn = TRUE,
+  subset = arm == "Sug",
+  subgroup = confirm,
+  backtransf = FALSE
+)
+
+compare_ci(rnmb_meta)
 
 ```
 
@@ -551,39 +565,54 @@ figure_n <- fig_inc()
 
 | Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| Confirmed vs. not confirmed                 | 0.07 (0.00, 0.56) |
-|    Removing Alday 2019                      | 0.11 (0.00, 0.81) |
-| Assuming all not stated were confirmed      | 0.09 (0.00, 0.60) |
-| Assuming all not stated were not confirmed  | 0.13 (0.00, 1.07) |
+| Confirmed vs. not confirmed                 | 0.07 (0.00, 0.65) |
+|    Removing Alday 2019                      | 0.21 (0.00, 1.81) |
+| Assuming all not stated were confirmed      | 0.09 (0.00, 0.77) |
+| Assuming all not stated were not confirmed  | 0.12 (0.00, 1.09) |
 
 </font>
 
-<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples).</font>
+<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from von Quillfeldt 2013 and Pecek 2015 confirmed at TOFR ≥ 0.8.  E-value point estimate of 28.1 (upper limit 2.4) for the main result. </font>
 
 <br/>
+
 
 # **Neostigmine**
 
-<a id="confTab2"></a>
+<a id="confTab1"></a>
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study arms included in analyses of TOFR ≥0.9 confirmed prior to extubation (neostigmine used for reversal). All studies utilized quantitative monitoring.</font>
+<font size = 4> Table `r table_n`. Residual neuromuscular blockade in study arms according to TOFR confirmation prior to extubation when quantitative monitoring was used and in studies where quantitative monitoring was not used. Neostigmine given for reversal.</font>
 
-```{r neostigmineKbl}
+```{r NeostigmineKbl}
 ## descriptive table ---------------------------------- (2022-03-26 15:30) @----
-# table_tally_2(temp, confirm, design_f)
+conf_kbl <- conf_meta |>
+  # arrange(confirm, year, study, arm) %>%
+  mutate(
+    rnmb9_np = n_percent1(rnmb9_n, rnmb9_n / arm_n * 100),
+    rnmb9_per = rnmb9_n / arm_n,
+  ) |>
+  select(refid, year, design_f, study, study_l, arm, arm_n, rnmb9_n, nmbagent, volatile, mon_cat_f, depth, rnmb_where, rnmb9_np, extbconf, confirm, rnmb9_per) |>
+  # select only to go in meta
+  filter(arm %in% c("Neo", "Neo"))
+
 dichot_format <- function(x) (x/100)
 
-# temp <- conf_kbl %>% 
-conf_kbl %>% 
+conf_kbl %>%
+  # temp <- conf_kbl %>%
+  # temp <- table_tally_2(temp, confirm, design_f)
+  # filter(mon_cat_f == "Quant") |> 
   filter(arm == "Neo") %>% 
-  select(confirm, study_l, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
+  select(confirm, study, design_f, arm_n, nmbagent, volatile, depth, rnmb_where, rnmb9_np, rnmb9_per) %>% 
   mutate(
   rnmb_bar = case_when(
-    confirm == "≥0.9 confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
+    confirm == "Confirmed ≥0.9" ~ bar_wn(rnmb9_per, rnmb9_per, color_1, 1),
     confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
+    confirm == "Confirmed ≥0.8/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
+    confirm == "Qualitative monitoring"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
+    confirm == "Clinical/None/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, "#dc0c22", 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
   rnmb_bar = str_replace(rnmb_bar, ">0\\.?\\d*", ",>&nbsp;"),
@@ -599,8 +628,8 @@ kbl(
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
-  column_spec(1, width = study_width) %>%
-  column_spec(2, width = "8em") %>%
+  column_spec(1, width = "12em") %>%
+  column_spec(2, width = "10em") %>%
   column_spec(3, width = "4em") %>%
   column_spec(4, width = "4em") %>%
   column_spec(5, width = "5em") %>%
@@ -608,11 +637,16 @@ kbl(
   column_spec(7, width = "6em") %>%
   column_spec(8, width = "6em") %>%
   column_spec(9, width = bar_width) %>% 
-  pack_topnoind(., "≥0.9 confirmed", 1, 9) %>%
-  pack_topnoind(., "Not confirmed", 10, 21) %>%
-  pack_topnoind(., "Not stated", 22, 31) %>%
+  pack_topnoind(., "Quantitative monitoring", 1, 41) %>% 
+  pack_sub_bold_ind(., "Confirmed ≥ 0.9", 1, 10) %>%
+  pack_sub_bold_ind(., "Confirmed ≥ 0.8/NS", 11, 15) %>%
+  pack_sub_bold_ind(., "Not confirmed", 16, 31) %>%
+  pack_sub_bold_ind(., "Not stated", 32, 41) %>%
+  pack_top(., "No quantitative monitoring", 42, 60) %>%
+  pack_sub_bold_ind(., "Qualitative monitoring", 42, 50) %>%
+  pack_sub_bold_ind(., "Clinical/None/NS", 51, 60) %>%
   footnote(
-    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit.",
+    general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit; NS: not stated.",
     alphabet = c("Extubation includes designated in OR."),
     general_title = "",
     footnote_as_chunk = FALSE,
@@ -621,82 +655,88 @@ kbl(
 table_n <- tab_inc()
 ```
 
+
 <br/>
 
 #   Pooled
 
-<a id="confFig2"></a>
+<a id="confFig1"></a>
 
 <br/>
 
-<font size = 4> Figure `r figure_n`.  Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with neostigmine). </font>
-```{r metaNeo, fig.align = "left", fig.width = 9.5, fig.height = 10.2}
+<font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with Neostigmine). </font>
+
+```{r metaNeo, fig.align = "left", fig.width = 9.5, fig.height = 17}
 ## metaNeo -------------------------------------------- (2022-03-24 10:18) @----
-rnmb_neo <- update(rnmb_meta,
+rnmb_neo <- update(rnmb_meta, 
   subset = arm == "Neo"
-  # subset = arm == "Neo" & str_detect(confirm, "confirm"), 
+  # remove Alday 2019 outlier
+  # subset = arm == "Neo" & study != "Alday 2019",
+  # compare confirm vs not confirmed
+  # subset = arm == "Neo" & str_detect(confirm, "confirm"),
+  # compare confirm vs not confirmed removing Alday 2019
+  # subset = arm == "Neo" & str_detect(confirm, "confirm")  & study != "Alday 2019",
 )
 
 forest_conf(rnmb_neo)
 figure_n <- fig_inc()
+```
+
+
+```{r riskratiosNeo, eval = FALSE}
+## quant monitoring all categories confirmed ---------- (2022-07-06 08:47) @----
+rnmb_meta_any <- metaprop(
+  rnmb9_n, 
+  arm_n,
+  data = conf_meta_quant,
+  studlab = study,
+  sm = "PAS",
+  hakn = TRUE,
+  prediction.subgroup = FALSE,
+  prediction = FALSE,
+  subgroup = confirm
+)
 
 ## risk ratio ----------------------------------------- (2022-03-23 17:08) @----
-# rnmb_neo <- update(rnmb_meta,
-#   # subset = arm == "Neo" & str_detect(confirm, "confirm"),
-#   subset = arm == "Neo" & str_detect(confirm, "confirm"),
-#   backtransf = FALSE,
-# )
-# compare_ci(rnmb_neo)
+rnmb_neo_meta_any <- update(rnmb_meta_any,
+  # subset = arm == "Neo" & mon_cat_f == "Quant" & str_detect(confirm, "confirm"),
+  subset = arm == "Neo" & str_detect(confirm, "onfirmed"),
+  backtransf = FALSE,
+)
 
-## assume all not stated confirmed or not ------------- (2022-03-24 09:57) @----
-# conf_meta_sens <- conf_meta %>%
-#   mutate(
-#     # confirm = fct_recode(confirm, "≥0.9 confirmed" = "Not stated")
-#     confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
-#   )
-# 
-# rnmb_meta <- metaprop(rnmb9_n, arm_n,
-#   data = conf_meta_sens,
-#   studlab = study,
-#   sm = "PAS",
-#   hakn = TRUE,
-#   subset = arm == "Neo",
-#   subgroup = confirm,
-#   backtransf = FALSE
-# )
-# 
-# compare_ci(rnmb_meta)
+compare_ci(rnmb_neo_meta_any)
+
+## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
+conf_meta_sens <- conf_meta_quant %>%
+  mutate(
+    confirm = fct_recode(confirm, "Confirmed" = "Not stated")
+    # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
+  )
+
+rnmb_meta <- metaprop(rnmb9_n, arm_n,
+  data = conf_meta_sens,
+  studlab = study,
+  sm = "PAS",
+  hakn = TRUE,
+  subset = arm == "Neo",
+  subgroup = confirm,
+  backtransf = FALSE
+)
+
+compare_ci(rnmb_meta)
 ```
+
 <font size = 4> Risk Ratios  
 
 | Comparison                                  | RR (95% CI)       |
 |:--------------------------------------------|:------------------|
-| Confirmed vs. not confirmed                 | 0.13 (0.04, 0.32) |
-| Assuming all not stated were confirmed      | 0.21 (0.06, 0.52) |
-| Assuming all not stated were not confirmed  | 0.20 (0.06, 0.51) |
+| Confirmed vs. not confirmed                 | 0.22 (0.09, 0.44) |
+| Assuming all not stated were confirmed      | 0.24 (0.10, 0.48) |
+| Assuming all not stated were not confirmed  | 0.31 (0.12, 0.68) |
 
 </font>
 
-<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples).</font>
-
-<br/>
-
-```{r, eval = FALSE}
-# numbers for SOE
-conf_meta %>% 
-  filter(arm == "Neo") %>% 
-  # select(refid) %>% 
-  # pull(refid)
-  summarise(pts = sum(arm_n))
-```
-
-
-
-<br clear="all" />
-
-<hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-<br>
+<font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from Murphy 2008, Murphy 2011, Norton 2013, Thilen 2018, and Pecek 2015  confirmed at TOFR ≥ 0.8 or was not stated.  E-value point estimate of 8.6 (upper limit 4.0) for the main result. </font>
 
 # **References**
 
