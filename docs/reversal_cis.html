@@ -11,7 +11,7 @@
 
 
 
-<title>Study Characteristics</title>
+<title>Cisatracurium/Atracurium</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -35,8 +35,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -435,8 +433,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Study Characteristics</h1>
-<h4 class="date">22 July, 2022 (15:18)</h4>
+<h1 class="title toc-ignore">Cisatracurium/Atracurium</h1>
 
 </div>
 
@@ -444,7 +441,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -455,8 +452,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -465,13 +462,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-22
+<strong>Last updated:</strong> 2022-07-05
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>nmb/</code> <span
@@ -494,18 +491,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -596,15 +596,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree95d4158ad5779fd4d5dff96dfe2a8273d67f9f40targetblank95d4158a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree6775519dcef60653b102fa45fea2d26a42a4e3f3targetblank6775519a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/95d4158ad5779fd4d5dff96dfe2a8273d67f9f40" target="_blank">95d4158</a>
+<a href="https://github.com/mdgrant/NMB/tree/6775519dcef60653b102fa45fea2d26a42a4e3f3" target="_blank">6775519</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree95d4158ad5779fd4d5dff96dfe2a8273d67f9f40targetblank95d4158a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree6775519dcef60653b102fa45fea2d26a42a4e3f3targetblank6775519a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -614,7 +614,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/95d4158ad5779fd4d5dff96dfe2a8273d67f9f40" target="_blank">95d4158</a>.
+<a href="https://github.com/mdgrant/NMB/tree/6775519dcef60653b102fa45fea2d26a42a4e3f3" target="_blank">6775519</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -688,108 +688,10 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/summary_kq3.Rmd</code>) and HTML
-(<code>docs/summary_kq3.html</code>) files. If you’ve configured a
-remote Git repository (see <code>?wflow_git_remote</code>), click on the
-hyperlinks in the table below to view the files as they were in that
-past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/d21c095c5c4a16fd2eafa230cc016ed7360b15ea/docs/summary_kq3.html" target="_blank">d21c095</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-18
-</td>
-<td>
-fix menus
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/119b1f35a0bc7774cdd40843791cca04ca7384bf/docs/summary_kq3.html" target="_blank">119b1f3</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-18
-</td>
-<td>
-update bibs and edits
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/b37281cf23e9a9f13217f7c98de52a404d11f687/analysis/summary_kq3.Rmd" target="_blank">b37281c</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-<td>
-add summaries
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/mdgrant/NMB/b37281cf23e9a9f13217f7c98de52a404d11f687/docs/summary_kq3.html" target="_blank">b37281c</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-<td>
-add summaries
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
@@ -834,6 +736,17 @@ display: none !important;
     padding: 2px;
   }
 
+<!-- .arrow { -->
+<!--   border-right-color: red !important; -->
+<!-- } -->
+
+:target {  /* fix target location so caption appears */
+    display: block;
+    position: relative;
+    top: -25px;
+    visibility: hidden;
+}
+
 </style>
 
 <script>
@@ -841,493 +754,9 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover({html: true, placement: top});
 });
 </script>
-<div style="page-break-after: always;"></div>
-<div id="all-studies-adult" class="section level2">
-<h2>All Studies (Adult)</h2>
-<div id="study-characteristics" class="section level3">
-<h3>Study Characteristics</h3>
-<p><br/></p>
-<p><font size = 4> Table 1. Study characteristics. </font></p>
-<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
-<thead>
-<tr>
-<th style="text-align:left;font-weight: bold;">
-Characteristic
-</th>
-<th style="text-align:center;font-weight: bold;">
-N or N (%)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Number of Studies
-</td>
-<td style="text-align:center;width: 8em; ">
-16
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Design
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  RCT
-</td>
-<td style="text-align:center;width: 8em; ">
-10 (62.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Prospective Cohort
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (18.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Fully Paired
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Before-After/Time Series
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Retrospective Cohort
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Patients Enrolled (N)
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Mean
-</td>
-<td style="text-align:center;width: 8em; ">
-1184
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Median
-</td>
-<td style="text-align:center;width: 8em; ">
-120
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Range
-</td>
-<td style="text-align:center;width: 8em; ">
-(30-17150)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Arms
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Two
-</td>
-<td style="text-align:center;width: 8em; ">
-11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Multi
-</td>
-<td style="text-align:center;width: 8em; ">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Mean
-</td>
-<td style="text-align:center;width: 8em; ">
-2.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Median
-</td>
-<td style="text-align:center;width: 8em; ">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Range
-</td>
-<td style="text-align:center;width: 8em; ">
-(1-5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Pilot Study
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Ambulatory
-</td>
-<td style="text-align:center;width: 8em; ">
-0 (0.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Centers
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Single Center
-</td>
-<td style="text-align:center;width: 8em; ">
-14 (87.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Multicenter
-</td>
-<td style="text-align:center;width: 8em; ">
-2 (12.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Volatile Anesthetic
-</td>
-<td style="text-align:center;width: 8em; ">
-6 (37.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Country
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  United States
-</td>
-<td style="text-align:center;width: 8em; ">
-5 (31.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Denmark
-</td>
-<td style="text-align:center;width: 8em; ">
-4 (25.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  India
-</td>
-<td style="text-align:center;width: 8em; ">
-2 (12.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Argentina
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Japan
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Kenya
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Saudi Arabia
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  NA
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Non-very-high HDI Countryª
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (18.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Funding
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Industry
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Public/Industry
-</td>
-<td style="text-align:center;width: 8em; ">
-0 (0.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Public
-</td>
-<td style="text-align:center;width: 8em; ">
-5 (31.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Not Reported
-</td>
-<td style="text-align:center;width: 8em; ">
-8 (50.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Author COI
-</td>
-<td style="text-align:center;width: 8em; ">
-4 (25.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Registered
-</td>
-<td style="text-align:center;width: 8em; ">
-4 (25.0)
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup></sup> RCT: randomized controlled trial; COI: conflict of interest.
-</td>
-</tr>
-<tr>
-<td style="padding: 0; " colspan="100%">
-<sup>a</sup> Non very high <a
-href="https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index">Human
-Development Index</a> country.
-</td>
-</tr>
-</tfoot>
-</table>
-<p><br/></p>
-</div>
-<div id="patient-charcteristics" class="section level3">
-<h3>Patient Charcteristics</h3>
-<p><br/></p>
-<p><font size = 4> Table 2. Patient characteristics. </font></p>
-<table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; ">
-<thead>
-<tr>
-<th style="text-align:left;font-weight: bold;">
-Characteristic
-</th>
-<th style="text-align:center;font-weight: bold;">
-Result
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Age (average of mean or med, range)
-</td>
-<td style="text-align:center;width: 8em; ">
-47.2 (35-68)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Female (%, range)
-</td>
-<td style="text-align:center;width: 8em; ">
-55.9 (18-95)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-ASA Class (%)
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  I-II
-</td>
-<td style="text-align:center;width: 8em; ">
-6 (37.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  I-III
-</td>
-<td style="text-align:center;width: 8em; ">
-7 (43.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  I-IV
-</td>
-<td style="text-align:center;width: 8em; ">
-0 (0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  NR
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (18.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-BMI (average of mean or med, range)
-</td>
-<td style="text-align:center;width: 8em; ">
-26.5 (23-29)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-Surgery, N (%)
-</td>
-<td style="text-align:center;width: 8em; ">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Various (3 or more)
-</td>
-<td style="text-align:center;width: 8em; ">
-8 (50.0)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  GI
-</td>
-<td style="text-align:center;width: 8em; ">
-3 (18.8)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Gyn, GI
-</td>
-<td style="text-align:center;width: 8em; ">
-2 (12.5)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  GI, ENT, Other
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Gyn, Opth, ENT
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-  Plastic
-</td>
-<td style="text-align:center;width: 8em; ">
-1 (6.2)
-</td>
-</tr>
-</tbody>
-</table>
+<p><img src="figure/reversal_cis.Rmd/unnamed-chunk-1-1.png" width="1008" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Includes study arms administering ≥ 30 mcg/kg of neostigmine. Fitted
+using a multilevel model to account for dependent study arms.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1351,44 +780,43 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.5-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
- [5] stringr_1.4.0     dplyr_1.0.9       purrr_0.3.4       readr_2.1.2      
- [9] tidyr_1.2.0       tibble_3.1.7      ggplot2_3.3.6     tidyverse_1.3.2  
-[13] Cairo_1.6-0       countrycode_1.4.0 janitor_2.1.0     kableExtra_1.3.4 
+ [1] gtsummary_1.6.1   meta_5.2-0        formattable_0.2.1 naniar_0.6.1     
+ [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.9       purrr_0.3.4      
+ [9] readr_2.1.2       tidyr_1.2.0       tibble_3.1.7      ggplot2_3.3.6    
+[13] tidyverse_1.3.1   Cairo_1.5-15      countrycode_1.4.0 janitor_2.1.0    
+[17] kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-158        fs_1.5.2            bit64_4.0.5        
  [4] lubridate_1.8.0     webshot_0.5.3       httr_1.4.3         
  [7] rprojroot_2.0.3     tools_4.2.0         backports_1.4.1    
-[10] bslib_0.4.0         metafor_3.4-0       utf8_1.2.2         
+[10] bslib_0.3.1         metafor_3.4-0       utf8_1.2.2         
 [13] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
-[16] withr_2.5.0         tidyselect_1.1.2    bit_4.0.4          
-[19] compiler_4.2.0      git2r_0.30.1        cli_3.3.0          
-[22] rvest_1.0.2         xml2_1.3.3          sass_0.4.2         
-[25] scales_1.2.0        systemfonts_1.0.4   digest_0.6.29      
-[28] minqa_1.2.4         rmarkdown_2.14      svglite_2.1.0      
-[31] pkgconfig_2.0.3     htmltools_0.5.3     lme4_1.1-30        
-[34] dbplyr_2.2.1        fastmap_1.1.0       htmlwidgets_1.5.4  
-[37] rlang_1.0.4         readxl_1.4.0        rstudioapi_0.13    
-[40] jquerylib_0.1.4     generics_0.1.3      jsonlite_1.8.0     
-[43] vroom_1.5.7         googlesheets4_1.0.0 magrittr_2.0.3     
-[46] metadat_1.2-0       Matrix_1.4-1        Rcpp_1.0.9         
-[49] munsell_0.5.0       fansi_1.0.3         lifecycle_1.0.1    
-[52] visdat_0.5.3        stringi_1.7.8       whisker_0.4        
-[55] yaml_2.3.5          CompQuadForm_1.4.3  snakecase_0.11.0   
-[58] mathjaxr_1.6-0      MASS_7.3-58         grid_4.2.0         
-[61] parallel_4.2.0      promises_1.2.0.1    crayon_1.5.1       
-[64] lattice_0.20-45     haven_2.5.0         splines_4.2.0      
-[67] hms_1.1.1           knitr_1.39          pillar_1.8.0       
-[70] boot_1.3-28         reprex_2.0.1        glue_1.6.2         
-[73] evaluate_0.15       modelr_0.1.8        nloptr_2.0.3       
-[76] vctrs_0.4.1         tzdb_0.3.0          httpuv_1.6.5       
-[79] cellranger_1.1.0    gtable_0.3.0        assertthat_0.2.1   
-[82] cachem_1.0.6        xfun_0.31           broom_1.0.0        
-[85] later_1.3.0         googledrive_2.0.0   viridisLite_0.4.0  
-[88] gargle_1.2.0        workflowr_1.7.0     ellipsis_0.3.2     </code></pre>
-</div>
-</div>
+[16] withr_2.5.0         tidyselect_1.1.2    rematch_1.0.1      
+[19] bit_4.0.4           compiler_4.2.0      git2r_0.30.1       
+[22] cli_3.3.0           rvest_1.0.2         gt_0.6.0           
+[25] xml2_1.3.3          sass_0.4.1          scales_1.2.0       
+[28] systemfonts_1.0.4   digest_0.6.29       minqa_1.2.4        
+[31] rmarkdown_2.14      svglite_2.1.0       pkgconfig_2.0.3    
+[34] htmltools_0.5.2     lme4_1.1-29         highr_0.9          
+[37] dbplyr_2.2.1        fastmap_1.1.0       htmlwidgets_1.5.4  
+[40] rlang_1.0.3         readxl_1.4.0        rstudioapi_0.13    
+[43] jquerylib_0.1.4     generics_0.1.2      jsonlite_1.8.0     
+[46] vroom_1.5.7         magrittr_2.0.3      metadat_1.2-0      
+[49] Matrix_1.4-1        Rcpp_1.0.8.3        munsell_0.5.0      
+[52] fansi_1.0.3         lifecycle_1.0.1     visdat_0.5.3       
+[55] stringi_1.7.6       yaml_2.3.5          CompQuadForm_1.4.3 
+[58] snakecase_0.11.0    mathjaxr_1.6-0      MASS_7.3-57        
+[61] grid_4.2.0          parallel_4.2.0      promises_1.2.0.1   
+[64] crayon_1.5.1        lattice_0.20-45     haven_2.5.0        
+[67] splines_4.2.0       hms_1.1.1           knitr_1.39         
+[70] pillar_1.7.0        boot_1.3-28         reprex_2.0.1       
+[73] glue_1.6.2          evaluate_0.15       broom.helpers_1.7.0
+[76] modelr_0.1.8        vctrs_0.4.1         nloptr_2.0.3       
+[79] tzdb_0.3.0          httpuv_1.6.5        cellranger_1.1.0   
+[82] gtable_0.3.0        assertthat_0.2.1    xfun_0.31          
+[85] broom_1.0.0         later_1.3.0         viridisLite_0.4.0  
+[88] workflowr_1.7.0     ellipsis_0.3.2     </code></pre>
 </div>
 
 
