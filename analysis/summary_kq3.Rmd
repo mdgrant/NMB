@@ -82,10 +82,11 @@ source("code/readfiles_nmb_102721.R")
 ```
 
 ```{r data}
-## data/refids ---------------------------------------- (2022-02-15 10:28) @
+## data/refids  --------------------------------------- (2022-07-24 12:06) @----
 ptout_refids <- study_char.dat %>% 
   filter(!is.na(diag_pt_out)) %>% 
-  filter(refid != 3209) %>% # exclude Thilen 2018
+  # filter(refid != 3209) %>% # exclude Thilen 2018
+  filter(!refid %in%  c(3209, 3644)) %>% # exclude Thilen 2018, Renew 2021 (fully paired)
   pull(refid) %>% 
   unique()
 ```
