@@ -25,9 +25,9 @@ table_tally_2 <- function(data, var_1, var_2){
 
 # list of tabyls
 tab_lst <- function(data, vars){
-  data %>%
-    select({{vars}}) %>%
-    map(~ tabyl(.))
+  data |>
+    select({{vars}}) |>
+    map(\(x) tabyl(x))
 }
 
 # count of unique for variable
@@ -49,7 +49,7 @@ proc_freq <- function(df, a, b){
 
 `%notin%` <- Negate(`%in%`)
 
-options(todor_patterns = c("FIXME", "TODO", "CHANGED", "TEXT", "NOTE", "REVIEW", "QUESTION", "RESUME"))
+options(todor_patterns = c("TODO", "NOTE", "TEXT", "REVIEW", "DATA", "CHANGED", "QUESTION", "RESUME", "FIXME"))
 
 color_1 <- "#76d7c4"
 color_2 <- "#7fb3d5"
@@ -222,6 +222,13 @@ pack_sub_bold <- function(kable_input, name, a, b) {
   pack_rows(kable_input, name,
             start_row = a, end_row = b,
             label_row_css = "border-bottom: 0px solid;", color = "#646971", background = "white", bold = TRUE,  indent = FALSE, italic = FALSE
+  )
+}
+
+pack_sub_bold_ind <- function(kable_input, name, a, b) {
+  pack_rows(kable_input, name,
+            start_row = a, end_row = b,
+            label_row_css = "border-bottom: 0px solid;", color = "black", background = "white", bold = TRUE,  indent = TRUE, italic = FALSE
   )
 }
 
@@ -616,7 +623,13 @@ study_arm.dat <- left_join(study_arm.dat, study_names, by = "refid") %>%
   mutate(depth_rev_f = factor(depth_rev_f, levels = c("deep", "deep:mod", "deep:mod:shall", "mod", "mod:shall", "mod:shall:min", "min", "shall", "clincrit", "endsurg", "oth", "ns"))) %>%
   relocate(depth_rev_f, .before = depth_rev_deep) %>%
   relocate(linked_references, .after = last_col()) %>%
-  relocate(mon_cat_f, .after = mon_cat)
+  relocate(mon_cat_f, .after = mon_cat) |>
+  # CHANGED: arm_other_spec
+  mutate(arm_comp_reversal = case_when(
+    (arm_comp_reversal == "other" & str_detect(arm_other_spec, "lacebo")) ~ "placebo",
+    (arm_comp_reversal == "other" & str_detect(arm_other_spec, "pyridostigmine")) ~ "pyridostigmine",
+    TRUE ~ arm_comp_reversal
+  ))
 
 # check n same as study_arm_n
 length(unique(study_arm.dat$refid)) == study_arm_n
@@ -627,6 +640,8 @@ length(unique(study_arm.dat$refid)) == study_arm_n
 path <- path_csv(cont_out_file)
 
 contin.dat <- read_csv(path) %>%
+  # TODO: remove after fix extra 2781 arm in distiller
+  filter(!is.na(StudyChar_k)) |>
   janitor::clean_names() %>%
   select(-c(user, labels, ris_code, level, design)) %>%
   group_by(refid) %>%

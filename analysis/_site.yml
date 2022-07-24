@@ -31,6 +31,8 @@ navbar:
       href: reversal.html
     - text: Summary Study & Patient Charcteristics
       href: summary_rev.html
+    - text: Cisatracurium
+      href: reversal_cis.html
   - text: Evidence Tables
     href: evidence_tables.html
   - text: Appendices

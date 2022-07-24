@@ -94,7 +94,7 @@ source("code/readfiles_nmb_102721.R")
 ## data ----------------------------------------------- (2022-04-05 07:31) @----
 ptout_refids <- study_char.dat %>% 
   filter(!is.na(diag_pt_out)) %>% 
-  filter(refid != 3209) %>% # exclude Thilen 2018
+  filter(!refid %in%  c(3209, 3644)) %>% # exclude Thilen 2018, Renew 2021 (fully paired)
   pull(refid) %>% 
   unique()
 
@@ -204,7 +204,7 @@ study_char.dat %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "8em") %>%
-  column_spec(2, width = "10em") %>%
+  column_spec(2, width = "14em") %>%
   column_spec(3, width = "3em") %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
@@ -336,9 +336,9 @@ included_studies.dat %>%
   column_spec(6, width = "25em") %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
-  pack_top(., "Before-After", 11, 11) %>% 
-  pack_top(., "Prospective Cohort", 12, 14) %>% 
-  pack_top(., "Retrospective Cohort", 15, 15) %>% 
+  pack_top(., "Before-After", 11, 12) %>% 
+  pack_top(., "Prospective Cohort", 13, 15) %>% 
+  pack_top(., "Retrospective Cohort", 16, 16) %>% 
   footnote(
     general = "RCT: randomized controlled trial.",
     alphabet = c(
@@ -409,9 +409,9 @@ study_arm_ptout.dat %>%
   # column_spec(6, width = "12em") %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
-  pack_top(., "Before-After", 11, 11) %>% 
-  pack_top(., "Prospective Cohort", 12, 14) %>% 
-  pack_top(., "Retrospective Cohort", 15, 15) %>% 
+  pack_top(., "Before-After", 11, 12) %>% 
+  pack_top(., "Prospective Cohort", 13, 15) %>% 
+  pack_top(., "Retrospective Cohort", 16, 16) %>% 
   footnote(
     general = "RCT: randomized controlled trial; Panc: pancuronium; Vecu: vecuronium; Roc: rocuronium, Cis: cisatracurium; TIVA: total intravenous anesthesia; Intub: intubation; Maint: maintenance; Neo: neostigmine; Sug: sugammadex.",
     # alphabet = c(" "),
@@ -451,8 +451,8 @@ study_arm_incl.dat %>%
   # pack_top(., "Adult", 1, 14) %>%
   pack_top(., "RCT", 1, 10) %>% 
   pack_top(., "Before-After", 11, 12) %>% 
-  pack_top(., "Prospective Cohort", 13, 14) %>% 
-  pack_top(., "Retrospective Cohort", 15, 15) %>% 
+  pack_top(., "Prospective Cohort", 13, 15) %>% 
+  pack_top(., "Retrospective Cohort", 16, 16) %>% 
   footnote(
     general = c("RCT: randomized controlled trial TOFR: train of four ratio; PNS: peripheral nerve stimulator; AMG: acceleromyography; EMG: electromyography."),
     # alphabet = c(),
@@ -469,15 +469,15 @@ table_n <- tab_inc()
 
 <br/>
 
-## *Residual Neuromuscular Blockade (TOFR)*
+## *Residual Neuromuscular Blockade (TOFR <0.9)*
 
-### Incidence
+### Incidence Proportion
 
 ```{r dichot_ptout.dat, include = FALSE}
 ## dichot_ptout.dat ----------------------------------- (2022-04-05 07:42) @----
 temp1 <- dichot_ptout.dat %>% 
-    filter(refid %in% ptout_refids) %>% 
-  # filter(refid == 2071) %>% 
+  filter(refid %in% ptout_refids) %>% 
+  filter(refid != 7426) |> 
   filter(if_any(c(rnmb1_7, rnmb1_8, rnmb1_9, rnmb2_9),  ~ !is.na(.))) %>%
   remove_empty(which = "cols") %>% 
   select(refid:age, arm_n, study, study_l, design_f, rnmb_location, tofr_normalized, starts_with("rnmb")) %>%
@@ -519,7 +519,6 @@ tofr_meta.dat <- dichot_ptout_tofr.dat %>%
     values_from = c("arm_n", "rnmb1_n"),
   ) %>% 
   mutate(rr_ci = risk_ratio_y(rnmb1_n_2, arm_n_2, rnmb1_n_1, arm_n_1))
-
 ```
 
 <a id="kq3Tab4"></a>
@@ -617,7 +616,6 @@ nmm_kable %>%
   )
 
 table_n <- tab_inc()
-
 ```
 
 <br/>
@@ -673,7 +671,7 @@ temp.meta <- metabin(event.e = event2,
   data = temp.meta.dat)
 
 forest(temp.meta,
-  fixed = FALSE,
+  common =  FALSE,
   label.e = "Qualitative",
   label.c = "Clinical",
   rightcols = c("effect", "ci"),
@@ -720,7 +718,7 @@ temp.meta <- metabin(event.e = event2,
   data = temp.meta.dat)
 
 forest(temp.meta,
-  fixed = FALSE,
+  common =  FALSE,
   label.e = "Quantitative",
   label.c = "Clinical",
   rightcols = c("effect", "ci"),
@@ -738,7 +736,7 @@ forest(temp.meta,
   colgap.forest = unit(5, "mm"),
   xlim = c(0.01, 5),
   at = c(.01, .1, .5, 1.0, 1.5),
-  xlab = "Favors: Quantitative                Clinical")
+  xlab = "Favors: Quantitative        Qualitative")
 
 figure_n <- fig_inc()
 ```
@@ -768,7 +766,7 @@ temp.meta <- metabin(event.e = event2,
   data = temp.meta.dat)
 
 forest(temp.meta,
-  fixed = FALSE,
+  common =  FALSE,
   label.e = "Quantitative",
   label.c = "Qualitative",
   rightcols = c("effect", "ci"),
@@ -790,7 +788,6 @@ forest(temp.meta,
 
 figure_n <- fig_inc()
 ```
-
 
 ### Pooled TOFR (<0.7 to <0.9, all designs)
 
@@ -884,7 +881,7 @@ figure_n <- fig_inc()
 ```
 
 ```{r nmaDescript, eval = FALSE}
-BUGSnet::net.tab(nmm.data,
+net_table <- BUGSnet::net.tab(nmm.data,
   outcome = "rnmb1_n",
   N = "arm_n",
   type.outcome = "binomial"
@@ -900,9 +897,7 @@ net_table$network %>%
   column_spec(1, width = "30em") %>%
   column_spec(2, width = "6em")
 
-
 ```
-
 
 <a id="kq3Fig5"></a>
 
@@ -938,7 +933,7 @@ trts <- rev(c("Clinical", "Qualitative", "Quantitative"))
 
 nmm_league <- netleague(nmm_netmeta_nma,
   digits = 2,
-  fixed = FALSE,
+  common =  FALSE,
   # direct = FALSE,
   seq = trts
 )
@@ -979,10 +974,13 @@ table_n <- tab_inc()
 
 ```{r nmmNodeSplit, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 5.5}
 netsplit(nmm_netmeta_nma,
-  order = trts) %>%
-  forest(., 
-         xlab = "Risk Ratio",
-        rightlabs = c("RR", "(95% CI)"))
+  order = trts
+) %>%
+  forest(.,
+    xlab = "Risk Ratio",
+    leftcols = c("studlab", "k"),
+    rightlabs = c("RR", "(95% CI)")
+  )
 
 figure_n <- fig_inc()
 ```
@@ -1231,7 +1229,8 @@ dichot_pulm_kbl %>%
   # pulmonary
   pack_topnoind(., "Pulmonary", 17, 20) %>%
   # result_pack(., "OR (95% CI)", 17, padding = 65) %>% 
-  pack_sub_bold(., "Prospective Cohort                                                                                                                                 OR (95% CI)", 17, 20) %>%
+  pack_sub_bold(., "Before-After", 17, 18) %>%
+  pack_sub_bold(., "Prospective Cohort                                                                                                                                 OR (95% CI)", 19, 22) %>% 
   footnote(
     general = "RR: Risk ratio; OR: odds ratio; CI: confidence interval; RCT: randomized controlled trial; PNS: peripheral nerve stimulator; AMG: acceleromyography; NMM: neuromuscular monitoring.",
     alphabet = c(
@@ -1371,10 +1370,9 @@ study_char_table %>%
   column_spec(9, width = "15em") %>% 
   column_spec(10, width = "5em") %>% 
   pack_topnoind(., "RCT", 1, 10) %>% 
-  pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
-  pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
-  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
+  pack_topnoind(., "Before-After", 11, 12) %>% 
+  pack_topnoind(., "Prospective Cohort", 13, 15) %>%
+  pack_topnoind(., "Prospective Cohort", 16, 16) %>% 
   footnote(general_title = "",
     general = c("Gen: general; Reg: regional; Sed: sedation; Hosp: hospital; Amb: ambulatory; GI: gastrointestinal; Ortho: orthopedic; Abdom: abdominal; ENT: otolaryngology (ear, nose, and throat); Gyn: gynecologic; Urol: urologic; Neuro: neurological; Hep: hepatic; Thor: thoracic; Oralmax: oral maxillofacial"),
     alphabet = c("Non very high [Human Development Index](https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index) country."),
@@ -1491,10 +1489,9 @@ pt_char_table %>%
   column_spec(17, width = "3em", popover = "Diabetes %") %>% 
   column_spec(18, width = "3em", popover = "Nuerological %") %>% 
   pack_topnoind(., "RCT", 1, 10) %>% 
-  pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
-  pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
-  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
+  pack_topnoind(., "Before-After", 11, 12) %>% 
+  pack_topnoind(., "Prospective Cohort", 13, 15) %>%
+  pack_topnoind(., "Prospective Cohort", 16, 16) %>% 
   footnote(general_title = "",
     general = c("M: mean; Med: median; Card: cardiac; Pulm: pulmonary; Hep: hepatic; DM: diabetes mellitus; Neuro: neurological: RCT: randomized controlled trial."),
     alphabet = c("Empty cells indicate no information in publication."),
@@ -1564,11 +1561,10 @@ study_fund_table %>%
   column_spec(7, width = "20em") %>% 
   column_spec(8:10, width = "4em") %>% 
   column_spec(11, width = "20em") %>% 
-  pack_topnoind(., "RCT", 1, 10) %>% 
-  pack_topnoind(., "Quasi-Experimental", 11, 11) %>% 
-  pack_topnoind(., "Prospective Cohort", 12, 13) %>%
-  pack_topnoind(., "Prospective Cohort", 14, 14) %>% 
-  pack_topnoind(., "Retrospective Cohort", 15, 15) %>% 
+pack_topnoind(., "RCT", 1, 10) %>% 
+  pack_topnoind(., "Before-After", 11, 12) %>% 
+  pack_topnoind(., "Prospective Cohort", 13, 15) %>%
+  pack_topnoind(., "Prospective Cohort", 16, 16) %>% 
   footnote(
           # general = "Pub: public, Ind: industry; NR: not reported; MSD: Merck, Sharp, and Dohme (funded 23 (22%) of RCTs and 26 (19%) of studies listed).",
           alphabet = c("Not reported meaning no mention in publication of funding source or author conflicts of interest."))
