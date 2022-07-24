@@ -83,11 +83,19 @@ source("code/readfiles_nmb_102721.R")
 
 ```{r data}
 ## data/refids ---------------------------------------- (2022-02-15 10:28) @
-diag_refids <- study_arm.dat %>% 
-  # filter(str_detect(study_arm_k, "diag_acc")) %>% 
-  filter(!is.na(arm_diag_acc)) %>%
+# diag_refids <- study_arm.dat %>% 
+#   # filter(str_detect(study_arm_k, "diag_acc")) %>% 
+#   filter(!is.na(arm_diag_acc)) %>%
+#   pull(refid) %>% 
+#   unique()
+
+diag_refids <- contin.dat %>% 
+  filter(str_detect(study_arm_k, "diag_acc")) %>% 
+  filter(!str_detect(mon_cat, "qual|clinical")) %>% 
   pull(refid) %>% 
   unique()
+
+
 ```
 
 \newpage 
@@ -98,7 +106,7 @@ diag_refids <- study_arm.dat %>%
 
 <br/>
 
-<font size = 4> Table `r table_n`. Study characteristics. </font>
+<font size = 4> Table `r table_n`. Characteristics of studies enrolling adults. </font>
 
 ```{r studyCharRev}
 ## studyCharRev --------------------------------------- (2022-03-07 20:32) @----
@@ -273,7 +281,7 @@ table_n <- tab_inc()
 
 <br/>
 
-<font size = 4> Table `r table_n`. Patient characteristics. </font>
+<font size = 4> Table `r table_n`. Patient characteristics of studies enrolling adults. </font>
 
 ```{r ptCharRev}
 ## (updated 2021/07/21 08:26) surgery type --------------------------------
