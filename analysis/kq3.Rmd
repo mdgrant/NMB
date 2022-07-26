@@ -880,7 +880,7 @@ BUGSnet::net.plot(nmm.data,
 figure_n <- fig_inc()
 ```
 
-```{r nmaDescript, eval = FALSE}
+```{r nmaDescript, eval = TRUE}
 net_table <- BUGSnet::net.tab(nmm.data,
   outcome = "rnmb1_n",
   N = "arm_n",

@@ -197,12 +197,13 @@ study_char.dat %>%
       design == "fully_paired" ~ "Fully Paired"),
       age = ifelse(row_number() == n(), "Total", age)
   ) %>%
+
   select(age, design, total) %>%
   kbl(
     booktabs = T, align = c("llr"),
     col.names = c("Age", "Design", "N")
   ) %>%
-  row_spec(c(0, 3), bold = TRUE) %>%
+  row_spec(c(0, 4), bold = TRUE) %>%
   kable_styling(bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = "8em") %>%
@@ -234,8 +235,8 @@ included_studies.dat <- study_char.dat %>%
   mutate(
     design_l = as.character(design),
     design_l = factor(design_l,
-      levels = c("rct", "fully_paired", "nrsi", "prospect_coh", "retrospect_coh"),
-      labels = c("RCT", "Fully paired", "NRSI", "Prospective Cohort", "Retrospective Cohort")
+      levels = c("rct", "fully_paired", "quasiexp", "prospect_coh", "retrospect_coh"),
+      labels = c("RCT", "Fully paired", "Before-After", "Prospective Cohort", "Retrospective Cohort")
     ),
     across(surg_various:surg_other, ~ str_replace(.x, "surg_", "")),
     across(surg_various:surg_other, ~ str_c(.x, ", ")),
@@ -286,10 +287,10 @@ included_studies.dat %>%
   column_spec(4, width = "6em") %>%
   column_spec(5, width = "10em") %>%
   column_spec(6, width = "12em") %>%
-  pack_top(., "Adult", 1, 23) %>%
-  pack_sub(., "Fully Paired", 1, 23) %>% 
-  pack_top(., "Pediatric", 24, 24) %>% 
-  pack_sub(., "Fully Paired", 24, 24) %>% 
+  pack_top(., "Adult", 1, 28) %>%
+  pack_sub(., "Fully Paired", 1, 27) %>% 
+  pack_top(., "Pediatric", 29, 29) %>% 
+  pack_sub(., "Fully Paired", 29, 29) %>% 
   footnote(
     # general = "RCT: randomized controlled trial.",
     alphabet = c(

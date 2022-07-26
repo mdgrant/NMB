@@ -419,6 +419,9 @@ div.tocify {
     <li>
       <a href="summary_rev.html">Summary Study &amp; Patient Charcteristics</a>
     </li>
+    <li>
+      <a href="reversal_cis.html">Cisatracurium</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -458,7 +461,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">TOFR Confirmation Before Extubation</h1>
-<h4 class="date">06 July, 2022 (17:08)</h4>
+<h4 class="date">25 July, 2022 (20:45)</h4>
 
 </div>
 
@@ -487,7 +490,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-06
+<strong>Last updated:</strong> 2022-07-25
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -621,15 +624,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreedd2a5f68726ecfb61b592556b474a771c363f126targetblankdd2a5f6a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec761ba7506fea6d5c303f251cdb2c37b2a520748targetblankc761ba7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/dd2a5f68726ecfb61b592556b474a771c363f126" target="_blank">dd2a5f6</a>
+<a href="https://github.com/mdgrant/NMB/tree/c761ba7506fea6d5c303f251cdb2c37b2a520748" target="_blank">c761ba7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreedd2a5f68726ecfb61b592556b474a771c363f126targetblankdd2a5f6a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreec761ba7506fea6d5c303f251cdb2c37b2a520748targetblankc761ba7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -639,7 +642,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/dd2a5f68726ecfb61b592556b474a771c363f126" target="_blank">dd2a5f6</a>.
+<a href="https://github.com/mdgrant/NMB/tree/c761ba7506fea6d5c303f251cdb2c37b2a520748" target="_blank">c761ba7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -681,24 +684,27 @@ Untracked files:
     Untracked:  analysis/reversal_cis.Rmd
     Untracked:  analysis/riskofbias.Rmd
     Untracked:  analysis/summary_confirm.Rmd
+    Untracked:  analysis/tofr_confirm_glmm.Rmd
     Untracked:  code/.gitignore
     Untracked:  code/footnotes_anesth.R
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
     Untracked:  code/rob_all.R
     Untracked:  code/rob_by_compare_040922.R
+    Untracked:  code/rob_final.R
     Untracked:  code/rob_summary_dmetar_mg.R
     Untracked:  data/
     Untracked:  priorToUpdate.RData
+    Untracked:  prot_pro_rob_traffic.svg
     Untracked:  sugEconomic.txt
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitignore
+    Modified:   analysis/kq2.Rmd
     Modified:   analysis/kq3.Rmd
     Modified:   analysis/reversal.Rmd
     Modified:   analysis/tofr_confirm.Rmd
-    Modified:   code/readfiles_nmb_102721.R
 
 </code></pre>
 <p>
@@ -744,6 +750,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/95d4158ad5779fd4d5dff96dfe2a8273d67f9f40/docs/tofr_confirm.html" target="_blank">95d4158</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-07-06
+</td>
+<td>
+update confirm
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1885,7 +1908,8 @@ $(document).ready(function(){
 <p><font size = 4> Figure 1. Residual neuromuscular blockade (TOFR &lt;
 0.9, pooled incidence proportion) in arms of randomized and
 nonrandomized studies according to type of monitoring and confirmation
-of TOFR prior to extubation.</font></p>
+of TOFR prior to extubation. From random effects meta-analyses of
+proportions fitted with generalized linear mixed models. </font></p>
 <p><br/></p>
 <p><img src = "assets/confirm_summary.png" style="width:800px;" align = "left"/></p>
 <p><br clear="all" /></p>
@@ -2867,7 +2891,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Abola 2020
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -2901,7 +2925,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Kotake 2013
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -2931,7 +2955,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Errando 2016
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -2961,7 +2985,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Nemes 2017
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -2991,7 +3015,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Domenech 2019
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -3037,178 +3061,23 @@ stated.
 </tr>
 </tfoot>
 </table>
-<p><br/></p>
-</div>
-<div id="pooled" class="section level1">
-<h1>  Pooled</h1>
-<p><a id="confFig1"></a></p>
-<p><br/></p>
-<p><font size = 4> Figure 2. Incidence of residual neuromuscular
-blockade (TOFR &lt;0.9) in arms of randomized and nonrandomized studies
-using quantitative monitoring according to whether TOFR ≥0.9 was
-reported as confirmed prior to extubation (reversal with sugammadex).
-</font></p>
-<p><img src="figure/tofr_confirm.Rmd/metaSug-1.png" width="912" style="display: block; margin: auto auto auto 0;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-metaSug-1">
-Past versions of metaSug-1.png
-</button>
-</p>
-<div id="fig-metaSug-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/f280de5e1322c443db7bf86bfcd35f98e3fd481e/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">f280de5</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-07-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/dce5f58c6ec3a359155baa32a77c38e8f900a333/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">dce5f58</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/00c5c96b09031d7d1cb04cbc11a2348f4598490e/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">00c5c96</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/7ef38b3e30cd40be34028ba17035f16e210563e0/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">7ef38b3</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/2362811e65db77675d6008836a398a4a96744d57/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">2362811</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/d1f31950458482f1a6793c7223637991dcca3845/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">d1f3195</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/0c97ba120de4c818022ba31c4c12e246e037185f/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">0c97ba1</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/981a5731a0ffb4463c767f4cfdf239a7b671b93f/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">981a573</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/2e927c66388ab339f6d0d1c8d810d32398094c5d/docs/figure/tofr_confirm.Rmd/metaSug-1.png" target="_blank">2e927c6</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><font size = 4> Risk Ratios</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Comparison</th>
-<th align="left">RR (95% CI)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Confirmed vs. not confirmed</td>
-<td align="left">0.07 (0.00, 0.65)</td>
-</tr>
-<tr class="even">
-<td align="left">   Removing Alday 2019</td>
-<td align="left">0.21 (0.00, 1.81)</td>
-</tr>
-<tr class="odd">
-<td align="left">Assuming all not stated were confirmed</td>
-<td align="left">0.09 (0.00, 0.77)</td>
-</tr>
-<tr class="even">
-<td align="left">Assuming all not stated were not confirmed</td>
-<td align="left">0.12 (0.00, 1.09)</td>
-</tr>
-</tbody>
-</table>
-<p></font></p>
-<p><font size = 3> Risk ratios obtained as the ratio (median, lower and
-upper 0.025 quantiles) sampled from the means and standard deviations of
-the respective comparator incidence proportions (1E<sup>6</sup>
-samples). Arms from von Quillfeldt 2013 and Pecek 2015 confirmed at TOFR
-≥ 0.8. E-value point estimate of 28.1 (upper limit 2.4) for the main
-result. </font></p>
-<p><br/></p>
+<!-- <br/> -->
+<!-- #   Pooled -->
+<!-- <a id="confFig1"></a> -->
+<!-- <br/> -->
+<!-- <font size = 4> Figure 2. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font> -->
+<!-- <font size = 4>  -->
+<!-- <font size = 4> Risk Ratios  -->
+<!-- arcsine -->
+<!-- | Comparison                                  | RR (95% CI)       | -->
+<!-- |:--------------------------------------------|:------------------| -->
+<!-- | Confirmed vs. not confirmed                 | 0.11 (0.00, 0.99) | # -->
+<!-- |    Removing Alday 2019                      | 0.21 (0.00, 1.81) | -->
+<!-- | Assuming all not stated were confirmed      | 0.09 (0.00, 0.77) | -->
+<!-- | Assuming all not stated were not confirmed  | 0.12 (0.00, 1.09) | -->
+<!-- </font> -->
+<!-- <font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from von Quillfeldt 2013 and Pecek 2015 confirmed at TOFR ≥ 0.8.  E-value point estimate of 28.1 (upper limit 2.4) for the main result. </font> -->
+<!-- <br/> -->
 </div>
 <div id="neostigmine" class="section level1">
 <h1><strong>Neostigmine</strong></h1>
@@ -3688,11 +3557,11 @@ Shallow
 PACU
 </td>
 <td style="text-align:left;width: 6em; ">
-14 (34.1)
+5 (12.2)
 </td>
 <td style="text-align:left;width: 7em; ">
 <span
-style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  65.85% , #c39bd3 65.85% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  87.80% , #c39bd3 87.80% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 </tr>
 <tr>
@@ -4508,7 +4377,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Murphy 2005
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4537,7 +4406,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Murphy 2008
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4567,7 +4436,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Yip 2010
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4596,7 +4465,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Murphy 2011
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4626,7 +4495,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Thilen 2012
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4655,7 +4524,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Todd 2014
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4684,7 +4553,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Murphy 2015
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4714,7 +4583,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Thilen 2018
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4735,15 +4604,15 @@ Shallow
 PACU
 </td>
 <td style="text-align:left;width: 6em; ">
-5 (13.2)
+14 (36.8)
 </td>
 <td style="text-align:left;width: 7em; ">
 <span
-style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  86.84% , #e74343 86.84% , #e74343 100.00% , transparent 100.00% ); width: 100%"> </span>
+style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  63.16% , #e74343 63.16% , #e74343 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Abola 2020
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4777,7 +4646,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Saager 2019
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4806,7 +4675,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Baillard 2005
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4836,7 +4705,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Kaan 2012
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4865,7 +4734,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Kumar 2012
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4895,7 +4764,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Kotake 2013
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4925,7 +4794,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Errando 2016
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4955,7 +4824,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Nemes 2017
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -4985,7 +4854,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Domenech 2019
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -5014,7 +4883,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Alenezi 2021
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -5043,7 +4912,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 12em; ">
+<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
 Wardhana 2019
 </td>
 <td style="text-align:left;width: 10em; ">
@@ -5090,173 +4959,19 @@ stated.
 </tr>
 </tfoot>
 </table>
-<p><br/></p>
-</div>
-<div id="pooled-1" class="section level1">
-<h1>  Pooled</h1>
-<p><a id="confFig1"></a></p>
-<p><br/></p>
-<p><font size = 4> Figure 3. Incidence of residual neuromuscular
-blockade (TOFR &lt;0.9) in arms of randomized and nonrandomized studies
-using quantitative monitoring according to whether TOFR ≥0.9 was
-reported as confirmed prior to extubation (reversal with Neostigmine).
-</font></p>
-<p><img src="figure/tofr_confirm.Rmd/metaNeo-1.png" width="912" style="display: block; margin: auto auto auto 0;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-metaNeo-1">
-Past versions of metaNeo-1.png
-</button>
-</p>
-<div id="fig-metaNeo-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/f280de5e1322c443db7bf86bfcd35f98e3fd481e/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">f280de5</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-07-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/dce5f58c6ec3a359155baa32a77c38e8f900a333/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">dce5f58</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/00c5c96b09031d7d1cb04cbc11a2348f4598490e/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">00c5c96</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/7ef38b3e30cd40be34028ba17035f16e210563e0/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">7ef38b3</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-05
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/2362811e65db77675d6008836a398a4a96744d57/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">2362811</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-04-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/d1f31950458482f1a6793c7223637991dcca3845/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">d1f3195</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/0c97ba120de4c818022ba31c4c12e246e037185f/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">0c97ba1</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-30
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/981a5731a0ffb4463c767f4cfdf239a7b671b93f/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">981a573</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/mdgrant/NMB/blob/2e927c66388ab339f6d0d1c8d810d32398094c5d/docs/figure/tofr_confirm.Rmd/metaNeo-1.png" target="_blank">2e927c6</a>
-</td>
-<td>
-mdgrant
-</td>
-<td>
-2022-03-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><font size = 4> Risk Ratios</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Comparison</th>
-<th align="left">RR (95% CI)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Confirmed vs. not confirmed</td>
-<td align="left">0.22 (0.09, 0.44)</td>
-</tr>
-<tr class="even">
-<td align="left">Assuming all not stated were confirmed</td>
-<td align="left">0.24 (0.10, 0.48)</td>
-</tr>
-<tr class="odd">
-<td align="left">Assuming all not stated were not confirmed</td>
-<td align="left">0.31 (0.12, 0.68)</td>
-</tr>
-</tbody>
-</table>
-<p></font></p>
-<p><font size = 3> Risk ratios obtained as the ratio (median, lower and
-upper 0.025 quantiles) sampled from the means and standard deviations of
-the respective comparator incidence proportions (1E<sup>6</sup>
-samples). Arms from Murphy 2008, Murphy 2011, Norton 2013, Thilen 2018,
-and Pecek 2015 confirmed at TOFR ≥ 0.8 or was not stated. E-value point
-estimate of 8.6 (upper limit 4.0) for the main result. </font></p>
+<!-- <br/> -->
+<!-- #   Pooled -->
+<!-- <a id="confFig1"></a> -->
+<!-- <br/> -->
+<!-- <font size = 4> Figure 2. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with Neostigmine). </font> -->
+<!-- <font size = 4> Risk Ratios   -->
+<!-- | Comparison                                  | RR (95% CI)       | -->
+<!-- |:--------------------------------------------|:------------------| -->
+<!-- | Confirmed vs. not confirmed                 | 0.22 (0.09, 0.44) | -->
+<!-- | Assuming all not stated were confirmed      | 0.24 (0.10, 0.48) | -->
+<!-- | Assuming all not stated were not confirmed  | 0.31 (0.12, 0.68) | -->
+<!-- </font> -->
+<!-- <font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from Murphy 2008, Murphy 2011, Norton 2013, Thilen 2018, and Pecek 2015  confirmed at TOFR ≥ 0.8 or was not stated.  E-value point estimate of 8.6 (upper limit 4.0) for the main result. </font> -->
 </div>
 <div id="references" class="section level1">
 <h1><strong>References</strong></h1>
@@ -5533,43 +5248,44 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] gtsummary_1.6.1   meta_5.2-0        formattable_0.2.1 naniar_0.6.1     
+ [1] gtsummary_1.6.1   meta_5.5-0        formattable_0.2.1 naniar_0.6.1     
  [5] forcats_0.5.1     stringr_1.4.0     dplyr_1.0.9       purrr_0.3.4      
- [9] readr_2.1.2       tidyr_1.2.0       tibble_3.1.7      ggplot2_3.3.6    
-[13] tidyverse_1.3.1   Cairo_1.5-15      countrycode_1.4.0 janitor_2.1.0    
+ [9] readr_2.1.2       tidyr_1.2.0       tibble_3.1.8      ggplot2_3.3.6    
+[13] tidyverse_1.3.2   Cairo_1.6-0       countrycode_1.4.0 janitor_2.1.0    
 [17] kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-158        fs_1.5.2            bit64_4.0.5        
  [4] lubridate_1.8.0     webshot_0.5.3       httr_1.4.3         
  [7] rprojroot_2.0.3     tools_4.2.0         backports_1.4.1    
-[10] bslib_0.3.1         metafor_3.4-0       utf8_1.2.2         
+[10] bslib_0.4.0         metafor_3.4-0       utf8_1.2.2         
 [13] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
 [16] withr_2.5.0         tidyselect_1.1.2    bit_4.0.4          
 [19] compiler_4.2.0      git2r_0.30.1        cli_3.3.0          
 [22] rvest_1.0.2         gt_0.6.0            xml2_1.3.3         
-[25] sass_0.4.1          scales_1.2.0        systemfonts_1.0.4  
+[25] sass_0.4.2          scales_1.2.0        systemfonts_1.0.4  
 [28] digest_0.6.29       minqa_1.2.4         rmarkdown_2.14     
-[31] svglite_2.1.0       pkgconfig_2.0.3     htmltools_0.5.2    
-[34] lme4_1.1-29         highr_0.9           dbplyr_2.2.1       
-[37] fastmap_1.1.0       htmlwidgets_1.5.4   rlang_1.0.3        
-[40] readxl_1.4.0        rstudioapi_0.13     jquerylib_0.1.4    
-[43] generics_0.1.2      jsonlite_1.8.0      vroom_1.5.7        
+[31] svglite_2.1.0       pkgconfig_2.0.3     htmltools_0.5.3    
+[34] lme4_1.1-30         dbplyr_2.2.1        fastmap_1.1.0      
+[37] htmlwidgets_1.5.4   rlang_1.0.4         readxl_1.4.0       
+[40] rstudioapi_0.13     jquerylib_0.1.4     generics_0.1.3     
+[43] jsonlite_1.8.0      vroom_1.5.7         googlesheets4_1.0.0
 [46] magrittr_2.0.3      metadat_1.2-0       Matrix_1.4-1       
-[49] Rcpp_1.0.8.3        munsell_0.5.0       fansi_1.0.3        
-[52] lifecycle_1.0.1     visdat_0.5.3        stringi_1.7.6      
+[49] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
+[52] lifecycle_1.0.1     visdat_0.5.3        stringi_1.7.8      
 [55] whisker_0.4         yaml_2.3.5          CompQuadForm_1.4.3 
-[58] snakecase_0.11.0    mathjaxr_1.6-0      MASS_7.3-57        
+[58] snakecase_0.11.0    mathjaxr_1.6-0      MASS_7.3-58        
 [61] grid_4.2.0          parallel_4.2.0      promises_1.2.0.1   
 [64] crayon_1.5.1        lattice_0.20-45     haven_2.5.0        
 [67] splines_4.2.0       hms_1.1.1           knitr_1.39         
-[70] pillar_1.7.0        boot_1.3-28         reprex_2.0.1       
-[73] glue_1.6.2          evaluate_0.15       broom.helpers_1.7.0
+[70] pillar_1.8.0        boot_1.3-28         reprex_2.0.1       
+[73] glue_1.6.2          evaluate_0.15       broom.helpers_1.8.0
 [76] modelr_0.1.8        nloptr_2.0.3        vctrs_0.4.1        
 [79] tzdb_0.3.0          httpuv_1.6.5        cellranger_1.1.0   
-[82] gtable_0.3.0        assertthat_0.2.1    xfun_0.31          
-[85] broom_1.0.0         later_1.3.0         viridisLite_0.4.0  
-[88] workflowr_1.7.0     ellipsis_0.3.2     </code></pre>
+[82] gtable_0.3.0        assertthat_0.2.1    cachem_1.0.6       
+[85] xfun_0.31           broom_1.0.0         later_1.3.0        
+[88] googledrive_2.0.0   viridisLite_0.4.0   gargle_1.2.0       
+[91] workflowr_1.7.0     ellipsis_0.3.2     </code></pre>
 </div>
 </div>
 
