@@ -85,7 +85,7 @@ $(document).ready(function(){
 ```
 
 ```{r setup, include = FALSE}
-## setup ---------------------------------------------- (2022-02-14 16:1) @----
+## setup ---------------------------------------------- (2022-02-14 16:10) @----
 knitr::opts_chunk$set(echo = TRUE)
 source("code/readfiles_nmb_102721.R")
 ```
@@ -1950,7 +1950,6 @@ forest_time(shallow)
 grid::grid.text("Shallow Block", .1, .9, gp = grid::gpar(cex = 1.2))
 figure_n <- fig_inc()
 ```
-Putz 2016 included a mix of shallow and minimal depth of block.
 
 <a id="revFig7"></a>
 
@@ -3058,6 +3057,12 @@ BUGSnet::net.plot(temp,
   edge.lab.cex = 1.2
 )
 
+net_table <- BUGSnet::net.tab(temp,
+  outcome = "ponv_n",
+  N = "arm_n",
+  type.outcome = "binomial"
+) 
+
 figure_n <- fig_inc()
 ```
 
@@ -3223,7 +3228,7 @@ write_csv(temp, "data/ponv_cinema.csv")
 
 ## nausea --------------------------------------------- (2022-07-23 15:32) @----
 # temp <- ponv.dat %>%
-ponv.dat %>%
+check <- ponv.dat %>%
   filter(age == "Adult") %>%
   mutate(
     year = str_extract(study, "\\d{4}"),
@@ -3304,6 +3309,11 @@ nma_nausea <- ponv.dat %>%
     arm_n = ifelse(study == "Li 2021" & arm == "Sug", 96, arm_n),
     nausea_n = ifelse(study == "Li 2021" & arm == "Sug", 30, nausea_n),
   )
+
+nma_nausea |> select(refid, study) |> 
+  group_by(study) |> 
+  slice(1)
+
 ```
 
 ```{r nauseaMetaPlot, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 10, fig.asp = .5}
@@ -3324,6 +3334,12 @@ BUGSnet::net.plot(temp,
   node.lab.cex = 1,
   edge.lab.cex = 1.2
 )
+
+net_table <- BUGSnet::net.tab(temp,
+  outcome = "nausea_n",
+  N = "arm_n",
+  type.outcome = "binomial"
+) 
 
 figure_n <- fig_inc()
 ```
@@ -3590,6 +3606,13 @@ BUGSnet::net.plot(temp,
   node.lab.cex = 1,
   edge.lab.cex = 1.2
 )
+
+net_table <- BUGSnet::net.tab(temp,
+  outcome = "vomit_n",
+  N = "arm_n",
+  type.outcome = "binomial"
+) 
+
 
 figure_n <- fig_inc()
 ```
