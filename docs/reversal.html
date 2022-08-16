@@ -461,7 +461,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Reversal</h1>
-<h4 class="date">25 July, 2022 (11:54)</h4>
+<h4 class="date">16 August, 2022 (11:46)</h4>
 
 </div>
 
@@ -490,7 +490,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-07-25
+<strong>Last updated:</strong> 2022-08-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -624,15 +624,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2600cb72b832f653a575b8a56656560713411090targetblank2600cb7a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeaa645a9d2be57d4b67057d5ea8423166a00f58e0targetblankaa645a9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/2600cb72b832f653a575b8a56656560713411090" target="_blank">2600cb7</a>
+<a href="https://github.com/mdgrant/NMB/tree/aa645a9d2be57d4b67057d5ea8423166a00f58e0" target="_blank">aa645a9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree2600cb72b832f653a575b8a56656560713411090targetblank2600cb7a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtreeaa645a9d2be57d4b67057d5ea8423166a00f58e0targetblankaa645a9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -642,7 +642,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/2600cb72b832f653a575b8a56656560713411090" target="_blank">2600cb7</a>.
+<a href="https://github.com/mdgrant/NMB/tree/aa645a9d2be57d4b67057d5ea8423166a00f58e0" target="_blank">aa645a9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -663,6 +663,7 @@ Ignored files:
     Ignored:    _@@/
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/confirm_sug_era/
+    Ignored:    analysis/figure/
     Ignored:    analysis/index (original).Rmd
     Ignored:    analysis/kq2 (original 2).Rmd
     Ignored:    analysis/notes.txt
@@ -686,22 +687,26 @@ Untracked files:
     Untracked:  analysis/summary_confirm.Rmd
     Untracked:  analysis/tofr_confirm_glmm.Rmd
     Untracked:  code/.gitignore
+    Untracked:  code/clarity.R
     Untracked:  code/footnotes_anesth.R
     Untracked:  code/misc_calcs.R
     Untracked:  code/rob_111921.R
     Untracked:  code/rob_all.R
     Untracked:  code/rob_by_compare_040922.R
+    Untracked:  code/rob_final.R
     Untracked:  code/rob_summary_dmetar_mg.R
+    Untracked:  code/rob_working_nmb.R
     Untracked:  data/
     Untracked:  priorToUpdate.RData
+    Untracked:  prot_pro_rob_traffic.svg
     Untracked:  sugEconomic.txt
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitignore
     Modified:   analysis/kq2.Rmd
-    Modified:   analysis/kq3.Rmd
     Modified:   analysis/reversal.Rmd
+    Modified:   analysis/soe.Rmd
     Modified:   analysis/tofr_confirm.Rmd
 
 </code></pre>
@@ -748,6 +753,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/99eeaf452021586da82022648a6d7b321126ad45/analysis/reversal.Rmd" target="_blank">99eeaf4</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-07-28
+</td>
+<td>
+new soe others
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/829b431fb65f8a893b5d35924595c1eb9255f9a3/analysis/reversal.Rmd" target="_blank">829b431</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+multiple updates
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/c761ba7506fea6d5c303f251cdb2c37b2a520748/docs/reversal.html" target="_blank">c761ba7</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-07-25
+</td>
+<td>
+add recurarization update
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -2615,14 +2671,6 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover({html: true, placement: top});
 });
 </script>
-<pre><code>$arm
-     x   n    percent
-   Sug 189 0.40212766
-   Neo 210 0.44680851
-  Plac  28 0.05957447
- Spont  41 0.08723404
- Pyrid   1 0.00212766
- Other   1 0.00212766</code></pre>
 <div id="included-studies" class="section level1">
 <h1><strong>Included Studies</strong></h1>
 <p><font size = 4> Table 1. Number of included studies according to age
@@ -17937,15 +17985,6 @@ mechanomyography; nl: normalized AMG; Shal: shallow; Surg: surgery.
 <p><font size = 4> Table 8. Time to recovery of neuromuscular blockade
 (TOFR &gt; 0.9) according to depth of block at reversal in RCTs
 enrolling adults. </font></p>
-<pre><code># A tibble: 6 × 3
-  depth_f        start   end
-  &lt;fct&gt;          &lt;dbl&gt; &lt;int&gt;
-1 Deep               1    10
-2 Moderate          11    52
-3 Shallow           53    72
-4 Minimal           73    77
-5 End of Surgery    78    91
-6 Other             92    93</code></pre>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style="width: auto !important;  font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -20899,7 +20938,6 @@ Mark Grant
 </table>
 </div>
 </div>
-<p>Putz 2016 included a mix of shallow and minimal depth of block.</p>
 <p><a id="revFig7"></a></p>
 <p><br/></p>
 <p><font size = 4> Figure 7. Difference in time to recovery in minutes
@@ -21168,7 +21206,7 @@ studies enrolling adults.</font></p>
 <h2><u>Adults</u></h2>
 </div>
 <div id="adverse-events" class="section level2">
-<h2><em> Adverse Events</em></h2>
+<h2><em>Adverse Events</em></h2>
 <div id="reversal-agent-dosing" class="section level3">
 <h3> Reversal Agent Dosing</h3>
 <p><br/></p>
@@ -21428,12 +21466,6 @@ Sug
 <p><br/></p>
 <p><font size = 4> Table 11. Anaphylaxis in studies enrolling adult
 patients. </font></p>
-<pre><code># A tibble: 3 × 4
-  age      design         start   end
-  &lt;chr&gt;    &lt;fct&gt;          &lt;dbl&gt; &lt;int&gt;
-1 Adult    rct                1     4
-2 Adult    retrospect_coh     5     6
-3 All ages retrospect_coh     7    12</code></pre>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; border-bottom: 0;">
 <thead>
 <tr>
@@ -23904,7 +23936,7 @@ to 1.9%).</p>
 </div>
 </div>
 <div id="ponv" class="section level2">
-<h2><em> PONV</em></h2>
+<h2><em>PONV</em></h2>
 <div id="ponv-adults" class="section level3">
 <h3> PONV (adults)</h3>
 <p><a id="revTab17"></a></p>
@@ -28290,7 +28322,7 @@ mdgrant
 </div>
 </div>
 <div id="pulmonary-complications" class="section level2">
-<h2><em> Pulmonary Complications</em></h2>
+<h2><em>Pulmonary Complications</em></h2>
 <div id="hypoxia-adults" class="section level3">
 <h3> Hypoxia (adults)</h3>
 <p><a id="revTab23"></a></p>
@@ -33008,12 +33040,12 @@ mdgrant
 <p><br/></p>
 </div>
 </div>
-<div id="recurarization" class="section level2">
-<h2>Recurarization</h2>
+<div id="reparalysis" class="section level2">
+<h2>Reparalysis</h2>
 <p><a id="revTabXX"></a></p>
 <p><br/></p>
-<p><font size = 4> Table 27. Rates of recurarization in studies
-including comparison of sugammadex and neostigmine. </font></p>
+<p><font size = 4> Table 27. Rates of reparalysis in studies including
+comparison of sugammadex and neostigmine. </font></p>
 <table class="table table-striped table-hover table-condensed lightable-classic lightable-hover" style=" font-family: Source Sans Pro; width: auto !important; ">
 <thead>
 <tr>
@@ -34103,7 +34135,7 @@ style="display: inline-block; unicode-bidi: plaintext; background: linear-gradie
 <h3>   <em>Pooled</em></h3>
 <p><a id="revFigXX"></a></p>
 <p><br/></p>
-<p><font size = 4> Figure 26. Pooled risk difference for recurarization
+<p><font size = 4> Figure 26. Pooled risk difference for reparalysis
 randomized in RCTs comparing sugammadex with neostigmine. </font></p>
 <p><img src="figure/reversal.Rmd/recurarizationPooled-1.png" width="960" style="display: block; margin: auto auto auto 0;" /></p>
 <p>
@@ -34128,6 +34160,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/c761ba7506fea6d5c303f251cdb2c37b2a520748/docs/figure/reversal.Rmd/recurarizationPooled-1.png" target="_blank">c761ba7</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/mdgrant/NMB/blob/85a73a348113478624b7921ecd0e93da1ab69248/docs/figure/reversal.Rmd/recurarizationPooled-1.png" target="_blank">85a73a3</a>
@@ -59019,9 +59062,9 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre><code>R version 4.2.0 (2022-04-22)
+<pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur/Monterey 10.16
+Running under: macOS Big Sur ... 10.16
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
@@ -59046,34 +59089,34 @@ loaded via a namespace (and not attached):
   [7] snakecase_0.11.0    fs_1.5.2            rstudioapi_0.13    
  [10] extras_0.3.0        bit64_4.0.5         fansi_1.0.3        
  [13] lubridate_1.8.0     mathjaxr_1.6-0      xml2_1.3.3         
- [16] splines_4.2.0       extrafont_0.18      cachem_1.0.6       
+ [16] splines_4.2.1       extrafont_0.18      cachem_1.0.6       
  [19] knitr_1.39          mcmcr_0.6.1         jsonlite_1.8.0     
  [22] workflowr_1.7.0     nloptr_2.0.3        rematch_1.0.1      
  [25] broom_1.0.0         Rttf2pt1_1.3.10     dbplyr_2.2.1       
- [28] rjags_4-13          compiler_4.2.0      httr_1.4.3         
+ [28] rjags_4-13          compiler_4.2.1      httr_1.4.3         
  [31] backports_1.4.1     assertthat_0.2.1    Matrix_1.4-1       
  [34] fastmap_1.1.0       gargle_1.2.0        cli_3.3.0          
- [37] later_1.3.0         htmltools_0.5.3     tools_4.2.0        
+ [37] later_1.3.0         htmltools_0.5.3     tools_4.2.1        
  [40] igraph_1.3.4        nlist_0.3.3         coda_0.19-4        
  [43] gtable_0.3.0        glue_1.6.2          Rcpp_1.0.9         
  [46] cellranger_1.1.0    jquerylib_0.1.4     vctrs_0.4.1        
- [49] svglite_2.1.0       nlme_3.1-158        extrafontdb_1.0    
- [52] xfun_0.31           rbibutils_2.2.8     lme4_1.1-30        
+ [49] svglite_2.1.0       nlme_3.1-159        extrafontdb_1.0    
+ [52] xfun_0.32           rbibutils_2.2.8     lme4_1.1-30        
  [55] rvest_1.0.2         CompQuadForm_1.4.3  lifecycle_1.0.1    
- [58] googlesheets4_1.0.0 MASS_7.3-58         scales_1.2.0       
+ [58] googlesheets4_1.0.0 MASS_7.3-58.1       scales_1.2.0       
  [61] vroom_1.5.7         hms_1.1.1           promises_1.2.0.1   
- [64] parallel_4.2.0      term_0.3.4          RColorBrewer_1.1-3 
+ [64] parallel_4.2.1      term_0.3.4          RColorBrewer_1.1-3 
  [67] metafor_3.4-0       universals_0.0.4    yaml_2.3.5         
  [70] sass_0.4.2          stringi_1.7.8       highr_0.9          
  [73] boot_1.3-28         Rdpack_2.4          rlang_1.0.4        
- [76] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.15      
+ [76] pkgconfig_2.0.3     systemfonts_1.0.4   evaluate_0.16      
  [79] lattice_0.20-45     chk_0.8.0           htmlwidgets_1.5.4  
  [82] bit_4.0.4           tidyselect_1.1.2    plyr_1.8.7         
  [85] magrittr_2.0.3      R6_2.5.1            generics_0.1.3     
  [88] DBI_1.1.3           pillar_1.8.0        haven_2.5.0        
  [91] whisker_0.4         withr_2.5.0         abind_1.4-5        
  [94] modelr_0.1.8        crayon_1.5.1        utf8_1.2.2         
- [97] tzdb_0.3.0          rmarkdown_2.14      grid_4.2.0         
+ [97] tzdb_0.3.0          rmarkdown_2.14      grid_4.2.1         
 [100] metadat_1.2-0       readxl_1.4.0        BUGSnet_1.1.0      
 [103] git2r_0.30.1        reprex_2.0.1        digest_0.6.29      
 [106] webshot_0.5.3       httpuv_1.6.5        munsell_0.5.0      
