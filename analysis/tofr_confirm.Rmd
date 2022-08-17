@@ -191,7 +191,7 @@ conf_meta_temp <- dichot_conf.dat |>
       extbconf == "ns" ~ "Not stated"
     ),
     # if No quantitative monitoring, set to unconfirmed 
-    confirm = ifelse(mon_cat_f == "Qual", "Qualitative monitoring", confirm), 
+    confirm = ifelse(mon_cat_f == "Qual", "Qualitative assessment", confirm), 
     confirm = ifelse(str_detect(mon_cat_f, "Clin"), "Clinical/None/NS", confirm), 
   ) %>%
   # only neostigmine and sugammadex arms
@@ -257,7 +257,7 @@ domenech2019 <- tribble(
 ## conf_meta 0.9/0.8/NS/qual/clin---------------------- (2022-04-01 08:37) @----
 conf_meta <- bind_rows(conf_meta_temp, domenech2019) %>% 
   mutate(
-    confirm = factor(confirm, levels = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS", "Not confirmed", "Not stated", "Qualitative monitoring", "Clinical/None/NS")),
+    confirm = factor(confirm, levels = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS", "Not confirmed", "Not stated", "Qualitative assessment", "Clinical/None/NS")),
     rnmb_where = case_when(
     rnmb_where == "ns" ~ "NS",
     rnmb_where %in% c("post_extub", "or") ~ "Extubation",
@@ -397,7 +397,7 @@ conf_kbl %>%
     confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
     confirm == "Confirmed ≥0.8/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
-    confirm == "Qualitative monitoring"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
+    confirm == "Qualitative assessment"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
     confirm == "Clinical/None/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, "#dc0c22", 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
@@ -428,7 +428,7 @@ kbl(
   pack_sub_bold_ind(., "Confirmed ≥ 0.8/NS", 11, 12) %>%
   pack_sub_bold_ind(., "Not confirmed", 13, 23) %>%
   pack_sub_bold_ind(., "Not stated", 24, 30) %>%
-  pack_top(., "Qualitative monitoring", 31, 31) %>%
+  pack_top(., "Qualitative assessment", 31, 31) %>%
   pack_top(., "Clinical/None/NS", 32, 35) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit; NS: not stated.",
@@ -445,21 +445,21 @@ table_n <- tab_inc()
 # consider only confirmed vs not 
 # only quantitative monitoring includes 0.8/NS
 conf_meta_collapsed <- conf_meta |> 
-  # filter(!confirm %in% c("Qualitative monitoring", "Clinical/None/NS")) |> 
+  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |> 
   mutate(
     confirm = fct_collapse(confirm, Confirmed = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS")),
   )
 
 # only quantitative monitoring 0.9
 conf_meta_9 <- conf_meta 
-  # filter(!confirm %in% c("Qualitative monitoring", "Clinical/None/NS")) |> 
+  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |> 
   # filter(!confirm %in% c("Confirmed ≥0.8/NS"))
 
 ## forest function ------------------------------------ (2022-03-23 14:30) @----
 forest_conf <- function(meta_result) {
   forest(meta_result,
     overall = FALSE,
-    fixed = FALSE,
+    common = TRUE,
     rightcols = c("effect", "ci"),
     rightlabs = c(" ", "(95% CI)"),
     smlab = "Residual Neuromuscular Blockade\n per 100 patients",
@@ -534,8 +534,8 @@ rnmb_meta_glmm_9 <- metaprop(rnmb9_n, arm_n,
   method = "GLMM",
   sm = "PLOGIT",
   method.tau = "ML",
-  hakn = TRUE,
-  incr = 0,
+  hakn = FALSE,
+  # incr = 0,
   # prediction.subgroup = FALSE,
   prediction = FALSE,
   # subgroup = confirm,  
@@ -564,6 +564,25 @@ compare_ci_logit <- function(data_meta) {
   # paste0(round_2(rr[2]), " (95% CI: ", rr[1], ", ", rr[3], ")")
 }
 
+rnmb_sug
+
+  rnmb_logit <- update(data_meta, backtransf = FALSE)[c("TE.random.w", "seTE.random.w")] %>% unlist()
+  set.seed(12345)
+  rr <- 
+    
+    boot::inv.logit(
+    rnorm(10, rnmb_sug[1], rnmb_sug[3]) 
+  
+  (boot::inv.logit(rnorm(1000000, rnmb_logit[2], rnmb_logit[4])))^2
+  
+  
+  rr <- (boot::inv.logit(rnorm(1000000, rnmb_logit[1], rnmb_logit[3])))^2 / (boot::inv.logit(rnorm(1000000, rnmb_logit[2], rnmb_logit[4])))^2
+  rr <- quantile(rr, probs = c(0.025, 0.5, 0.975))
+  paste0(round_2(rr[2]), " (95% CI: ", round_2(rr[1]), ", ", round_2(rr[3]), ")")
+
+
+
+
 ```
 
 <!-- <br/> -->
@@ -582,18 +601,21 @@ compare_ci_logit <- function(data_meta) {
 # rnmb_sug <- update(rnmb_meta_collapsed_glmm,
 #   subset = arm == "Sug" & confirm == "Confirmed",
 rnmb_sug <- update(rnmb_meta_glmm_9,
-  incr = 0,
+  # incr = 0,
   # subset = arm == "Sug" & confirm == "Confirmed ≥0.9",
+  subgroup = confirm,
+  # subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
+  subset = arm == "Neo" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
   # subset = arm == "Sug" & confirm == "Not confirmed"
   # subset = arm == "Sug" & confirm == "Not stated"
-  # subset = arm == "Sug" & confirm == "Qualitative monitoring"
+  # subset = arm == "Sug" & confirm == "Qualitative assessment"
   # subset = arm == "Sug" & confirm == "Clinical/None/NS"
   # subset = arm == "Neo" & confirm == "Confirmed ≥0.9",
   # subset = arm == "Neo" & confirm == "Confirmed",
   # subset = arm == "Neo" & confirm == "Not confirmed"
   # subset = arm == "Neo" & confirm == "Not stated"
-  # subset = arm == "Neo" & confirm == "Qualitative monitoring"
-  subset = arm == "Neo" & confirm == "Clinical/None/NS"
+  # subset = arm == "Neo" & confirm == "Qualitative assessment"
+  # subset = arm == "Neo" & confirm == "Clinical/None/NS"
   # remove Alday 2019 outlier
   # subset = arm == "Sug" & study != "Alday 2019",
   # compare confirm vs not confirmed
@@ -604,10 +626,13 @@ rnmb_sug <- update(rnmb_meta_glmm_9,
 
 rnmb_sug
 
-forest(rnmb_sug)
+forest_conf(rnmb_sug)
 
 rnmb_sug <- update(rnmb_meta_collapsed_glmm , 
-  subset = arm == "Sug"
+  # subset = arm == "Sug",
+  subgroup = confirm,
+  subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed"),
+  subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed") & study != "Alday 2019",
   # remove Alday 2019 outlier
   # subset = arm == "Sug" & study != "Alday 2019",
   # compare confirm vs not confirmed
@@ -726,7 +751,7 @@ conf_kbl %>%
     confirm == "Not confirmed" ~ bar_wn(rnmb9_per, rnmb9_per, color_4, 1),
     confirm == "Not stated"  ~ bar_wn(rnmb9_per, rnmb9_per, color_2, 1),
     confirm == "Confirmed ≥0.8/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, color_3, 1),
-    confirm == "Qualitative monitoring"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
+    confirm == "Qualitative assessment"  ~ bar_wn(rnmb9_per, rnmb9_per, "#e74343", 1),
     confirm == "Clinical/None/NS"  ~ bar_wn(rnmb9_per, rnmb9_per, "#dc0c22", 1),
     ),
   # rnmb_bar = str_replace(rnmb_bar, ">\\d+\\.?\\d?", ",>&nbsp;"),
@@ -757,7 +782,7 @@ kbl(
   pack_sub_bold_ind(., "Confirmed ≥ 0.8/NS", 11, 15) %>%
   pack_sub_bold_ind(., "Not confirmed", 16, 31) %>%
   pack_sub_bold_ind(., "Not stated", 32, 41) %>%
-  pack_top(., "Qualitative monitoring", 42, 50) %>%
+  pack_top(., "Qualitative assessment", 42, 50) %>%
   pack_top(., "Clinical/None/NS", 51, 60) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit; NS: not stated.",

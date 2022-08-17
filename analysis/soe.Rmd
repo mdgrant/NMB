@@ -234,14 +234,14 @@ soe_summary %>%
   column_spec(6, width = "24em") %>% 
   column_spec(7, width = "7em") %>% 
   pack_topnoind(., "Fully Paired", 1, 6) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Corrugator Supercilii", 1, 1) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(general = "RNMB: residual neuromuscular blockade; TOFR: train of four ratio; OR: odds ratio.",
            number = c("● Limited, ●● Important, ●●● Critical."),
            general_title = "",  
@@ -265,8 +265,9 @@ kq1_domain_summary <- domain_summary %>%
   # filter(comparison == "sug_neo") %>%
   select(-summary) %>%
   mutate(
-    design = str_replace(design, "fully_paired", "Fully Paired"),
-    design = str_replace(design, "pro_cohort", "Cohort"),
+    design = str_replace(design, "Fully_paired", "Fully Paired"),
+    design = str_replace(design, "Pro_cohort", "Cohort"),
+    design = str_replace(design, "rct", "RCT"),
   )
          
 # (updated 2021/05/14 07:42) get list of unique footnotes ----------------
@@ -312,14 +313,14 @@ kq1_domain %>%
   column_spec(3, width = "8em") %>% 
   column_spec(4:8, width = "8em") %>% 
     pack_topnoind(., "Fully Paired", 1, 6) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Corrugator Supercilii", 1, 1) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = foot_unique,
            general_title = "",  
@@ -499,14 +500,14 @@ kq1_domain %>%
   pack_topnoind(., "Quantitative vs. Qualitative or Clinical", 6, 8) %>%
   pack_topnoind(., "Quantitative vs. Qualitative", 9, 9) %>%
   pack_topnoind(., "Any monitoring vs. none", 10, 20) %>%
-  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Corrugator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
     # general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = foot_unique,
@@ -601,13 +602,13 @@ soe_summary %>%
   # pack_topnoind(., "Fully Paired", 1, 6) %>% 
   pack_sub_bold(., "      Sugammadex", 1, 1) %>% 
   pack_sub_bold(., "      Neostigmine", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
     # general = "OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
@@ -680,14 +681,14 @@ confirm_domain %>%
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
   pack_sub_bold(., "Sugammadex vs. Neostigmine", 1, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Corrugator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
     # general = "RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = foot_unique,
@@ -784,13 +785,13 @@ soe_summary %>%
   column_spec(7, width = "7em") %>% 
   # pack_topnoind(., "Fully Paired", 1, 6) %>% 
   pack_sub_bold(., "Sugammadex vs. Neostigmine", 1, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
     general = "RNMB: residual neuromuscular blockade; RR: risk ratio; RD: risk difference; OR: odds ratio; MD: mean difference; RCT: randomized controlled trial; NRSI: nonrandomized study of interventions.",
            number = c("● Limited, ●● Important, ●●● Critical."),
@@ -865,14 +866,14 @@ kq4_domain %>%
   column_spec(3, width = "10em") %>% 
   column_spec(4:8, width = "8em") %>% 
   pack_sub_bold(., "Sugammadex vs. Neostigmine", 1, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Corrigator Supercilii", 1, 1) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 2, 2) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Masseter", 3, 3) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Flexor Hallucis Brevis", 4, 4) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Corrugator Supercilii", 1, 1) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 2, 2) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Masseter", 3, 3) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Flexor Hallucis Brevis", 4, 4) %>% 
   # pack_sub_bold(., "Flexor Hallucis Brevis	vs. First Dorsal Interosseous", 5, 5) %>% 
   # pack_sub_bold(., "Normalization vs. No Normalization", 6, 6) %>% 
   # pack_topnoind(., "Prospective Cohort", 7, 7) %>% 
-  # pack_sub_bold(., "Adductor Pollicus vs. Orbicularis Oculi", 7, 7) %>% 
+  # pack_sub_bold(., "Adductor Pollicis vs. Orbicularis Oculi", 7, 7) %>% 
   footnote(
     general = "RCT: randomized controlled trial; Obs: observational (nonrandomized).",
            number = foot_unique,

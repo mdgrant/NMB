@@ -652,7 +652,7 @@ pairs_temp.dat <- pairwise(
 
 <a id="kq3Fig1"></a>
 
-<font size = 4> Figure `r figure_n`. Pooled comparison of qualitative and clinical monitoring for RNMB (TOFR <0.7). </font>
+<font size = 4> Figure `r figure_n`. Pooled comparison of qualitative and clinical assessment for RNMB (TOFR <0.7). </font>
 
 ```{r qualClinical, fig.width = 10, fig.height = 3}
 ## qualClinical --------------------------------------- (2022-03-31 11:23) @----
@@ -905,7 +905,7 @@ net_table$network %>%
 
 <br/>
 
-<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9 to <0.7) from 8 randomized trials, 1 quasi-experimental, and 1 non-randomized study comparing quantitative, qualitative, and clinical monitoring (network meta-analysis). </font>
+<font size = 4> Figure `r figure_n`. Pooled residual neuromuscular blockade (TOFR <0.9 to <0.7) from 8 randomized trials, 1 quasi-experimental, and 1 non-randomized study comparing quantitative, qualitative assessment, and clinical monitoring (network meta-analysis). </font>
 
 ```{r nmmForest, include = TRUE, echo = FALSE, fig.align = 'left', fig.width = 8, fig.height = 2.5}
 forest(nmm_netmeta_nma,
