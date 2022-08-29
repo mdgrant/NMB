@@ -396,7 +396,7 @@ study_arm_ptout.dat %>%
     col.names = c("Study", "Anesthetic", " ", "Intub", "Maint", "Mean", "Range", "Neo", "mg/kg <u>mg</u>", "Sug", "mg/kg")
   ) %>%
   row_spec(0, bold = TRUE) %>%
-  add_header_above(c(" " = 1, "Volatile" = 1, "Agent & When Administered" = 3, "Dose mg/kg" = 2, "Reversal Agent and Dose" = 4), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 1, "Volatile" = 1, "Drug & When Administered" = 3, "Dose mg/kg" = 2, "Antagonist Drug and Dose" = 4), line = TRUE, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
   column_spec(1, width = study_width) %>%

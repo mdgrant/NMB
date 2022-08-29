@@ -436,16 +436,20 @@ bland_altman_kbl <- bland_altman.dat %>%
 ## • (updated 2021/12/07 15:19) at specified TOFR -------------------------
 bland_altman_kbl_at <- bland_altman_kbl %>%
   filter(time_at == "at") %>%
-  mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
+  mutate(
+    ba_result = str_replace(ba_result, "  ", ""),
+    ind_mon = ifelse(study == "Giudici 2021", "amg_uni", ind_mon)
+  ) %>%
   select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa) %>%
   arrange(year, refid, ind_mon) %>%
   left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
-  relocate(study_l, .after = study) 
+  relocate(study_l, .after = study)
 
 bland_altman_kbl_at %>%
   group_by(study) %>%
   mutate(
-    study_l = ifelse(row_number() == 1, study_l, NA)
+    # study_l = ifelse(row_number() == 1, study_l, NA),
+    study = ifelse(row_number() == 1, study, NA)
   ) %>%
   ungroup() %>%
   mutate(
@@ -460,7 +464,7 @@ bland_altman_kbl_at %>%
     ref_name = ifelse(ref_mon == "MMG", "", ref_name),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
-  select(study_l, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
+  select(study, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
   kbl(
     booktabs = T, align = c("lrllccllcc"),
     col.names = c("Study^a^", "N", "Type", "Monitor", "Pre^c^", "Nl^c^", "Type", "Monitor", "Pre^c^", "Nl^c^")
@@ -499,7 +503,8 @@ table_n <- tab_inc()
 ## (updated 2021/11/30 11:26) blandAltmanKblResult ------------------------
 bland_altman_kbl_at <- bland_altman_kbl %>%
   filter(time_at == "at") %>%
-  mutate(ba_result = str_replace(ba_result, "  ", "")) %>%
+  mutate(ba_result = str_replace(ba_result, "  ", ""),
+         ind_mon = ifelse(study == "Giudici 2021", "amg_uni", ind_mon)) %>%
   select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa) %>%
   arrange(year, refid, ind_mon) %>%
   left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
@@ -508,13 +513,14 @@ bland_altman_kbl_at <- bland_altman_kbl %>%
     ba_ind_thresh = case_when(
       refid == 1864 ~ "all_meas",
       TRUE ~ ba_ind_thresh
-    )
+    ),
   )
 
 bland_altman_kbl_at %>%
   group_by(study) %>%
   mutate(
-    study_l = ifelse(row_number() == 1, study_l, NA)
+    study_l = ifelse(row_number() == 1, study_l, NA),
+    study = ifelse(row_number() == 1, study, NA)
   ) %>%
   ungroup() %>%
   mutate(
@@ -533,7 +539,7 @@ bland_altman_kbl_at %>%
     # ref_mon = ifelse(ref_mon == "MMG", "Mechanomyograph", ref_mon),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
-  select(study_l, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
+  select(study, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
   kbl(
     booktabs = T, align = c("lrcccll"),
     col.names = c("Study^a^", "N", "  Monitor", "    Monitor", "Compared", "    Bias (95% CI)", "  Agreement")
@@ -580,7 +586,8 @@ bland_altman_kbl_time <- bland_altman_kbl %>%
 bland_altman_kbl_time %>%
   group_by(study) %>%
   mutate(
-    study_l = ifelse(row_number() == 1, study_l, NA)
+    study_l = ifelse(row_number() == 1, study_l, NA),
+    study = ifelse(row_number() == 1, study, NA)
   ) %>%
   ungroup() %>%
   mutate(
@@ -595,7 +602,7 @@ bland_altman_kbl_time %>%
     ref_name = ifelse(ref_mon == "MMG", "", ref_name),
     across(.cols = c(ind_preload, ind_norm, ref_preload, ref_norm), ~ ifelse(.x %in% "yes", "\U000D7", ifelse(.x %in% "no", "\UFFEE", .x)))
   ) %>%
-  select(study_l, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
+  select(study, arm_n, ind_mon, ind_name, ind_preload, ind_norm, ref_mon, ref_name, ref_preload, ref_norm) %>%
   kbl(
     booktabs = T, align = c("lrllccllcc"),
     col.names = c("Study^a^", "N", "Type", "Monitor", "Pre^c^", "Nl^c^", "Type", "Monitor", "Pre^c^", "Nl^c^")
@@ -638,14 +645,18 @@ bland_altman_kbl_time <- bland_altman_kbl %>%
   select(refid, arm_id, study, year, arm_n, starts_with("ind"), starts_with("ref"), ba_ind_thresh:ba_loa, time_from) %>%
   arrange(year, refid, ind_mon) %>%
   left_join(study_char_ba.dat[, c("refid", "study_l")], by = c("refid")) %>%
-  relocate(study_l, .after = study) %>% 
-  mutate(time_from = ifelse(refid == 1064, "Neostigime", as.character(time_from)),
- time_from = paste(time_from, "to"))
+  relocate(study_l, .after = study) %>%
+  mutate(
+    time_from = ifelse(refid == 1064, "Neostigime", as.character(time_from)),
+    time_from = paste(time_from, "to"),
+    time_from = str_replace(time_from, "Reversal", "Antagnonist")
+  )
 
 bland_altman_kbl_time %>%
   group_by(study) %>%
   mutate(
-    study_l = ifelse(row_number() == 1, study_l, NA)
+    # study_l = ifelse(row_number() == 1, study_l, NA)
+    study = ifelse(row_number() == 1, study, NA)
   ) %>%
   ungroup() %>%
   mutate(
@@ -661,10 +672,12 @@ bland_altman_kbl_time %>%
     ba_ind_thresh = factor(ba_ind_thresh, levels = c("tofr_ge8", "tofr_ge9"), labels = c("≥8", "≥9")),
     ba_ind_thresh = ifelse(refid == 1064, "≥8, ≥7 MMG", as.character(ba_ind_thresh)),
     ba_ind_thresh = paste(time_from, "TOFR", ba_ind_thresh),
+    ba_ind_thresh = ifelse(study == "Bussey 2020", "10 min post antagonist to TOFR ≥9", ba_ind_thresh),
+    ba_ind_thresh = ifelse(study == "Honing 2022", "NMB admin to TOFR ≥9", ba_ind_thresh),
     ba_result = ifelse(!grepl("^-", ba_result), paste0("  ", ba_result), ba_result),
     # ba_result = str_replace(ba_result, "-", "–")
   ) %>%
-  select(study_l, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
+  select(study, arm_n, ind_mon, ref_mon, ba_ind_thresh, ba_result, ba_loa) %>%
   kbl(
     booktabs = T, align = c("lrllllc"),
     col.names = c("Study^a^", "N", "Index", "Reference", "                Time", "    Bias (95% CI)", "Agreement")

@@ -13,7 +13,7 @@
 
 <title>Diagnostic</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -178,11 +178,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -461,7 +465,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Diagnostic</h1>
-<h4 class="date">15 August, 2022 (10:31)</h4>
+<h4 class="date">29 August, 2022 (11:06)</h4>
 
 </div>
 
@@ -490,7 +494,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-15
+<strong>Last updated:</strong> 2022-08-29
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -624,15 +628,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree99eeaf452021586da82022648a6d7b321126ad45targetblank99eeaf4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3a506401e940e8b37ecb4967b3551f4e65849f06targetblank3a50640a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/99eeaf452021586da82022648a6d7b321126ad45" target="_blank">99eeaf4</a>
+<a href="https://github.com/mdgrant/NMB/tree/3a506401e940e8b37ecb4967b3551f4e65849f06" target="_blank">3a50640</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree99eeaf452021586da82022648a6d7b321126ad45targetblank99eeaf4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3a506401e940e8b37ecb4967b3551f4e65849f06targetblank3a50640a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -642,7 +646,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/99eeaf452021586da82022648a6d7b321126ad45" target="_blank">99eeaf4</a>.
+<a href="https://github.com/mdgrant/NMB/tree/3a506401e940e8b37ecb4967b3551f4e65849f06" target="_blank">3a50640</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -704,6 +708,7 @@ Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitignore
     Modified:   analysis/kq2.Rmd
+    Modified:   analysis/kq3.Rmd
     Modified:   analysis/tofr_confirm.Rmd
 
 </code></pre>
@@ -749,6 +754,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/154fb1fdded76834925f20148cca6d6d4477bf1a/analysis/kq2.Rmd" target="_blank">154fb1f</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-08-17
+</td>
+<td>
+change to qualitative assessment
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/4afc8170b66aad1d1d660c7173099fb50aefe5b9/docs/kq2.html" target="_blank">4afc817</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-08-15
+</td>
+<td>
+fix formating &amp; footnotes table 4
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2160,7 +2199,7 @@ Nl<sup>c</sup>
 <tbody>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#443">Harper 1994</a>
+Harper 1994
 </td>
 <td style="text-align:right;width: 4em; ">
 13
@@ -2191,7 +2230,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1064">K-Nielsen 1998</a>
+K-Nielsen 1998
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -2252,7 +2291,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1864">Capron 2006</a>
+Capron 2006
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -2281,7 +2320,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2120">Claudius 2009</a>
+Claudius 2009
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -2340,7 +2379,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2566">Liang 2013</a>
+Liang 2013
 </td>
 <td style="text-align:right;width: 4em; ">
 26
@@ -2371,7 +2410,7 @@ NMT-EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2698">Stewart 2014</a>
+Stewart 2014
 </td>
 <td style="text-align:right;width: 4em; ">
 16
@@ -2400,7 +2439,7 @@ MechanoSensor
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2877">Khandkar 2016</a>
+Khandkar 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 18
@@ -2458,7 +2497,7 @@ ElectroSensor
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2923">Salminen 2016</a>
+Salminen 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -2490,7 +2529,7 @@ ElectroSensor
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3095">Veiga Ruiz 2017</a>
+Veiga Ruiz 2017
 </td>
 <td style="text-align:right;width: 4em; ">
 8
@@ -2518,7 +2557,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3180">Murphy (b) 2018</a>
+Murphy (b) 2018
 </td>
 <td style="text-align:right;width: 4em; ">
 23
@@ -2579,7 +2618,7 @@ TOF Watch
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3392">Bowdle 2020</a>
+Bowdle 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 43
@@ -2665,7 +2704,7 @@ StimPod NMS 450
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3644">Renew 2021</a>
+Renew 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 115
@@ -2697,12 +2736,13 @@ TetraGraph
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7308">Giudici 2021</a>
+Giudici 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 20
 </td>
 <td style="text-align:left;width: 6em; ">
+AMG (uni)
 </td>
 <td style="text-align:left;width: 7em; ">
 TOF Watch
@@ -2727,7 +2767,7 @@ EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#9349">Takagi 2021</a>
+Takagi 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 40
@@ -2839,7 +2879,7 @@ Compared
 <tbody>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#443">Harper 1994</a>
+Harper 1994
 </td>
 <td style="text-align:right;width: 4em; ">
 13
@@ -2861,7 +2901,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1064">K-Nielsen 1998</a>
+K-Nielsen 1998
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -2906,7 +2946,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1864">Capron 2006</a>
+Capron 2006
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -2928,7 +2968,7 @@ All
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2120">Claudius 2009</a>
+Claudius 2009
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -2973,7 +3013,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2566">Liang 2013</a>
+Liang 2013
 </td>
 <td style="text-align:right;width: 4em; ">
 26
@@ -2996,7 +3036,7 @@ EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2698">Stewart 2014</a>
+Stewart 2014
 </td>
 <td style="text-align:right;width: 4em; ">
 16
@@ -3019,7 +3059,7 @@ KMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2877">Khandkar 2016</a>
+Khandkar 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 18
@@ -3064,7 +3104,7 @@ EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2923">Salminen 2016</a>
+Salminen 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -3086,7 +3126,7 @@ EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3095">Veiga Ruiz 2017</a>
+Veiga Ruiz 2017
 </td>
 <td style="text-align:right;width: 4em; ">
 8
@@ -3109,7 +3149,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3180">Murphy (b) 2018</a>
+Murphy (b) 2018
 </td>
 <td style="text-align:right;width: 4em; ">
 23
@@ -3154,7 +3194,7 @@ All
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3392">Bowdle 2020</a>
+Bowdle 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 43
@@ -3221,7 +3261,7 @@ All
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3644">Renew 2021</a>
+Renew 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 115
@@ -3244,12 +3284,13 @@ PACU
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7308">Giudici 2021</a>
+Giudici 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 20
 </td>
 <td style="text-align:center;width: 9em; ">
+AMG (uni)
 </td>
 <td style="text-align:center;width: 9em; ">
 EMG
@@ -3266,7 +3307,7 @@ All
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#9349">Takagi 2021</a>
+Takagi 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 40
@@ -3362,7 +3403,7 @@ Nl<sup>c</sup>
 <tbody>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1064">K-Nielsen 1998</a>
+K-Nielsen 1998
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -3423,7 +3464,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1472">Dahaba 2002</a>
+Dahaba 2002
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -3451,7 +3492,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1925">Trager 2006</a>
+Trager 2006
 </td>
 <td style="text-align:right;width: 4em; ">
 14
@@ -3479,7 +3520,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2120">Claudius 2009</a>
+Claudius 2009
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -3538,7 +3579,7 @@ MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#4215">Gaffar 2013</a>
+Gaffar 2013
 </td>
 <td style="text-align:right;width: 4em; ">
 24
@@ -3566,7 +3607,7 @@ MechanoSensor
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2844">Colegrave 2016</a>
+Colegrave 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -3598,7 +3639,7 @@ TOF Watch
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3293">Kameyama 2019</a>
+Kameyama 2019
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -3627,7 +3668,7 @@ TOF Watch
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3393">Bussey 2020</a>
+Bussey 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 11
@@ -3656,7 +3697,7 @@ EMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3481">Markle 2020</a>
+Markle 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 40
@@ -3685,7 +3726,7 @@ TOF Scan
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3521">S Machado 2020</a>
+S Machado 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 27
@@ -3714,7 +3755,7 @@ TOF Watch
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3632">Motamed 2021</a>
+Motamed 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -3742,7 +3783,7 @@ TOF Scan
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7264">Nemes 2021</a>
+Nemes 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 48
@@ -3827,7 +3868,7 @@ TOF Watch
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7431">Honing 2022</a>
+Honing 2022
 </td>
 <td style="text-align:right;width: 4em; ">
 200
@@ -3961,7 +4002,7 @@ Agreement
 <tbody>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1064">K-Nielsen 1998</a>
+K-Nielsen 1998
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -3995,7 +4036,6 @@ MMG
 MMG
 </td>
 <td style="text-align:left;width: 16em; ">
-Neostigime to TOFR ≥8, ≥7 MMG
 </td>
 <td style="text-align:left;width: 12em; ">
 -0.2%
@@ -4006,7 +4046,7 @@ Neostigime to TOFR ≥8, ≥7 MMG
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1472">Dahaba 2002</a>
+Dahaba 2002
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -4029,7 +4069,7 @@ NMB admin to TOFR ≥8
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#1925">Trager 2006</a>
+Trager 2006
 </td>
 <td style="text-align:right;width: 4em; ">
 14
@@ -4052,7 +4092,7 @@ NMB admin to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2120">Claudius 2009</a>
+Claudius 2009
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -4086,7 +4126,6 @@ AMG (uni)
 MMG
 </td>
 <td style="text-align:left;width: 16em; ">
-TOFR 0.2 to TOFR ≥9
 </td>
 <td style="text-align:left;width: 12em; ">
 -17.8% (-21.2% to -14.2%)
@@ -4097,7 +4136,7 @@ TOFR 0.2 to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#4215">Gaffar 2013</a>
+Gaffar 2013
 </td>
 <td style="text-align:right;width: 4em; ">
 24
@@ -4120,7 +4159,7 @@ Not stated to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#2844">Colegrave 2016</a>
+Colegrave 2016
 </td>
 <td style="text-align:right;width: 4em; ">
 32
@@ -4143,7 +4182,7 @@ End surg to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3293">Kameyama 2019</a>
+Kameyama 2019
 </td>
 <td style="text-align:right;width: 4em; ">
 20
@@ -4155,7 +4194,7 @@ EMG (cuff)
 AMG (uni)
 </td>
 <td style="text-align:left;width: 16em; ">
-Reversal admin to TOFR ≥9
+Antagnonist admin to TOFR ≥9
 </td>
 <td style="text-align:left;width: 12em; ">
   12.6% (6.7% to 18.5%)
@@ -4166,7 +4205,7 @@ Reversal admin to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3393">Bussey 2020</a>
+Bussey 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 11
@@ -4178,7 +4217,7 @@ EMG
 EMG
 </td>
 <td style="text-align:left;width: 16em; ">
-NA to TOFR NA
+10 min post antagonist to TOFR ≥9
 </td>
 <td style="text-align:left;width: 12em; ">
   0.24
@@ -4188,7 +4227,7 @@ NA to TOFR NA
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3481">Markle 2020</a>
+Markle 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 40
@@ -4211,7 +4250,7 @@ NMB admin to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3521">S Machado 2020</a>
+S Machado 2020
 </td>
 <td style="text-align:right;width: 4em; ">
 27
@@ -4234,7 +4273,7 @@ NMB admin to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#3632">Motamed 2021</a>
+Motamed 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 30
@@ -4257,7 +4296,7 @@ TOFC 0 to TOFR ≥9
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7264">Nemes 2021</a>
+Nemes 2021
 </td>
 <td style="text-align:right;width: 4em; ">
 48
@@ -4291,7 +4330,6 @@ EMG
 AMG (uni)
 </td>
 <td style="text-align:left;width: 16em; ">
-End surg to TOFR ≥8
 </td>
 <td style="text-align:left;width: 12em; ">
 -0.5% (-2.4% to 1.3%)
@@ -4313,7 +4351,6 @@ EMG
 AMG (uni)
 </td>
 <td style="text-align:left;width: 16em; ">
-End surg to TOFR NA
 </td>
 <td style="text-align:left;width: 12em; ">
   2.6%
@@ -4324,7 +4361,7 @@ End surg to TOFR NA
 </tr>
 <tr>
 <td style="text-align:left;width: 8em; ">
-<a href="evidence_tables.html#7431">Honing 2022</a>
+Honing 2022
 </td>
 <td style="text-align:right;width: 4em; ">
 200
@@ -4336,7 +4373,7 @@ EMG (cuff)
 EMG
 </td>
 <td style="text-align:left;width: 16em; ">
-NA to TOFR ≥8
+NMB admin to TOFR ≥9
 </td>
 <td style="text-align:left;width: 12em; ">
   3.4% (2.3% to 4.5%)
@@ -4357,7 +4394,6 @@ EMG (cuff)
 EMG
 </td>
 <td style="text-align:left;width: 16em; ">
-NA to TOFR ≥8
 </td>
 <td style="text-align:left;width: 12em; ">
 -1.7% (-2.9% to 2.5%)
@@ -4638,42 +4674,42 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] meta_5.5-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.1    
- [5] stringr_1.4.0     dplyr_1.0.9       purrr_0.3.4       readr_2.1.2      
+ [1] meta_5.5-0        formattable_0.2.1 naniar_0.6.1      forcats_0.5.2    
+ [5] stringr_1.4.1     dplyr_1.0.9       purrr_0.3.4       readr_2.1.2      
  [9] tidyr_1.2.0       tibble_3.1.8      ggplot2_3.3.6     tidyverse_1.3.2  
 [13] Cairo_1.6-0       countrycode_1.4.0 janitor_2.1.0     kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-159        fs_1.5.2            bit64_4.0.5        
- [4] lubridate_1.8.0     webshot_0.5.3       httr_1.4.3         
+ [4] lubridate_1.8.0     webshot_0.5.3       httr_1.4.4         
  [7] rprojroot_2.0.3     tools_4.2.1         backports_1.4.1    
-[10] bslib_0.4.0         metafor_3.4-0       utf8_1.2.2         
+[10] bslib_0.4.0         metafor_3.8-1       utf8_1.2.2         
 [13] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
 [16] withr_2.5.0         tidyselect_1.1.2    bit_4.0.4          
 [19] compiler_4.2.1      git2r_0.30.1        cli_3.3.0          
-[22] rvest_1.0.2         xml2_1.3.3          sass_0.4.2         
-[25] scales_1.2.0        systemfonts_1.0.4   digest_0.6.29      
-[28] minqa_1.2.4         rmarkdown_2.14      svglite_2.1.0      
+[22] rvest_1.0.3         xml2_1.3.3          sass_0.4.2         
+[25] scales_1.2.1        systemfonts_1.0.4   digest_0.6.29      
+[28] minqa_1.2.4         rmarkdown_2.16      svglite_2.1.0      
 [31] pkgconfig_2.0.3     htmltools_0.5.3     lme4_1.1-30        
 [34] highr_0.9           dbplyr_2.2.1        fastmap_1.1.0      
-[37] htmlwidgets_1.5.4   rlang_1.0.4         readxl_1.4.0       
-[40] rstudioapi_0.13     jquerylib_0.1.4     generics_0.1.3     
-[43] jsonlite_1.8.0      vroom_1.5.7         googlesheets4_1.0.0
+[37] htmlwidgets_1.5.4   rlang_1.0.4         readxl_1.4.1       
+[40] rstudioapi_0.14     jquerylib_0.1.4     generics_0.1.3     
+[43] jsonlite_1.8.0      vroom_1.5.7         googlesheets4_1.0.1
 [46] magrittr_2.0.3      metadat_1.2-0       Matrix_1.4-1       
 [49] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
 [52] lifecycle_1.0.1     visdat_0.5.3        stringi_1.7.8      
 [55] whisker_0.4         yaml_2.3.5          CompQuadForm_1.4.3 
 [58] snakecase_0.11.0    mathjaxr_1.6-0      MASS_7.3-58.1      
 [61] grid_4.2.1          parallel_4.2.1      promises_1.2.0.1   
-[64] crayon_1.5.1        lattice_0.20-45     haven_2.5.0        
-[67] splines_4.2.1       hms_1.1.1           knitr_1.39         
-[70] pillar_1.8.0        boot_1.3-28         reprex_2.0.1       
-[73] glue_1.6.2          evaluate_0.16       modelr_0.1.8       
+[64] crayon_1.5.1        lattice_0.20-45     haven_2.5.1        
+[67] splines_4.2.1       hms_1.1.2           knitr_1.40         
+[70] pillar_1.8.1        boot_1.3-28         reprex_2.0.2       
+[73] glue_1.6.2          evaluate_0.16       modelr_0.1.9       
 [76] nloptr_2.0.3        vctrs_0.4.1         tzdb_0.3.0         
 [79] httpuv_1.6.5        cellranger_1.1.0    gtable_0.3.0       
 [82] assertthat_0.2.1    cachem_1.0.6        xfun_0.32          
 [85] broom_1.0.0         later_1.3.0         googledrive_2.0.0  
-[88] viridisLite_0.4.0   gargle_1.2.0        workflowr_1.7.0    
+[88] viridisLite_0.4.1   gargle_1.2.0        workflowr_1.7.0    
 [91] ellipsis_0.3.2     </code></pre>
 </div>
 </div>

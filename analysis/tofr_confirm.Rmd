@@ -323,7 +323,7 @@ table <- readxl::read_excel(
     Group = ifelse(str_detect(Group, "Yes|No"), paste0("    ", Group), Group)
   )
 
-forester(left_side_data = table[,1:4],
+forester(left_side_data = table[,c(1,2,4)],
          estimate = table$`per 100`,
          estimate_col_name = "RNMB per 100 (95% CI)",
          ci_low = table$`CI low`,
@@ -408,9 +408,9 @@ conf_kbl %>%
   select(-c(confirm, rnmb9_per)) %>% 
 kbl(
     booktabs = T, align = c("llrccllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
+    col.names = c("Study", "Design", "N", "Drug", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
   ) %>%
-  add_header_above(c(" " = 5, "Reversal" = 1, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 6, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
@@ -534,7 +534,7 @@ rnmb_meta_glmm_9 <- metaprop(rnmb9_n, arm_n,
   method = "GLMM",
   sm = "PLOGIT",
   method.tau = "ML",
-  hakn = FALSE,
+  hakn = TRUE,
   # incr = 0,
   # prediction.subgroup = FALSE,
   prediction = FALSE,
@@ -604,8 +604,8 @@ rnmb_sug <- update(rnmb_meta_glmm_9,
   # incr = 0,
   # subset = arm == "Sug" & confirm == "Confirmed ≥0.9",
   subgroup = confirm,
-  # subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
-  subset = arm == "Neo" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
+  subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
+  # subset = arm == "Neo" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
   # subset = arm == "Sug" & confirm == "Not confirmed"
   # subset = arm == "Sug" & confirm == "Not stated"
   # subset = arm == "Sug" & confirm == "Qualitative assessment"
@@ -632,7 +632,8 @@ rnmb_sug <- update(rnmb_meta_collapsed_glmm ,
   # subset = arm == "Sug",
   subgroup = confirm,
   subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed"),
-  subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed") & study != "Alday 2019",
+  # subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed"),
+  # subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed") & study != "Alday 2019",
   # remove Alday 2019 outlier
   # subset = arm == "Sug" & study != "Alday 2019",
   # compare confirm vs not confirmed
@@ -762,9 +763,9 @@ conf_kbl %>%
   select(-c(confirm, rnmb9_per)) %>% 
 kbl(
     booktabs = T, align = c("llrccllll"), escape = FALSE, # format = "latex",
-    col.names = c("Study", "Design", "N", "Agent", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
+    col.names = c("Study", "Design", "N", "Drug", "Volatile", "Depth", "Place^a^", "N (%)", bar_ref),
   ) %>%
-  add_header_above(c(" " = 5, "Reversal" = 1, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
+  add_header_above(c(" " = 6, "Residual Neuromuscular Blockade" = 3), line = TRUE, bold = TRUE) %>%
   row_spec(0, bold = TRUE) %>%
   kable_styling(full_width = FALSE, bootstrap_options = opt_boot, position = "left") %>%
   kable_classic(full_width = FALSE, html_font = opt_font, position = "left", "hover") %>%
