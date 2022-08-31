@@ -2532,7 +2532,7 @@ table_n <- tab_inc()
 
 <font size = 4> Figure `r figure_n`. Bradycardia pooled results from RCTs comparing sugammadex with neostigmine. </font>
 
-```{r pooledBrady, fig.width = 10, fig.height = 6}
+```{r pooledBrady, fig.width = 10, fig.height = 8}
 ## pooledBrady --------------------------------------- (2022/04/02 10:21) @----
 brady_meta.dat <- adverse.dat %>%
   filter(age == "Adult", design == "rct") %>%
@@ -2579,9 +2579,10 @@ brady_meta <- metabin(brady_n_Sug, n_Sug, brady_n_Neo, n_Neo,
   method.tau = "PM",
   pscale = 100,
   # allstudies = FALSE,
-  hakn = FALSE,
+  hakn = TRUE,
   subgroup = antichol_Neo,
   # subset = antichol_Neo != "Not Reported",
+  # subset = antichol_Neo == "Glycopyrrolate",
   prediction = TRUE)
   # subset = !study_orig %in% c("Wu 2014 (Chinese)", "Wu 2014 (Caucasian)"),
   #subgroup = depth)
@@ -2602,6 +2603,7 @@ forest(brady_meta,
   allstudies = FALSE,
   colgap.left = "4mm",
   subgroup = TRUE,
+  # prediction.subgroup = TRUE,
   print.subgroup.name = FALSE,
   text.subgroup.nohet = TRUE,
   colgap.forest.left = "5mm",
