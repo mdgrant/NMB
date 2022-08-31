@@ -2542,9 +2542,10 @@ brady_meta.dat <- adverse.dat %>%
   group_by(study) %>%
   filter(n() > 1) %>%
   ungroup() %>%
-  filter(refid != 2004) %>% # Suy 2007 not sug:neo comparison
-  select(refid, study, arm, brady_n, n, mg_kg) %>%
-  pivot_wider(names_from = arm, values_from = c(brady_n, n, mg_kg)) %>% 
+  filter(!refid %in% c(2004, 1155)) %>% # Suy 2007 not sug:neo comparison
+  # select(refid, study, arm, brady_n, n, mg_kg) %>%
+  select(refid, study, arm, brady_n, n, mg_kg, antichol) %>%
+  pivot_wider(names_from = arm, values_from = c(brady_n, n, mg_kg, antichol)) %>% 
   # means when range neo
   mutate(
     mg_kg_Neo = case_when(
@@ -2553,7 +2554,9 @@ brady_meta.dat <- adverse.dat %>%
       study == "Quang 2019"      ~ "0.05", 
       TRUE ~ mg_kg_Neo
     )
-  ) 
+  ) |> 
+  mutate(antichol_Neo = ifelse(!antichol_Neo %in% c("Glyco", "Atropine"), "Not Reported", antichol_Neo),
+         antichol_Neo = ifelse(antichol_Neo == "Glyco", "Glycopyrrolate", antichol_Neo))
   # add reversal depth; need to use only selected arm
   # left_join(., study_arm_rev.dat %>% select(refid, depth_rev_f), by = "refid")
 
@@ -2576,7 +2579,9 @@ brady_meta <- metabin(brady_n_Sug, n_Sug, brady_n_Neo, n_Neo,
   method.tau = "PM",
   pscale = 100,
   # allstudies = FALSE,
-  hakn = TRUE,
+  hakn = FALSE,
+  subgroup = antichol_Neo,
+  # subset = antichol_Neo != "Not Reported",
   prediction = TRUE)
   # subset = !study_orig %in% c("Wu 2014 (Chinese)", "Wu 2014 (Caucasian)"),
   #subgroup = depth)
@@ -2596,9 +2601,9 @@ forest(brady_meta,
   pooled.events = TRUE,
   allstudies = FALSE,
   colgap.left = "4mm",
-  # subgroup = FALSE,
-  # print.subgroup.name = FALSE,
-  # text.subgroup.nohet = TRUE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
+  text.subgroup.nohet = TRUE,
   colgap.forest.left = "5mm",
   xlim = c(-40, 10),
   # at = c(0.1, 1, 10, 100),
@@ -2787,17 +2792,21 @@ tachy_meta.dat <- adverse.dat %>%
   filter(n() > 1) %>%
   ungroup() %>%
   filter(refid != 2004) %>% # Suy 2007 not sug:neo comparison
-  select(refid, study, arm, tachy_n, n, mg_kg) %>%
-  pivot_wider(names_from = arm, values_from = c(tachy_n, n, mg_kg)) %>% 
+  select(refid, study, arm, tachy_n, n, mg_kg, antichol) %>%
+  pivot_wider(names_from = arm, values_from = c(tachy_n, n, mg_kg, antichol)) %>%
   # means when range neo
   mutate(
     mg_kg_Neo = case_when(
-      study == "Schaller 2010"   ~ "0.02", 
-      study == "Brueckmann 2015" ~ "0.05", 
-      study == "Quang 2019"      ~ "0.05", 
+      study == "Schaller 2010" ~ "0.02",
+      study == "Brueckmann 2015" ~ "0.05",
+      study == "Quang 2019" ~ "0.05",
       TRUE ~ mg_kg_Neo
     )
-  ) 
+  ) |>
+  mutate(
+    antichol_Neo = ifelse(!antichol_Neo %in% c("Glyco", "Atropine"), "Not Reported", antichol_Neo),
+    antichol_Neo = ifelse(antichol_Neo == "Glyco", "Glycopyrrolate", antichol_Neo)
+  )
   # add reversal depth; need to use only selected arm
   # left_join(., study_arm_rev.dat %>% select(refid, depth_rev_f), by = "refid")
 
@@ -2809,7 +2818,8 @@ tachy_meta <- metabin(tachy_n_Sug, n_Sug, tachy_n_Neo, n_Neo,
   method.tau = "PM",
   # allstudies = FALSE,
   hakn = FALSE,
-  prediction = FALSE)
+  subgroup = antichol_Neo,
+  prediction = TRUE)
   # subset = !study_orig %in% c("Wu 2014 (Chinese)", "Wu 2014 (Caucasian)"),
   #subgroup = depth)
 
@@ -2824,13 +2834,13 @@ forest(tachy_meta,
   digits.tau2 = 1,
   overall.hetstat = TRUE,
   print.I2.ci = TRUE,
-  prediction = FALSE,
+  prediction = TRUE,
   fs.xlab = 11,
   pooled.events = TRUE,
   allstudies = FALSE,
   colgap.left = "4mm",
-  # subgroup = FALSE,
-  # print.subgroup.name = FALSE,
+  subgroup = TRUE,
+  print.subgroup.name = FALSE,
   # text.subgroup.nohet = TRUE,
   colgap.forest.left = "5mm",
   xlim = c(-30, 10),
