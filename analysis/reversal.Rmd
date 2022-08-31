@@ -2930,6 +2930,7 @@ arrhyth <- adverse.dat %>%
   filter(age %in% c("Adult", "All ages")) %>% 
   mutate(year = str_extract(study, "\\d{4}")) %>% 
   filter(!is.na(arrhyth_n)) %>%
+  mutate(arm = str_extract(arm, "^\\w{3}")) |> 
   # arrange(age, design, year, refid) %>% 
   select(study, arm, n, arrhyth_n) %>% 
   pivot_wider(names_from = arm, values_from = c(arrhyth_n, n))
@@ -2939,7 +2940,8 @@ arrhythmia_meta <- metabin(
   arrhyth_n_Neo, n_Neo,
   pscale = 100,
   sm = "RD",
-  data = arrhyth
+  data = arrhyth,
+  studlab = study,
 )
 
 forest(arrhythmia_meta)  
