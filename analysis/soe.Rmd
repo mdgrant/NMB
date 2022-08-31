@@ -725,7 +725,8 @@ soe_kq4.dat <- readxl::read_xlsx("data/soe_2022-07-26.xlsx", range = "A1:Z37", s
       out_import == "Critical" ~ "●●●"
     )
   ) %>% 
-  filter(!str_detect(comparison, "conf_noconf"))
+  filter(!str_detect(comparison, "conf_noconf")) |> 
+  filter(!str_detect(n, "999"))
 
 ## (updated 2021/11/17 11:44) soe_summary ---------------------------------
 soe_summary <- soe_kq4.dat %>%
