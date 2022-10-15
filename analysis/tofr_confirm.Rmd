@@ -334,7 +334,7 @@ forester(
   nudge_y = -.3,
   justify = 0,
   # uncomment to save file
-  # file_path = "docs/assets/confirm_summary.png",
+  file_path = "docs/assets/confirm_summary.png",
   font_family = "Fira Sans"
 )
 
