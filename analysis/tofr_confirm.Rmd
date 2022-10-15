@@ -15,12 +15,12 @@ output:
   pdf_document:
     toc: yes
     toc_depth: '3'
-bibliography: "bib/kq3_confirm.bib"
-csl: jama.csl
-link-citations: yes
+# bibliography: "bib/kq3_confirm.bib"
+# csl: jama.csl
+# link-citations: yes
 workflowr:
   suppress_report: false
-nocite: '@*'
+# nocite: '@*'
 ---
 
 ```{=html}
@@ -310,6 +310,7 @@ rm(add, multiarm_refid, temp_1, temp_2, conf_meta_temp)
 <br/>
 
 ```{r, fig.align = "left", fig.width = 9.5, fig.height = 4, eval = FALSE}
+## 2022-10-15 ----------------------------------------- (2022-10-15 14:33) @----
 library(forester)
 library(extrafont)
 loadfonts(device = "pdf")
@@ -323,16 +324,19 @@ table <- readxl::read_excel(
     Group = ifelse(str_detect(Group, "Yes|No"), paste0("    ", Group), Group)
   )
 
-forester(left_side_data = table[,c(1,2,4)],
-         estimate = table$`per 100`,
-         estimate_col_name = "RNMB per 100 (95% CI)",
-         ci_low = table$`CI low`,
-         ci_high = table$`CI high`,
-         display = TRUE,
-         nudge_y = -.3, 
-         justify = 0,
-         file_path = "docs/assets/confirm_summary.png",
-         font_family = "Fira Sans")
+forester(
+  left_side_data = table[, c(1, 2, 4)],
+  estimate = table$`per 100`,
+  estimate_col_name = "RNMB per 100 (95% CI)",
+  ci_low = table$`CI low`,
+  ci_high = table$`CI high`,
+  display = TRUE,
+  nudge_y = -.3,
+  justify = 0,
+  # uncomment to save file
+  # file_path = "docs/assets/confirm_summary.png",
+  font_family = "Fira Sans"
+)
 
 ```
 
@@ -440,284 +444,6 @@ kbl(
 table_n <- tab_inc()
 ```
 
-```{r metaBaseCode, eval = FALSE}
-## meta data ------------------------------------------ (2022-07-06 11:25) @----
-# consider only confirmed vs not 
-# only quantitative monitoring includes 0.8/NS
-conf_meta_collapsed <- conf_meta |> 
-  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |> 
-  mutate(
-    confirm = fct_collapse(confirm, Confirmed = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS")),
-  )
-
-# only quantitative monitoring 0.9
-conf_meta_9 <- conf_meta 
-  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |> 
-  # filter(!confirm %in% c("Confirmed ≥0.8/NS"))
-
-## forest function ------------------------------------ (2022-03-23 14:30) @----
-forest_conf <- function(meta_result) {
-  forest(meta_result,
-    overall = FALSE,
-    common = TRUE,
-    rightcols = c("effect", "ci"),
-    rightlabs = c(" ", "(95% CI)"),
-    smlab = "Residual Neuromuscular Blockade\n per 100 patients",
-    digits = 2,
-    pscale = 100,
-    digits.tau2 = 1,
-    overall.hetstat = FALSE,
-    print.I2.ci = TRUE,
-    prediction = FALSE,
-    prediction.subroup = TRUE,
-    fs.xlab = 11,
-    pooled.events = TRUE,
-    subgroup = TRUE,
-    print.subgroup.name = FALSE,
-    text.subgroup.nohet = TRUE,
-    colgap.forest.left = "30mm",
-    just.addcols.right = "left",
-    xlim = c(0, 100),
-    ref = 0
-    # xlab = "Incidence/100 TOFR <0.9"
-  )
-}
-
-## meta-anlayses -------------------------------------- (2022-07-25 09:04) @----
-# base meta with all studies
-# rnmb_meta_glmm_9          ≥0.9        sm = PLOGIT
-# rnmb_meta_collapsed_glmm  ≥0.9/0.8/NS sm = PLOGIT
-# rnmb_meta_9               ≥0.9        sm = PAS
-# rnmb_meta_collapsed       ≥0.9/0.8/NS sm = PAS
-
-# rnmb_meta_collapsed <- metaprop(rnmb9_n, arm_n,
-#   data = conf_meta_collapsed,
-#   studlab = study,
-#   sm = "PAS",
-#   method.tau = "PM",
-#   hakn = TRUE,
-#   prediction.subgroup = FALSE,
-#   prediction = FALSE,
-#   subgroup = confirm
-# )
-# 
-# rnmb_meta_9 <- metaprop(rnmb9_n, arm_n,
-#   data = conf_meta_9,
-#   studlab = study,
-#   sm = "PAS",
-#   method.tau = "PM",
-#   hakn = TRUE,
-#   prediction.subgroup = FALSE,
-#   prediction = FALSE,
-#   subgroup = confirm
-# )
-
-# GLMM
-library(GLMMadaptive)
-rnmb_meta_collapsed_glmm <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta_collapsed,
-  studlab = study,
-  method = "GLMM",
-  sm = "PLOGIT",
-  method.tau = "ML",
-  incr = 0,
-  hakn = TRUE,
-  prediction.subgroup = FALSE,
-  prediction = FALSE,
-  # subgroup = confirm,
-  # control = list(package = "GLMMadaptive")
-)
-
-rnmb_meta_glmm_9 <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta_9,
-  studlab = study,
-  method = "GLMM",
-  sm = "PLOGIT",
-  method.tau = "ML",
-  hakn = TRUE,
-  # incr = 0,
-  # prediction.subgroup = FALSE,
-  prediction = FALSE,
-  # subgroup = confirm,  
-  # control = list(package = "GLMMadaptive")
-)
-
-## rrCalc arc sin ------------------------------------- (2022-03-23 07:43) @----
-# use arcsin est and sd; backtransform simulated 
-compare_ci_pas <- function(data_meta) {
-  rnmb_pas <- update(data_meta, backtransf = FALSE)[c("TE.random.w", "seTE.random.w")] %>% unlist()
-  set.seed(12345)
-  rr <- (sin(rnorm(1000000, rnmb_pas[1], rnmb_pas[3])))^2 / (sin(rnorm(1000000, rnmb_pas[2], rnmb_pas[4])))^2
-  rr <- quantile(rr, probs = c(0.025, 0.5, 0.975))
-  paste0(round_2(rr[2]), " (95% CI: ", round_2(rr[1]), ", ", round_2(rr[3]), ")")
-  # paste0(round_2(rr[2]), " (95% CI: ", rr[1], ", ", rr[3], ")")
-}
-
-## rrCalc logit --------------------------------------- (2022-07-25 09:06) @----
-# use logit est and sd; backtransform simulated 
-compare_ci_logit <- function(data_meta) {
-  rnmb_logit <- update(data_meta, backtransf = FALSE)[c("TE.random.w", "seTE.random.w")] %>% unlist()
-  set.seed(12345)
-  rr <- (boot::inv.logit(rnorm(1000000, rnmb_logit[1], rnmb_logit[3])))^2 / (boot::inv.logit(rnorm(1000000, rnmb_logit[2], rnmb_logit[4])))^2
-  rr <- quantile(rr, probs = c(0.025, 0.5, 0.975))
-  paste0(round_2(rr[2]), " (95% CI: ", round_2(rr[1]), ", ", round_2(rr[3]), ")")
-  # paste0(round_2(rr[2]), " (95% CI: ", rr[1], ", ", rr[3], ")")
-}
-
-rnmb_sug
-
-  rnmb_logit <- update(data_meta, backtransf = FALSE)[c("TE.random.w", "seTE.random.w")] %>% unlist()
-  set.seed(12345)
-  rr <- 
-    
-    boot::inv.logit(
-    rnorm(10, rnmb_sug[1], rnmb_sug[3]) 
-  
-  (boot::inv.logit(rnorm(1000000, rnmb_logit[2], rnmb_logit[4])))^2
-  
-  
-  rr <- (boot::inv.logit(rnorm(1000000, rnmb_logit[1], rnmb_logit[3])))^2 / (boot::inv.logit(rnorm(1000000, rnmb_logit[2], rnmb_logit[4])))^2
-  rr <- quantile(rr, probs = c(0.025, 0.5, 0.975))
-  paste0(round_2(rr[2]), " (95% CI: ", round_2(rr[1]), ", ", round_2(rr[3]), ")")
-
-
-
-
-```
-
-<!-- <br/> -->
-
-<!-- #   Pooled -->
-
-<!-- <a id="confFig1"></a> -->
-
-<!-- <br/> -->
-
-<!-- <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font> -->
-
-```{r metaSug, eval = FALSE, fig.align = "left", fig.width = 9.5, fig.height = 12}
-
-## metaSug -------------------------------------------- (2022-03-24 10:18) @----
-# rnmb_sug <- update(rnmb_meta_collapsed_glmm,
-#   subset = arm == "Sug" & confirm == "Confirmed",
-rnmb_sug <- update(rnmb_meta_glmm_9,
-  # incr = 0,
-  # subset = arm == "Sug" & confirm == "Confirmed ≥0.9",
-  subgroup = confirm,
-  # subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
-  # subset = arm == "Neo" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
-  # subset = arm == "Sug" & confirm == "Not confirmed"
-  # subset = arm == "Sug" & confirm == "Not stated"
-  # subset = arm == "Sug" & confirm == "Qualitative assessment"
-  # subset = arm == "Sug" & confirm == "Clinical/None/NS"
-  subset = arm == "Neo" & confirm == "Confirmed ≥0.9",
-  # subset = arm == "Neo" & confirm == "Confirmed",
-  # subset = arm == "Neo" & confirm == "Not confirmed"
-  # subset = arm == "Neo" & confirm == "Not stated"
-  # subset = arm == "Neo" & confirm == "Qualitative assessment"
-  # subset = arm == "Neo" & confirm == "Clinical/None/NS"
-  # remove Alday 2019 outlier
-  # subset = arm == "Sug" & study != "Alday 2019",
-  # compare confirm vs not confirmed
-  # subset = arm == "Sug" & str_detect(confirm, "confirm"),
-  # compare confirm vs not confirmed removing Alday 2019
-  # subset = arm == "Sug" & str_detect(confirm, "confirm")  & study != "Alday 2019",
-)
-
-rnmb_sug
-
-forest_conf(rnmb_sug)
-
-rnmb_sug <- update(rnmb_meta_collapsed_glmm , 
-  # subset = arm == "Sug",
-  subgroup = confirm,
-  subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed"),
-  # subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed"),
-  # subset = arm == "Sug" & confirm %in% c("Confirmed", "Not confirmed") & study != "Alday 2019",
-  # remove Alday 2019 outlier
-  # subset = arm == "Sug" & study != "Alday 2019",
-  # compare confirm vs not confirmed
-  # subset = arm == "Sug" & str_detect(confirm, "confirm"),
-  # compare confirm vs not confirmed removing Alday 2019
-  # subset = arm == "Sug" & str_detect(confirm, "confirm")  & study != "Alday 2019",
-)
-
-forest_conf(rnmb_sug)
-figure_n <- fig_inc()
-```
-<!-- <font size = 4>  -->
-
-```{r riskratiosPas, eval = FALSE}
-## quant monitoring all categories confirmed ---------- (2022-07-06 08:47) @----
-rnmb_meta_ci <- metaprop(
-  rnmb9_n, 
-  arm_n,
-  data = conf_meta_9,
-  studlab = study,
-  sm = "PAS",
-  hakn = TRUE,
-  prediction.subgroup = FALSE,
-  prediction = FALSE,
-  subgroup = confirm,
-  backtransf = FALSE
-)
-
-## risk ratio ----------------------------------------- (2022-03-23 17:08) @----
-rnmb_sug_meta_ci <- update(rnmb_meta_ci,
-  # subset = arm == "Sug" & mon_cat_f == "Quant" & str_detect(confirm, "confirm"),
-  subset = arm == "Sug" & str_detect(confirm, "onfirmed"),
-  backtransf = FALSE,
-)
-
-compare_ci(rnmb_sug_meta_ci)
-
-## exclude Alday 2019 --------------------------------- (2022-03-24 08:23) @----
-rnmb_sug <- update(rnmb_sug_meta_9,
-  subset = study != "Alday 2019",
-  backtransf = FALSE,
-)
-
-compare_ci_pas(rnmb_sug)
-compare_ci_glmm(rnmb_sug)
-
-## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
-conf_meta_sens <- conf_meta_quant %>%
-  mutate(
-    # confirm = fct_recode(confirm, "Confirmed" = "Not stated")
-    confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
-  )
-
-rnmb_meta <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta_sens,
-  studlab = study,
-  sm = "PAS",
-  hakn = TRUE,
-  subset = arm == "Sug",
-  subgroup = confirm,
-  backtransf = FALSE
-)
-
-compare_ci(rnmb_meta)
-
-```
-
-<!-- <font size = 4> Risk Ratios  -->
-
-<!-- arcsine -->
-<!-- | Comparison                                  | RR (95% CI)       | -->
-<!-- |:--------------------------------------------|:------------------| -->
-<!-- | Confirmed vs. not confirmed                 | 0.11 (0.00, 0.99) | # -->
-<!-- |    Removing Alday 2019                      | 0.21 (0.00, 1.81) | -->
-<!-- | Assuming all not stated were confirmed      | 0.09 (0.00, 0.77) | -->
-<!-- | Assuming all not stated were not confirmed  | 0.12 (0.00, 1.09) | -->
-
-<!-- </font> -->
-
-<!-- <font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from von Quillfeldt 2013 and Pecek 2015 confirmed at TOFR ≥ 0.8.  E-value point estimate of 28.1 (upper limit 2.4) for the main result. </font> -->
-
-<!-- <br/> -->
-
-
 # **Neostigmine**
 
 <a id="confTab1"></a>
@@ -795,91 +521,218 @@ kbl(
 table_n <- tab_inc()
 ```
 
+<br/><br/>
 
-<!-- <br/> -->
+```{r metaBaseCode, eval = TRUE}
+## meta data ------------------------------------------ (2022-07-06 11:25) @----
+# consider only confirmed vs not 
+# only quantitative monitoring includes 0.8/NS
+conf_meta_collapsed <- conf_meta |>
+  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |>
+  mutate(
+    confirm = fct_collapse(confirm, Confirmed = c("Confirmed ≥0.9", "Confirmed ≥0.8/NS")),
+  )
 
-<!-- #   Pooled -->
+# only quantitative monitoring 0.9
+conf_meta_9 <- conf_meta 
+  # filter(!confirm %in% c("Qualitative assessment", "Clinical/None/NS")) |> 
+  # filter(!confirm %in% c("Confirmed ≥0.8/NS"))
 
-<!-- <a id="confFig1"></a> -->
+## forest function ------------------------------------ (2022-03-23 14:30) @----
+forest_conf <- function(meta_result) {
+  forest(meta_result,
+    overall = TRUE,
+    common = TRUE,
+    rightcols = c("effect", "ci"),
+    rightlabs = c(" ", "(95% CI)"),
+    smlab = "Residual Neuromuscular Blockade\n per 100 patients",
+    digits = 2,
+    pscale = 100,
+    digits.tau2 = 1,
+    overall.hetstat = FALSE,
+    print.I2.ci = TRUE,
+    prediction = FALSE,
+    prediction.subroup = TRUE,
+    fs.xlab = 11,
+    pooled.events = TRUE,
+    subgroup = FALSE,
+    print.subgroup.name = FALSE,
+    text.subgroup.nohet = TRUE,
+    colgap.forest.left = "30mm",
+    just.addcols.right = "left",
+    xlim = c(0, 100),
+    ref = 0
+    # xlab = "Incidence/100 TOFR <0.9"
+  )
+}
 
-<!-- <br/> -->
+## meta-anlayses -------------------------------------- (2022-07-25 09:04) @----
+## PAS Not used; only for comparisons ----------------- (2022-10-15 14:38) @----
+# rnmb_meta_9               ≥0.9        sm = PAS
+# rnmb_meta_collapsed       ≥0.9/0.8/NS sm = PAS
 
-<!-- <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with Neostigmine). </font> -->
+# rnmb_meta_collapsed <- metaprop(rnmb9_n, arm_n,
+#   data = conf_meta_collapsed,
+#   studlab = study,
+#   sm = "PAS",
+#   method.tau = "PM",
+#   hakn = TRUE,
+#   prediction.subgroup = FALSE,
+#   prediction = FALSE,
+#   subgroup = confirm
+# )
+# 
+# rnmb_meta_9 <- metaprop(rnmb9_n, arm_n,
+#   data = conf_meta_9,
+#   studlab = study,
+#   sm = "PAS",
+#   method.tau = "PM",
+#   hakn = TRUE,
+#   prediction.subgroup = FALSE,
+#   prediction = FALSE,
+#   subgroup = confirm
+# )
 
-```{r metaNeo, eval = FALSE, fig.align = "left", fig.width = 9.5, fig.height = 17}
-## metaNeo -------------------------------------------- (2022-03-24 10:18) @----
-rnmb_neo <- update(rnmb_meta, 
-  subset = arm == "Neo"
-  # remove Alday 2019 outlier
-  # subset = arm == "Neo" & study != "Alday 2019",
-  # compare confirm vs not confirmed
-  # subset = arm == "Neo" & str_detect(confirm, "confirm"),
-  # compare confirm vs not confirmed removing Alday 2019
-  # subset = arm == "Neo" & str_detect(confirm, "confirm")  & study != "Alday 2019",
-)
+## GLMM models ---------------------------------------- (2022-10-15 14:38) @---- 
+# rnmb_meta_glmm_9          ≥0.9        sm = PLOGIT
+# rnmb_meta_collapsed_glmm  ≥0.9/0.8/NS sm = PLOGIT
 
-forest_conf(rnmb_neo)
-figure_n <- fig_inc()
-```
-
-
-```{r riskratiosNeo, eval = FALSE}
-## quant monitoring all categories confirmed ---------- (2022-07-06 08:47) @----
-rnmb_meta_any <- metaprop(
-  rnmb9_n, 
-  arm_n,
-  data = conf_meta_quant,
+# library(GLMMadaptive) # for convergence if fitting subgroups
+rnmb_meta_collapsed_glmm <- metaprop(rnmb9_n, arm_n,
+  data = conf_meta_collapsed,
   studlab = study,
-  sm = "PAS",
+  method = "GLMM",
+  sm = "PLOGIT",
+  method.tau = "ML",
+  incr = 0,
   hakn = TRUE,
   prediction.subgroup = FALSE,
   prediction = FALSE,
-  subgroup = confirm
+  # subgroup = confirm,
+  # control = list(package = "GLMMadaptive")
 )
 
-## risk ratio ----------------------------------------- (2022-03-23 17:08) @----
-rnmb_neo_meta_any <- update(rnmb_meta_any,
-  # subset = arm == "Neo" & mon_cat_f == "Quant" & str_detect(confirm, "confirm"),
-  subset = arm == "Neo" & str_detect(confirm, "onfirmed"),
-  backtransf = FALSE,
-)
-
-compare_ci(rnmb_neo_meta_any)
-
-## assume all not stated confirmed or not ----------- (2022-03-24 09:57) @----
-conf_meta_sens <- conf_meta_quant %>%
-  mutate(
-    confirm = fct_recode(confirm, "Confirmed" = "Not stated")
-    # confirm = fct_recode(confirm, "Not confirmed" = "Not stated")
-  )
-
-rnmb_meta <- metaprop(rnmb9_n, arm_n,
-  data = conf_meta_sens,
+rnmb_meta_glmm_9 <- metaprop(rnmb9_n, arm_n,
+  data = conf_meta_9,
   studlab = study,
-  sm = "PAS",
+  method = "GLMM",
+  sm = "PLOGIT",
+  method.tau = "ML",
   hakn = TRUE,
-  subset = arm == "Neo",
-  subgroup = confirm,
-  backtransf = FALSE
+  # incr = 0,
+  # prediction.subgroup = FALSE,
+  prediction = FALSE,
+  # subgroup = confirm,  
+  # control = list(package = "GLMMadaptive")
 )
 
-compare_ci(rnmb_meta)
+
 ```
 
-<!-- <font size = 4> Risk Ratios   -->
+<!-- <br/> -->
+<!-- #   Pooled -->
+<!-- <a id="confFig1"></a> -->
+<!-- <br/> -->
+<!-- <font size = 4> Figure `r figure_n`. Incidence of residual neuromuscular blockade (TOFR <0.9) in arms of randomized and nonrandomized studies using quantitative monitoring according to whether TOFR ≥0.9 was reported as confirmed prior to extubation (reversal with sugammadex). </font> -->
 
-<!-- | Comparison                                  | RR (95% CI)       | -->
-<!-- |:--------------------------------------------|:------------------| -->
-<!-- | Confirmed vs. not confirmed                 | 0.22 (0.09, 0.44) | -->
-<!-- | Assuming all not stated were confirmed      | 0.24 (0.10, 0.48) | -->
-<!-- | Assuming all not stated were not confirmed  | 0.31 (0.12, 0.68) | -->
+```{r metaSugNeo, eval = TRUE, fig.align = "left", fig.width = 9.5}
+## metaSug -------------------------------------------- (2022-03-24 10:18) @----
+sug_conf_9 <- update(rnmb_meta_glmm_9,
+  subset = arm == "Sug" & confirm == "Confirmed ≥0.9"
+)
 
-<!-- </font> -->
+sug_conf_89_other <- update(rnmb_meta_collapsed_glmm,
+  subset = arm == "Sug" & confirm == "Confirmed"
+)
 
-<!-- <font size = 3> Risk ratios obtained as the ratio (median, lower and upper 0.025 quantiles) sampled from the means and standard deviations of the respective comparator incidence proportions (1E^6^ samples). Arms from Murphy 2008, Murphy 2011, Norton 2013, Thilen 2018, and Pecek 2015  confirmed at TOFR ≥ 0.8 or was not stated.  E-value point estimate of 8.6 (upper limit 4.0) for the main result. </font> -->
+sug_conf_not <- update(rnmb_meta_glmm_9,
+  subset = arm == "Sug" & confirm == "Not confirmed"
+)
 
-# **References**
+sug_conf_not_stated <- update(rnmb_meta_glmm_9,
+  subset = arm == "Sug" & confirm == "Not stated"
+)
+
+sug_qual <- update(rnmb_meta_glmm_9,
+  subset = arm == "Sug" & confirm == "Qualitative assessment"
+)
+
+sug_clin <- update(rnmb_meta_glmm_9,
+  subset = arm == "Sug" & confirm == "Clinical/None/NS"
+)
+
+## metaNeo --------------------------------------------- (2022-10-15 15:14) @----
+neo_conf_9 <- update(rnmb_meta_glmm_9,
+  subset = arm == "Neo" & confirm == "Confirmed ≥0.9"
+)
+
+neo_conf_89_other <- update(rnmb_meta_collapsed_glmm,
+  subset = arm == "Neo" & confirm == "Confirmed"
+)
+
+neo_conf_not <- update(rnmb_meta_glmm_9,
+  subset = arm == "Neo" & confirm == "Not confirmed"
+)
+
+neo_conf_not_stated <- update(rnmb_meta_glmm_9,
+  subset = arm == "Neo" & confirm == "Not stated"
+)
+
+neo_qual <- update(rnmb_meta_glmm_9,
+  subset = arm == "Neo" & confirm == "Qualitative assessment"
+)
+
+neo_clin <- update(rnmb_meta_glmm_9,
+  subset = arm == "Neo" & confirm == "Clinical/None/NS"
+)
+```
+
+
+# **Forest Plots Sugammadex**
+
+```{r forestSug, eval = TRUE, fig.align = "left", fig.width = 9.5}
+## forest plots sug ----------------------------------- (2022-10-15 15:14) @----
+forest_conf(sug_conf_9)
+grid::grid.text("Confirmed ≥0.9", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(sug_conf_89_other)
+grid::grid.text("Confirmed at 0.8, 0.9, or NS", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(sug_conf_not)
+grid::grid.text("Not confirmed", .1, .9,just = "left",  gp = grid::gpar(cex = 1.3))
+
+forest_conf(sug_conf_not_stated)
+grid::grid.text("Not stated", .1, .9, just = "left",  gp = grid::gpar(cex = 1.3))
+
+forest_conf(sug_qual)
+grid::grid.text("Qualitative", .1, .7, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(sug_clin)
+grid::grid.text("Clinical", .1, .75, just = "left", gp = grid::gpar(cex = 1.3))
+```
 
 <br/>
 
-<a id="references"></a>
+# **Forest Plots Neostigmine**
+
+```{r forestNeo, eval = TRUE, fig.align = "left", fig.width = 9.5}
+## forest plots neo ----------------------------------- (2022-10-15 15:14) @----
+forest_conf(neo_conf_9)
+grid::grid.text("Confirmed ≥0.9", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(neo_conf_89_other)
+grid::grid.text("Confirmed at 0.8, 0.9, or NS", .1, .95, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(neo_conf_not)
+grid::grid.text("Not confirmed", .1, .95, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(neo_conf_not_stated)
+grid::grid.text("Not stated", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(neo_qual)
+grid::grid.text("Qualitative", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+forest_conf(neo_clin)
+grid::grid.text("Clinical", .1, .9, just = "left", gp = grid::gpar(cex = 1.3))
+
+```

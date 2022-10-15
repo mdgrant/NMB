@@ -6,3 +6,4 @@ if (requireNamespace("workflowr", quietly = TRUE)) {
 } else {
   message("workflowr package not installed, please run install.packages(\"workflowr\") to use the workflowr functions")
 }
+options(todor_patterns = c("FIXME", "TODO", "CHANGED", "TEXT", "NOTE", "REVIEW", "QUESTION", "RESUME"))
