@@ -13,7 +13,7 @@
 
 <title>TOFR Confirmation Before Extubation</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -215,8 +215,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -224,16 +224,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -465,7 +458,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">TOFR Confirmation Before Extubation</h1>
-<h4 class="date">29 August, 2022 (09:45)</h4>
+<h4 class="date">15 October, 2022 (08:58)</h4>
 
 </div>
 
@@ -494,7 +487,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-08-29
+<strong>Last updated:</strong> 2022-10-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -628,15 +621,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3a506401e940e8b37ecb4967b3551f4e65849f06targetblank3a50640a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree7756532557beb19ec15ab708417ce182e8caff7ftargetblank7756532a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/mdgrant/NMB/tree/3a506401e940e8b37ecb4967b3551f4e65849f06" target="_blank">3a50640</a>
+<a href="https://github.com/mdgrant/NMB/tree/7756532557beb19ec15ab708417ce182e8caff7f" target="_blank">7756532</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree3a506401e940e8b37ecb4967b3551f4e65849f06targetblank3a50640a"
+id="strongRepositoryversionstrongahrefhttpsgithubcommdgrantNMBtree7756532557beb19ec15ab708417ce182e8caff7ftargetblank7756532a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -646,7 +639,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/mdgrant/NMB/tree/3a506401e940e8b37ecb4967b3551f4e65849f06" target="_blank">3a50640</a>.
+<a href="https://github.com/mdgrant/NMB/tree/7756532557beb19ec15ab708417ce182e8caff7f" target="_blank">7756532</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -685,6 +678,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  .temp.lb
+    Untracked:  Fülesdi2022AnesthAnalg_nmm.pdf
     Untracked:  analysis/reversal_cis.Rmd
     Untracked:  analysis/riskofbias.Rmd
     Untracked:  analysis/summary_confirm.Rmd
@@ -707,7 +701,6 @@ Untracked files:
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitignore
-    Modified:   analysis/kq3.Rmd
     Modified:   analysis/tofr_confirm.Rmd
 
 </code></pre>
@@ -754,6 +747,42 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mdgrant/NMB/blob/29946a1c41a5a8425c3a31a3d546b8135dd48a05/analysis/tofr_confirm.Rmd" target="_blank">29946a1</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-08-29
+</td>
+<td>
+fix misc minor corrections including drug vs agent, antagonism vs
+reversal
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/mdgrant/NMB/29946a1c41a5a8425c3a31a3d546b8135dd48a05/docs/tofr_confirm.html" target="_blank">29946a1</a>
+</td>
+<td>
+mdgrant
+</td>
+<td>
+2022-08-29
+</td>
+<td>
+fix misc minor corrections including drug vs agent, antagonism vs
+reversal
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3656,7 +3685,7 @@ NS
 style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  66.67% , #c39bd3 66.67% , #c39bd3 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 </tr>
-<tr grouplength="16">
+<tr grouplength="15">
 <td colspan="9" style="border-bottom: 0px solid;color: black !important;background-color: white !important;">
 <strong>Not confirmed</strong>
 </td>
@@ -3923,36 +3952,6 @@ PACU
 <td style="text-align:left;width: 7em; ">
 <span
 style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  87.26% , #f1948a 87.26% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 12em; padding-left: 2em;" indentlevel="1">
-Murphy 2018
-</td>
-<td style="text-align:left;width: 10em; ">
-RCT
-</td>
-<td style="text-align:right;width: 4em; ">
-47
-</td>
-<td style="text-align:center;width: 4em; ">
-Roc
-</td>
-<td style="text-align:center;width: 5em; ">
-×
-</td>
-<td style="text-align:left;width: 7em; ">
-Min
-</td>
-<td style="text-align:left;width: 6em; ">
-PACU
-</td>
-<td style="text-align:left;width: 6em; ">
-0 (0.0)
-</td>
-<td style="text-align:left;width: 7em; ">
-<span
-style="display: inline-block; unicode-bidi: plaintext; background: linear-gradient(270deg, transparent  100.00% , #f1948a 100.00% , #f1948a 100.00% , transparent 100.00% ); width: 100%"> </span>
 </td>
 </tr>
 <tr>
@@ -5310,43 +5309,43 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] gtsummary_1.6.1   meta_5.5-0        formattable_0.2.1 naniar_0.6.1     
- [5] forcats_0.5.2     stringr_1.4.1     dplyr_1.0.9       purrr_0.3.4      
- [9] readr_2.1.2       tidyr_1.2.0       tibble_3.1.8      ggplot2_3.3.6    
+ [1] gtsummary_1.6.2   meta_6.0-0        formattable_0.2.1 naniar_0.6.1     
+ [5] forcats_0.5.2     stringr_1.4.1     dplyr_1.0.10      purrr_0.3.5      
+ [9] readr_2.1.3       tidyr_1.2.1       tibble_3.1.8      ggplot2_3.3.6    
 [13] tidyverse_1.3.2   Cairo_1.6-0       countrycode_1.4.0 janitor_2.1.0    
 [17] kableExtra_1.3.4 
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-159        fs_1.5.2            bit64_4.0.5        
- [4] lubridate_1.8.0     webshot_0.5.3       httr_1.4.4         
+ [4] lubridate_1.8.0     webshot_0.5.4       httr_1.4.4         
  [7] rprojroot_2.0.3     tools_4.2.1         backports_1.4.1    
 [10] bslib_0.4.0         metafor_3.8-1       utf8_1.2.2         
 [13] R6_2.5.1            DBI_1.1.3           colorspace_2.0-3   
 [16] withr_2.5.0         tidyselect_1.1.2    bit_4.0.4          
-[19] compiler_4.2.1      git2r_0.30.1        cli_3.3.0          
+[19] compiler_4.2.1      git2r_0.30.1        cli_3.4.1          
 [22] rvest_1.0.3         gt_0.7.0            xml2_1.3.3         
 [25] sass_0.4.2          scales_1.2.1        systemfonts_1.0.4  
-[28] digest_0.6.29       minqa_1.2.4         rmarkdown_2.16     
+[28] digest_0.6.29       minqa_1.2.4         rmarkdown_2.17     
 [31] svglite_2.1.0       pkgconfig_2.0.3     htmltools_0.5.3    
 [34] lme4_1.1-30         dbplyr_2.2.1        fastmap_1.1.0      
-[37] htmlwidgets_1.5.4   rlang_1.0.4         readxl_1.4.1       
+[37] htmlwidgets_1.5.4   rlang_1.0.6         readxl_1.4.1       
 [40] rstudioapi_0.14     jquerylib_0.1.4     generics_0.1.3     
-[43] jsonlite_1.8.0      vroom_1.5.7         googlesheets4_1.0.1
-[46] magrittr_2.0.3      metadat_1.2-0       Matrix_1.4-1       
+[43] jsonlite_1.8.2      vroom_1.6.0         googlesheets4_1.0.1
+[46] magrittr_2.0.3      metadat_1.2-0       Matrix_1.5-1       
 [49] Rcpp_1.0.9          munsell_0.5.0       fansi_1.0.3        
-[52] lifecycle_1.0.1     visdat_0.5.3        stringi_1.7.8      
+[52] lifecycle_1.0.3     visdat_0.5.3        stringi_1.7.8      
 [55] whisker_0.4         yaml_2.3.5          CompQuadForm_1.4.3 
 [58] snakecase_0.11.0    mathjaxr_1.6-0      MASS_7.3-58.1      
 [61] grid_4.2.1          parallel_4.2.1      promises_1.2.0.1   
-[64] crayon_1.5.1        lattice_0.20-45     haven_2.5.1        
+[64] crayon_1.5.2        lattice_0.20-45     haven_2.5.1        
 [67] splines_4.2.1       hms_1.1.2           knitr_1.40         
 [70] pillar_1.8.1        boot_1.3-28         reprex_2.0.2       
-[73] glue_1.6.2          evaluate_0.16       broom.helpers_1.8.0
-[76] modelr_0.1.9        nloptr_2.0.3        vctrs_0.4.1        
-[79] tzdb_0.3.0          httpuv_1.6.5        cellranger_1.1.0   
-[82] gtable_0.3.0        assertthat_0.2.1    cachem_1.0.6       
-[85] xfun_0.32           broom_1.0.0         later_1.3.0        
-[88] googledrive_2.0.0   viridisLite_0.4.1   gargle_1.2.0       
+[73] glue_1.6.2          evaluate_0.17       broom.helpers_1.9.0
+[76] modelr_0.1.9        nloptr_2.0.3        vctrs_0.4.2        
+[79] tzdb_0.3.0          httpuv_1.6.6        cellranger_1.1.0   
+[82] gtable_0.3.1        assertthat_0.2.1    cachem_1.0.6       
+[85] xfun_0.33           broom_1.0.1         later_1.3.0        
+[88] googledrive_2.0.0   viridisLite_0.4.1   gargle_1.2.1       
 [91] workflowr_1.7.0     ellipsis_0.3.2     </code></pre>
 </div>
 </div>

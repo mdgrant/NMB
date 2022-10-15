@@ -604,13 +604,13 @@ rnmb_sug <- update(rnmb_meta_glmm_9,
   # incr = 0,
   # subset = arm == "Sug" & confirm == "Confirmed ≥0.9",
   subgroup = confirm,
-  subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
+  # subset = arm == "Sug" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
   # subset = arm == "Neo" & confirm %in% c("Confirmed ≥0.9", "Not confirmed"),
   # subset = arm == "Sug" & confirm == "Not confirmed"
   # subset = arm == "Sug" & confirm == "Not stated"
   # subset = arm == "Sug" & confirm == "Qualitative assessment"
   # subset = arm == "Sug" & confirm == "Clinical/None/NS"
-  # subset = arm == "Neo" & confirm == "Confirmed ≥0.9",
+  subset = arm == "Neo" & confirm == "Confirmed ≥0.9",
   # subset = arm == "Neo" & confirm == "Confirmed",
   # subset = arm == "Neo" & confirm == "Not confirmed"
   # subset = arm == "Neo" & confirm == "Not stated"
@@ -781,10 +781,10 @@ kbl(
   pack_topnoind(., "Quantitative monitoring", 1, 41) %>% 
   pack_sub_bold_ind(., "Confirmed ≥ 0.9", 1, 10) %>%
   pack_sub_bold_ind(., "Confirmed ≥ 0.8/NS", 11, 15) %>%
-  pack_sub_bold_ind(., "Not confirmed", 16, 31) %>%
-  pack_sub_bold_ind(., "Not stated", 32, 41) %>%
-  pack_top(., "Qualitative assessment", 42, 50) %>%
-  pack_top(., "Clinical/None/NS", 51, 60) %>%
+  pack_sub_bold_ind(., "Not confirmed", 16, 30) %>%
+  pack_sub_bold_ind(., "Not stated", 31, 40) %>%
+  pack_top(., "Qualitative assessment", 41, 49) %>%
+  pack_top(., "Clinical/None/NS", 50, 59) %>%
   footnote(
     general = "RCT: randomized controlled trial; NR Trial: nonrandomized trial; Prosp Cohort: prospective cohort; Retro Cohort: retrospective cohort; ROC: rocuronium; Vec: vecuronium; Var: various; Min: minimal; Mod: moderate; NS: not stated; PACU: post-anesthesia care unit; NS: not stated.",
     alphabet = c("Extubation includes designated in OR."),
